@@ -1,586 +1,1048 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forma Kutusu | Takımınıza Özel Forma ve Spor Giyim Üretimi</title>
-<meta name="description" content="Forma Kutusu; futbol, basketbol, voleybol ve spor kulüpleri için kişiye özel forma, şort ve spor giyim üretimi yapar. Yüksek çözünürlüklü baskı, hızlı teslimat ve toplu sipariş desteği. Hemen WhatsApp'tan teklif alın.">
-<meta property="og:title" content="Forma Kutusu | Takımınıza Özel Forma Üretimi">
-<meta property="og:description" content="Futbol, basketbol, voleybol ve spor kulüpleri için kişiye özel forma, şort ve spor giyim üretimi. Yüksek çözünürlüklü baskı tekniği ile hızlı teklif alın.">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="tr_TR">
-<meta property="og:image" content="/FORMA%20KUTUSU%20SI%CC%87YAH.png">
-<style>
-  :root{
-    --bg-navy:#0a1220;
-    --bg-navy-deep:#060b14;
-    --panel:#0f1a2c;
-    --line:rgba(255,255,255,0.08);
-    --white:#f5f7fa;
-    --muted:#9aa7bb;
-    --green:#2fd66b;
-    --green-dim:#1f9e4f;
-    --radius:14px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+
+  <title>Forma Kutusu | Takımınıza Özel Forma ve Spor Giyim Üretimi</title>
+  <meta name="description" content="Forma Kutusu; futbol, basketbol, voleybol ve spor kulüpleri için kişiye özel forma, şort ve spor giyim üretimi yapar. Yüksek çözünürlüklü baskı tekniği, canlı renkler ve toplu sipariş desteğiyle WhatsApp'tan hızlı teklif alın." />
+  <link rel="canonical" href="https://formakutusu.com" />
+
+  <meta property="og:title" content="Forma Kutusu | Takımınıza Özel Forma Üretimi" />
+  <meta property="og:description" content="Takımlara özel forma, şort ve spor giyim üretimi. Yüksek çözünürlüklü baskı tekniğiyle hızlı teklif alın." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:url" content="https://formakutusu.com" />
+  <meta property="og:image" content="https://formakutusu.com/nora-logo-vibes.png" />
+
+  <!-- Yapısal veri: arama motorlarının işletmeyi doğru tanıması için -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportingGoodsStore",
+    "name": "Forma Kutusu",
+    "description": "Takımlara özel forma, şort ve spor giyim üretimi.",
+    "url": "https://formakutusu.com",
+    "telephone": "+905348578836",
+    "areaServed": "TR",
+    "sameAs": []
   }
+  </script>
 
-  *{box-sizing:border-box;margin:0;padding:0;}
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-2: #0d0a06;
+      --panel: #111111;
+      --panel-soft: #17120a;
+      --text: #fff7e6;
+      --muted: #c7b894;
+      --dark: #050505;
+      --line: rgba(245, 158, 11, .22);
+      --gold: #f59e0b;
+      --gold-dark: #d97706;
+      --gold-light: #ffcc33;
+      --radius: 22px;
+      --phone: +905348578836;
+    }
 
-  html{scroll-behavior:smooth;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  body{
-    background:var(--bg-navy);
-    color:var(--white);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-  }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  img{max-width:100%;display:block;}
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
 
-  a{color:inherit;text-decoration:none;}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-  .container{
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 24px;
-  }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-  /* ---------- HEADER ---------- */
-  header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:rgba(6,11,20,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:14px 0;
-  }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--gold-light);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
 
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-weight:800;
-    font-size:19px;
-    letter-spacing:0.02em;
-  }
+    /* Ekran okuyucu / klavye kullanıcıları için: içeriğe atla */
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: auto;
+      background: var(--gold);
+      color: #090600;
+      font-weight: 900;
+      padding: 12px 18px;
+      border-radius: 0 0 12px 0;
+      z-index: 200;
+    }
 
-  .brand-mark{
-    width:34px;height:34px;
-    border-radius:8px;
-    background:var(--green);
-    display:flex;align-items:center;justify-content:center;
-    font-size:16px;font-weight:900;color:#04140a;
-    flex-shrink:0;
-  }
+    .skip-link:focus {
+      left: 0;
+      top: 0;
+    }
 
-  .nav-links{
-    display:flex;
-    gap:32px;
-    font-size:15px;
-    font-weight:600;
-    color:var(--muted);
-  }
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
 
-  .nav-links a:hover{color:var(--white);}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 5, 5, .93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
 
-  .nav-cta{
-    background:var(--green);
-    color:#04140a;
-    font-weight:700;
-    font-size:14px;
-    padding:11px 20px;
-    border-radius:999px;
-    white-space:nowrap;
-  }
+    .nav {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
 
-  .nav-cta:hover{background:var(--green-dim);}
+    .logo-wrap {
+      background: linear-gradient(135deg, #ffcc33 0%, #f59e0b 45%, #8a4b05 100%);
+      border-radius: 999px;
+      padding: 9px 18px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 12px 34px rgba(245, 158, 11, .28);
+      border: 1px solid rgba(255, 204, 51, .45);
+      flex-shrink: 0;
+    }
 
-  .menu-toggle{
-    display:none;
-    background:none;
-    border:1px solid var(--line);
-    border-radius:8px;
-    width:40px;height:40px;
-    color:var(--white);
-    font-size:18px;
-    cursor:pointer;
-  }
+    .logo-wrap img {
+      width: 165px;
+      height: auto;
+    }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;
-    padding:100px 0 90px;
-    overflow:hidden;
-    background:
-      radial-gradient(ellipse 900px 500px at 80% -10%, rgba(47,214,107,0.14), transparent 60%),
-      linear-gradient(180deg, var(--bg-navy) 0%, var(--bg-navy-deep) 100%);
-    border-bottom:1px solid var(--line);
-  }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
 
-  .hero-inner{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:48px;
-    align-items:center;
-  }
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--gold-light);
+    }
 
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--green);
-    background:rgba(47,214,107,0.1);
-    border:1px solid rgba(47,214,107,0.25);
-    padding:6px 14px;
-    border-radius:999px;
-    margin-bottom:22px;
-  }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-  h1{
-    font-size:clamp(34px,5vw,54px);
-    font-weight:900;
-    line-height:1.08;
-    letter-spacing:-0.01em;
-    margin-bottom:20px;
-  }
+    .nav-cta,
+    .btn-primary {
+      background: linear-gradient(135deg, #ffcc33 0%, #f59e0b 48%, #d97706 100%);
+      color: #090600;
+      font-weight: 900;
+      padding: 14px 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 42px rgba(245, 158, 11, .35);
+      border: 1px solid rgba(255, 204, 51, .55);
+      white-space: nowrap;
+    }
 
-  h1 span{color:var(--green);}
+    .nav-cta:hover,
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ffd65a 0%, #f59e0b 45%, #b45309 100%);
+    }
 
-  .hero-text{
-    color:var(--muted);
-    font-size:17px;
-    max-width:520px;
-    margin-bottom:32px;
-  }
+    /* Hamburger menü düğmesi (yalnızca mobilde görünür) */
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(245, 158, 11, .08);
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
 
-  .btn-row{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-  }
+    .menu-toggle span,
+    .menu-toggle::before,
+    .menu-toggle::after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--gold-light);
+      position: relative;
+      transition: transform .2s ease, opacity .2s ease;
+    }
 
-  .btn-primary{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:var(--green);
-    color:#04140a;
-    font-weight:800;
-    font-size:16px;
-    padding:16px 28px;
-    border-radius:999px;
-    box-shadow:0 10px 30px -8px rgba(47,214,107,0.5);
-  }
+    .menu-toggle::before {
+      transform: translateY(-6px);
+    }
 
-  .btn-primary:hover{background:var(--green-dim);}
+    .menu-toggle::after {
+      transform: translateY(6px);
+    }
 
-  .btn-secondary{
-    display:inline-flex;
-    align-items:center;
-    font-weight:700;
-    font-size:16px;
-    padding:16px 24px;
-    border-radius:999px;
-    border:1px solid var(--line);
-    color:var(--white);
-  }
+    .menu-toggle[aria-expanded="true"] span {
+      opacity: 0;
+    }
 
-  .btn-secondary:hover{border-color:rgba(255,255,255,0.3);}
+    .menu-toggle[aria-expanded="true"]::before {
+      transform: rotate(45deg);
+    }
 
-  .hero-stats{
-    display:flex;
-    gap:32px;
-    margin-top:44px;
-    padding-top:28px;
-    border-top:1px solid var(--line);
-    max-width:520px;
-  }
+    .menu-toggle[aria-expanded="true"]::after {
+      transform: rotate(-45deg);
+    }
 
-  .stat-num{font-size:26px;font-weight:900;color:var(--white);}
-  .stat-label{font-size:13px;color:var(--muted);margin-top:2px;}
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 88px 0 90px;
+      background:
+        radial-gradient(circle at 78% 20%, rgba(245, 158, 11, .28), transparent 34%),
+        radial-gradient(circle at 20% 10%, rgba(255, 204, 51, .18), transparent 28%),
+        linear-gradient(180deg, #050505 0%, #120d05 100%);
+      border-bottom: 1px solid var(--line);
+    }
 
-  .hero-visual{
-    position:relative;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:320px;
-  }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -45% -20%;
+      height: 420px;
+      background: radial-gradient(circle, rgba(245, 158, 11, .16), transparent 62%);
+      pointer-events: none;
+    }
 
-  .hero-visual img{
-    max-height:220px;
-    width:auto;
-    margin:0 auto;
-  }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 52px;
+      align-items: center;
+    }
 
-  /* ---------- SECTION HEADERS ---------- */
-  .section{
-    padding:88px 0;
-    border-bottom:1px solid var(--line);
-  }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-light);
+      background: rgba(245, 158, 11, .13);
+      border: 1px solid rgba(245, 158, 11, .35);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
 
-  .section-tag{
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--green);
-    margin-bottom:12px;
-  }
+    h1 {
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -1.8px;
+      font-weight: 950;
+      margin-bottom: 22px;
+    }
 
-  .section-title{
-    font-size:clamp(26px,3.4vw,36px);
-    font-weight:900;
-    letter-spacing:-0.01em;
-    max-width:640px;
-    margin-bottom:14px;
-  }
+    h1 span {
+      color: var(--gold);
+    }
 
-  .section-desc{
-    color:var(--muted);
-    font-size:16px;
-    max-width:560px;
-    margin-bottom:48px;
-  }
+    .hero-text {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 620px;
+      margin-bottom: 32px;
+    }
 
-  /* ---------- SERVICES ---------- */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-  }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
 
-  .service-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:28px;
-    transition:border-color 0.15s ease;
-  }
+    .btn-secondary {
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-weight: 800;
+      padding: 14px 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(245, 158, 11, .06);
+    }
 
-  .service-card:hover{border-color:rgba(47,214,107,0.35);}
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      border-color: rgba(245, 158, 11, .45);
+      background: rgba(245, 158, 11, .12);
+      color: var(--gold-light);
+    }
 
-  .service-icon{
-    width:44px;height:44px;
-    border-radius:10px;
-    background:rgba(47,214,107,0.12);
-    color:var(--green);
-    display:flex;align-items:center;justify-content:center;
-    font-size:20px;
-    margin-bottom:18px;
-  }
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 36px;
+      max-width: 650px;
+    }
 
-  .service-card h3{
-    font-size:17px;
-    font-weight:800;
-    margin-bottom:8px;
-  }
+    .point {
+      background: rgba(245, 158, 11, .07);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
 
-  .service-card p{
-    color:var(--muted);
-    font-size:14.5px;
-  }
+    .point strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+      color: var(--gold-light);
+    }
 
-  /* ---------- PROCESS ---------- */
-  .process-list{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:0;
-    position:relative;
-  }
+    .point span {
+      color: var(--muted);
+      font-size: 13px;
+    }
 
-  .process-step{
-    position:relative;
-    padding:0 20px 0 0;
-  }
+    .visual-card {
+      background:
+        radial-gradient(circle at top, rgba(255, 204, 51, .16), transparent 38%),
+        linear-gradient(145deg, #1a1205 0%, #050505 55%, #241404 100%);
+      border-radius: 34px;
+      padding: 38px;
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 30px 90px rgba(0,0,0,.52);
+      border: 1px solid rgba(245, 158, 11, .35);
+    }
 
-  .process-step:not(:last-child)::after{
-    content:"";
-    position:absolute;
-    top:23px;
-    right:-10px;
-    width:24px;
-    height:2px;
-    background:var(--line);
-  }
+    .fk-logo-box {
+      background: linear-gradient(135deg, #ffcc33 0%, #f59e0b 48%, #8a4b05 100%);
+      border-radius: 24px;
+      padding: 26px;
+      margin-bottom: 28px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.32);
+      border: 1px solid rgba(255, 204, 51, .42);
+    }
 
-  .process-num{
-    width:46px;height:46px;
-    border-radius:50%;
-    background:var(--green);
-    color:#04140a;
-    font-weight:900;
-    font-size:17px;
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:20px;
-  }
+    .visual-card .fk-logo {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3.2 / 1;
+      object-fit: contain;
+    }
 
-  .process-step h3{
-    font-size:16px;
-    font-weight:800;
-    margin-bottom:8px;
-  }
+    .nora-badge {
+      background: radial-gradient(circle at top, #2a1703 0%, #050505 70%);
+      border-radius: 26px;
+      padding: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245, 158, 11, .28);
+      min-height: 160px;
+    }
 
-  .process-step p{
-    color:var(--muted);
-    font-size:14px;
-  }
+    .nora-badge img {
+      max-height: 210px;
+      width: auto;
+      object-fit: contain;
+    }
 
-  /* ---------- BRANDS ---------- */
-  .brands-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-  }
+    section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--line);
+    }
 
-  .brand-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:28px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:140px;
-  }
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 46px;
+    }
 
-  .brand-card img{
-    max-height:70px;
-    width:auto;
-    max-width:100%;
-  }
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
 
-  /* ---------- CTA ---------- */
-  .cta-section{
-    padding:90px 0;
-    text-align:center;
-    background:
-      radial-gradient(ellipse 700px 400px at 50% 0%, rgba(47,214,107,0.12), transparent 65%),
-      var(--bg-navy-deep);
-  }
+    h2 {
+      font-size: clamp(30px, 3.5vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
 
-  .cta-section h2{
-    font-size:clamp(26px,3.6vw,38px);
-    font-weight:900;
-    margin-bottom:14px;
-  }
+    .section-head p {
+      color: var(--muted);
+      font-size: 17px;
+    }
 
-  .cta-section p{
-    color:var(--muted);
-    font-size:16px;
-    max-width:480px;
-    margin:0 auto 34px;
-  }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
 
-  /* ---------- FOOTER ---------- */
-  footer{
-    padding:36px 0;
-    text-align:center;
-  }
+    .service-card {
+      background:
+        linear-gradient(180deg, rgba(245, 158, 11, .06), rgba(255,255,255,.025)),
+        var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 205px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
 
-  footer p{
-    color:var(--muted);
-    font-size:13.5px;
-  }
+    .service-card:hover {
+      border-color: rgba(245, 158, 11, .55);
+      box-shadow: 0 18px 50px rgba(245, 158, 11, .08);
+    }
 
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width:860px){
-    .nav-links{display:none;}
-    .menu-toggle{display:block;}
-    .hero-inner{grid-template-columns:1fr;}
-    .hero-visual{order:-1;min-height:220px;padding:28px;}
-    .hero-visual img{max-height:140px;}
-    .services-grid{grid-template-columns:1fr 1fr;}
-    .process-list{grid-template-columns:1fr 1fr;row-gap:32px;}
-    .process-step:nth-child(2)::after{display:none;}
-    .brands-grid{grid-template-columns:1fr 1fr;}
-    .hero-stats{gap:22px;}
-  }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(245, 158, 11, .14);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(245, 158, 11, .22);
+    }
 
-  @media (max-width:520px){
-    .services-grid{grid-template-columns:1fr;}
-    .process-list{grid-template-columns:1fr;}
-    .process-step::after{display:none;}
-    .brands-grid{grid-template-columns:1fr;}
-    .btn-row{flex-direction:column;align-items:stretch;}
-    .btn-primary,.btn-secondary{justify-content:center;}
-  }
-</style>
+    .service-card h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .process {
+      background:
+        radial-gradient(circle at 20% 0%, rgba(245, 158, 11, .12), transparent 32%),
+        #080808;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: rgba(245, 158, 11, .055);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffcc33 0%, #f59e0b 48%, #d97706 100%);
+      color: #090600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 950;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 28px rgba(245, 158, 11, .28);
+    }
+
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .nora-section {
+      background:
+        radial-gradient(circle at 75% 35%, rgba(255, 204, 51, .20), transparent 32%),
+        radial-gradient(circle at 25% 0%, rgba(245, 158, 11, .12), transparent 35%),
+        #050505;
+    }
+
+    .nora-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .nora-logo-panel {
+      background:
+        radial-gradient(circle at top, rgba(245, 158, 11, .13), transparent 42%),
+        #020202;
+      border: 1px solid rgba(245, 158, 11, .32);
+      border-radius: 34px;
+      padding: 34px;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,.48);
+    }
+
+    .nora-logo-panel img {
+      max-height: 280px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .feature {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .feature b {
+      color: var(--gold-light);
+    }
+
+    .cta {
+      text-align: center;
+      background:
+        radial-gradient(circle at center top, rgba(245, 158, 11, .14), transparent 38%),
+        linear-gradient(180deg, #0b0702 0%, #050505 100%);
+    }
+
+    .cta-box {
+      max-width: 860px;
+      margin: 0 auto;
+      background:
+        linear-gradient(180deg, rgba(245, 158, 11, .09), rgba(255,255,255,.025));
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 58px 30px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.36);
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 590px;
+      margin: 0 auto 28px;
+      font-size: 17px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 22px;
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .contact-details a:hover,
+    .contact-details a:focus-visible {
+      color: var(--gold-light);
+    }
+
+    footer {
+      padding: 30px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      background: #050505;
+    }
+
+    /* ===== Tablet ===== */
+    @media (max-width: 940px) {
+      .nav-links {
+        position: fixed;
+        inset: 78px 0 auto auto;
+        top: 78px;
+        right: 0;
+        width: min(320px, 84vw);
+        height: calc(100vh - 78px);
+        background: #0a0a0a;
+        border-left: 1px solid var(--line);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 24px;
+        transform: translateX(100%);
+        transition: transform .25s ease;
+        overflow-y: auto;
+      }
+
+      .nav-links[data-open="true"] {
+        transform: translateX(0);
+      }
+
+      .nav-links a {
+        width: 100%;
+        padding: 14px 10px;
+        border-bottom: 1px solid rgba(245, 158, 11, .12);
+        font-size: 16px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .hero-grid,
+      .nora-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-card {
+        min-height: auto;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ===== Küçük tablet / büyük telefon ===== */
+    @media (max-width: 700px) {
+      .hero-points {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== Mobil ===== */
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav {
+        height: 68px;
+      }
+
+      .nav-links {
+        top: 68px;
+        height: calc(100vh - 68px);
+      }
+
+      .logo-wrap {
+        padding: 8px 12px;
+      }
+
+      .logo-wrap img {
+        width: 126px;
+      }
+
+      .nav-cta {
+        font-size: 12px;
+        padding: 11px 13px;
+      }
+
+      .hero {
+        padding: 56px 0 64px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero-text {
+        font-size: 16px;
+      }
+
+      .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+      }
+
+      .services-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-card {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .fk-logo-box {
+        padding: 18px;
+        border-radius: 18px;
+      }
+
+      .nora-logo-panel {
+        padding: 22px;
+        min-height: 240px;
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .cta-box {
+        padding: 42px 22px;
+        border-radius: 24px;
+      }
+
+      .contact-details {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    /* ===== Çok küçük ekranlar ===== */
+    @media (max-width: 380px) {
+      .logo-wrap img {
+        width: 106px;
+      }
+
+      .nav-cta {
+        padding: 10px 11px;
+        font-size: 11px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <div class="container nav">
-    <a href="#" class="brand">
-      <span class="brand-mark">FK</span>
-      Forma Kutusu
-    </a>
-    <nav class="nav-links">
-      <a href="#hizmetler">Hizmetler</a>
-      <a href="#uretim-sureci">Üretim Süreci</a>
-      <a href="#markalar">Markalar</a>
-      <a href="#iletisim">İletişim</a>
-    </nav>
-    <a href="https://wa.me/905348578836" class="nav-cta" target="_blank" rel="noopener">WhatsApp'tan Teklif Al</a>
-  </div>
-</header>
+  <a class="skip-link" href="#ana-icerik">İçeriğe geç</a>
 
-<section class="hero">
-  <div class="container hero-inner">
-    <div>
-      <span class="eyebrow">Kulüplere Özel Üretim</span>
-      <h1>Takımınıza Özel <span>Forma Üretimi</span></h1>
-      <p class="hero-text">
-        Forma Kutusu; futbol, basketbol, voleybol ve spor kulüpleri için kişiye özel forma, şort ve spor giyim ürünleri hazırlar.
-        Canlı renkler, yüksek çözünürlüklü baskı tekniği ve toplu sipariş desteğiyle hızlı teklif alın.
-      </p>
-      <div class="btn-row">
-        <a href="https://wa.me/905348578836" class="btn-primary" target="_blank" rel="noopener">
-          WhatsApp'tan Teklif Al
+  <header>
+    <div class="container nav">
+      <a href="/" class="logo-wrap" aria-label="Forma Kutusu ana sayfa">
+        <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu Logo" width="165" height="52" loading="eager" decoding="async">
+      </a>
+
+      <nav id="ana-menu" class="nav-links" aria-label="Ana menü" data-open="false">
+        <a href="#hizmetler">Hizmetler</a>
+        <a href="#uretim">Üretim Süreci</a>
+        <a href="#nora">NORA</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="nav-cta" href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">
+          Teklif Al
         </a>
-        <a href="#hizmetler" class="btn-secondary">Hizmetleri İncele</a>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-expanded="false"
+          aria-controls="ana-menu"
+          aria-label="Menüyü aç"
+        ><span></span></button>
       </div>
-      <div class="hero-stats">
+    </div>
+  </header>
+
+  <main id="ana-icerik">
+
+    <section class="hero">
+      <div class="container hero-grid">
         <div>
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Kişiye Özel Tasarım</div>
+          <div class="eyebrow">Kulüplere ve takımlara özel üretim</div>
+
+          <h1>Takımınıza Özel <span>Forma Üretimi</span></h1>
+
+          <p class="hero-text">
+            Forma Kutusu; futbol, basketbol, voleybol ve spor kulüpleri için kişiye özel forma,
+            şort ve spor giyim ürünleri hazırlar. Canlı renkler, yüksek çözünürlüklü baskı tekniği
+            ve toplu sipariş desteğiyle hızlı teklif alın.
+          </p>
+
+          <div class="btn-row">
+            <a class="btn-primary" href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">
+              WhatsApp'tan Teklif Al
+            </a>
+            <a class="btn-secondary" href="#hizmetler">
+              Hizmetleri İncele
+            </a>
+          </div>
+
+          <div class="hero-points">
+            <div class="point">
+              <strong>Özel</strong>
+              <span>Takım renklerine göre tasarım</span>
+            </div>
+            <div class="point">
+              <strong>HD</strong>
+              <span>Yüksek çözünürlüklü baskı</span>
+            </div>
+            <div class="point">
+              <strong>Toplu</strong>
+              <span>Takım siparişi desteği</span>
+            </div>
+          </div>
         </div>
+
+        <div class="visual-card">
+          <div class="fk-logo-box">
+            <img class="fk-logo" src="formakutusu-siyah-logo.png" alt="Forma Kutusu Logo" loading="lazy" decoding="async">
+          </div>
+
+          <div class="nora-badge">
+            <img src="nora-logo-vibes.png" alt="NORA Logo" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hizmetler">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Hizmetler</div>
+          <h2>Formadan sahaya, tüm süreç tek elden</h2>
+          <p>
+            Tasarımdan üretime, isim baskısından teslimata kadar takımınızın ihtiyaç duyduğu
+            temel forma çözümleri.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">✎</div>
+            <h3>Forma Tasarımı</h3>
+            <p>Takım renklerinize, logonuza ve model tercihinize uygun özel forma tasarımları hazırlanır.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">🎽</div>
+            <h3>Forma & Şort Üretimi</h3>
+            <p>Futbol, basketbol, voleybol ve kulüp takımları için forma ve şort üretimi yapılır.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">✺</div>
+            <h3>Yüksek Çözünürlüklü Baskı</h3>
+            <p>Canlı renkler, net detaylar ve kumaşa uygun baskı tekniğiyle profesyonel görünüm sağlanır.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">#</div>
+            <h3>İsim & Numara</h3>
+            <p>Oyuncu isimleri, numaralar, arma ve sponsor yerleşimleri siparişe göre uygulanır.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">◫</div>
+            <h3>Takım Siparişleri</h3>
+            <p>Kulüpler, okullar, halı saha takımları ve spor ekipleri için toplu sipariş desteği sunulur.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon" aria-hidden="true">✓</div>
+            <h3>Üretime Hazır Dosya</h3>
+            <p>Tasarım, baskı ve üretim sürecine uygun şekilde kontrol edilerek hazırlanır.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="uretim" class="process">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Üretim Süreci</div>
+          <h2>Net, hızlı ve takip edilebilir sipariş akışı</h2>
+          <p>
+            WhatsApp üzerinden bilgi alınır, tasarım hazırlanır, onay sonrası üretim sürecine geçilir.
+          </p>
+        </div>
+
+        <ol class="process-grid" style="list-style:none;">
+          <li class="step">
+            <div class="step-number" aria-hidden="true">1</div>
+            <h3>Bilgiler Alınır</h3>
+            <p>Takım adı, renkler, adet, bedenler, logo, isim-numara ve model tercihi netleştirilir.</p>
+          </li>
+
+          <li class="step">
+            <div class="step-number" aria-hidden="true">2</div>
+            <h3>Tasarım Hazırlanır</h3>
+            <p>Forma modeli, üretime uygun şekilde hazırlanır ve onay için müşteriye sunulur.</p>
+          </li>
+
+          <li class="step">
+            <div class="step-number" aria-hidden="true">3</div>
+            <h3>Üretime Geçilir</h3>
+            <p>Onaylanan tasarım, yüksek çözünürlüklü baskı tekniğiyle üretim sürecine alınır.</p>
+          </li>
+
+          <li class="step">
+            <div class="step-number" aria-hidden="true">4</div>
+            <h3>Teslimat Yapılır</h3>
+            <p>Ürünler kontrol edilir ve müşteriye teslimat süreci başlatılır.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="nora" class="nora-section">
+      <div class="container nora-grid">
+        <div class="nora-logo-panel">
+          <img src="nora-logo-vibes.png" alt="NORA Spor Giyim Logo" loading="lazy" decoding="async">
+        </div>
+
         <div>
-          <div class="stat-num">HD</div>
-          <div class="stat-label">Baskı Kalitesi</div>
+          <div class="section-kicker">NORA</div>
+          <h2>Forma Kutusu'nun dinamik spor giyim markası</h2>
+          <p class="hero-text">
+            NORA; sahada dikkat çeken, renkli ve enerjik forma tasarımlarını temsil eder.
+            Takım kimliğinizi güçlü gösterecek spor giyim ürünleri için tasarım ve üretim desteği sağlar.
+          </p>
+
+          <div class="feature-list">
+            <div class="feature"><b aria-hidden="true">✓</b> Canlı renk ve güçlü görsel etki</div>
+            <div class="feature"><b aria-hidden="true">✓</b> Takım ruhuna uygun özel tasarım</div>
+            <div class="feature"><b aria-hidden="true">✓</b> Forma, şort ve spor giyim üretimi</div>
+          </div>
         </div>
-        <div>
-          <div class="stat-num">Toplu</div>
-          <div class="stat-label">Sipariş Desteği</div>
+      </div>
+    </section>
+
+    <section id="iletisim" class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Takımınız için hemen teklif alın</h2>
+          <p>
+            Forma, şort, isim-numara ve toplu sipariş talepleriniz için WhatsApp üzerinden
+            hızlıca iletişime geçebilirsiniz.
+          </p>
+          <a class="btn-primary" href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">
+            WhatsApp'tan Teklif Al
+          </a>
+
+          <div class="contact-details">
+            <a href="tel:+905348578836">📞 +90 534 857 88 36</a>
+            <a href="mailto:info@formakutusu.com">✉️ info@formakutusu.com</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="hero-visual">
-      <img src="/FORMA%20KUTUSU%20SI%CC%87YAH.png" alt="Forma Kutusu Logo" loading="eager">
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="section" id="hizmetler">
-  <div class="container">
-    <div class="section-tag">Hizmetlerimiz</div>
-    <h2 class="section-title">Formadan sahaya, tüm süreç tek elden</h2>
-    <p class="section-desc">Tasarımdan üretime, isim baskısından teslimata kadar takımınızın ihtiyaç duyduğu her şey Forma Kutusu güvencesiyle.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">✎</div>
-        <h3>Forma Tasarımı</h3>
-        <p>Kulübünüzün kimliğine uygun, özgün forma tasarımları hazırlıyoruz.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⬢</div>
-        <h3>Forma & Şort Üretimi</h3>
-        <p>Yüksek performanslı kumaşlarla dayanıklı forma ve şort üretimi.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">✺</div>
-        <h3>Yüksek Çözünürlüklü Baskı</h3>
-        <p>Solmayan, canlı renklerde profesyonel baskı teknikleri kullanıyoruz.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">#</div>
-        <h3>İsim, Numara & Arma</h3>
-        <p>İsim, numara, arma ve sponsor yerleşimlerini eksiksiz uyguluyoruz.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">◫</div>
-        <h3>Takım Siparişleri</h3>
-        <p>Kulüpler ve takımlar için toplu üretim ve hızlı teslimat imkanı.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">✓</div>
-        <h3>Kalite Kontrol</h3>
-        <p>Her sipariş, teslimattan önce detaylı kalite kontrolünden geçer.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </main>
 
-<section class="section" id="uretim-sureci">
-  <div class="container">
-    <div class="section-tag">Nasıl Çalışıyoruz</div>
-    <h2 class="section-title">Basit ve şeffaf üretim süreci</h2>
-    <p class="section-desc">Talebinizden teslimata kadar dört net adımda ilerliyoruz.</p>
-    <div class="process-list">
-      <div class="process-step">
-        <div class="process-num">1</div>
-        <h3>Bilgiler Alınır</h3>
-        <p>Takım renkleri, beden ve isim/numara listeniz alınır.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-num">2</div>
-        <h3>Tasarım Hazırlanır</h3>
-        <p>Talebinize uygun forma tasarımı hazırlanıp size sunulur.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-num">3</div>
-        <h3>Üretime Geçilir</h3>
-        <p>Onayınızın ardından üretim süreci başlatılır.</p>
-      </div>
-      <div class="process-step">
-        <div class="process-num">4</div>
-        <h3>Teslimat Yapılır</h3>
-        <p>Ürünleriniz kontrol edilip adresinize teslim edilir.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  <footer>
+    © 2026 Forma Kutusu. Tüm hakları saklıdır.
+  </footer>
 
-<section class="section" id="markalar">
-  <div class="container">
-    <div class="section-tag">Referanslarımız</div>
-    <h2 class="section-title">Birlikte çalıştığımız markalar</h2>
-    <p class="section-desc">Forma Kutusu güvencesiyle hayata geçirdiğimiz marka kimliklerinden bazıları.</p>
-    <div class="brands-grid">
-      <div class="brand-card">
-        <img src="/NORA%20SI%CC%87YAH.png" alt="Nora Logo" loading="lazy">
-      </div>
-      <div class="brand-card">
-        <img src="/NORA%20BAND%20SI%CC%87YAH.png" alt="Nora Band Logo" loading="lazy">
-      </div>
-      <div class="brand-card">
-        <img src="/VIBES%20NORA.png" alt="Vibes Nora Logo" loading="lazy">
-      </div>
-      <div class="brand-card">
-        <img src="/FORMA%20KUTUSU%20SI%CC%87YAH.png" alt="Forma Kutusu Logo" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    (function () {
+      var toggle = document.getElementById('menuToggle');
+      var menu = document.getElementById('ana-menu');
+      if (!toggle || !menu) return;
 
-<section class="cta-section" id="iletisim">
-  <div class="container">
-    <h2>Takımınız İçin Hemen Teklif Alın</h2>
-    <p>Forma ihtiyaçlarınızı WhatsApp üzerinden bize iletin, size en kısa sürede dönüş yapalım.</p>
-    <a href="https://wa.me/905348578836" class="btn-primary" target="_blank" rel="noopener">WhatsApp'tan Teklif Al</a>
-  </div>
-</section>
+      function closeMenu() {
+        menu.setAttribute('data-open', 'false');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menüyü aç');
+      }
 
-<footer>
-  <div class="container">
-    <p>&copy; 2026 Forma Kutusu. Tüm hakları saklıdır.</p>
-  </div>
-</footer>
+      function openMenu() {
+        menu.setAttribute('data-open', 'true');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Menüyü kapat');
+      }
+
+      toggle.addEventListener('click', function () {
+        var isOpen = menu.getAttribute('data-open') === 'true';
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      // Bir menü linkine tıklanınca menüyü kapat
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // ESC tuşu ile kapat
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      // 940px üzerine geçildiğinde menü durumunu sıfırla
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 940) closeMenu();
+      });
+    })();
+  </script>
 
 </body>
 </html>
