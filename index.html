@@ -8,95 +8,170 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .hero-bg { background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat; }
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E2C06A;
+            --dark: #111111;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)),
+            url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+        }
         .section { scroll-margin-top: 80px; }
+        .btn-gold {
+            background-color: var(--gold);
+            color: #000;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        .btn-gold:hover { background-color: var(--gold-light); }
+        .step-num {
+            background-color: var(--gold);
+            color: #000;
+            font-weight: 800;
+        }
+        .nav-link:hover { color: var(--gold); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-    <nav class="bg-white shadow-md sticky top-0 z-50">
+
+    <!-- NAV -->
+    <nav class="bg-black shadow-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="nora-logo-vibes.png" alt="NORA Logo" class="h-10 w-auto">
-                <h1 class="text-2xl font-bold">Forma Kutusu</h1>
+                <img src="nora-logo-vibes.png" alt="NORA Logo" class="h-8 w-auto opacity-90">
+                <span class="text-white text-xl font-bold tracking-wide">Forma Kutusu</span>
             </div>
             <div class="hidden md:flex gap-8">
-                <a href="#hizmetler" class="hover:text-blue-600 font-medium">Hizmetler</a>
-                <a href="#surec" class="hover:text-blue-600 font-medium">Süreç</a>
-                <a href="#nora" class="hover:text-blue-600 font-medium">NORA</a>
-                <a href="#iletisim" class="hover:text-blue-600 font-medium">İletişim</a>
+                <a href="#hizmetler" class="nav-link text-gray-300 font-medium transition-colors">Hizmetler</a>
+                <a href="#surec" class="nav-link text-gray-300 font-medium transition-colors">Süreç</a>
+                <a href="#nora" class="nav-link text-gray-300 font-medium transition-colors">NORA</a>
+                <a href="#iletisim" class="nav-link text-gray-300 font-medium transition-colors">İletişim</a>
             </div>
-            <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum." target="_blank" class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-green-700">
+            <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
+               target="_blank"
+               class="btn-gold px-5 py-2 rounded-full flex items-center gap-2 text-sm">
                 <i class="fab fa-whatsapp"></i> Teklif Al
             </a>
         </div>
     </nav>
 
+    <!-- HERO -->
     <section class="hero-bg text-white py-32 text-center section">
         <div class="max-w-4xl mx-auto px-6">
-            <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-28 mb-6">
+            <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-24 mb-6">
             <h2 class="text-5xl md:text-6xl font-bold mb-6">Takımınıza Özel Forma Üretimi</h2>
-            <p class="text-xl md:text-2xl mb-10">Futbol, basketbol, voleybol takımları için profesyonel tasarım, HD baskı ve hızlı teslimat.</p>
+            <p class="text-xl md:text-2xl mb-10 text-gray-300">Futbol, basketbol, voleybol takımları için profesyonel tasarım, HD baskı ve hızlı teslimat.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#iletisim" class="bg-white text-gray-900 px-10 py-4 rounded-full text-lg font-semibold hover:bg-gray-100">Hemen Teklif Al</a>
-                <a href="https://wa.me/905348578836" target="_blank" class="border-2 border-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900">WhatsApp</a>
+                <a href="#iletisim" class="btn-gold px-10 py-4 rounded-full text-lg">Hemen Teklif Al</a>
+                <a href="https://wa.me/905348578836" target="_blank"
+                   class="border-2 border-white text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition-colors">
+                   WhatsApp
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- 3 ÖZELLIK -->
     <section class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
-            <div><div class="text-5xl mb-4">🎨</div><h3 class="text-2xl font-semibold mb-2">Özel Tasarım</h3><p class="text-gray-600">Takımınıza özel renk ve logo.</p></div>
-            <div><div class="text-5xl mb-4">🖨️</div><h3 class="text-2xl font-semibold mb-2">HD Baskı</h3><p class="text-gray-600">Dayanıklı, canlı renkler.</p></div>
-            <div><div class="text-5xl mb-4">📦</div><h3 class="text-2xl font-semibold mb-2">Toplu Sipariş</h3><p class="text-gray-600">Kulüpler için uygun fiyat.</p></div>
+            <div>
+                <div class="text-4xl mb-4" style="color:var(--gold)"><i class="fas fa-paint-brush"></i></div>
+                <h3 class="text-xl font-semibold mb-2">Özel Tasarım</h3>
+                <p class="text-gray-500">Takımınıza özel renk ve logo ile hazırlanır.</p>
+            </div>
+            <div>
+                <div class="text-4xl mb-4" style="color:var(--gold)"><i class="fas fa-print"></i></div>
+                <h3 class="text-xl font-semibold mb-2">HD Baskı</h3>
+                <p class="text-gray-500">Dayanıklı kumaş, canlı ve uzun ömürlü renkler.</p>
+            </div>
+            <div>
+                <div class="text-4xl mb-4" style="color:var(--gold)"><i class="fas fa-box"></i></div>
+                <h3 class="text-xl font-semibold mb-2">Toplu Sipariş</h3>
+                <p class="text-gray-500">Kulüpler ve kurumlar için uygun fiyatlı üretim.</p>
+            </div>
         </div>
     </section>
 
+    <!-- HİZMETLER -->
     <section id="hizmetler" class="py-20 bg-gray-100 section">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12">Hizmetlerimiz</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow"><h3 class="text-2xl font-semibold mb-3">Forma Tasarımı</h3><p>Takımınıza özel tasarım.</p></div>
-                <div class="bg-white p-8 rounded-2xl shadow"><h3 class="text-2xl font-semibold mb-3">Forma & Şort Üretimi</h3><p>Kaliteli kumaş ve üretim.</p></div>
-                <div class="bg-white p-8 rounded-2xl shadow"><h3 class="text-2xl font-semibold mb-3">İsim & Numara Baskısı</h3><p>Profesyonel uygulamalar.</p></div>
-                <div class="bg-white p-8 rounded-2xl shadow"><h3 class="text-2xl font-semibold mb-3">Hızlı Teslimat</h3><p>Güvenli kargo.</p></div>
+                <div class="bg-white p-8 rounded-2xl shadow">
+                    <h3 class="text-xl font-semibold mb-2">Forma Tasarımı</h3>
+                    <p class="text-gray-500">Takımınıza özel renk, logo ve numara düzeniyle tasarım hazırlanır.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow">
+                    <h3 class="text-xl font-semibold mb-2">Forma & Şort Üretimi</h3>
+                    <p class="text-gray-500">Kaliteli kumaş ve dayanıklı baskı teknikleriyle seri üretim yapılır.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow">
+                    <h3 class="text-xl font-semibold mb-2">İsim & Numara Baskısı</h3>
+                    <p class="text-gray-500">Fleks, süblimasyon veya nakış yöntemiyle profesyonel uygulama.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow">
+                    <h3 class="text-xl font-semibold mb-2">Hızlı Teslimat</h3>
+                    <p class="text-gray-500">Üretim tamamlandıktan sonra güvenli kargo ile adresinize teslim edilir.</p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- SÜREÇ -->
     <section id="surec" class="py-20 bg-white section">
         <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12">Üretim Süreci</h2>
             <div class="space-y-10">
-                <div class="flex gap-6"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-xl font-bold">1</div><div><h3 class="font-semibold">Bilgi Alımı</h3><p>Detaylar netleştirilir.</p></div></div>
-                <div class="flex gap-6"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-xl font-bold">2</div><div><h3 class="font-semibold">Tasarım Onayı</h3><p>Revizelerle onay alınır.</p></div></div>
-                <div class="flex gap-6"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-xl font-bold">3</div><div><h3 class="font-semibold">Üretim</h3><p>HD baskı ile üretim.</p></div></div>
-                <div class="flex gap-6"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-xl font-bold">4</div><div><h3 class="font-semibold">Teslimat</h3><p>Ürünler adresinize ulaşır.</p></div></div>
+                <div class="flex gap-6 items-start">
+                    <div class="step-num w-12 h-12 rounded-full flex items-center justify-center text-lg flex-shrink-0">1</div>
+                    <div><h3 class="font-semibold text-lg">Bilgi Alımı</h3><p class="text-gray-500">Takım büyüklüğü, renk tercihleri ve logo bilgileri netleştirilir.</p></div>
+                </div>
+                <div class="flex gap-6 items-start">
+                    <div class="step-num w-12 h-12 rounded-full flex items-center justify-center text-lg flex-shrink-0">2</div>
+                    <div><h3 class="font-semibold text-lg">Tasarım Onayı</h3><p class="text-gray-500">Hazırlanan tasarım taslağı paylaşılır, revizelerle birlikte onay alınır.</p></div>
+                </div>
+                <div class="flex gap-6 items-start">
+                    <div class="step-num w-12 h-12 rounded-full flex items-center justify-center text-lg flex-shrink-0">3</div>
+                    <div><h3 class="font-semibold text-lg">Üretim</h3><p class="text-gray-500">Onaylanan tasarım HD baskı yöntemiyle seri üretime alınır.</p></div>
+                </div>
+                <div class="flex gap-6 items-start">
+                    <div class="step-num w-12 h-12 rounded-full flex items-center justify-center text-lg flex-shrink-0">4</div>
+                    <div><h3 class="font-semibold text-lg">Teslimat</h3><p class="text-gray-500">Ürünler paketlenerek kargo ile adresinize ulaştırılır.</p></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="nora" class="py-20 bg-gray-900 text-white text-center section">
+    <!-- NORA -->
+    <section id="nora" class="py-20 bg-black text-white text-center section">
         <div class="max-w-4xl mx-auto px-6">
             <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-20 mb-6">
             <h2 class="text-4xl font-bold mb-4">NORA</h2>
-            <p class="text-xl">Sahada fark yaratan enerjik spor giyim markası.</p>
+            <p class="text-gray-400 text-lg">Forma Kutusu'nun üretim ortağı. Sahada fark yaratan enerjik spor giyim markası.</p>
         </div>
     </section>
 
-    <section id="iletisim" class="py-20 bg-blue-600 text-white text-center section">
+    <!-- İLETİŞİM -->
+    <section id="iletisim" class="py-20 text-white text-center section" style="background-color: var(--dark);">
         <div class="max-w-2xl mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-6">Hemen Teklif Alın</h2>
-            <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum." target="_blank" class="inline-flex items-center gap-3 bg-white text-blue-600 px-10 py-5 rounded-full text-xl font-semibold hover:bg-gray-100">
-                <i class="fab fa-whatsapp text-3xl"></i> WhatsApp'tan İletişime Geç
+            <h2 class="text-4xl font-bold mb-3">Hemen Teklif Alın</h2>
+            <p class="text-gray-400 mb-8">Forma modellerini inceleyin, WhatsApp üzerinden bizimle iletişime geçin.</p>
+            <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
+               target="_blank"
+               class="btn-gold inline-flex items-center gap-3 px-10 py-5 rounded-full text-xl">
+                <i class="fab fa-whatsapp text-2xl"></i> WhatsApp'tan İletişime Geç
             </a>
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <!-- FOOTER -->
+    <footer class="bg-black text-gray-500 py-10">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-12 mb-4 opacity-75">
-            <p>&copy; 2026 Forma Kutusu - Tüm hakları saklıdır.</p>
+            <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-10 mb-4 opacity-60">
+            <p class="text-sm">&copy; 2026 Forma Kutusu — Tüm hakları saklıdır.</p>
         </div>
     </footer>
+
 </body>
 </html>
