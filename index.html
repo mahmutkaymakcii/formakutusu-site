@@ -54,7 +54,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-    <!-- NAV -->
+   <!-- NAV -->
     <nav class="bg-black sticky top-0 z-50 shadow-lg">
         <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center">
@@ -66,6 +66,25 @@
                 <a href="#nora" class="nav-link">NORA</a>
                 <a href="#iletisim" class="nav-link">İletişim</a>
             </div>
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
+                   target="_blank"
+                   class="btn-gold px-5 py-2 rounded-full flex items-center gap-2 text-sm">
+                    <i class="fab fa-whatsapp"></i> Teklif Al
+                </a>
+                <button id="menu-btn" class="md:hidden text-white text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- MOBİL MENÜ -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-800 px-6 py-4 flex flex-col gap-4">
+            <a href="#hizmetler" class="nav-link" onclick="closeMenu()">Hizmetler</a>
+            <a href="#surec" class="nav-link" onclick="closeMenu()">Süreç</a>
+            <a href="#nora" class="nav-link" onclick="closeMenu()">NORA</a>
+            <a href="#iletisim" class="nav-link" onclick="closeMenu()">İletişim</a>
+        </div>
+    </nav>
             <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
                target="_blank"
                class="btn-gold px-5 py-2 rounded-full flex items-center gap-2 text-sm">
@@ -206,6 +225,15 @@
             <p class="text-sm">&copy; 2026 Forma Kutusu — Tüm hakları saklıdır.</p>
         </div>
     </footer>
-
+<script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+    </script>
 </body>
 </html>
