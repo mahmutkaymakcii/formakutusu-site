@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Forma Kutusu basketbol forma modelleri kataloğu.">
+    <title>Basketbol Formaları | Forma Kutusu Katalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --gold: #C9A84C; --gold-light: #E2C06A; --dark: #111111; }
+        .btn-gold { background-color: var(--gold); color: #000; font-weight: 700; transition: background 0.2s; }
+        .btn-gold:hover { background-color: var(--gold-light); }
+        .nav-link { color: #d1d5db; font-weight: 500; transition: color 0.2s; }
+        .nav-link:hover { color: var(--gold); }
+        .model-card { background: #fff; border-radius: 1rem; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; }
+        .model-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+        .model-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #f3f4f6; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <nav class="bg-black sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html">
+                <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="h-10 w-auto">
+            </a>
+            <div class="hidden md:flex gap-8">
+                <a href="index.html" class="nav-link">Ana Sayfa</a>
+                <a href="katalog.html" class="nav-link">Futbol</a>
+                <a href="katalog-basketbol.html" style="color:var(--gold); font-weight:600;">Basketbol</a>
+                <a href="katalog-voleybol.html" class="nav-link">Voleybol</a>
+                <a href="index.html#iletisim" class="nav-link">İletişim</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum." target="_blank" class="btn-gold px-4 py-2 rounded-full text-sm flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Teklif Al
+                </a>
+                <button id="menu-btn" class="md:hidden text-white text-2xl"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-black border-t border-gray-800 px-6 py-4 flex-col gap-4">
+            <a href="index.html" class="nav-link block py-1" onclick="closeMenu()">Ana Sayfa</a>
+            <a href="katalog.html" class="nav-link block py-1" onclick="closeMenu()">Futbol</a>
+            <a href="katalog-basketbol.html" class="block py-1 font-semibold" style="color:var(--gold)" onclick="closeMenu()">Basketbol</a>
+            <a href="katalog-voleybol.html" class="nav-link block py-1" onclick="closeMenu()">Voleybol</a>
+            <a href="index.html#iletisim" class="nav-link block py-1" onclick="closeMenu()">İletişim</a>
+        </div>
+    </nav>
+
+    <section class="py-14 text-center bg-black text-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <p class="text-sm font-semibold mb-2" style="color:var(--gold); letter-spacing:0.15em;">FORMA KUTUSU</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Basketbol Forma Modelleri</h1>
+            <p class="text-gray-400">Beğendiğiniz modeli seçin, WhatsApp üzerinden bizimle iletişime geçin.</p>
+        </div>
+    </section>
+
+    <section class="py-14">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="model-card"><img src="gorseller/FK-B-001.jpg" alt="FK-B-001" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-001</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-001%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-002.jpg" alt="FK-B-002" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-002</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-002%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-003.jpg" alt="FK-B-003" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-003</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-003%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-004.jpg" alt="FK-B-004" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-004</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-004%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-005.jpg" alt="FK-B-005" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-005</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-005%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-006.jpg" alt="FK-B-006" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-006</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-006%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-007.jpg" alt="FK-B-007" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-007</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-007%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-008.jpg" alt="FK-B-008" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-008</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-008%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-009.jpg" alt="FK-B-009" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-009</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-009%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-010.jpg" alt="FK-B-010" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-010</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-010%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+            <div class="model-card"><img src="gorseller/FK-B-011.jpg" alt="FK-B-011" loading="lazy"><div class="p-4"><p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-B-011</p><a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-011%20modeli%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Teklif Al</a></div></div>
+        </div>
+    </section>
+
+    <section class="py-16 text-center" style="background-color: var(--dark);">
+        <div class="max-w-2xl mx-auto px-6 text-white">
+            <h2 class="text-3xl font-bold mb-3">Modelinizi Buldunuz mu?</h2>
+            <p class="text-gray-400 mb-8">WhatsApp üzerinden bize ulaşın, renk ve baskı seçeneklerini konuşalım.</p>
+            <a href="https://wa.me/905348578836?text=Merhaba%2C%20katalogdan%20model%20seçtim%2C%20bilgi%20almak%20istiyorum." target="_blank" class="btn-gold inline-flex items-center gap-3 px-10 py-4 rounded-full text-lg">
+                <i class="fab fa-whatsapp text-xl"></i> WhatsApp'tan Yazın
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-500 py-10">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="mx-auto h-10 mb-4 opacity-70">
+            <p class="text-sm">&copy; 2026 Forma Kutusu — Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); mobileMenu.classList.toggle('flex'); });
+        function closeMenu() { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); }
+    </script>
+</body>
+</html>
