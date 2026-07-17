@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Forma Kutusu futbol forma modelleri kataloğu. 26 farklı model, özel tasarım ve üretim.">
+    <title>Futbol Formaları | Forma Kutusu Katalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E2C06A;
+            --dark: #111111;
+        }
+        .btn-gold {
+            background-color: var(--gold);
+            color: #000;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        .btn-gold:hover { background-color: var(--gold-light); }
+        .nav-link { color: #d1d5db; font-weight: 500; transition: color 0.2s; }
+        .nav-link:hover { color: var(--gold); }
+        .model-card {
+            background: #fff;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+        }
+        .model-card img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            background: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- NAV -->
+    <nav class="bg-black sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html">
+                <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="h-10 w-auto">
+            </a>
+            <div class="hidden md:flex gap-8">
+                <a href="index.html" class="nav-link">Ana Sayfa</a>
+                <a href="katalog.html" style="color:var(--gold); font-weight:600;">Katalog</a>
+                <a href="index.html#iletisim" class="nav-link">İletişim</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
+                   target="_blank"
+                   class="btn-gold px-4 py-2 rounded-full text-sm flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Teklif Al
+                </a>
+                <button id="menu-btn" class="md:hidden text-white text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden bg-black border-t border-gray-800 px-6 py-4 flex-col gap-4">
+            <a href="index.html" class="nav-link block py-1" onclick="closeMenu()">Ana Sayfa</a>
+            <a href="katalog.html" class="block py-1 font-semibold" style="color:var(--gold)" onclick="closeMenu()">Katalog</a>
+            <a href="index.html#iletisim" class="nav-link block py-1" onclick="closeMenu()">İletişim</a>
+        </div>
+    </nav>
+
+    <!-- BAŞLIK -->
+    <section class="py-14 text-center bg-black text-white">
+        <div class="max-w-3xl mx-auto px-6">
+            <p class="text-sm font-semibold mb-2" style="color:var(--gold); letter-spacing:0.15em;">FORMA KUTUSU</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Futbol Forma Modelleri</h1>
+            <p class="text-gray-400">Beğendiğiniz modeli seçin, WhatsApp üzerinden bizimle iletişime geçin.</p>
+        </div>
+    </section>
+
+    <!-- KATALOG GRID -->
+    <section class="py-14">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            <!-- FK-001 -->
+            <div class="model-card">
+                <img src="gorseller/FK-001.jpg" alt="FK-001 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-001</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-001%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-002 -->
+            <div class="model-card">
+                <img src="gorseller/FK-002.jpg" alt="FK-002 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-002</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-002%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-003 -->
+            <div class="model-card">
+                <img src="gorseller/FK-003.jpg" alt="FK-003 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-003</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-003%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-004 -->
+            <div class="model-card">
+                <img src="gorseller/FK-004.jpg" alt="FK-004 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-004</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-004%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-005 -->
+            <div class="model-card">
+                <img src="gorseller/FK-005.jpg" alt="FK-005 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-005</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-005%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-006 -->
+            <div class="model-card">
+                <img src="gorseller/FK-006.jpg" alt="FK-006 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-006</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-006%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-007 -->
+            <div class="model-card">
+                <img src="gorseller/FK-007.jpg" alt="FK-007 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-007</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-007%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-008 -->
+            <div class="model-card">
+                <img src="gorseller/FK-008.jpg" alt="FK-008 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-008</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-008%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-009 -->
+            <div class="model-card">
+                <img src="gorseller/FK-009.jpg" alt="FK-009 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-009</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-009%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-010 -->
+            <div class="model-card">
+                <img src="gorseller/FK-010.jpg" alt="FK-010 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-010</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-010%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-011 -->
+            <div class="model-card">
+                <img src="gorseller/FK-011.jpg" alt="FK-011 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-011</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-011%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-012 -->
+            <div class="model-card">
+                <img src="gorseller/FK-012.jpg" alt="FK-012 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-012</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-012%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-013 -->
+            <div class="model-card">
+                <img src="gorseller/FK-013.jpg" alt="FK-013 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-013</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-013%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-014 -->
+            <div class="model-card">
+                <img src="gorseller/FK-014.jpg" alt="FK-014 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-014</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-014%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-015 -->
+            <div class="model-card">
+                <img src="gorseller/FK-015.jpg" alt="FK-015 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-015</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-015%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-016 -->
+            <div class="model-card">
+                <img src="gorseller/FK-016.jpg" alt="FK-016 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-016</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-016%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-017 -->
+            <div class="model-card">
+                <img src="gorseller/FK-017.jpg" alt="FK-017 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-017</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-017%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-018 -->
+            <div class="model-card">
+                <img src="gorseller/FK-018.jpg" alt="FK-018 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-018</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-018%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-019 -->
+            <div class="model-card">
+                <img src="gorseller/FK-019.jpg" alt="FK-019 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-019</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-019%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-020 -->
+            <div class="model-card">
+                <img src="gorseller/FK-020.jpg" alt="FK-020 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-020</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-020%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-021 -->
+            <div class="model-card">
+                <img src="gorseller/FK-021.jpg" alt="FK-021 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-021</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-021%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-022 -->
+            <div class="model-card">
+                <img src="gorseller/FK-022.jpg" alt="FK-022 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-022</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-022%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-023 -->
+            <div class="model-card">
+                <img src="gorseller/FK-023.jpg" alt="FK-023 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-023</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-023%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-024 -->
+            <div class="model-card">
+                <img src="gorseller/FK-024.jpg" alt="FK-024 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-024</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-024%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-025 -->
+            <div class="model-card">
+                <img src="gorseller/FK-025.jpg" alt="FK-025 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-025</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-025%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+            <!-- FK-026 -->
+            <div class="model-card">
+                <img src="gorseller/FK-026.jpg" alt="FK-026 Futbol Forması" loading="lazy">
+                <div class="p-4">
+                    <p class="font-bold text-sm mb-3" style="color:var(--gold)">FK-026</p>
+                    <a href="https://wa.me/905348578836?text=Merhaba%2C%20FK-026%20modeli%20hakkında%20bilgi%20almak%20istiyorum."
+                       target="_blank"
+                       class="btn-gold w-full py-2 rounded-full text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Teklif Al
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ALT BANT -->
+    <section class="py-16 text-center" style="background-color: var(--dark);">
+        <div class="max-w-2xl mx-auto px-6 text-white">
+            <h2 class="text-3xl font-bold mb-3">Modelinizi Buldunuz mu?</h2>
+            <p class="text-gray-400 mb-8">WhatsApp üzerinden bize ulaşın, renk ve baskı seçeneklerini konuşalım.</p>
+            <a href="https://wa.me/905348578836?text=Merhaba%2C%20katalogdan%20model%20seçtim%2C%20bilgi%20almak%20istiyorum."
+               target="_blank"
+               class="btn-gold inline-flex items-center gap-3 px-10 py-4 rounded-full text-lg">
+                <i class="fab fa-whatsapp text-xl"></i> WhatsApp'tan Yazın
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-gray-500 py-10">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="mx-auto h-10 mb-4 opacity-70">
+            <p class="text-sm">&copy; 2026 Forma Kutusu — Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+        }
+    </script>
+
+</body>
+</html>
