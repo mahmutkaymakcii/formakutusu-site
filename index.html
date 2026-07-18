@@ -82,6 +82,101 @@
         }
         .nav-link { color: #d1d5db; font-weight: 500; transition: color 0.2s; }
         .nav-link:hover { color: var(--gold); }
+
+
+        /* HERO İÇİ SONSUZ FİLM ŞERİDİ */
+        .filmstrip-wrap {
+            position: relative;
+            max-width: 1180px;
+            margin: 3rem auto 0;
+            padding: 18px 0;
+            overflow: hidden;
+            border: 1px solid rgba(201, 168, 76, 0.38);
+            border-radius: 18px;
+            background: rgba(5, 5, 5, 0.76);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.36);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+        }
+        .filmstrip-wrap::before,
+        .filmstrip-wrap::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 7px;
+            z-index: 3;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0 12px,
+                rgba(255,255,255,0.82) 12px 23px,
+                transparent 23px 35px
+            );
+        }
+        .filmstrip-wrap::before { top: 5px; }
+        .filmstrip-wrap::after { bottom: 5px; }
+        .filmstrip-track {
+            display: flex;
+            width: max-content;
+            animation: filmstrip-scroll 46s linear infinite;
+            will-change: transform;
+        }
+        .filmstrip-group {
+            display: flex;
+            gap: 10px;
+            padding-right: 10px;
+        }
+        .filmstrip-item {
+            flex: 0 0 auto;
+            width: clamp(88px, 9vw, 126px);
+            aspect-ratio: 4 / 3;
+            padding: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(201, 168, 76, 0.55);
+            border-radius: 8px;
+            background: #0a0a0a;
+        }
+        .filmstrip-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 5px;
+            transition: transform 0.25s ease, filter 0.25s ease;
+        }
+        .filmstrip-item:hover img {
+            transform: scale(1.07);
+            filter: brightness(1.08);
+        }
+        .filmstrip-wrap:hover .filmstrip-track {
+            animation-play-state: paused;
+        }
+        @keyframes filmstrip-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @media (max-width: 640px) {
+            .filmstrip-wrap {
+                margin-top: 2rem;
+                padding: 16px 0;
+                border-radius: 14px;
+            }
+            .filmstrip-item {
+                width: 82px;
+                aspect-ratio: 1 / 1;
+            }
+            .filmstrip-track {
+                animation-duration: 36s;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .filmstrip-track {
+                animation-duration: 120s;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -141,6 +236,160 @@
    class="btn-whatsapp px-10 py-4 rounded-full text-lg w-full sm:w-auto text-center flex items-center justify-center gap-2">
     <i class="fab fa-whatsapp"></i> WhatsApp
 </a>
+                </div>
+            </div>
+
+            <!-- SONSUZ FİLM ŞERİDİ -->
+            <div class="filmstrip-wrap" aria-label="Forma tasarım referansları">
+                <div class="filmstrip-track">
+                <div class="filmstrip-group">
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_1.webp" alt="Forma tasarım referansı 1" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_2.webp" alt="Forma tasarım referansı 2" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_3.webp" alt="Forma tasarım referansı 3" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_4.webp" alt="Forma tasarım referansı 4" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_5.webp" alt="Forma tasarım referansı 5" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_6.webp" alt="Forma tasarım referansı 6" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_7.webp" alt="Forma tasarım referansı 7" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_8.webp" alt="Forma tasarım referansı 8" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_9.webp" alt="Forma tasarım referansı 9" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_10.webp" alt="Forma tasarım referansı 10" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_11.webp" alt="Forma tasarım referansı 11" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_12.webp" alt="Forma tasarım referansı 12" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_13.webp" alt="Forma tasarım referansı 13" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_14.webp" alt="Forma tasarım referansı 14" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_15.webp" alt="Forma tasarım referansı 15" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_16.webp" alt="Forma tasarım referansı 16" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_17.webp" alt="Forma tasarım referansı 17" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_18.webp" alt="Forma tasarım referansı 18" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_19.webp" alt="Forma tasarım referansı 19" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_20.webp" alt="Forma tasarım referansı 20" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_21.webp" alt="Forma tasarım referansı 21" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_22.webp" alt="Forma tasarım referansı 22" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_23.webp" alt="Forma tasarım referansı 23" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item">
+                        <img src="referanslar/referans_24.webp" alt="Forma tasarım referansı 24" decoding="async">
+                    </a>
+                </div>
+                <div class="filmstrip-group" aria-hidden="true">
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_1.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_2.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_3.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_4.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_5.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_6.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_7.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_8.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_9.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_10.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_11.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_12.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_13.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_14.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_15.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_16.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_17.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_18.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_19.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_20.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_21.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_22.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_23.webp" alt="" decoding="async">
+                    </a>
+                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
+                        <img src="referanslar/referans_24.webp" alt="" decoding="async">
+                    </a>
+                </div>
                 </div>
             </div>
         </div>
