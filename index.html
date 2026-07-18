@@ -8,6 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        .btn-whatsapp {
+    background-color: #25D366;
+    color: #fff;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+.btn-whatsapp:hover { background-color: #1ebe5d; }
         :root {
             --gold: #C9A84C;
             --gold-light: #E2C06A;
@@ -94,7 +101,7 @@
             <div class="flex items-center gap-3">
                 <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
                    target="_blank"
-                   class="btn-gold px-4 py-2 rounded-full text-sm flex items-center gap-2">
+                   class="btn-whatsapp px-4 py-2 rounded-full text-sm flex items-center gap-2">
                     <i class="fab fa-whatsapp"></i> Teklif Al
                 </a>
                 <button id="menu-btn" class="md:hidden text-white text-2xl">
@@ -131,9 +138,9 @@
                         Hemen Teklif Al
                     </a>
                     <a href="https://wa.me/905348578836" target="_blank"
-                       class="btn-outline-white px-10 py-4 rounded-full text-lg w-full sm:w-auto text-center">
-                        WhatsApp
-                    </a>
+   class="btn-whatsapp px-10 py-4 rounded-full text-lg w-full sm:w-auto text-center flex items-center justify-center gap-2">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+</a>
                 </div>
             </div>
         </div>
