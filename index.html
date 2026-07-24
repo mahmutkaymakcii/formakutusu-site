@@ -177,6 +177,137 @@
                 animation-duration: 120s;
             }
         }
+
+        /* FİLM ŞERİDİ BÜYÜK GÖRSEL PENCERESİ */
+        .filmstrip-item {
+            cursor: zoom-in;
+        }
+        .filmstrip-item:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 3px;
+        }
+        body.lightbox-open {
+            overflow: hidden;
+        }
+        body.lightbox-open .filmstrip-track {
+            animation-play-state: paused;
+        }
+        .filmstrip-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .filmstrip-lightbox.is-open {
+            display: flex;
+        }
+        .filmstrip-lightbox__figure {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: min(1100px, 100%);
+            height: min(88vh, 820px);
+            margin: 0;
+        }
+        .filmstrip-lightbox__image {
+            display: block;
+            max-width: 100%;
+            max-height: calc(100% - 34px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border: 1px solid rgba(201, 168, 76, 0.65);
+            border-radius: 12px;
+            background: #0a0a0a;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+        }
+        .filmstrip-lightbox__caption {
+            margin-top: 12px;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .filmstrip-lightbox__close,
+        .filmstrip-lightbox__nav {
+            position: absolute;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 9999px;
+            background: rgba(17, 17, 17, 0.78);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+        .filmstrip-lightbox__close:hover,
+        .filmstrip-lightbox__nav:hover {
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.92);
+            color: #000;
+        }
+        .filmstrip-lightbox__close:focus-visible,
+        .filmstrip-lightbox__nav:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 3px;
+        }
+        .filmstrip-lightbox__close {
+            top: 18px;
+            right: 18px;
+            width: 48px;
+            height: 48px;
+            font-size: 1.35rem;
+        }
+        .filmstrip-lightbox__nav {
+            top: 50%;
+            width: 52px;
+            height: 52px;
+            font-size: 1.25rem;
+            transform: translateY(-50%);
+        }
+        .filmstrip-lightbox__nav:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+        .filmstrip-lightbox__nav--prev { left: 18px; }
+        .filmstrip-lightbox__nav--next { right: 18px; }
+        @media (max-width: 640px) {
+            .filmstrip-lightbox {
+                padding: 70px 12px 84px;
+            }
+            .filmstrip-lightbox__figure {
+                height: 100%;
+            }
+            .filmstrip-lightbox__image {
+                max-height: calc(100% - 30px);
+                border-radius: 8px;
+            }
+            .filmstrip-lightbox__close {
+                top: 12px;
+                right: 12px;
+                width: 44px;
+                height: 44px;
+            }
+            .filmstrip-lightbox__nav {
+                top: auto;
+                bottom: 16px;
+                width: 48px;
+                height: 48px;
+                transform: none;
+            }
+            .filmstrip-lightbox__nav:hover {
+                transform: scale(1.05);
+            }
+            .filmstrip-lightbox__nav--prev { left: calc(50% - 58px); }
+            .filmstrip-lightbox__nav--next { right: calc(50% - 58px); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -643,6 +774,41 @@
     </div>
 </footer>
 
+    <!-- FİLM ŞERİDİ BÜYÜK GÖRSEL PENCERESİ -->
+    <div id="filmstrip-lightbox"
+         class="filmstrip-lightbox"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Forma görseli önizlemesi"
+         aria-hidden="true">
+        <button type="button"
+                class="filmstrip-lightbox__close"
+                aria-label="Büyük görseli kapat"
+                data-lightbox-close>
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
+        <button type="button"
+                class="filmstrip-lightbox__nav filmstrip-lightbox__nav--prev"
+                aria-label="Önceki görsel"
+                data-lightbox-prev>
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <figure class="filmstrip-lightbox__figure">
+            <img id="filmstrip-lightbox-image"
+                 class="filmstrip-lightbox__image"
+                 src=""
+                 alt="">
+            <figcaption id="filmstrip-lightbox-caption"
+                        class="filmstrip-lightbox__caption"></figcaption>
+        </figure>
+        <button type="button"
+                class="filmstrip-lightbox__nav filmstrip-lightbox__nav--next"
+                aria-label="Sonraki görsel"
+                data-lightbox-next>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
+    </div>
+
     <script>
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -654,6 +820,60 @@
             mobileMenu.classList.add('hidden');
             mobileMenu.classList.remove('flex');
         }
+
+        const lightbox = document.getElementById('filmstrip-lightbox');
+        const lightboxImage = document.getElementById('filmstrip-lightbox-image');
+        const lightboxCaption = document.getElementById('filmstrip-lightbox-caption');
+        const filmstripItems = Array.from(document.querySelectorAll('.filmstrip-item'));
+        const primaryImages = Array.from(document.querySelectorAll('.filmstrip-group:first-child .filmstrip-item img'));
+        let activeImageIndex = 0;
+        let lastFocusedItem = null;
+
+        function showLightboxImage(index) {
+            activeImageIndex = (index + primaryImages.length) % primaryImages.length;
+            const sourceImage = primaryImages[activeImageIndex];
+            lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+            lightboxImage.alt = sourceImage.alt;
+            lightboxCaption.textContent = `Forma tasarım referansı ${activeImageIndex + 1} / ${primaryImages.length}`;
+        }
+
+        function openLightbox(index, trigger) {
+            lastFocusedItem = trigger;
+            showLightboxImage(index);
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('lightbox-open');
+            lightbox.querySelector('[data-lightbox-close]').focus();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('is-open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('lightbox-open');
+            lightboxImage.src = '';
+            if (lastFocusedItem) lastFocusedItem.focus();
+        }
+
+        filmstripItems.forEach((item, index) => {
+            item.setAttribute('aria-label', `Forma tasarım referansı ${(index % primaryImages.length) + 1} — büyük görüntüle`);
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+                openLightbox(index % primaryImages.length, item);
+            });
+        });
+
+        lightbox.querySelector('[data-lightbox-close]').addEventListener('click', closeLightbox);
+        lightbox.querySelector('[data-lightbox-prev]').addEventListener('click', () => showLightboxImage(activeImageIndex - 1));
+        lightbox.querySelector('[data-lightbox-next]').addEventListener('click', () => showLightboxImage(activeImageIndex + 1));
+        lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (!lightbox.classList.contains('is-open')) return;
+            if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowLeft') showLightboxImage(activeImageIndex - 1);
+            if (event.key === 'ArrowRight') showLightboxImage(activeImageIndex + 1);
+        });
     </script>
     
 <!-- MOBİL SABİT WHATSAPP BUTONU -->
