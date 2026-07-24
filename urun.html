@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Forma Kutusu katalog ürün detayları, beden bilgileri ve sipariş seçenekleri.">
+  <title>Ürün Detayı | Forma Kutusu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--gold:#C9A84C;--gold-light:#E2C06A;--ink:#111;--green:#25D366}
+    *{box-sizing:border-box} body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .nav-link{color:#d1d5db;font-weight:500;transition:.2s}.nav-link:hover{color:var(--gold)}
+    .thumb{border:2px solid var(--gold);border-radius:.75rem;overflow:hidden;background:#f3f4f6}
+    .product-image{aspect-ratio:4/5;object-fit:cover;width:100%;background:#f1f2f4}
+    .whatsapp{background:var(--green);box-shadow:0 10px 28px rgba(37,211,102,.24);transition:.2s}.whatsapp:hover{background:#1ebe5d;transform:translateY(-1px)}
+    details{border-bottom:1px solid #e5e7eb}details summary{list-style:none;cursor:pointer;padding:1.25rem 0;font-weight:650}details summary::-webkit-details-marker{display:none}details summary::after{content:'+';float:right;color:var(--gold);font-size:1.25rem}details[open] summary::after{content:'−'}details p{padding:0 0 1.25rem;color:#4b5563;line-height:1.7}
+    .faq details summary{font-size:.875rem;letter-spacing:.02em}.badge{background:#f7f1df;color:#8c6b18}
+    @media(max-width:767px){.gallery{display:flex;flex-direction:column-reverse}.thumbs{display:flex}.thumb{width:72px}.product-image{aspect-ratio:1/1}}
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+  <nav class="bg-black sticky top-0 z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex justify-between items-center">
+      <a href="index.html"><img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="h-10 w-auto"></a>
+      <div class="hidden md:flex gap-8">
+        <a href="index.html" class="nav-link">Ana Sayfa</a><a href="katalog.html" class="nav-link">Futbol</a><a href="katalog-basketbol.html" class="nav-link">Basketbol</a><a href="katalog-voleybol.html" class="nav-link">Voleybol</a><a href="index.html#iletisim" class="nav-link">İletişim</a>
+      </div>
+      <a id="nav-wa" target="_blank" class="whatsapp text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2"><i class="fab fa-whatsapp"></i><span class="hidden sm:inline">Teklif Al</span></a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="max-w-6xl mx-auto px-5 py-8 md:py-14">
+      <div class="grid md:grid-cols-[1.35fr_.85fr] gap-8 lg:gap-12 items-start">
+        <div class="gallery grid md:grid-cols-[76px_1fr] gap-4">
+          <div class="thumbs space-y-3"><button class="thumb block" aria-label="Ürün görselini göster"><img id="thumb-image" class="w-full aspect-square object-cover" alt=""></button></div>
+          <div class="rounded-2xl overflow-hidden bg-gray-100"><img id="product-image" class="product-image" alt=""></div>
+        </div>
+
+        <div class="md:sticky md:top-24">
+          <nav class="text-xs text-gray-500 mb-6" aria-label="Sayfa yolu"><a href="index.html" class="hover:text-black">Ana Sayfa</a><span class="mx-2">/</span><a id="category-link" class="hover:text-black">Katalog</a><span class="mx-2">/</span><span id="breadcrumb-model"></span></nav>
+          <span id="category-badge" class="badge inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4"></span>
+          <h1 id="product-title" class="text-3xl lg:text-4xl font-bold leading-tight mb-3"></h1>
+          <p class="text-sm text-gray-500 tracking-widest uppercase mb-6">Forma Kutusu Özel Üretim</p>
+          <div class="border-y border-gray-200 py-5 mb-6"><p class="text-sm text-gray-500 mb-1">Fiyatlandırma</p><p class="text-xl font-semibold">Projenize özel teklif</p><p class="text-sm text-gray-500 mt-1">Adet, baskı ve kumaş seçimine göre hazırlanır.</p></div>
+          <a id="order-wa" target="_blank" class="whatsapp w-full text-white py-4 rounded-xl font-bold flex justify-center items-center gap-3"><i class="fab fa-whatsapp text-xl"></i> WhatsApp'tan Sipariş Ver</a>
+          <p class="text-xs text-center text-gray-500 mt-3"><i class="fas fa-circle-check mr-1" style="color:var(--gold)"></i> Model kodu mesajınıza otomatik eklenir</p>
+
+          <div class="mt-8 border-t border-gray-200">
+            <details><summary>Beden ölçü tablosu</summary><p>Çocuk ve yetişkin beden seçenekleri mevcuttur. Takım listenizi paylaştığınızda uygun ölçü tablosu WhatsApp üzerinden gönderilir.</p></details>
+            <details><summary>Açıklama</summary><p id="description"></p></details>
+            <details><summary>Üretim ve teslimat</summary><p>Onaylanan tasarım ve adet bilgisine göre üretim planı oluşturulur. Tahmini teslim tarihi sipariş onayında netleştirilir.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gray-50 border-y border-gray-100 py-16 md:py-20">
+      <div class="max-w-3xl mx-auto px-5">
+        <p class="text-center text-xs font-bold tracking-[.22em] uppercase mb-3" style="color:var(--gold)">Merak ettikleriniz</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Sıkça Sorulan Sorular</h2>
+        <div class="faq bg-white rounded-2xl px-6 md:px-9 shadow-sm">
+          <details><summary>Minimum sipariş adediniz kaç?</summary><p>Minimum sipariş adedi 5 formadır.</p></details>
+          <details><summary>Kendi logomuzu veya isim baskımızı ekleyebilir miyiz?</summary><p>Evet. Takım logosu, sponsor, oyuncu adı ve numara baskıları tasarıma eklenebilir.</p></details>
+          <details><summary>Formalarınızın kumaş kalitesi nasıldır?</summary><p>Spor kullanımına uygun, nefes alan ve dayanıklı kumaş seçenekleri sunuyoruz. Seçenekler projenize göre paylaşılır.</p></details>
+          <details><summary>Fiyatlara baskılar dahil mi?</summary><p>Teklif; adet, kumaş, model ve baskı ihtiyaçlarınıza göre tüm kalemler belirtilerek hazırlanır.</p></details>
+          <details><summary>Ürünüm hatalı gelirse ne yapmalıyım?</summary><p>Sipariş bilgileri ve ürün fotoğraflarıyla WhatsApp üzerinden bize ulaşın; ekibimiz hızlıca yardımcı olacaktır.</p></details>
+          <details><summary>Ödemeyi nasıl yapabilirim?</summary><p>Ödeme seçenekleri ve sipariş adımları teklif aşamasında güvenli şekilde paylaşılır.</p></details>
+          <details><summary>Forma ne kadar sürede kargoya verilir?</summary><p>Süre; sipariş adedi ve üretim yoğunluğuna göre değişir. Net plan, tasarım onayı sonrasında bildirilir.</p></details>
+          <details><summary>Siparişimi nasıl takip edebilirim?</summary><p>Siparişinizin güncel durumunu WhatsApp üzerinden model kodunuzla öğrenebilirsiniz.</p></details>
+          <details><summary>Hangi beden seçenekleri mevcut?</summary><p>Çocuk ve yetişkin bedenleri mevcuttur. Sipariş öncesinde ölçü tablosu paylaşılır.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-black text-gray-500 py-10"><div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 items-center"><img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="h-9 opacity-70"><p class="text-sm">© 2026 Forma Kutusu — Tüm hakları saklıdır.</p></div></footer>
+
+  <script>
+    const params=new URLSearchParams(location.search);const model=(params.get('model')||'FK-001').toUpperCase().replace(/[^A-Z0-9-]/g,'');
+    let category='Futbol',catalog='katalog.html',sport='futbol';if(model.startsWith('FK-B-')){category='Basketbol';catalog='katalog-basketbol.html';sport='basketbol'}else if(model.startsWith('FK-V-')){category='Voleybol';catalog='katalog-voleybol.html';sport='voleybol'}
+    const image=`gorseller/${model}.jpg`;const message=encodeURIComponent(`Merhaba, ${model} ${sport} forması modeli hakkında bilgi ve fiyat teklifi almak istiyorum.`);const wa=`https://wa.me/905348578836?text=${message}`;
+    document.title=`${model} ${category} Forması | Forma Kutusu`;document.querySelector('meta[name="description"]').content=`${model} ${category.toLowerCase()} forması detayları, beden ve özel baskı seçenekleri.`;
+    document.getElementById('product-title').textContent=`${model} – Takıma Özel ${category} Forması`;document.getElementById('breadcrumb-model').textContent=model;document.getElementById('category-badge').textContent=category;document.getElementById('category-link').href=catalog;document.getElementById('category-link').textContent=category;
+    ['product-image','thumb-image'].forEach(id=>{const el=document.getElementById(id);el.src=image;el.alt=`${model} takıma özel ${sport} forması modeli`});
+    document.getElementById('description').textContent=`${model}, takımınıza özel renk, logo, sponsor, isim ve numara baskılarıyla kişiselleştirilebilen ${sport} forması modelidir. Tasarım onayınızın ardından üretime alınır.`;document.getElementById('order-wa').href=wa;document.getElementById('nav-wa').href=wa;
+  </script>
+</body>
+</html>
