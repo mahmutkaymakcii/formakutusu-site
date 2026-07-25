@@ -308,9 +308,286 @@
             .filmstrip-lightbox__nav--prev { left: calc(50% - 58px); }
             .filmstrip-lightbox__nav--next { right: calc(50% - 58px); }
         }
+
+
+        /* FK-007 KAMPANYA POPUP */
+        body.campaign-popup-open {
+            overflow: hidden;
+        }
+        .campaign-popup {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.84);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+        }
+        .campaign-popup[hidden] {
+            display: none;
+        }
+        .campaign-popup__card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);
+            width: min(860px, 100%);
+            max-height: calc(100vh - 40px);
+            overflow: auto;
+            border: 1px solid rgba(201, 168, 76, 0.72);
+            border-radius: 24px;
+            background: #0b0b0b;
+            color: #fff;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.75);
+            animation: campaign-popup-in 0.36s ease-out;
+        }
+        .campaign-popup__visual {
+            min-height: 440px;
+            overflow: hidden;
+            background: #151515;
+        }
+        .campaign-popup__visual img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 440px;
+            object-fit: cover;
+        }
+        .campaign-popup__content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 54px 46px 42px;
+            text-align: center;
+        }
+        .campaign-popup__badge {
+            align-self: center;
+            margin-bottom: 18px;
+            padding: 7px 14px;
+            border: 1px solid rgba(201, 168, 76, 0.7);
+            border-radius: 9999px;
+            background: rgba(201, 168, 76, 0.12);
+            color: var(--gold-light);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+        }
+        .campaign-popup__model {
+            margin-bottom: 8px;
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+        .campaign-popup__title {
+            margin: 0;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            font-weight: 900;
+            line-height: 1.05;
+        }
+        .campaign-popup__set {
+            margin-top: 18px;
+            color: #f5f5f5;
+            font-size: 1.08rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+        .campaign-popup__price {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 4px;
+            margin: 8px 0 22px;
+            color: var(--gold-light);
+            font-weight: 900;
+            line-height: 1;
+        }
+        .campaign-popup__price-number {
+            font-size: clamp(4rem, 8vw, 6rem);
+            letter-spacing: -0.06em;
+        }
+        .campaign-popup__currency {
+            margin-top: 9px;
+            font-size: 2rem;
+        }
+        .campaign-popup__cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 9999px;
+            background: #25D366;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 800;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .campaign-popup__cta:hover {
+            background: #1ebe5d;
+            transform: translateY(-2px);
+        }
+        .campaign-popup__later {
+            align-self: center;
+            margin-top: 15px;
+            border: 0;
+            background: transparent;
+            color: #a3a3a3;
+            font-size: 0.86rem;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        .campaign-popup__close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 9999px;
+            background: rgba(0, 0, 0, 0.72);
+            color: #fff;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .campaign-popup__close:hover {
+            border-color: var(--gold);
+            background: var(--gold);
+            color: #000;
+        }
+        .campaign-popup__close:focus-visible,
+        .campaign-popup__cta:focus-visible,
+        .campaign-popup__later:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 3px;
+        }
+        @keyframes campaign-popup-in {
+            from { opacity: 0; transform: translateY(18px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @media (max-width: 700px) {
+            .campaign-popup {
+                align-items: center;
+                padding: 12px;
+            }
+            .campaign-popup__card {
+                grid-template-columns: 1fr;
+                max-height: calc(100vh - 24px);
+                border-radius: 18px;
+            }
+            .campaign-popup__visual {
+                min-height: 0;
+                height: min(40vh, 320px);
+            }
+            .campaign-popup__visual img {
+                min-height: 0;
+            }
+            .campaign-popup__content {
+                padding: 25px 22px 24px;
+            }
+            .campaign-popup__badge {
+                margin-bottom: 12px;
+                font-size: 0.66rem;
+            }
+            .campaign-popup__model {
+                margin-bottom: 6px;
+            }
+            .campaign-popup__title {
+                font-size: 1.75rem;
+            }
+            .campaign-popup__set {
+                margin-top: 12px;
+                font-size: 0.98rem;
+            }
+            .campaign-popup__price {
+                margin: 5px 0 16px;
+            }
+            .campaign-popup__price-number {
+                font-size: 4.2rem;
+            }
+            .campaign-popup__currency {
+                margin-top: 6px;
+                font-size: 1.65rem;
+            }
+        }
+        @media (max-height: 690px) and (max-width: 700px) {
+            .campaign-popup__visual {
+                height: 28vh;
+            }
+            .campaign-popup__content {
+                padding-top: 18px;
+                padding-bottom: 18px;
+            }
+            .campaign-popup__badge {
+                margin-bottom: 8px;
+            }
+            .campaign-popup__set {
+                margin-top: 8px;
+            }
+            .campaign-popup__price {
+                margin-bottom: 12px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .campaign-popup__card {
+                animation: none;
+            }
+        }
+
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 campaign-popup-open">
+
+    <!-- FK-007 KAMPANYA POPUP -->
+    <div id="campaign-popup"
+         class="campaign-popup"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="campaign-popup-title">
+        <div class="campaign-popup__card">
+            <button type="button"
+                    class="campaign-popup__close"
+                    aria-label="Kampanya penceresini kapat"
+                    data-campaign-close>
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+            <div class="campaign-popup__visual">
+                <img src="gorseller/FK-007.jpg"
+                     alt="FK-007 forma ve şort modeli">
+            </div>
+            <div class="campaign-popup__content">
+                <span class="campaign-popup__badge">İNDİRİM KAMPANYASI</span>
+                <p class="campaign-popup__model">FK-007</p>
+                <h2 id="campaign-popup-title" class="campaign-popup__title">SAHAYA AVANTAJLI ÇIK</h2>
+                <p class="campaign-popup__set">FORMA + ŞORT</p>
+                <p class="campaign-popup__price" aria-label="400 Türk lirası">
+                    <span class="campaign-popup__price-number">400</span>
+                    <span class="campaign-popup__currency">₺</span>
+                </p>
+                <a class="campaign-popup__cta"
+                   href="https://wa.me/905348578836?text=Merhaba%2C%20FK-007%20kampanyas%C4%B1ndan%20yararlanmak%20istiyorum.%20Forma%20%2B%20%C5%9Fort%20400%E2%82%BA."
+                   target="_blank"
+                   rel="noopener">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                    Kampanyadan Yararlan
+                </a>
+                <button type="button"
+                        class="campaign-popup__later"
+                        data-campaign-close>
+                    Şimdi değil
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- NAV -->
     <nav class="bg-black sticky top-0 z-50 shadow-lg">
@@ -810,6 +1087,27 @@
     </div>
 
     <script>
+
+        // FK-007 KAMPANYA POPUP
+        const campaignPopup = document.getElementById('campaign-popup');
+        const campaignCloseButton = campaignPopup.querySelector('.campaign-popup__close');
+
+        function closeCampaignPopup() {
+            campaignPopup.hidden = true;
+            document.body.classList.remove('campaign-popup-open');
+        }
+
+        campaignPopup.querySelectorAll('[data-campaign-close]').forEach((button) => {
+            button.addEventListener('click', closeCampaignPopup);
+        });
+        campaignPopup.addEventListener('click', (event) => {
+            if (event.target === campaignPopup) closeCampaignPopup();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !campaignPopup.hidden) closeCampaignPopup();
+        });
+        requestAnimationFrame(() => campaignCloseButton.focus());
+
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         menuBtn.addEventListener('click', () => {
