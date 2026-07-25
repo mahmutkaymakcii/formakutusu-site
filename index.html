@@ -1,1186 +1,2489 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Takımınıza özel forma, şort ve spor giyim üretimi. Futbol, basketbol, voleybol için profesyonel tasarım ve baskı.">
-    <title>Forma Kutusu | Takımınıza Özel Forma Üretimi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        .btn-whatsapp {
-    background-color: #25D366;
-    color: #fff;
-    font-weight: 700;
-    transition: background 0.2s;
-}
-.btn-whatsapp:hover { background-color: #1ebe5d; }
-        :root {
-            --gold: #C9A84C;
-            --gold-light: #E2C06A;
-            --dark: #111111;
-        }
-        .hero-section {
-            position: relative;
-            overflow: hidden;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.65);
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-        }
-        .section { scroll-margin-top: 80px; }
-        .btn-gold {
-            background-color: var(--gold);
-            color: #000;
-            font-weight: 700;
-            transition: background 0.2s;
-        }
-        .btn-gold:hover { background-color: var(--gold-light); }
-        .btn-outline-white {
-            border: 2px solid #fff;
-            color: #fff;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .btn-outline-white:hover {
-            background: #fff;
-            color: #000;
-        }
-        .step-num {
-            background-color: var(--gold);
-            color: #000;
-            font-weight: 800;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.125rem;
-            flex-shrink: 0;
-        }
-        .nav-link { color: #d1d5db; font-weight: 500; transition: color 0.2s; }
-        .nav-link:hover { color: var(--gold); }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0a">
+  <meta name="description" content="Futbol, basketbol ve voleybol takımlarına özel forma tasarımı ve üretimi. Modelinizi seçin, renklerinizi belirleyin, takımınız sahaya farkıyla çıksın.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:title" content="Forma Kutusu | Takımına Özel Forma Üretimi">
+  <meta property="og:description" content="Takımının renklerini sahaya taşı. Ücretsiz tasarım, profesyonel süblimasyon baskı ve Türkiye geneli teslimat.">
+  <meta property="og:url" content="https://formakutusu.com/">
+  <meta property="og:image" content="https://formakutusu.com/gorseller/FK-007.jpg">
+  <link rel="canonical" href="https://formakutusu.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <title>Forma Kutusu | Takımına Özel Forma Üretimi</title>
 
+  <style>
+    :root {
+      --ink: #090b0a;
+      --ink-2: #121512;
+      --paper: #f4f1e8;
+      --paper-2: #e8e3d7;
+      --acid: #d9ff43;
+      --orange: #ff5c35;
+      --white: #fffef8;
+      --muted: #a7aaa4;
+      --line-dark: rgba(255, 255, 255, .14);
+      --line-light: rgba(9, 11, 10, .15);
+      --radius: 28px;
+      --max: 1240px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, .24);
+    }
 
-        /* HERO İÇİ SONSUZ FİLM ŞERİDİ */
-        .filmstrip-wrap {
-            position: relative;
-            max-width: 1180px;
-            margin: 3rem auto 0;
-            padding: 18px 0;
-            overflow: hidden;
-            border: 1px solid rgba(201, 168, 76, 0.38);
-            border-radius: 18px;
-            background: rgba(5, 5, 5, 0.76);
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.36);
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-        }
-        .filmstrip-wrap::before,
-        .filmstrip-wrap::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 7px;
-            z-index: 3;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent 0 12px,
-                rgba(255,255,255,0.82) 12px 23px,
-                transparent 23px 35px
-            );
-        }
-        .filmstrip-wrap::before { top: 5px; }
-        .filmstrip-wrap::after { bottom: 5px; }
-        .filmstrip-track {
-            display: flex;
-            width: max-content;
-            animation: filmstrip-scroll 46s linear infinite;
-            will-change: transform;
-        }
-        .filmstrip-group {
-            display: flex;
-            gap: 10px;
-            padding-right: 10px;
-        }
-        .filmstrip-item {
-            flex: 0 0 auto;
-            width: clamp(88px, 9vw, 126px);
-            aspect-ratio: 4 / 3;
-            padding: 3px;
-            overflow: hidden;
-            border: 1px solid rgba(201, 168, 76, 0.55);
-            border-radius: 8px;
-            background: #0a0a0a;
-        }
-        .filmstrip-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border-radius: 5px;
-            transition: transform 0.25s ease, filter 0.25s ease;
-        }
-        .filmstrip-item:hover img {
-            transform: scale(1.07);
-            filter: brightness(1.08);
-        }
-        .filmstrip-wrap:hover .filmstrip-track {
-            animation-play-state: paused;
-        }
-        @keyframes filmstrip-scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        @media (max-width: 640px) {
-            .filmstrip-wrap {
-                margin-top: 2rem;
-                padding: 16px 0;
-                border-radius: 14px;
-            }
-            .filmstrip-item {
-                width: 82px;
-                aspect-ratio: 1 / 1;
-            }
-            .filmstrip-track {
-                animation-duration: 36s;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .filmstrip-track {
-                animation-duration: 120s;
-            }
-        }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-        /* FİLM ŞERİDİ BÜYÜK GÖRSEL PENCERESİ */
-        .filmstrip-item {
-            cursor: zoom-in;
-        }
-        .filmstrip-item:focus-visible {
-            outline: 3px solid var(--gold-light);
-            outline-offset: 3px;
-        }
-        body.lightbox-open {
-            overflow: hidden;
-        }
-        body.lightbox-open .filmstrip-track {
-            animation-play-state: paused;
-        }
-        .filmstrip-lightbox {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .filmstrip-lightbox.is-open {
-            display: flex;
-        }
-        .filmstrip-lightbox__figure {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: min(1100px, 100%);
-            height: min(88vh, 820px);
-            margin: 0;
-        }
-        .filmstrip-lightbox__image {
-            display: block;
-            max-width: 100%;
-            max-height: calc(100% - 34px);
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border: 1px solid rgba(201, 168, 76, 0.65);
-            border-radius: 12px;
-            background: #0a0a0a;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
-        }
-        .filmstrip-lightbox__caption {
-            margin-top: 12px;
-            color: #e5e7eb;
-            font-size: 0.9rem;
-            letter-spacing: 0.02em;
-        }
-        .filmstrip-lightbox__close,
-        .filmstrip-lightbox__nav {
-            position: absolute;
-            z-index: 2;
-            display: grid;
-            place-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 9999px;
-            background: rgba(17, 17, 17, 0.78);
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, transform 0.2s;
-        }
-        .filmstrip-lightbox__close:hover,
-        .filmstrip-lightbox__nav:hover {
-            border-color: var(--gold);
-            background: rgba(201, 168, 76, 0.92);
-            color: #000;
-        }
-        .filmstrip-lightbox__close:focus-visible,
-        .filmstrip-lightbox__nav:focus-visible {
-            outline: 3px solid var(--gold-light);
-            outline-offset: 3px;
-        }
-        .filmstrip-lightbox__close {
-            top: 18px;
-            right: 18px;
-            width: 48px;
-            height: 48px;
-            font-size: 1.35rem;
-        }
-        .filmstrip-lightbox__nav {
-            top: 50%;
-            width: 52px;
-            height: 52px;
-            font-size: 1.25rem;
-            transform: translateY(-50%);
-        }
-        .filmstrip-lightbox__nav:hover {
-            transform: translateY(-50%) scale(1.05);
-        }
-        .filmstrip-lightbox__nav--prev { left: 18px; }
-        .filmstrip-lightbox__nav--next { right: 18px; }
-        @media (max-width: 640px) {
-            .filmstrip-lightbox {
-                padding: 70px 12px 84px;
-            }
-            .filmstrip-lightbox__figure {
-                height: 100%;
-            }
-            .filmstrip-lightbox__image {
-                max-height: calc(100% - 30px);
-                border-radius: 8px;
-            }
-            .filmstrip-lightbox__close {
-                top: 12px;
-                right: 12px;
-                width: 44px;
-                height: 44px;
-            }
-            .filmstrip-lightbox__nav {
-                top: auto;
-                bottom: 16px;
-                width: 48px;
-                height: 48px;
-                transform: none;
-            }
-            .filmstrip-lightbox__nav:hover {
-                transform: scale(1.05);
-            }
-            .filmstrip-lightbox__nav--prev { left: calc(50% - 58px); }
-            .filmstrip-lightbox__nav--next { right: calc(50% - 58px); }
-        }
+    html {
+      scroll-behavior: smooth;
+      background: var(--ink);
+    }
 
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--ink);
+      color: var(--white);
+      font-family: "Manrope", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        /* FK-007 KAMPANYA POPUP */
-        body.campaign-popup-open {
-            overflow: hidden;
-        }
-        .campaign-popup {
-            position: fixed;
-            inset: 0;
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.84);
-            backdrop-filter: blur(9px);
-            -webkit-backdrop-filter: blur(9px);
-        }
-        .campaign-popup[hidden] {
-            display: none;
-        }
-        .campaign-popup__card {
-            position: relative;
-            display: grid;
-            grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);
-            width: min(860px, 100%);
-            max-height: calc(100vh - 40px);
-            overflow: auto;
-            border: 1px solid rgba(201, 168, 76, 0.72);
-            border-radius: 24px;
-            background: #0b0b0b;
-            color: #fff;
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.75);
-            animation: campaign-popup-in 0.36s ease-out;
-        }
-        .campaign-popup__visual {
-            min-height: 440px;
-            overflow: hidden;
-            background: #151515;
-        }
-        .campaign-popup__visual img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            min-height: 440px;
-            object-fit: cover;
-        }
-        .campaign-popup__content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 54px 46px 42px;
-            text-align: center;
-        }
-        .campaign-popup__badge {
-            align-self: center;
-            margin-bottom: 18px;
-            padding: 7px 14px;
-            border: 1px solid rgba(201, 168, 76, 0.7);
-            border-radius: 9999px;
-            background: rgba(201, 168, 76, 0.12);
-            color: var(--gold-light);
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.14em;
-        }
-        .campaign-popup__model {
-            margin-bottom: 8px;
-            color: #a3a3a3;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-        }
-        .campaign-popup__title {
-            margin: 0;
-            font-size: clamp(1.9rem, 4vw, 2.8rem);
-            font-weight: 900;
-            line-height: 1.05;
-        }
-        .campaign-popup__set {
-            margin-top: 18px;
-            color: #f5f5f5;
-            font-size: 1.08rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-        }
-        .campaign-popup__price {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            gap: 4px;
-            margin: 8px 0 22px;
-            color: var(--gold-light);
-            font-weight: 900;
-            line-height: 1;
-        }
-        .campaign-popup__price-number {
-            font-size: clamp(4rem, 8vw, 6rem);
-            letter-spacing: -0.06em;
-        }
-        .campaign-popup__currency {
-            margin-top: 9px;
-            font-size: 2rem;
-        }
-        .campaign-popup__cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 9999px;
-            background: #25D366;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 800;
-            transition: transform 0.2s ease, background 0.2s ease;
-        }
-        .campaign-popup__cta:hover {
-            background: #1ebe5d;
-            transform: translateY(-2px);
-        }
-        .campaign-popup__later {
-            align-self: center;
-            margin-top: 15px;
-            border: 0;
-            background: transparent;
-            color: #a3a3a3;
-            font-size: 0.86rem;
-            cursor: pointer;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-        .campaign-popup__close {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            z-index: 2;
-            display: grid;
-            place-items: center;
-            width: 42px;
-            height: 42px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 9999px;
-            background: rgba(0, 0, 0, 0.72);
-            color: #fff;
-            font-size: 1.15rem;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s, border-color 0.2s;
-        }
-        .campaign-popup__close:hover {
-            border-color: var(--gold);
-            background: var(--gold);
-            color: #000;
-        }
-        .campaign-popup__close:focus-visible,
-        .campaign-popup__cta:focus-visible,
-        .campaign-popup__later:focus-visible {
-            outline: 3px solid var(--gold-light);
-            outline-offset: 3px;
-        }
-        @keyframes campaign-popup-in {
-            from { opacity: 0; transform: translateY(18px) scale(0.97); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @media (max-width: 700px) {
-            .campaign-popup {
-                align-items: center;
-                padding: 12px;
-            }
-            .campaign-popup__card {
-                grid-template-columns: 1fr;
-                max-height: calc(100vh - 24px);
-                border-radius: 18px;
-            }
-            .campaign-popup__visual {
-                min-height: 0;
-                height: min(40vh, 320px);
-            }
-            .campaign-popup__visual img {
-                min-height: 0;
-            }
-            .campaign-popup__content {
-                padding: 25px 22px 24px;
-            }
-            .campaign-popup__badge {
-                margin-bottom: 12px;
-                font-size: 0.66rem;
-            }
-            .campaign-popup__model {
-                margin-bottom: 6px;
-            }
-            .campaign-popup__title {
-                font-size: 1.75rem;
-            }
-            .campaign-popup__set {
-                margin-top: 12px;
-                font-size: 0.98rem;
-            }
-            .campaign-popup__price {
-                margin: 5px 0 16px;
-            }
-            .campaign-popup__price-number {
-                font-size: 4.2rem;
-            }
-            .campaign-popup__currency {
-                margin-top: 6px;
-                font-size: 1.65rem;
-            }
-        }
-        @media (max-height: 690px) and (max-width: 700px) {
-            .campaign-popup__visual {
-                height: 28vh;
-            }
-            .campaign-popup__content {
-                padding-top: 18px;
-                padding-bottom: 18px;
-            }
-            .campaign-popup__badge {
-                margin-bottom: 8px;
-            }
-            .campaign-popup__set {
-                margin-top: 8px;
-            }
-            .campaign-popup__price {
-                margin-bottom: 12px;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .campaign-popup__card {
-                animation: none;
-            }
-        }
+    body.no-scroll {
+      overflow: hidden;
+    }
 
-    </style>
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    ::selection {
+      background: var(--acid);
+      color: var(--ink);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--acid);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(84px, 10vw, 144px) 0;
+      scroll-margin-top: 96px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: currentColor;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 28px;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--acid);
+      content: "";
+    }
+
+    .display {
+      margin: 0;
+      font-family: "Syne", Arial Black, sans-serif;
+      font-size: clamp(3rem, 8vw, 7.8rem);
+      font-weight: 800;
+      letter-spacing: -.065em;
+      line-height: .87;
+      text-transform: uppercase;
+    }
+
+    .title {
+      max-width: 850px;
+      margin: 0;
+      font-family: "Syne", Arial Black, sans-serif;
+      font-size: clamp(2.5rem, 5.5vw, 5.6rem);
+      font-weight: 800;
+      letter-spacing: -.055em;
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 58px;
+      padding: 0 26px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: .83rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      line-height: 1;
+      text-transform: uppercase;
+      transition: transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn--acid {
+      background: var(--acid);
+      color: var(--ink);
+    }
+
+    .btn--acid:hover {
+      background: var(--white);
+    }
+
+    .btn--ghost {
+      border-color: rgba(255, 255, 255, .35);
+      background: rgba(255, 255, 255, .05);
+      color: var(--white);
+      backdrop-filter: blur(12px);
+    }
+
+    .btn--ghost:hover {
+      border-color: var(--white);
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    .arrow {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(9, 11, 10, .12);
+      font-size: 1.1rem;
+      transition: transform .25s ease;
+    }
+
+    .btn:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    .announcement {
+      position: relative;
+      z-index: 60;
+      overflow: hidden;
+      height: 36px;
+      background: var(--acid);
+      color: var(--ink);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      line-height: 36px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .announcement__track {
+      display: flex;
+      width: max-content;
+      animation: ticker 22s linear infinite;
+    }
+
+    .announcement__group {
+      display: flex;
+      gap: 32px;
+      padding-right: 32px;
+    }
+
+    .announcement__group span {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .announcement__group span::after {
+      content: "✦";
+    }
+
+    @keyframes ticker {
+      to { transform: translateX(-50%); }
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 50;
+      top: 52px;
+      right: 0;
+      left: 0;
+      pointer-events: none;
+      transition: top .3s ease;
+    }
+
+    .site-header.is-scrolled {
+      top: 14px;
+    }
+
+    .nav {
+      display: flex;
+      width: min(1160px, calc(100% - 40px));
+      min-height: 68px;
+      margin-inline: auto;
+      padding: 10px 12px 10px 20px;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      background: rgba(9, 11, 10, .72);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .24);
+      backdrop-filter: blur(18px);
+      pointer-events: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+
+    .brand img {
+      width: 142px;
+      max-height: 36px;
+      object-fit: contain;
+      filter: invert(1) grayscale(1) brightness(2);
+    }
+
+    .brand__dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 0 6px rgba(217, 255, 67, .12);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav__links > a {
+      padding: 12px 14px;
+      border-radius: 999px;
+      color: #d8dad4;
+      font-size: .77rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .nav__links > a:hover {
+      background: rgba(255, 255, 255, .09);
+      color: var(--white);
+    }
+
+    .nav__cta {
+      display: inline-flex;
+      min-height: 46px;
+      padding: 0 19px;
+      align-items: center;
+      border-radius: 999px;
+      background: var(--acid);
+      color: var(--ink);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--acid);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:first-child {
+      transform: translateY(3px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:last-child {
+      transform: translateY(-3px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      z-index: 45;
+      inset: 0;
+      display: grid;
+      padding: 138px 26px 34px;
+      place-content: center;
+      background: rgba(9, 11, 10, .97);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .mobile-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu__links {
+      display: grid;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .mobile-menu__links a {
+      font-family: "Syne", Arial Black, sans-serif;
+      font-size: clamp(2rem, 10vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      padding: 180px 0 68px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 78% 25%, rgba(217, 255, 67, .13), transparent 25%),
+        radial-gradient(circle at 10% 85%, rgba(255, 92, 53, .12), transparent 28%),
+        var(--ink);
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero__layout {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(390px, .94fr);
+      gap: clamp(38px, 5vw, 82px);
+      align-items: center;
+    }
+
+    .hero__copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero .display span {
+      display: block;
+    }
+
+    .hero .display .stroke {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, .62);
+    }
+
+    .hero .display .accent {
+      color: var(--acid);
+      transform: translateX(clamp(0px, 4vw, 52px));
+    }
+
+    .hero__sub {
+      display: grid;
+      max-width: 620px;
+      margin-top: 32px;
+      grid-template-columns: 52px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .hero__sub::before {
+      width: 52px;
+      height: 2px;
+      margin-top: 13px;
+      background: var(--orange);
+      content: "";
+    }
+
+    .hero__sub p {
+      margin: 0;
+      color: #c2c5be;
+      font-size: clamp(1rem, 1.5vw, 1.14rem);
+    }
+
+    .hero__actions {
+      display: flex;
+      margin-top: 34px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero__visual {
+      position: relative;
+      min-height: 650px;
+    }
+
+    .hero__frame {
+      position: absolute;
+      inset: 0 6% 2% 5%;
+      overflow: hidden;
+      border-radius: 200px 200px 28px 28px;
+      background: #1a1e1a;
+      box-shadow: var(--shadow);
+      transform: rotate(2.5deg);
+    }
+
+    .hero__frame::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(9, 11, 10, .78), transparent 45%),
+        linear-gradient(125deg, rgba(217, 255, 67, .16), transparent 36%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero__frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.88) contrast(1.08);
+    }
+
+    .hero__model {
+      position: absolute;
+      z-index: 3;
+      top: 55px;
+      right: 0;
+      display: grid;
+      width: 116px;
+      height: 116px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 50%;
+      background: rgba(9, 11, 10, .72);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+      backdrop-filter: blur(14px);
+      animation: float 4s ease-in-out infinite;
+      text-align: center;
+    }
+
+    .hero__model strong {
+      display: block;
+      color: var(--acid);
+      font-family: "Syne", sans-serif;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .hero__model span {
+      display: block;
+      margin-top: 7px;
+      color: #d0d2cc;
+      font-size: .59rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero__price {
+      position: absolute;
+      z-index: 4;
+      right: -8px;
+      bottom: 66px;
+      width: min(270px, 62%);
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 20px;
+      background: var(--acid);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      transform: rotate(-3deg);
+    }
+
+    .hero__price small {
+      display: block;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero__price strong {
+      display: block;
+      margin-top: 3px;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: -.07em;
+      line-height: 1;
+    }
+
+    .hero__price span {
+      display: block;
+      margin-top: 6px;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    .hero__micro {
+      position: absolute;
+      z-index: 4;
+      bottom: 0;
+      left: 0;
+      padding: 16px 18px;
+      border-left: 3px solid var(--orange);
+      background: rgba(9, 11, 10, .86);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero__micro strong,
+    .hero__micro span {
+      display: block;
+    }
+
+    .hero__micro strong {
+      font-family: "Syne", sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .hero__micro span {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(7deg); }
+      50% { transform: translateY(-12px) rotate(4deg); }
+    }
+
+    .proof {
+      border-top: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+      background: #0d100e;
+    }
+
+    .proof__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .proof__item {
+      min-height: 146px;
+      padding: 30px clamp(18px, 3vw, 38px);
+      border-right: 1px solid var(--line-dark);
+    }
+
+    .proof__item:last-child {
+      border-right: 0;
+    }
+
+    .proof__item strong {
+      display: block;
+      color: var(--white);
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      letter-spacing: -.05em;
+      line-height: 1;
+    }
+
+    .proof__item span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .collections {
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .collections::before {
+      position: absolute;
+      top: -260px;
+      right: -220px;
+      width: 560px;
+      height: 560px;
+      border: 90px solid var(--acid);
+      border-radius: 50%;
+      content: "";
+      opacity: .8;
+    }
+
+    .collections__head {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      margin-bottom: 54px;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .collections .eyebrow::before {
+      background: var(--orange);
+    }
+
+    .collections__head p {
+      max-width: 430px;
+      margin: 0;
+      color: #545851;
+    }
+
+    .collection-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap: 18px;
+    }
+
+    .collection-card {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #161a16;
+      color: var(--white);
+      isolation: isolate;
+    }
+
+    .collection-card:first-child {
+      grid-row: span 2;
+      min-height: 680px;
+    }
+
+    .collection-card img {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s cubic-bezier(.2, .7, .2, 1), filter .4s ease;
+    }
+
+    .collection-card::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, .9), rgba(0, 0, 0, .02) 72%);
+      content: "";
+    }
+
+    .collection-card:hover img {
+      transform: scale(1.055);
+      filter: saturate(1.1);
+    }
+
+    .collection-card__top {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 99px;
+      background: rgba(9, 11, 10, .35);
+      font-size: .64rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .collection-card__body {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: clamp(24px, 4vw, 42px);
+    }
+
+    .collection-card__body span {
+      display: block;
+      color: var(--acid);
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .collection-card__body h3 {
+      display: flex;
+      margin: 8px 0 0;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2rem, 5vw, 4.7rem);
+      letter-spacing: -.055em;
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .collection-card:not(:first-child) .collection-card__body h3 {
+      font-size: clamp(1.9rem, 3.5vw, 3.1rem);
+    }
+
+    .collection-card__body h3 b {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--acid);
+      color: var(--ink);
+      font-family: "Manrope", sans-serif;
+      font-size: 1rem;
+      transition: transform .3s ease;
+    }
+
+    .collection-card:hover h3 b {
+      transform: rotate(-45deg);
+    }
+
+    .showcase {
+      background: var(--ink);
+    }
+
+    .showcase__head {
+      display: grid;
+      margin-bottom: 56px;
+      grid-template-columns: 1fr .45fr;
+      gap: 40px;
+      align-items: end;
+    }
+
+    .showcase__head .lead {
+      margin: 0;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .model-card {
+      position: relative;
+      grid-column: span 4;
+      min-height: 430px;
+      overflow: hidden;
+      border: 1px solid var(--line-dark);
+      border-radius: 24px;
+      background: var(--ink-2);
+    }
+
+    .model-card:nth-child(2) {
+      transform: translateY(54px);
+    }
+
+    .model-card:nth-child(3) {
+      transform: translateY(-18px);
+    }
+
+    .model-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    .model-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .model-card__meta {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      left: 14px;
+      display: flex;
+      padding: 14px 16px;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 15px;
+      background: rgba(9, 11, 10, .72);
+      backdrop-filter: blur(12px);
+    }
+
+    .model-card__meta strong {
+      font-family: "Syne", sans-serif;
+      font-size: 1rem;
+      letter-spacing: -.02em;
+    }
+
+    .model-card__meta span {
+      color: var(--acid);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .showcase__cta {
+      display: flex;
+      margin-top: 88px;
+      justify-content: center;
+    }
+
+    .process {
+      overflow: hidden;
+      background: var(--acid);
+      color: var(--ink);
+    }
+
+    .process::after {
+      position: absolute;
+      right: -4vw;
+      bottom: -14vw;
+      color: rgba(9, 11, 10, .07);
+      font-family: "Syne", sans-serif;
+      font-size: 31vw;
+      font-weight: 800;
+      letter-spacing: -.1em;
+      line-height: .65;
+      content: "04";
+      pointer-events: none;
+    }
+
+    .process .eyebrow::before {
+      background: var(--ink);
+    }
+
+    .process__layout {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: clamp(50px, 9vw, 130px);
+    }
+
+    .process__intro {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+
+    .process__intro p {
+      max-width: 440px;
+      margin: 26px 0 0;
+      color: rgba(9, 11, 10, .7);
+    }
+
+    .steps {
+      border-top: 1px solid rgba(9, 11, 10, .28);
+    }
+
+    .step {
+      display: grid;
+      padding: 30px 0;
+      grid-template-columns: 70px 1fr;
+      gap: 24px;
+      border-bottom: 1px solid rgba(9, 11, 10, .28);
+    }
+
+    .step__num {
+      font-family: "Syne", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .step h3 {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.55rem, 3vw, 2.5rem);
+      letter-spacing: -.045em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .step p {
+      max-width: 520px;
+      margin: 12px 0 0;
+      color: rgba(9, 11, 10, .68);
+      font-size: .95rem;
+    }
+
+    .references {
+      background: #101310;
+      overflow: hidden;
+    }
+
+    .references__head {
+      display: flex;
+      margin-bottom: 44px;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .references__head p {
+      max-width: 360px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .reference-rail {
+      width: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+    }
+
+    .reference-track {
+      display: flex;
+      width: max-content;
+      animation: gallery-scroll 52s linear infinite;
+      will-change: transform;
+    }
+
+    .reference-group {
+      display: flex;
+      gap: 14px;
+      padding-right: 14px;
+    }
+
+    .reference-card {
+      position: relative;
+      width: clamp(180px, 20vw, 290px);
+      aspect-ratio: 4 / 5;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--line-dark);
+      border-radius: 18px;
+      background: #161916;
+      cursor: zoom-in;
+    }
+
+    .reference-card:nth-child(3n + 2) {
+      aspect-ratio: 1 / 1;
+      margin-top: 54px;
+    }
+
+    .reference-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.9);
+      transition: transform .45s ease, filter .45s ease;
+    }
+
+    .reference-card:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.12);
+    }
+
+    .reference-card::after {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--acid);
+      color: var(--ink);
+      content: "+";
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .reference-rail:hover .reference-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes gallery-scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    .faq {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .faq__layout {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: clamp(50px, 9vw, 120px);
+      align-items: start;
+    }
+
+    .faq__intro {
+      position: sticky;
+      top: 120px;
+    }
+
+    .faq .eyebrow::before {
+      background: var(--orange);
+    }
+
+    .faq__items {
+      border-top: 1px solid var(--line-light);
+    }
+
+    .faq details {
+      border-bottom: 1px solid var(--line-light);
+    }
+
+    .faq summary {
+      display: grid;
+      padding: 25px 0;
+      grid-template-columns: 1fr 34px;
+      gap: 20px;
+      align-items: center;
+      cursor: pointer;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.15rem, 2vw, 1.55rem);
+      font-weight: 700;
+      letter-spacing: -.025em;
+      list-style: none;
+    }
+
+    .faq summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq summary::after {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid var(--line-light);
+      border-radius: 50%;
+      content: "+";
+      font-family: "Manrope", sans-serif;
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    .faq details[open] summary::after {
+      background: var(--acid);
+      transform: rotate(45deg);
+    }
+
+    .faq details p {
+      max-width: 650px;
+      margin: -4px 0 26px;
+      padding-right: 54px;
+      color: #555950;
+    }
+
+    .cta {
+      overflow: hidden;
+      background: var(--orange);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .cta::before,
+    .cta::after {
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .cta::before {
+      top: -300px;
+      left: -150px;
+      width: 560px;
+      height: 560px;
+      box-shadow: 0 0 0 80px rgba(255, 255, 255, .04), 0 0 0 160px rgba(255, 255, 255, .03);
+    }
+
+    .cta::after {
+      right: -180px;
+      bottom: -240px;
+      width: 500px;
+      height: 500px;
+      box-shadow: 0 0 0 80px rgba(255, 255, 255, .04), 0 0 0 160px rgba(255, 255, 255, .03);
+    }
+
+    .cta__inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta .title {
+      max-width: 1040px;
+      margin-inline: auto;
+      font-size: clamp(3.2rem, 8.5vw, 8.8rem);
+    }
+
+    .cta p {
+      max-width: 620px;
+      margin: 26px auto 34px;
+      color: rgba(255, 255, 255, .82);
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+    }
+
+    .cta .btn--acid {
+      min-height: 64px;
+      padding-inline: 32px;
+    }
+
+    .site-footer {
+      padding: 64px 0 28px;
+      background: var(--ink);
+    }
+
+    .footer__top {
+      display: grid;
+      padding-bottom: 48px;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 50px;
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .footer__brand img {
+      width: 180px;
+      filter: invert(1) grayscale(1) brightness(2);
+    }
+
+    .footer__brand p {
+      max-width: 310px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .footer__col h3 {
+      margin: 0 0 18px;
+      color: var(--white);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .footer__col a {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .88rem;
+      transition: color .2s ease;
+    }
+
+    .footer__col a:hover {
+      color: var(--acid);
+    }
+
+    .footer__bottom {
+      display: flex;
+      padding-top: 24px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: #777c74;
+      font-size: .75rem;
+    }
+
+    .nora-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nora-lockup span {
+      color: #777c74;
+    }
+
+    .nora-lockup img {
+      width: 74px;
+      max-height: 26px;
+      object-fit: contain;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      z-index: 40;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      min-height: 58px;
+      padding: 0 20px;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 999px;
+      background: #22c55e;
+      color: #052e16;
+      box-shadow: 0 14px 38px rgba(0, 0, 0, .3);
+      font-size: .79rem;
+      font-weight: 800;
+      letter-spacing: .03em;
+      transition: transform .25s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-4px);
+    }
+
+    .whatsapp-float__icon {
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      background: #052e16;
+      color: #22c55e;
+      font-size: .8rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: grid;
+      padding: 74px clamp(16px, 4vw, 60px);
+      place-items: center;
+      background: rgba(5, 6, 5, .94);
+      opacity: 0;
+      visibility: hidden;
+      backdrop-filter: blur(16px);
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox__figure {
+      display: grid;
+      max-width: min(1040px, 100%);
+      max-height: 82vh;
+      margin: 0;
+      place-items: center;
+    }
+
+    .lightbox__figure img {
+      max-width: 100%;
+      max-height: 76vh;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      object-fit: contain;
+    }
+
+    .lightbox__figure figcaption {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .lightbox__close,
+    .lightbox__nav {
+      position: absolute;
+      display: grid;
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      color: var(--white);
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .lightbox__close:hover,
+    .lightbox__nav:hover {
+      background: var(--acid);
+      color: var(--ink);
+    }
+
+    .lightbox__close {
+      top: 20px;
+      right: 20px;
+      font-size: 1.35rem;
+    }
+
+    .lightbox__nav {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+    }
+
+    .lightbox__prev {
+      left: 20px;
+    }
+
+    .lightbox__next {
+      right: 20px;
+    }
+
+    .campaign {
+      position: fixed;
+      z-index: 120;
+      inset: 0;
+      display: grid;
+      padding: 18px;
+      place-items: center;
+      background: rgba(5, 6, 5, .84);
+      opacity: 0;
+      visibility: hidden;
+      backdrop-filter: blur(14px);
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .campaign.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .campaign__card {
+      position: relative;
+      display: grid;
+      width: min(900px, 100%);
+      max-height: calc(100svh - 36px);
+      overflow: auto;
+      grid-template-columns: .92fr 1.08fr;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 28px;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 0 35px 110px rgba(0, 0, 0, .55);
+    }
+
+    .campaign__image {
+      position: relative;
+      min-height: 560px;
+      overflow: hidden;
+      border-radius: 27px 0 0 27px;
+      background: #171a17;
+    }
+
+    .campaign__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .campaign__image::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, transparent 60%, rgba(217, 255, 67, .3));
+      content: "";
+    }
+
+    .campaign__content {
+      display: flex;
+      padding: clamp(34px, 6vw, 64px);
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .campaign__badge {
+      display: inline-flex;
+      width: max-content;
+      padding: 8px 12px;
+      border-radius: 99px;
+      background: var(--acid);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .campaign__content h2 {
+      margin: 22px 0 0;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.9rem);
+      letter-spacing: -.065em;
+      line-height: .88;
+      text-transform: uppercase;
+    }
+
+    .campaign__model {
+      margin: 16px 0 0;
+      color: #656960;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .campaign__price {
+      margin: 8px 0 18px;
+      color: var(--orange);
+      font-family: "Syne", sans-serif;
+      font-size: clamp(3.8rem, 8vw, 6rem);
+      font-weight: 800;
+      letter-spacing: -.08em;
+      line-height: 1;
+    }
+
+    .campaign__note {
+      margin: 0 0 24px;
+      color: #555950;
+      font-size: .86rem;
+    }
+
+    .campaign__close {
+      position: absolute;
+      z-index: 3;
+      top: 14px;
+      right: 14px;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.15rem;
+    }
+
+    .campaign__later {
+      margin-top: 14px;
+      padding: 6px;
+      border: 0;
+      background: transparent;
+      color: #656960;
+      cursor: pointer;
+      font-size: .76rem;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1020px) {
+      .nav__links {
+        display: none;
+      }
+
+      .nav__cta {
+        margin-left: auto;
+        margin-right: 8px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero__layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero__copy {
+        max-width: 800px;
+      }
+
+      .hero__visual {
+        min-height: 620px;
+      }
+
+      .hero__frame {
+        inset: 0 10% 2% 10%;
+      }
+
+      .showcase__head,
+      .process__layout,
+      .faq__layout {
+        grid-template-columns: 1fr;
+      }
+
+      .process__intro,
+      .faq__intro {
+        position: static;
+      }
+
+      .model-card {
+        grid-column: span 6;
+      }
+
+      .model-card:nth-child(2),
+      .model-card:nth-child(3) {
+        transform: none;
+      }
+
+      .model-card:last-child {
+        grid-column: 4 / span 6;
+      }
+
+      .footer__top {
+        grid-template-columns: 1.4fr repeat(3, 1fr);
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+
+      .site-header,
+      .site-header.is-scrolled {
+        top: 46px;
+      }
+
+      .nav {
+        width: calc(100% - 24px);
+        min-height: 60px;
+        padding: 7px 7px 7px 16px;
+      }
+
+      .brand img {
+        width: 118px;
+      }
+
+      .nav__cta {
+        display: none;
+      }
+
+      .hero {
+        padding: 148px 0 54px;
+      }
+
+      .hero .display {
+        font-size: clamp(3.15rem, 17vw, 5.4rem);
+      }
+
+      .hero .display .accent {
+        transform: none;
+      }
+
+      .hero__sub {
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+      }
+
+      .hero__sub::before {
+        width: 34px;
+      }
+
+      .hero__actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero__visual {
+        min-height: 500px;
+      }
+
+      .hero__frame {
+        inset: 0 5% 2%;
+        border-radius: 150px 150px 24px 24px;
+      }
+
+      .hero__model {
+        top: 38px;
+        right: 0;
+        width: 92px;
+        height: 92px;
+      }
+
+      .hero__price {
+        right: 0;
+        bottom: 52px;
+        width: 210px;
+      }
+
+      .hero__micro {
+        left: 3px;
+      }
+
+      .proof__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .proof__item {
+        min-height: 122px;
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .proof__item:nth-child(2) {
+        border-right: 0;
+      }
+
+      .proof__item:nth-child(3),
+      .proof__item:nth-child(4) {
+        border-bottom: 0;
+      }
+
+      .collections__head,
+      .references__head {
+        display: block;
+      }
+
+      .collections__head p,
+      .references__head p {
+        margin-top: 20px;
+      }
+
+      .collection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .collection-card,
+      .collection-card:first-child {
+        min-height: 440px;
+        grid-row: auto;
+      }
+
+      .collection-card:not(:first-child) {
+        min-height: 310px;
+      }
+
+      .model-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .model-card,
+      .model-card:last-child {
+        grid-column: auto;
+        min-height: 410px;
+      }
+
+      .showcase__cta {
+        margin-top: 36px;
+      }
+
+      .step {
+        grid-template-columns: 48px 1fr;
+        gap: 14px;
+      }
+
+      .reference-card {
+        width: 210px;
+      }
+
+      .faq details p {
+        padding-right: 20px;
+      }
+
+      .footer__top {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer__brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer__bottom {
+        display: grid;
+      }
+
+      .whatsapp-float {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        justify-content: center;
+      }
+
+      .lightbox {
+        padding: 68px 12px 90px;
+      }
+
+      .lightbox__nav {
+        top: auto;
+        bottom: 22px;
+        transform: none;
+      }
+
+      .lightbox__prev {
+        left: calc(50% - 60px);
+      }
+
+      .lightbox__next {
+        right: calc(50% - 60px);
+      }
+
+      .campaign__card {
+        grid-template-columns: 1fr;
+      }
+
+      .campaign__image {
+        min-height: 0;
+        height: min(38svh, 330px);
+        border-radius: 27px 27px 0 0;
+      }
+
+      .campaign__content {
+        padding: 28px 24px 26px;
+      }
+
+      .campaign__content h2 {
+        margin-top: 16px;
+        font-size: 2.7rem;
+      }
+
+      .campaign__price {
+        font-size: 4.4rem;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hero__visual {
+        min-height: 450px;
+      }
+
+      .hero__price {
+        width: 184px;
+        padding: 16px;
+      }
+
+      .hero__micro {
+        padding: 13px 14px;
+      }
+
+      .proof__item {
+        padding: 24px 16px;
+      }
+
+      .collection-card,
+      .collection-card:first-child {
+        min-height: 390px;
+      }
+
+      .model-card {
+        min-height: 360px;
+      }
+
+      .campaign__image {
+        height: 29svh;
+      }
+
+      .campaign__content {
+        padding-top: 22px;
+      }
+
+      .campaign__content h2 {
+        font-size: 2.25rem;
+      }
+
+      .campaign__price {
+        font-size: 3.8rem;
+        margin-bottom: 10px;
+      }
+
+      .campaign__note {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Forma Kutusu",
+    "url": "https://formakutusu.com/",
+    "logo": "https://formakutusu.com/formakutusu-siyah-logo.png",
+    "description": "Takımlara özel forma tasarımı ve üretimi.",
+    "sameAs": [
+      "https://www.instagram.com/formakutusu/",
+      "https://www.tiktok.com/@formakutusunora",
+      "https://www.facebook.com/FormaKutusuNora"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+90-534-857-88-36",
+      "contactType": "sales",
+      "availableLanguage": "Turkish"
+    }
+  }
+  </script>
 </head>
-<body class="bg-gray-50 text-gray-900 campaign-popup-open">
 
-    <!-- FK-007 KAMPANYA POPUP -->
-    <div id="campaign-popup"
-         class="campaign-popup"
-         role="dialog"
-         aria-modal="true"
-         aria-labelledby="campaign-popup-title">
-        <div class="campaign-popup__card">
-            <button type="button"
-                    class="campaign-popup__close"
-                    aria-label="Kampanya penceresini kapat"
-                    data-campaign-close>
-                <i class="fas fa-xmark" aria-hidden="true"></i>
-            </button>
-            <div class="campaign-popup__visual">
-                <img src="gorseller/FK-007.jpg"
-                     alt="FK-007 forma ve şort modeli">
-            </div>
-            <div class="campaign-popup__content">
-                <span class="campaign-popup__badge">İNDİRİM KAMPANYASI</span>
-                <p class="campaign-popup__model">FK-007</p>
-                <h2 id="campaign-popup-title" class="campaign-popup__title">SAHAYA AVANTAJLI ÇIK</h2>
-                <p class="campaign-popup__set">FORMA + ŞORT</p>
-                <p class="campaign-popup__price" aria-label="400 Türk lirası">
-                    <span class="campaign-popup__price-number">400</span>
-                    <span class="campaign-popup__currency">₺</span>
-                </p>
-                <a class="campaign-popup__cta"
-                   href="https://wa.me/905348578836?text=Merhaba%2C%20FK-007%20kampanyas%C4%B1ndan%20yararlanmak%20istiyorum.%20Forma%20%2B%20%C5%9Fort%20400%E2%82%BA."
-                   target="_blank"
-                   rel="noopener">
-                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                    Kampanyadan Yararlan
-                </a>
-                <button type="button"
-                        class="campaign-popup__later"
-                        data-campaign-close>
-                    Şimdi değil
-                </button>
-            </div>
-        </div>
+<body>
+  <aside class="announcement" aria-label="Hizmet bilgileri">
+    <div class="announcement__track">
+      <div class="announcement__group">
+        <span>Ücretsiz tasarım desteği</span>
+        <span>Minimum 5 adet üretim</span>
+        <span>Türkiye geneli gönderim</span>
+        <span>İsim, numara ve logo dahil</span>
+      </div>
+      <div class="announcement__group" aria-hidden="true">
+        <span>Ücretsiz tasarım desteği</span>
+        <span>Minimum 5 adet üretim</span>
+        <span>Türkiye geneli gönderim</span>
+        <span>İsim, numara ve logo dahil</span>
+      </div>
     </div>
+  </aside>
 
+  <header class="site-header" id="site-header">
+    <nav class="nav" aria-label="Ana menü">
+      <a class="brand" href="#anasayfa" aria-label="Forma Kutusu ana sayfa">
+        <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" width="284" height="72">
+        <span class="brand__dot" aria-hidden="true"></span>
+      </a>
 
-    <!-- NAV -->
-    <nav class="bg-black sticky top-0 z-50 shadow-lg">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#">
-                <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="h-10 w-auto">
-            </a>
-            <div class="hidden md:flex gap-8">
-    <a href="katalog.html" class="nav-link">Futbol</a>
-    <a href="katalog-basketbol.html" class="nav-link">Basketbol</a>
-    <a href="katalog-voleybol.html" class="nav-link">Voleybol</a>
-    <a href="#iletisim" class="nav-link">İletişim</a>
-</div>
-            <div class="flex items-center gap-3">
-                <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
-                   target="_blank"
-                   class="btn-whatsapp px-4 py-2 rounded-full text-sm flex items-center gap-2">
-                    <i class="fab fa-whatsapp"></i> Teklif Al
-                </a>
-                <button id="menu-btn" class="md:hidden text-white text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden bg-black border-t border-gray-800 px-6 py-4 flex-col gap-4">
-    <a href="katalog.html" class="nav-link block py-1" onclick="closeMenu()">Futbol</a>
-    <a href="katalog-basketbol.html" class="nav-link block py-1" onclick="closeMenu()">Basketbol</a>
-    <a href="katalog-voleybol.html" class="nav-link block py-1" onclick="closeMenu()">Voleybol</a>
-    <a href="#iletisim" class="nav-link block py-1" onclick="closeMenu()">İletişim</a>
-</div>
+      <div class="nav__links">
+        <a href="#modeller">Modeller</a>
+        <a href="#surec">Nasıl Çalışır?</a>
+        <a href="#referanslar">Referanslar</a>
+        <a href="#sorular">Sık Sorulanlar</a>
+      </div>
+
+      <a class="nav__cta" href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener">
+        Teklif Al ↗
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Menüyü aç" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
     </nav>
+  </header>
 
-    <!-- HERO -->
-    <section class="hero-section section">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="Redesign_the_source_video_as_a.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content text-white text-center px-6 py-20">
-            <div class="max-w-4xl mx-auto">
-                <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-20 mb-8">
-                <h2 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                    Takımınıza Özel<br>Forma Üretimi
-                </h2>
-                <p class="text-lg md:text-xl mb-10 text-gray-300">
-                    Futbol, basketbol, voleybol takımları için profesyonel tasarım, HD baskı ve hızlı teslimat.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="#iletisim"
-                       class="btn-gold px-10 py-4 rounded-full text-lg w-full sm:w-auto text-center">
-                        Hemen Teklif Al
-                    </a>
-                    <a href="https://wa.me/905348578836" target="_blank"
-   class="btn-whatsapp px-10 py-4 rounded-full text-lg w-full sm:w-auto text-center flex items-center justify-center gap-2">
-    <i class="fab fa-whatsapp"></i> WhatsApp
-</a>
-                </div>
-            </div>
-
-            <!-- SONSUZ FİLM ŞERİDİ -->
-            <div class="filmstrip-wrap" aria-label="Forma tasarım referansları">
-                <div class="filmstrip-track">
-                <div class="filmstrip-group">
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_1.webp" alt="Forma tasarım referansı 1" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_2.webp" alt="Forma tasarım referansı 2" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_3.webp" alt="Forma tasarım referansı 3" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_4.webp" alt="Forma tasarım referansı 4" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_5.webp" alt="Forma tasarım referansı 5" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_6.webp" alt="Forma tasarım referansı 6" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_7.webp" alt="Forma tasarım referansı 7" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_8.webp" alt="Forma tasarım referansı 8" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_9.webp" alt="Forma tasarım referansı 9" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_10.webp" alt="Forma tasarım referansı 10" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_11.webp" alt="Forma tasarım referansı 11" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_12.webp" alt="Forma tasarım referansı 12" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_13.webp" alt="Forma tasarım referansı 13" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_14.webp" alt="Forma tasarım referansı 14" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_15.webp" alt="Forma tasarım referansı 15" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_16.webp" alt="Forma tasarım referansı 16" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_17.webp" alt="Forma tasarım referansı 17" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_18.webp" alt="Forma tasarım referansı 18" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_19.webp" alt="Forma tasarım referansı 19" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_20.webp" alt="Forma tasarım referansı 20" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_21.webp" alt="Forma tasarım referansı 21" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_22.webp" alt="Forma tasarım referansı 22" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_23.webp" alt="Forma tasarım referansı 23" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item">
-                        <img src="referanslar/referans_24.webp" alt="Forma tasarım referansı 24" decoding="async">
-                    </a>
-                </div>
-                <div class="filmstrip-group" aria-hidden="true">
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_1.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_2.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_3.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_4.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_5.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_6.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_7.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_8.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_9.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_10.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_11.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_12.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_13.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_14.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_15.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_16.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_17.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_18.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_19.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_20.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_21.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_22.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_23.webp" alt="" decoding="async">
-                    </a>
-                    <a href="katalog.html" class="filmstrip-item" tabindex="-1">
-                        <img src="referanslar/referans_24.webp" alt="" decoding="async">
-                    </a>
-                </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- BİLGİ BANDI -->
-<div style="background-color:#1a1a1a; border-bottom: 1px solid #2a2a2a;">
-    <div class="max-w-6xl mx-auto px-4 py-3">
-        <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-center text-sm font-medium" style="color:var(--gold)">
-            <span>✓ Minimum 5 Adet</span>
-            <span>✓ Renkler Değiştirilebilir</span>
-            <span>✓ İsim & Numara Dahil</span>
-            <span>✓ Ücretsiz Tasarım</span>
-            <span>✓ Türkiye Geneli Gönderim</span>
-        </div>
+  <div class="mobile-menu" id="mobile-menu" inert>
+    <div class="mobile-menu__links">
+      <a href="#modeller">Modeller</a>
+      <a href="#surec">Süreç</a>
+      <a href="#referanslar">Referanslar</a>
+      <a href="#sorular">Sorular</a>
+      <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener">Teklif Al ↗</a>
     </div>
-</div>
+  </div>
 
-    <!-- 3 ÖZELLIK -->
-    <section class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
+  <main>
+    <section class="hero" id="anasayfa">
+      <div class="container hero__layout">
+        <div class="hero__copy">
+          <p class="eyebrow">Takımına özel üretim</p>
+          <h1 class="display">
+            <span>Sadece</span>
+            <span class="stroke">Forma</span>
+            <span class="accent">Değil.</span>
+          </h1>
+
+          <div class="hero__sub">
+            <p>Takımının karakterini tasarlıyor, profesyonel süblimasyon baskıyla sahaya taşıyoruz.</p>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn btn--acid" href="katalog.html">
+              Futbol Modelleri <span class="arrow">→</span>
+            </a>
+            <a class="btn btn--ghost" href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener">
+              WhatsApp’tan Yaz
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__visual" role="group" aria-label="Forma Kutusu üretim ve model tanıtımı">
+          <div class="hero__frame">
+            <video id="hero-video" muted loop playsinline preload="metadata" poster="gorseller/FK-007.jpg">
+              <source src="Redesign_the_source_video_as_a.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hero__model">
             <div>
-                <div class="text-4xl mb-4" style="color:var(--gold)"><i class="fas fa-paint-brush"></i></div>
-                <h3 class="text-xl font-semibold mb-2">Özel Tasarım</h3>
-                <p class="text-gray-500">Takımınıza özel renk ve logo ile hazırlanır.</p>
+              <strong>329+</strong>
+              <span>Forma modeli</span>
             </div>
+          </div>
+          <div class="hero__price">
+            <small>FK-007 kampanya</small>
+            <strong>400₺</strong>
+            <span>Forma + şort takım fiyatı</span>
+          </div>
+          <div class="hero__micro">
+            <strong>05</strong>
+            <span>Minimum sipariş</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof" aria-label="Forma Kutusu avantajları">
+      <div class="container proof__grid">
+        <div class="proof__item">
+          <strong>HD</strong>
+          <span>Canlı süblimasyon baskı</span>
+        </div>
+        <div class="proof__item">
+          <strong>∞</strong>
+          <span>Renk ve desen seçeneği</span>
+        </div>
+        <div class="proof__item">
+          <strong>%100</strong>
+          <span>Takımına özel tasarım</span>
+        </div>
+        <div class="proof__item">
+          <strong>81 İl</strong>
+          <span>Türkiye geneli gönderim</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section collections" id="modeller">
+      <div class="container">
+        <div class="collections__head reveal">
+          <div>
+            <p class="eyebrow">Sporunu seç</p>
+            <h2 class="title">Sahadaki kimliğini oluştur.</h2>
+          </div>
+          <p>Hazır modellerimizden birini seç; takım renkleri, arma, sponsor, isim ve numara detaylarını sana göre hazırlayalım.</p>
+        </div>
+
+        <div class="collection-grid">
+          <a class="collection-card reveal" href="katalog.html">
+            <img src="gorseller/FK-001.jpg" alt="Takıma özel futbol forması modeli" loading="lazy">
+            <span class="collection-card__top">Kataloğu aç</span>
+            <div class="collection-card__body">
+              <span>01 / En geniş koleksiyon</span>
+              <h3>Futbol <b>↗</b></h3>
+            </div>
+          </a>
+
+          <a class="collection-card reveal" href="katalog-basketbol.html">
+            <img src="gorseller/FK-004.jpg" alt="Takıma özel basketbol forması modeli" loading="lazy">
+            <span class="collection-card__top">Kataloğu aç</span>
+            <div class="collection-card__body">
+              <span>02 / Dinamik kalıplar</span>
+              <h3>Basketbol <b>↗</b></h3>
+            </div>
+          </a>
+
+          <a class="collection-card reveal" href="katalog-voleybol.html">
+            <img src="gorseller/FK-006.jpg" alt="Takıma özel voleybol forması modeli" loading="lazy">
+            <span class="collection-card__top">Kataloğu aç</span>
+            <div class="collection-card__body">
+              <span>03 / Takımına özel</span>
+              <h3>Voleybol <b>↗</b></h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section showcase">
+      <div class="container">
+        <div class="showcase__head reveal">
+          <div>
+            <p class="eyebrow">Öne çıkan modeller</p>
+            <h2 class="title">Bir model seç. Gerisini biz yapalım.</h2>
+          </div>
+          <p class="lead">Her model takımının renklerine göre yeniden hazırlanabilir. Göğüs logosu, sponsor, isim ve numara tasarıma eklenir.</p>
+        </div>
+
+        <div class="model-grid">
+          <a class="model-card reveal" href="katalog.html">
+            <img src="gorseller/FK-002.jpg" alt="FK-002 futbol forma modeli" loading="lazy">
+            <div class="model-card__meta">
+              <strong>FK-002</strong>
+              <span>İncele ↗</span>
+            </div>
+          </a>
+          <a class="model-card reveal" href="katalog.html">
+            <img src="gorseller/FK-003.jpg" alt="FK-003 futbol forma modeli" loading="lazy">
+            <div class="model-card__meta">
+              <strong>FK-003</strong>
+              <span>İncele ↗</span>
+            </div>
+          </a>
+          <a class="model-card reveal" href="katalog.html">
+            <img src="gorseller/FK-005.jpg" alt="FK-005 futbol forma modeli" loading="lazy">
+            <div class="model-card__meta">
+              <strong>FK-005</strong>
+              <span>İncele ↗</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="showcase__cta">
+          <a class="btn btn--acid" href="katalog.html">
+            Tüm Futbol Modellerini Gör <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process" id="surec">
+      <div class="container process__layout">
+        <div class="process__intro reveal">
+          <p class="eyebrow">Dört adımda takımın hazır</p>
+          <h2 class="title">Fikirden sahaya.</h2>
+          <p>Karmaşık sipariş süreci yok. Model ve renk seçimiyle başlarız; tasarımı onayından sonra üretime alırız.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step reveal">
+            <div class="step__num">01</div>
             <div>
-                <div class="text-4xl mb-4" style="color:var(--gold)"><i class="fas fa-print"></i></div>
-                <h3 class="text-xl font-semibold mb-2">HD Baskı</h3>
-                <p class="text-gray-500">Dayanıklı kumaş, canlı ve uzun ömürlü renkler.</p>
+              <h3>Modelini seç</h3>
+              <p>Katalogdan takımına en çok yakışan modeli veya beğendiğin tasarım yönünü belirle.</p>
             </div>
+          </article>
+          <article class="step reveal">
+            <div class="step__num">02</div>
             <div>
-                <div class="text-4xl mb-4" style="color:var(--gold)"><i class="fas fa-box"></i></div>
-                <h3 class="text-xl font-semibold mb-2">Toplu Sipariş</h3>
-                <p class="text-gray-500">Kulüpler ve kurumlar için uygun fiyatlı üretim.</p>
+              <h3>Detayları gönder</h3>
+              <p>Takım renklerini, armayı, sponsorları, isim-numara listesini ve bedenleri WhatsApp üzerinden ilet.</p>
             </div>
+          </article>
+          <article class="step reveal">
+            <div class="step__num">03</div>
+            <div>
+              <h3>Tasarımı onayla</h3>
+              <p>Takımına özel hazırlanan görseli kontrol et. Gerekli düzenlemeler tamamlanınca üretime onay ver.</p>
+            </div>
+          </article>
+          <article class="step reveal">
+            <div class="step__num">04</div>
+            <div>
+              <h3>Sahaya çık</h3>
+              <p>Formaların profesyonel baskı ve dikim sürecinden geçsin, paketlenip adresine gönderilsin.</p>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- HİZMETLER -->
-    <!-- KATALOG ÖNİZLEME -->
-    <section class="py-20 bg-gray-100">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <p class="text-sm font-semibold mb-2 tracking-widest" style="color:var(--gold)">FORMA MODELLERİ</p>
-                <h2 class="text-4xl font-bold mb-4">Katalogdan Seçin</h2>
-                <p class="text-gray-500">Beğendiğiniz modeli seçin, WhatsApp ile bize ulaşın.</p>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-                <a href="katalog.html" class="block bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow">
-                    <img src="gorseller/FK-001.jpg" alt="FK-001" class="w-full aspect-square object-cover">
-                </a>
-                <a href="katalog.html" class="block bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow">
-                    <img src="gorseller/FK-002.jpg" alt="FK-002" class="w-full aspect-square object-cover">
-                </a>
-                <a href="katalog.html" class="block bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow">
-                    <img src="gorseller/FK-003.jpg" alt="FK-003" class="w-full aspect-square object-cover">
-                </a>
-                <a href="katalog.html" class="block bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow">
-                    <img src="gorseller/FK-004.jpg" alt="FK-004" class="w-full aspect-square object-cover">
-                </a>
-                <a href="katalog.html" class="block bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow">
-                    <img src="gorseller/FK-005.jpg" alt="FK-005" class="w-full aspect-square object-cover">
-                </a>
-                <a href="katalog.html" class="block bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow">
-                    <img src="gorseller/FK-006.jpg" alt="FK-006" class="w-full aspect-square object-cover">
-                </a>
-            </div>
-            <div class="text-center">
-                <a href="katalog.html"
-                   class="btn-gold inline-flex items-center gap-2 px-10 py-4 rounded-full text-lg">
-                    Tüm Modelleri Gör <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+    <section class="section references" id="referanslar">
+      <div class="container references__head reveal">
+        <div>
+          <p class="eyebrow">Üretimden gerçek kareler</p>
+          <h2 class="title">Biz yaptık.<br>Takımlar giydi.</h2>
         </div>
-    </section>
-    <section id="hizmetler" class="py-20 bg-gray-100 section">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">Hizmetlerimiz</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow">
-                    <h3 class="text-xl font-semibold mb-2">Forma Tasarımı</h3>
-                    <p class="text-gray-500">Takımınıza özel renk, logo ve numara düzeniyle tasarım hazırlanır.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow">
-                    <h3 class="text-xl font-semibold mb-2">Forma & Şort Üretimi</h3>
-                    <p class="text-gray-500">Kaliteli kumaş ve dayanıklı baskı teknikleriyle seri üretim yapılır.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow">
-                    <h3 class="text-xl font-semibold mb-2">İsim & Numara Baskısı</h3>
-                    <p class="text-gray-500">Fleks, süblimasyon veya nakış yöntemiyle profesyonel uygulama.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow">
-                    <h3 class="text-xl font-semibold mb-2">Hızlı Teslimat</h3>
-                    <p class="text-gray-500">Üretim tamamlandıktan sonra güvenli kargo ile adresinize teslim edilir.</p>
-                </div>
-            </div>
+        <p>Görsellerin üzerine tıklayarak ürettiğimiz formaları yakından inceleyebilirsin.</p>
+      </div>
+
+      <div class="reference-rail">
+        <div class="reference-track" id="reference-track">
+          <div class="reference-group">
+            <button class="reference-card" type="button" data-reference="0"><img src="referanslar/referans_1.webp" alt="Üretilen forma referansı 1" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="1"><img src="referanslar/referans_2.webp" alt="Üretilen forma referansı 2" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="2"><img src="referanslar/referans_3.webp" alt="Üretilen forma referansı 3" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="3"><img src="referanslar/referans_4.webp" alt="Üretilen forma referansı 4" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="4"><img src="referanslar/referans_5.webp" alt="Üretilen forma referansı 5" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="5"><img src="referanslar/referans_6.webp" alt="Üretilen forma referansı 6" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="6"><img src="referanslar/referans_7.webp" alt="Üretilen forma referansı 7" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="7"><img src="referanslar/referans_8.webp" alt="Üretilen forma referansı 8" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="8"><img src="referanslar/referans_9.webp" alt="Üretilen forma referansı 9" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="9"><img src="referanslar/referans_10.webp" alt="Üretilen forma referansı 10" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="10"><img src="referanslar/referans_11.webp" alt="Üretilen forma referansı 11" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="11"><img src="referanslar/referans_12.webp" alt="Üretilen forma referansı 12" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="12"><img src="referanslar/referans_13.webp" alt="Üretilen forma referansı 13" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="13"><img src="referanslar/referans_14.webp" alt="Üretilen forma referansı 14" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="14"><img src="referanslar/referans_15.webp" alt="Üretilen forma referansı 15" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="15"><img src="referanslar/referans_16.webp" alt="Üretilen forma referansı 16" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="16"><img src="referanslar/referans_17.webp" alt="Üretilen forma referansı 17" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="17"><img src="referanslar/referans_18.webp" alt="Üretilen forma referansı 18" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="18"><img src="referanslar/referans_19.webp" alt="Üretilen forma referansı 19" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="19"><img src="referanslar/referans_20.webp" alt="Üretilen forma referansı 20" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="20"><img src="referanslar/referans_21.webp" alt="Üretilen forma referansı 21" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="21"><img src="referanslar/referans_22.webp" alt="Üretilen forma referansı 22" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="22"><img src="referanslar/referans_23.webp" alt="Üretilen forma referansı 23" loading="lazy"></button>
+            <button class="reference-card" type="button" data-reference="23"><img src="referanslar/referans_24.webp" alt="Üretilen forma referansı 24" loading="lazy"></button>
+          </div>
+
+          <div class="reference-group" inert>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="0"><img src="referanslar/referans_1.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="1"><img src="referanslar/referans_2.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="2"><img src="referanslar/referans_3.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="3"><img src="referanslar/referans_4.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="4"><img src="referanslar/referans_5.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="5"><img src="referanslar/referans_6.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="6"><img src="referanslar/referans_7.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="7"><img src="referanslar/referans_8.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="8"><img src="referanslar/referans_9.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="9"><img src="referanslar/referans_10.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="10"><img src="referanslar/referans_11.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="11"><img src="referanslar/referans_12.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="12"><img src="referanslar/referans_13.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="13"><img src="referanslar/referans_14.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="14"><img src="referanslar/referans_15.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="15"><img src="referanslar/referans_16.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="16"><img src="referanslar/referans_17.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="17"><img src="referanslar/referans_18.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="18"><img src="referanslar/referans_19.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="19"><img src="referanslar/referans_20.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="20"><img src="referanslar/referans_21.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="21"><img src="referanslar/referans_22.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="22"><img src="referanslar/referans_23.webp" alt="" loading="lazy"></button>
+            <button class="reference-card" type="button" tabindex="-1" data-reference="23"><img src="referanslar/referans_24.webp" alt="" loading="lazy"></button>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- SÜREÇ -->
-    <section id="surec" class="py-20 bg-white section">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">Üretim Süreci</h2>
-            <div class="space-y-10">
-                <div class="flex gap-6 items-start">
-                    <div class="step-num">1</div>
-                    <div>
-                        <h3 class="font-semibold text-lg">Bilgi Alımı</h3>
-                        <p class="text-gray-500">Takım büyüklüğü, renk tercihleri ve logo bilgileri netleştirilir.</p>
-                    </div>
-                </div>
-                <div class="flex gap-6 items-start">
-                    <div class="step-num">2</div>
-                    <div>
-                        <h3 class="font-semibold text-lg">Tasarım Onayı</h3>
-                        <p class="text-gray-500">Hazırlanan tasarım taslağı paylaşılır, revizelerle birlikte onay alınır.</p>
-                    </div>
-                </div>
-                <div class="flex gap-6 items-start">
-                    <div class="step-num">3</div>
-                    <div>
-                        <h3 class="font-semibold text-lg">Üretim</h3>
-                        <p class="text-gray-500">Onaylanan tasarım HD baskı yöntemiyle seri üretime alınır.</p>
-                    </div>
-                </div>
-                <div class="flex gap-6 items-start">
-                    <div class="step-num">4</div>
-                    <div>
-                        <h3 class="font-semibold text-lg">Teslimat</h3>
-                        <p class="text-gray-500">Ürünler paketlenerek kargo ile adresinize ulaştırılır.</p>
-                    </div>
-                </div>
-            </div>
+    <section class="section faq" id="sorular">
+      <div class="container faq__layout">
+        <div class="faq__intro reveal">
+          <p class="eyebrow">Aklındaki kısa sorular</p>
+          <h2 class="title">Sipariş vermeden önce.</h2>
+          <p class="lead">Burada olmayan bir detay için WhatsApp’tan doğrudan yazabilirsin.</p>
         </div>
+
+        <div class="faq__items">
+          <details class="reveal">
+            <summary>Minimum kaç adet sipariş verebilirim?</summary>
+            <p>Üretim en az 5 adet forma ile başlar. Takım sayısına ve seçilen ürüne göre teklif hazırlanır.</p>
+          </details>
+          <details class="reveal">
+            <summary>Tasarım için ayrıca ücret öder miyim?</summary>
+            <p>Hayır. Forma siparişinde takımına özel tasarım ve gerekli revizeler ücretsiz hazırlanır.</p>
+          </details>
+          <details class="reveal">
+            <summary>Renkleri ve modeli değiştirebilir miyim?</summary>
+            <p>Evet. Katalogdaki modeller takım renklerine göre düzenlenebilir; logo, sponsor, isim ve numara eklenebilir.</p>
+          </details>
+          <details class="reveal">
+            <summary>Çocuk ve yetişkin bedenleri var mı?</summary>
+            <p>Evet. Çocuk ve yetişkin beden seçenekleriyle aynı takım için farklı bedenlerde üretim yapılabilir.</p>
+          </details>
+          <details class="reveal">
+            <summary>Üretim ve teslimat ne kadar sürer?</summary>
+            <p>Süre sipariş adedine ve üretim yoğunluğuna göre değişir. Güncel teslim tarihi sipariş öncesinde net olarak paylaşılır.</p>
+          </details>
+          <details class="reveal">
+            <summary>Türkiye’nin her yerine gönderiyor musunuz?</summary>
+            <p>Evet. Tamamlanan siparişler paketlenerek Türkiye’nin 81 iline kargo ile gönderilir.</p>
+          </details>
+        </div>
+      </div>
     </section>
 
-    <!-- NORA -->
-<section id="nora" class="py-20 bg-black text-white text-center section">
-    <div class="max-w-3xl mx-auto px-6">
-        <img src="nora-logo-vibes.png" alt="NORA" class="mx-auto h-20 mb-6">
-        <h2 class="text-3xl font-bold mb-4">Üretim Gücümüz: NORA</h2>
-        <p class="text-gray-400 text-lg">
-            Forma Kutusu, takımınıza özel forma modellerini keşfedebileceğiniz ve teklif alabileceğiniz platformdur.
-            Üretim, NORA spor giyim tecrübesiyle gerçekleştirilir.
-        </p>
+    <section class="section cta" id="iletisim">
+      <div class="container cta__inner reveal">
+        <h2 class="title">Takımın hazırsa, biz de hazırız.</h2>
+        <p>Kaç adet forma istediğini ve beğendiğin model kodunu yaz. Sana hızlıca dönüş yapalım.</p>
+        <a class="btn btn--acid" href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener">
+          WhatsApp’tan Teklif Al <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" width="360" height="92">
+          <p>Futbol, basketbol ve voleybol takımlarına özel forma tasarımı ve profesyonel üretim.</p>
+        </div>
+
+        <div class="footer__col">
+          <h3>Katalog</h3>
+          <a href="katalog.html">Futbol Formaları</a>
+          <a href="katalog-basketbol.html">Basketbol Formaları</a>
+          <a href="katalog-voleybol.html">Voleybol Formaları</a>
+        </div>
+
+        <div class="footer__col">
+          <h3>İletişim</h3>
+          <a href="https://wa.me/905348578836" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://www.instagram.com/formakutusu/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@formakutusunora" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://www.facebook.com/FormaKutusuNora" target="_blank" rel="noopener">Facebook</a>
+        </div>
+
+        <div class="footer__col">
+          <h3>Forma Kutusu</h3>
+          <a href="#surec">Üretim Süreci</a>
+          <a href="#referanslar">Referanslar</a>
+          <a href="#sorular">Sık Sorulanlar</a>
+          <a href="#iletisim">Teklif Al</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 Forma Kutusu. Tüm hakları saklıdır.</span>
+        <div class="nora-lockup">
+          <span>Üretim gücü</span>
+          <img src="nora-logo-vibes.png" alt="NORA" width="148" height="52">
+        </div>
+      </div>
     </div>
-</section>
+  </footer>
 
-    <!-- SİPARİŞ BİLGİLERİ -->
-<section class="py-20 bg-white section">
-    <div class="max-w-4xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <p class="text-sm font-semibold mb-2 tracking-widest" style="color:var(--gold)">SIKÇA SORULANLAR</p>
-            <h2 class="text-4xl font-bold">Sipariş Hakkında</h2>
-        </div>
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="border border-gray-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-lg mb-2">Minimum Sipariş</h3>
-                <p class="text-gray-500">En az 5 adet sipariş ile üretim başlar. Takım büyüklüğüne göre fiyat değişir.</p>
-            </div>
-            <div class="border border-gray-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-lg mb-2">Tasarım & Revize</h3>
-                <p class="text-gray-500">Ücretsiz tasarım hazırlanır. Onay öncesinde revize yapılır.</p>
-            </div>
-            <div class="border border-gray-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-lg mb-2">Üretim Süresi</h3>
-                <p class="text-gray-500">Tasarım onayından sonra üretim başlar. Süre sipariş büyüklüğüne göre değişir, WhatsApp'tan öğrenebilirsiniz.</p>
-            </div>
-            <div class="border border-gray-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-lg mb-2">Ödeme</h3>
-                <p class="text-gray-500">Havale / EFT ile ödeme yapılır. Detaylar sipariş aşamasında paylaşılır.</p>
-            </div>
-            <div class="border border-gray-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-lg mb-2">Kargo & Teslimat</h3>
-                <p class="text-gray-500">Türkiye'nin her iline kargo ile gönderim yapılır.</p>
-            </div>
-            <div class="border border-gray-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-lg mb-2">Renk & Kişiselleştirme</h3>
-                <p class="text-gray-500">Tüm modellerde renk değiştirilebilir. İsim, numara, logo ve sponsor uygulanabilir.</p>
-            </div>
-        </div>
+  <a class="whatsapp-float" href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener" aria-label="WhatsApp üzerinden forma teklifi al">
+    <span class="whatsapp-float__icon">W</span>
+    WhatsApp’tan Teklif Al
+  </a>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Forma referansı önizleme" hidden>
+    <button class="lightbox__close" type="button" data-lightbox-close aria-label="Görseli kapat">×</button>
+    <button class="lightbox__nav lightbox__prev" type="button" data-lightbox-prev aria-label="Önceki görsel">←</button>
+    <figure class="lightbox__figure">
+      <img id="lightbox-image" src="gorseller/FK-001.jpg" alt="">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__next" type="button" data-lightbox-next aria-label="Sonraki görsel">→</button>
+  </div>
+
+  <div class="campaign" id="campaign" role="dialog" aria-modal="true" aria-labelledby="campaign-title" hidden>
+    <div class="campaign__card">
+      <button class="campaign__close" type="button" data-campaign-close aria-label="Kampanya penceresini kapat">×</button>
+      <div class="campaign__image">
+        <img src="gorseller/FK-007.jpg" alt="FK-007 forma ve şort kampanya modeli">
+      </div>
+      <div class="campaign__content">
+        <span class="campaign__badge">Sınırlı süreli kampanya</span>
+        <h2 id="campaign-title">Sahaya avantajlı çık.</h2>
+        <p class="campaign__model">FK-007 · Forma + Şort</p>
+        <div class="campaign__price">400₺</div>
+        <p class="campaign__note">Takım renklerine özel tasarım, isim ve numara uygulamasıyla.</p>
+        <a class="btn btn--acid" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-007%20kampanyas%C4%B1ndan%20yararlanmak%20istiyorum.%20Forma%20%2B%20%C5%9Fort%20400%E2%82%BA." target="_blank" rel="noopener">
+          Kampanyayı Sor <span class="arrow">→</span>
+        </a>
+        <button class="campaign__later" type="button" data-campaign-close>Şimdi değil, modelleri incele</button>
+      </div>
     </div>
-</section>
-    
-    <!-- İLETİŞİM -->
-    <section id="iletisim" class="py-24 text-white text-center section" style="background-color: var(--dark);">
-        <div class="max-w-2xl mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-3">Hemen Teklif Alın</h2>
-            <p class="text-gray-400 mb-8">Forma modellerini inceleyin, WhatsApp üzerinden bizimle iletişime geçin.</p>
-            <a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
-   target="_blank"
-   class="btn-whatsapp inline-flex items-center gap-3 px-10 py-5 rounded-full text-xl">
-    <i class="fab fa-whatsapp text-2xl"></i> WhatsApp'tan İletişime Geç
-</a>
-        </div>
-    </section>
+  </div>
 
-   <!-- FOOTER -->
-<footer class="bg-black text-gray-500 py-14">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-            <div>
-                <img src="formakutusu-siyah-logo.png" alt="Forma Kutusu" class="h-9 mb-4 opacity-70">
-                <p class="text-sm text-gray-600">Takımınıza özel forma üretimi.</p>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-3 text-sm">Katalog</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="katalog.html" class="hover:text-white transition-colors">Futbol Formaları</a></li>
-                    <li><a href="katalog-basketbol.html" class="hover:text-white transition-colors">Basketbol Formaları</a></li>
-                    <li><a href="katalog-voleybol.html" class="hover:text-white transition-colors">Voleybol Formaları</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-3 text-sm">İletişim</h4>
-                <ul class="space-y-2 text-sm">
-                    <li>
-                        <a href="https://wa.me/905348578836" target="_blank" class="hover:text-white transition-colors">
-                            <i class="fab fa-whatsapp mr-1"></i> WhatsApp
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/formakutusu/" target="_blank" class="hover:text-white transition-colors">
-                            <i class="fab fa-instagram mr-1"></i> Instagram
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.tiktok.com/@formakutusunora" target="_blank" class="hover:text-white transition-colors">
-                            <i class="fab fa-tiktok mr-1"></i> TikTok
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/FormaKutusuNora" target="_blank" class="hover:text-white transition-colors">
-                            <i class="fab fa-facebook mr-1"></i> Facebook
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-3 text-sm">Bilgi</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#surec" class="hover:text-white transition-colors">Üretim Süreci</a></li>
-                    <li><a href="#iletisim" class="hover:text-white transition-colors">Teklif Al</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="border-t border-gray-800 pt-6 text-center text-sm">
-            <p>&copy; 2026 Forma Kutusu — Tüm hakları saklıdır.</p>
-        </div>
-    </div>
-</footer>
+  <script>
+    (() => {
+      const body = document.body;
+      const header = document.getElementById("site-header");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const heroVideo = document.getElementById("hero-video");
 
-    <!-- FİLM ŞERİDİ BÜYÜK GÖRSEL PENCERESİ -->
-    <div id="filmstrip-lightbox"
-         class="filmstrip-lightbox"
-         role="dialog"
-         aria-modal="true"
-         aria-label="Forma görseli önizlemesi"
-         aria-hidden="true">
-        <button type="button"
-                class="filmstrip-lightbox__close"
-                aria-label="Büyük görseli kapat"
-                data-lightbox-close>
-            <i class="fas fa-xmark" aria-hidden="true"></i>
-        </button>
-        <button type="button"
-                class="filmstrip-lightbox__nav filmstrip-lightbox__nav--prev"
-                aria-label="Önceki görsel"
-                data-lightbox-prev>
-            <i class="fas fa-chevron-left" aria-hidden="true"></i>
-        </button>
-        <figure class="filmstrip-lightbox__figure">
-            <img id="filmstrip-lightbox-image"
-                 class="filmstrip-lightbox__image"
-                 src=""
-                 alt="">
-            <figcaption id="filmstrip-lightbox-caption"
-                        class="filmstrip-lightbox__caption"></figcaption>
-        </figure>
-        <button type="button"
-                class="filmstrip-lightbox__nav filmstrip-lightbox__nav--next"
-                aria-label="Sonraki görsel"
-                data-lightbox-next>
-            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </button>
-    </div>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        heroVideo.play().catch(() => {});
+      }
 
-    <script>
+      const setMenu = (open) => {
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç");
+        mobileMenu.classList.toggle("is-open", open);
+        mobileMenu.inert = !open;
+        body.classList.toggle("no-scroll", open);
+      };
 
-        // FK-007 KAMPANYA POPUP
-        const campaignPopup = document.getElementById('campaign-popup');
-        const campaignCloseButton = campaignPopup.querySelector('.campaign-popup__close');
+      menuToggle.addEventListener("click", () => {
+        setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+      });
 
-        function closeCampaignPopup() {
-            campaignPopup.hidden = true;
-            document.body.classList.remove('campaign-popup-open');
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setMenu(false));
+      });
+
+      const handleScroll = () => {
+        header.classList.toggle("is-scrolled", window.scrollY > 30);
+      };
+      handleScroll();
+      window.addEventListener("scroll", handleScroll, { passive: true });
+
+      const revealItems = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .12, rootMargin: "0px 0px -40px" });
+        revealItems.forEach((item) => revealObserver.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+      }
+
+      const referenceSources = Array.from({ length: 24 }, (_, index) => ({
+        src: `referanslar/referans_${index + 1}.webp`,
+        alt: `Üretilen forma referansı ${index + 1}`
+      }));
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightbox-image");
+      const lightboxCaption = document.getElementById("lightbox-caption");
+      let activeReference = 0;
+      let lastFocusedReference = null;
+
+      const renderReference = (index) => {
+        activeReference = (index + referenceSources.length) % referenceSources.length;
+        const item = referenceSources[activeReference];
+        lightboxImage.src = item.src;
+        lightboxImage.alt = item.alt;
+        lightboxCaption.textContent = `${item.alt} · ${activeReference + 1} / ${referenceSources.length}`;
+      };
+
+      const openLightbox = (index, trigger) => {
+        lastFocusedReference = trigger;
+        renderReference(index);
+        lightbox.hidden = false;
+        requestAnimationFrame(() => lightbox.classList.add("is-open"));
+        body.classList.add("no-scroll");
+        lightbox.querySelector("[data-lightbox-close]").focus();
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.remove("is-open");
+        body.classList.remove("no-scroll");
+        window.setTimeout(() => {
+          lightbox.hidden = true;
+          lightboxImage.src = "gorseller/FK-001.jpg";
+        }, 250);
+        if (lastFocusedReference) lastFocusedReference.focus();
+      };
+
+      document.querySelectorAll("[data-reference]").forEach((button) => {
+        button.addEventListener("click", () => openLightbox(Number(button.dataset.reference), button));
+      });
+
+      lightbox.querySelector("[data-lightbox-close]").addEventListener("click", closeLightbox);
+      lightbox.querySelector("[data-lightbox-prev]").addEventListener("click", () => renderReference(activeReference - 1));
+      lightbox.querySelector("[data-lightbox-next]").addEventListener("click", () => renderReference(activeReference + 1));
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) closeLightbox();
+      });
+
+      const campaign = document.getElementById("campaign");
+      const openCampaign = () => {
+        campaign.hidden = false;
+        requestAnimationFrame(() => campaign.classList.add("is-open"));
+        body.classList.add("no-scroll");
+        campaign.querySelector("[data-campaign-close]").focus();
+      };
+      const closeCampaign = () => {
+        campaign.classList.remove("is-open");
+        body.classList.remove("no-scroll");
+        window.setTimeout(() => { campaign.hidden = true; }, 300);
+        try { sessionStorage.setItem("fk-campaign-seen", "1"); } catch (error) {}
+      };
+
+      let campaignSeen = false;
+      try { campaignSeen = sessionStorage.getItem("fk-campaign-seen") === "1"; } catch (error) {}
+      if (!campaignSeen) window.setTimeout(openCampaign, 900);
+
+      campaign.querySelectorAll("[data-campaign-close]").forEach((button) => {
+        button.addEventListener("click", closeCampaign);
+      });
+      campaign.addEventListener("click", (event) => {
+        if (event.target === campaign) closeCampaign();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          if (campaign.classList.contains("is-open")) closeCampaign();
+          else if (lightbox.classList.contains("is-open")) closeLightbox();
+          else if (mobileMenu.classList.contains("is-open")) setMenu(false);
         }
-
-        campaignPopup.querySelectorAll('[data-campaign-close]').forEach((button) => {
-            button.addEventListener('click', closeCampaignPopup);
-        });
-        campaignPopup.addEventListener('click', (event) => {
-            if (event.target === campaignPopup) closeCampaignPopup();
-        });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && !campaignPopup.hidden) closeCampaignPopup();
-        });
-        requestAnimationFrame(() => campaignCloseButton.focus());
-
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-        });
-        function closeMenu() {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
+        if (lightbox.classList.contains("is-open")) {
+          if (event.key === "ArrowLeft") renderReference(activeReference - 1);
+          if (event.key === "ArrowRight") renderReference(activeReference + 1);
         }
-
-        const lightbox = document.getElementById('filmstrip-lightbox');
-        const lightboxImage = document.getElementById('filmstrip-lightbox-image');
-        const lightboxCaption = document.getElementById('filmstrip-lightbox-caption');
-        const filmstripItems = Array.from(document.querySelectorAll('.filmstrip-item'));
-        const primaryImages = Array.from(document.querySelectorAll('.filmstrip-group:first-child .filmstrip-item img'));
-        let activeImageIndex = 0;
-        let lastFocusedItem = null;
-
-        function showLightboxImage(index) {
-            activeImageIndex = (index + primaryImages.length) % primaryImages.length;
-            const sourceImage = primaryImages[activeImageIndex];
-            lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
-            lightboxImage.alt = sourceImage.alt;
-            lightboxCaption.textContent = `Forma tasarım referansı ${activeImageIndex + 1} / ${primaryImages.length}`;
-        }
-
-        function openLightbox(index, trigger) {
-            lastFocusedItem = trigger;
-            showLightboxImage(index);
-            lightbox.classList.add('is-open');
-            lightbox.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('lightbox-open');
-            lightbox.querySelector('[data-lightbox-close]').focus();
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('is-open');
-            lightbox.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('lightbox-open');
-            lightboxImage.src = '';
-            if (lastFocusedItem) lastFocusedItem.focus();
-        }
-
-        filmstripItems.forEach((item, index) => {
-            item.setAttribute('aria-label', `Forma tasarım referansı ${(index % primaryImages.length) + 1} — büyük görüntüle`);
-            item.addEventListener('click', (event) => {
-                event.preventDefault();
-                openLightbox(index % primaryImages.length, item);
-            });
-        });
-
-        lightbox.querySelector('[data-lightbox-close]').addEventListener('click', closeLightbox);
-        lightbox.querySelector('[data-lightbox-prev]').addEventListener('click', () => showLightboxImage(activeImageIndex - 1));
-        lightbox.querySelector('[data-lightbox-next]').addEventListener('click', () => showLightboxImage(activeImageIndex + 1));
-        lightbox.addEventListener('click', (event) => {
-            if (event.target === lightbox) closeLightbox();
-        });
-        document.addEventListener('keydown', (event) => {
-            if (!lightbox.classList.contains('is-open')) return;
-            if (event.key === 'Escape') closeLightbox();
-            if (event.key === 'ArrowLeft') showLightboxImage(activeImageIndex - 1);
-            if (event.key === 'ArrowRight') showLightboxImage(activeImageIndex + 1);
-        });
-    </script>
-    
-<!-- MOBİL SABİT WHATSAPP BUTONU -->
-<a href="https://wa.me/905348578836?text=Merhaba%2C%20forma%20üretimi%20için%20teklif%20almak%20istiyorum."
-   target="_blank"
-   class="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-6 py-3 rounded-full shadow-lg font-bold text-base"
-   style="background-color:#25D366; color:#fff;">
-    <i class="fab fa-whatsapp text-xl"></i> WhatsApp'tan Teklif Al
-</a>
-    
+      });
+    })();
+  </script>
 </body>
 </html>
