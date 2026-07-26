@@ -1,0 +1,5 @@
+:HL["/_next/static/css/5784a90239d0d744.css","style"]
+:HL["/assets/brand/formakutusu.webp","image"]
+:HL["/assets/brand/nora.webp","image"]
+:HL["/assets/models/fk-b-001.webp","image",{"fetchPriority":"high"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"basketbol","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"LIEoa6sY7zdh0d11ZRWNM"}

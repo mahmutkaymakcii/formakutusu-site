@@ -1,4 +1,5 @@
-User-agent: *
+User-Agent: *
 Allow: /
 
+Host: https://formakutusu.com
 Sitemap: https://formakutusu.com/sitemap.xml
