@@ -1,0 +1,254 @@
+[
+  {
+    "id": "FK-001",
+    "name": "FK-001 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-001.webp",
+    "alt": "FK-001 turkuaz özel futbol forma modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-002",
+    "name": "FK-002 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-002.webp",
+    "alt": "FK-002 siyah, beyaz ve turuncu özel futbol forma modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-005",
+    "name": "FK-005 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-005.webp",
+    "alt": "FK-005 turkuaz ve mor özel futbol forma modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-007",
+    "name": "FK-007 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-007.webp",
+    "alt": "FK-007 mor, sarı ve turuncu özel futbol forma ve şort modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-008",
+    "name": "FK-008 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-008.webp",
+    "alt": "FK-008 takıma özel futbol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-009",
+    "name": "FK-009 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-009.webp",
+    "alt": "FK-009 takıma özel futbol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-012",
+    "name": "FK-012 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-012.webp",
+    "alt": "FK-012 siyah beyaz çizgisel özel futbol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-019",
+    "name": "FK-019 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-019.webp",
+    "alt": "FK-019 beyaz ve yeşil özel futbol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-027",
+    "name": "FK-027 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-027.webp",
+    "alt": "FK-027 lacivert ve bordo özel futbol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-029",
+    "name": "FK-029 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-029.webp",
+    "alt": "FK-029 beyaz ve kırmızı özel futbol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-031",
+    "name": "FK-031 Futbol Forma Modeli",
+    "sport": "futbol",
+    "category": "Futbol Forması",
+    "image": "/assets/models/fk-031.webp",
+    "alt": "FK-031 siyah ve mavi özel futbol forma modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-B-001",
+    "name": "FK-B-001 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-001.webp",
+    "alt": "FK-B-001 takıma özel basketbol forma ve şort modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-B-002",
+    "name": "FK-B-002 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-002.webp",
+    "alt": "FK-B-002 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-003",
+    "name": "FK-B-003 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-003.webp",
+    "alt": "FK-B-003 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-004",
+    "name": "FK-B-004 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-004.webp",
+    "alt": "FK-B-004 takıma özel basketbol forma ve şort modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-B-005",
+    "name": "FK-B-005 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-005.webp",
+    "alt": "FK-B-005 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-006",
+    "name": "FK-B-006 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-006.webp",
+    "alt": "FK-B-006 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-007",
+    "name": "FK-B-007 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-007.webp",
+    "alt": "FK-B-007 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-008",
+    "name": "FK-B-008 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-008.webp",
+    "alt": "FK-B-008 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-009",
+    "name": "FK-B-009 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-009.webp",
+    "alt": "FK-B-009 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-010",
+    "name": "FK-B-010 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-010.webp",
+    "alt": "FK-B-010 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-B-011",
+    "name": "FK-B-011 Basketbol Forma Modeli",
+    "sport": "basketbol",
+    "category": "Basketbol Forması",
+    "image": "/assets/models/fk-b-011.webp",
+    "alt": "FK-B-011 takıma özel basketbol forma ve şort modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-V-001",
+    "name": "FK-V-001 Voleybol Forma Modeli",
+    "sport": "voleybol",
+    "category": "Voleybol Forması",
+    "image": "/assets/models/fk-v-001.webp",
+    "alt": "FK-V-001 takıma özel voleybol forma modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-V-002",
+    "name": "FK-V-002 Voleybol Forma Modeli",
+    "sport": "voleybol",
+    "category": "Voleybol Forması",
+    "image": "/assets/models/fk-v-002.webp",
+    "alt": "FK-V-002 takıma özel voleybol forma modeli",
+    "featured": true
+  },
+  {
+    "id": "FK-V-003",
+    "name": "FK-V-003 Voleybol Forma Modeli",
+    "sport": "voleybol",
+    "category": "Voleybol Forması",
+    "image": "/assets/models/fk-v-003.webp",
+    "alt": "FK-V-003 takıma özel voleybol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-V-004",
+    "name": "FK-V-004 Voleybol Forma Modeli",
+    "sport": "voleybol",
+    "category": "Voleybol Forması",
+    "image": "/assets/models/fk-v-004.webp",
+    "alt": "FK-V-004 takıma özel voleybol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-V-005",
+    "name": "FK-V-005 Voleybol Forma Modeli",
+    "sport": "voleybol",
+    "category": "Voleybol Forması",
+    "image": "/assets/models/fk-v-005.webp",
+    "alt": "FK-V-005 takıma özel voleybol forma modeli",
+    "featured": false
+  },
+  {
+    "id": "FK-V-006",
+    "name": "FK-V-006 Voleybol Forma Modeli",
+    "sport": "voleybol",
+    "category": "Voleybol Forması",
+    "image": "/assets/models/fk-v-006.webp",
+    "alt": "FK-V-006 takıma özel voleybol forma modeli",
+    "featured": false
+  }
+]
