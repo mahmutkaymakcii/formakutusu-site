@@ -373,7 +373,7 @@ Premium etki ağır animasyon, parlak glow veya sahte 3D yerine tipografik ölç
 | Chrome | Test edildi | Yerel kurulu Chrome ile otomasyon |
 | Edge/Safari/Firefox | Yapılmadı | Bu turda otomasyon/cihaz matrisi yok; birleştirme öncesi manuel önerilir |
 | Gerçek backend gönderimi | Uygulanamaz | Backend yok; WhatsApp istemci akışı test edildi |
-| Gerçek alan adı hosting önizlemesi | Yapılmadı | PR için otomatik preview URL'si bulunmuyor |
+| Cloudflare Pages branch önizlemesi | Başarılı | Ana sayfa, `/modeller/` ve `/teklif/` dış ortamda açıldı |
 
 Canlı başlangıç Lighthouse ölçümü 88/96/96/100, FCP 1.612 ms, LCP 3.742 ms, TBT 102 ms ve 617.008 bayttı. Final yerel laboratuvar ölçümü daha iyi sonuç verdi; ancak başlangıç canlı hosting, final yerel statik sunucu üzerinde olduğu için fark yön gösterir, saha verisi veya birebir hosting karşılaştırması değildir.
 
@@ -430,12 +430,13 @@ Lighthouse komutu raporu üretmesine rağmen Windows geçici Chrome klasörünü
 - Commit başlıkları:
   1. `Siteyi hafif ve dönüşüm odaklı yapıya taşı`
   2. `Site denetimi ve yol haritasını ekle`
+  3. `Önizleme bağlantısını rapora ekle`
 - Taslak PR: <https://github.com/mahmutkaymakcii/formakutusu-site/pull/1>
-- Otomatik preview bağlantısı: yok
+- Cloudflare Pages branch preview: <https://agent-forma-kutusu-cro-seo.formakutusu-site.pages.dev/>
 
 ### Birleştirme öncesi kontrol listesi
 
-- [ ] Statik hosting preview'sinde bütün yönlendirmeleri kontrol et.
+- [ ] Branch preview'de bütün eski URL yönlendirmelerini manuel kontrol et.
 - [ ] Gerçek alan adında canonical, sitemap ve 404 davranışını kontrol et.
 - [ ] WhatsApp mesaj metnini satış ekibiyle onayla.
 - [ ] KVKK/gizlilik metnini hukuk danışmanına incelet.
