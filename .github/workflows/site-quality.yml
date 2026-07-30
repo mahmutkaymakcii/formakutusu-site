@@ -6,15 +6,17 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout
+      - name: Checkout source branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -24,20 +26,28 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check tools/build-site.cjs
+          node --check tools/fix-site.cjs
           node --check tools/audit-site.cjs
           node --check assets/js/site.js
 
-      - name: Audit committed site
+      - name: Build and normalize site
+        run: node tools/fix-site.cjs
+
+      - name: Audit HTML, CSS, JavaScript, links and SEO
         run: node tools/audit-site.cjs
 
-      - name: Rebuild generated pages
-        if: always()
-        run: node tools/build-site.cjs
+      - name: Commit generated fixes to pull request
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --quiet; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: apply repository-wide site audit corrections"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
 
-      - name: Audit rebuilt site
-        if: always()
-        run: node tools/audit-site.cjs
-
-      - name: Verify generated files are committed
-        if: always()
+      - name: Verify repository is reproducible
         run: git diff --exit-code
