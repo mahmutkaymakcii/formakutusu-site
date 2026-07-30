@@ -1,0 +1,37 @@
+name: Site Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check tools/build-site.cjs
+          node --check tools/audit-site.cjs
+          node --check assets/js/site.js
+
+      - name: Rebuild generated pages
+        run: node tools/build-site.cjs
+
+      - name: Verify generated files are committed
+        run: git diff --exit-code
+
+      - name: Audit HTML, assets, links, SEO and structured data
+        run: node tools/audit-site.cjs
