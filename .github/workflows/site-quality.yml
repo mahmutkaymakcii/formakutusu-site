@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Check JavaScript syntax
         run: |
@@ -27,11 +27,17 @@ jobs:
           node --check tools/audit-site.cjs
           node --check assets/js/site.js
 
+      - name: Audit committed site
+        run: node tools/audit-site.cjs
+
       - name: Rebuild generated pages
+        if: always()
         run: node tools/build-site.cjs
 
-      - name: Verify generated files are committed
-        run: git diff --exit-code
-
-      - name: Audit HTML, assets, links, SEO and structured data
+      - name: Audit rebuilt site
+        if: always()
         run: node tools/audit-site.cjs
+
+      - name: Verify generated files are committed
+        if: always()
+        run: git diff --exit-code
