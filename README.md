@@ -4,21 +4,25 @@ Forma Kutusu'nun bağımlılıksız, statik ve mobil öncelikli web sitesi.
 
 ## Yapı
 
-- `tools/build-site.cjs`: ortak şablonlardan bütün HTML sayfalarını üretir.
+- `tools/build-site.cjs`: ortak şablonlardan standart HTML sayfalarını üretir.
+- `tools/fix-site.cjs`: üretimi tamamlar, özel ana sayfayı korur, İstanbul sayfasını ortak tasarıma taşır, metin hatalarını düzeltir ve sitemap'i yeniden oluşturur.
+- `tools/audit-site.cjs`: HTML, CSS, JavaScript, iç bağlantılar, görsel yolları, SEO, JSON-LD, manifest, robots ve sitemap kontrollerini yapar.
 - `assets/data/models.json`: futbol, basketbol ve voleybol model kataloğunun tek veri kaynağıdır.
-- `assets/css/site.css`: tasarım sistemi ve responsive bileşenler.
+- `assets/css/site.css`: ortak tasarım sistemi ve responsive bileşenler.
+- `assets/css/home-v2.css`: ana sayfaya özel yerleşim katmanı.
 - `assets/js/site.js`: menü, galeri, model filtreleri, favoriler ve teklif asistanı.
 - `assets/templates/takim-listesi.csv`: müşterilerin indirebildiği takım listesi şablonu.
 
 ## Yerel üretim
 
-Node.js 18 veya daha yeni bir sürümle:
+Node.js 24 ile:
 
 ```sh
-node tools/build-site.cjs
+node tools/fix-site.cjs
+node tools/audit-site.cjs
 ```
 
-Üretilen HTML dosyaları doğrudan statik hosting üzerinde yayınlanabilir. Sayfa metni veya şablon değişikliği yapıldığında HTML dosyaları elle düzenlenmemeli; üretici dosya güncellenip komut yeniden çalıştırılmalıdır.
+Yayın öncesinde kullanılacak ana komut `tools/fix-site.cjs` dosyasıdır. Bu komut temel üreticiyi çalıştırır, küratörlü ana sayfa ve halı saha sayfasını korur, ortak düzeltmeleri uygular ve sitemap'i mevcut indekslenebilir sayfalardan yeniden üretir.
 
 ## Model ekleme
 
@@ -26,8 +30,14 @@ Yeni model `assets/data/models.json` dosyasına eklenir ve optimize edilmiş Web
 
 ## Yayın öncesi kontrol
 
-- Üretim komutunu çalıştır.
-- HTML doğrulamasını yap.
-- İç bağlantıları, WhatsApp ve telefon bağlantılarını kontrol et.
-- 320–1920 px aralığında yatay taşma ve sabit CTA çakışması olmadığını doğrula.
-- `sitemap.xml` ve `robots.txt` çıktılarının güncel olduğunu kontrol et.
+```sh
+node --check tools/build-site.cjs
+node --check tools/fix-site.cjs
+node --check tools/audit-site.cjs
+node --check assets/js/site.js
+node tools/fix-site.cjs
+node tools/audit-site.cjs
+git diff --exit-code
+```
+
+GitHub Actions aynı kontrolleri her pull request ve `main` güncellemesinde otomatik çalıştırır. Denetim; kırık bağlantı, eksik görsel, yinelenen kimlik, hatalı canonical, sitemap uyumsuzluğu, geçersiz JSON-LD ve JavaScript sözdizimi hatalarında başarısız olur.
