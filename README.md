@@ -10,6 +10,9 @@ Forma Kutusu'nun bağımlılıksız, statik ve mobil öncelikli web sitesi.
 - `assets/data/models.json`: futbol, basketbol ve voleybol model kataloğunun tek veri kaynağıdır.
 - `assets/css/site.css`: ortak tasarım sistemi ve responsive bileşenler.
 - `assets/css/home-v2.css`: ana sayfaya özel yerleşim katmanı.
+- `assets/css/neon-sport.css`: güncel yapıyı koruyan koyu neon-sportif marka katmanı.
+- `assets/fonts/`: yerel Manrope ve Unbounded web fontları ile lisansları.
+- `assets/brand/forma-kutusu-og-neon.png`: sosyal paylaşım için 1200 × 630 neon marka görseli.
 - `assets/js/site.js`: menü, galeri, model filtreleri, favoriler ve teklif asistanı.
 - `assets/templates/takim-listesi.csv`: müşterilerin indirebildiği takım listesi şablonu.
 

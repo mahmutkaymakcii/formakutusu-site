@@ -178,7 +178,7 @@ function pageShell({
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#090a08">
+  <meta name="theme-color" content="#080a0e">
   <meta name="color-scheme" content="dark">
   <title>${escapeHtml(fullTitle)}</title>
   <meta name="description" content="${escapeHtml(description)}">
@@ -193,14 +193,15 @@ function pageShell({
   <meta property="og:title" content="${escapeHtml(fullTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${site.origin}/assets/models/fk-007.webp">
-  <meta property="og:image:width" content="1000">
-  <meta property="og:image:height" content="1250">
+  <meta property="og:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(fullTitle)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${site.origin}/assets/models/fk-007.webp">
+  <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260731b">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js" defer></script>
 </head>
