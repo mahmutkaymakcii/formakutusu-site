@@ -360,7 +360,7 @@ body.home-v2 .fk-mobile-cta {
 
 @media (max-width: 680px) {
   body.home-v2 .fk-hero h1 {
-    font-size: clamp(3rem, 13vw, 3.25rem);
+    font-size: clamp(2.85rem, 12vw, 3rem);
     line-height: 0.96;
     white-space: normal;
   }
