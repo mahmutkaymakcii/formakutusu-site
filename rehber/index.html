@@ -27,39 +27,79 @@
   <meta name="twitter:image" content="https://formakutusu.com/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
+  <link rel="stylesheet" href="/assets/css/pdf-redesign.css?v=20260802c">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Rehber","item":"https://formakutusu.com/rehber/"}]}</script>
-  <script src="/assets/js/site.js?v=20260801c" defer></script>
+  <script src="/assets/js/site.js?v=20260802c" defer></script>
 </head>
-<body class="guide-index">
+<body class="fk-redesign guide-index">
 
   <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
-  <section class="service-strip" aria-label="Hizmet özeti">
-    <div class="container service-strip__inner">
-      <span>Minimum 5 adet üretim</span>
-      <span>Ücretsiz tasarım desteği</span>
-      <span>İsim, numara ve logo uygulaması</span>
-      <span>Türkiye geneli gönderim</span>
+  <section class="service-strip pdf-service-strip" aria-label="Hizmet özeti">
+    <div class="container pdf-service-strip__inner">
+      <span><b aria-hidden="true">TR</b><strong>Türkiye Geneli Gönderim</strong><small>Güvenli kargo planlaması</small></span>
+      <span><b aria-hidden="true">✓</b><strong>Onaylı Üretim Süreci</strong><small>Tasarım onayından sonra üretim</small></span>
+      <span><b aria-hidden="true">✎</b><strong>Ücretsiz Tasarım Desteği</strong><small>Renk, logo, isim ve numara</small></span>
     </div>
   </section>
-  <header class="site-header" data-site-header>
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Forma Kutusu ana sayfa">
-        <img src="/assets/brand/formakutusu.webp" alt="Forma Kutusu" width="640" height="88">
-      </a>
+  <header class="site-header pdf-header" data-site-header>
+    <div class="container site-header__inner pdf-header__inner">
+      <a class="brand pdf-brand" href="/" aria-label="Forma Kutusu ana sayfa"><span class="pdf-logo-mark" aria-hidden="true">FK</span><span class="pdf-logo-type"><strong>FORMA</strong><strong>KUTUSU</strong></span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
         <span class="sr-only">Menüyü aç</span>
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
-      <nav class="site-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
-        <a href="/modeller/">Forma Modelleri</a>
-        <a href="/futbol/">Futbol</a>
-        <a href="/hali-saha-formasi/">Halı Saha</a>
-        <a href="/nasil-siparis-verilir/">Nasıl Sipariş Verilir?</a>
-        <a href="/rehber/">Rehber</a>
-        <a class="button button--small" href="/teklif/">Teklif Al</a>
+      <nav class="site-nav pdf-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Formalar</summary>
+          <div class="pdf-nav-menu pdf-nav-menu--sports">
+            <a href="/futbol/"><span aria-hidden="true">01</span>Futbol</a>
+            <a href="/basketbol/"><span aria-hidden="true">02</span>Basketbol</a>
+            <a href="/voleybol/"><span aria-hidden="true">03</span>Voleybol</a>
+            <a href="/futbol/"><span aria-hidden="true">04</span>Kaleci</a>
+            <a href="/takima-ozel-forma/"><span aria-hidden="true">05</span>Tek Üst</a>
+            <a href="/forma-sort-takimi/"><span aria-hidden="true">06</span>Tek Şort</a>
+          </div>
+        </details>
+        <a class="pdf-nav-design" href="/takima-ozel-forma/">Tasarla</a>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Katalog</summary>
+          <div class="pdf-nav-menu">
+            <a href="/modeller/">Model Kataloğu</a>
+            <a href="/modeller/?sezon=2026">Yeni Sezon 2026</a>
+            <a href="/modeller/?filtre=populer">Popüler Modeller</a>
+          </div>
+        </details>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Hakkımızda</summary>
+          <div class="pdf-nav-menu">
+            <a href="/hakkimizda/">Firma Bilgisi</a>
+            <a href="/uretim-sureci/">Üretim Süreci</a>
+            <a href="/kalite-standartlari/">Kalite Standartları</a>
+            <a href="/sik-sorulan-sorular/">SSS</a>
+          </div>
+        </details>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>İletişim</summary>
+          <div class="pdf-nav-menu">
+            <a href="/iletisim/">İletişim Bilgileri</a>
+            <a href="/whatsapp-destek/">WhatsApp Destek</a>
+            <a href="/teklif/">Teklif Formu</a>
+            <a href="/bayilik-toplu-siparis/">Bayilik / Toplu Sipariş</a>
+          </div>
+        </details>
+        <div class="pdf-nav-actions" aria-label="Hızlı bağlantılar">
+          <a href="/modeller/#model-search"><span aria-hidden="true">⌕</span>Model Ara</a>
+          <a href="/modeller/?filtre=favoriler"><span aria-hidden="true">♡</span>Favoriler <b data-favorite-count>0</b></a>
+          <a class="button button--small" href="/teklif/"><span aria-hidden="true">▣</span>Teklif Al</a>
+        </div>
       </nav>
     </div>
   </header>
+  <nav class="pdf-contact-rail" aria-label="Hızlı iletişim">
+    <a href="tel:+905348578836" aria-label="Telefonla ara">Ara</a>
+    <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp üzerinden yaz">WA</a>
+    <a href="/teklif/" aria-label="Teklif formunu aç">Teklif</a>
+  </nav>
   <main id="main-content">
 
     <nav class="breadcrumbs container" aria-label="İçerik yolu">
@@ -101,17 +141,17 @@
       </div>
       <div>
         <h2>Bilgi</h2>
-        <a href="/kumas-ve-uretim/">Kumaş ve üretim</a>
-        <a href="/beden-tablosu/">Beden planlama</a>
+        <a href="/uretim-sureci/">Üretim süreci</a>
+        <a href="/kalite-standartlari/">Kalite standartları</a>
         <a href="/sik-sorulan-sorular/">Sık sorulanlar</a>
         <a href="/hakkimizda/">Hakkımızda</a>
       </div>
       <div>
         <h2>İletişim</h2>
-        <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <a href="tel:+905348578836">0534&nbsp;857&nbsp;88&nbsp;36</a>
-        <a href="https://www.instagram.com/formakutusu/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="/kvkk-ve-gizlilik/">Gizlilik notu</a>
+        <a href="/whatsapp-destek/">WhatsApp destek</a>
+        <a href="/teklif/">Teklif formu</a>
+        <a href="/bayilik-toplu-siparis/">Bayilik / toplu sipariş</a>
+        <a href="/iletisim/">İletişim bilgileri</a>
       </div>
     </div>
     <div class="container site-footer__bottom">

@@ -148,10 +148,11 @@ function createIstanbulPage(chrome) {
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
+  <link rel="stylesheet" href="/assets/css/pdf-redesign.css?v=20260802c">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js?v=20260801c" defer></script>
+  <script src="/assets/js/site.js?v=20260802c" defer></script>
 </head>
-<body class="content-page istanbul-page">
+<body class="fk-redesign content-page istanbul-page">
   ${chrome.header}
   <main id="main-content">
     <nav class="breadcrumbs container" aria-label="İçerik yolu">
@@ -196,7 +197,7 @@ function createIstanbulPage(chrome) {
 }
 
 const curated = new Map();
-for (const relativePath of ["index.html", "hali-saha-formasi/index.html"]) {
+for (const relativePath of ["index.html"]) {
   if (fs.existsSync(file(relativePath))) curated.set(relativePath, read(relativePath));
 }
 

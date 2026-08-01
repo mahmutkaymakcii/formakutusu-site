@@ -11,6 +11,7 @@ Forma Kutusu'nun bağımlılıksız, statik ve mobil öncelikli web sitesi.
 - `assets/css/site.css`: ortak tasarım sistemi ve responsive bileşenler.
 - `assets/css/home-v2.css`: ana sayfaya özel yerleşim katmanı.
 - `assets/css/neon-sport.css`: güncel yapıyı koruyan koyu neon-sportif marka katmanı.
+- `assets/css/pdf-redesign.css`: PDF tasarımını tüm sayfalara taşıyan son görsel, bileşen ve responsive katman.
 - `assets/fonts/`: yerel Manrope ve Unbounded web fontları ile lisansları.
 - `assets/brand/forma-kutusu-og-neon.png`: sosyal paylaşım için 1200 × 630 neon marka görseli.
 - `assets/js/site.js`: menü, galeri, model filtreleri, favoriler ve teklif asistanı.
@@ -26,6 +27,10 @@ node tools/audit-site.cjs
 ```
 
 Yayın öncesinde kullanılacak ana komut `tools/fix-site.cjs` dosyasıdır. Bu komut temel üreticiyi çalıştırır, küratörlü ana sayfa ve halı saha sayfasını korur, ortak düzeltmeleri uygular ve sitemap'i mevcut indekslenebilir sayfalardan yeniden üretir.
+
+Statik önizleme için proje kökünü herhangi bir yerel HTTP sunucusuyla açın; örneğin `python -m http.server 4173`, ardından `http://127.0.0.1:4173/` adresini ziyaret edin. Dosyaları doğrudan `file://` ile açmak kökten başlayan bağlantıları doğru çözmez.
+
+PDF çalışmasıyla eklenen özgün rotalar: `/uretim-sureci/`, `/kalite-standartlari/`, `/whatsapp-destek/` ve `/bayilik-toplu-siparis/`.
 
 ## Model ekleme
 

@@ -27,40 +27,80 @@
   <meta name="twitter:image" content="https://formakutusu.com/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
+  <link rel="stylesheet" href="/assets/css/pdf-redesign.css?v=20260802c">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Forma Modelleri","item":"https://formakutusu.com/modeller/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Forma Kutusu Forma Modelleri","url":"https://formakutusu.com/modeller/","description":"Futbol, basketbol ve voleybol için filtrelenebilir özel forma modeli koleksiyonu."}</script>
-  <script src="/assets/js/site.js?v=20260801c" defer></script>
+  <script src="/assets/js/site.js?v=20260802c" defer></script>
 </head>
-<body class="models-page">
+<body class="fk-redesign models-page">
 
   <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
-  <section class="service-strip" aria-label="Hizmet özeti">
-    <div class="container service-strip__inner">
-      <span>Minimum 5 adet üretim</span>
-      <span>Ücretsiz tasarım desteği</span>
-      <span>İsim, numara ve logo uygulaması</span>
-      <span>Türkiye geneli gönderim</span>
+  <section class="service-strip pdf-service-strip" aria-label="Hizmet özeti">
+    <div class="container pdf-service-strip__inner">
+      <span><b aria-hidden="true">TR</b><strong>Türkiye Geneli Gönderim</strong><small>Güvenli kargo planlaması</small></span>
+      <span><b aria-hidden="true">✓</b><strong>Onaylı Üretim Süreci</strong><small>Tasarım onayından sonra üretim</small></span>
+      <span><b aria-hidden="true">✎</b><strong>Ücretsiz Tasarım Desteği</strong><small>Renk, logo, isim ve numara</small></span>
     </div>
   </section>
-  <header class="site-header" data-site-header>
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Forma Kutusu ana sayfa">
-        <img src="/assets/brand/formakutusu.webp" alt="Forma Kutusu" width="640" height="88">
-      </a>
+  <header class="site-header pdf-header" data-site-header>
+    <div class="container site-header__inner pdf-header__inner">
+      <a class="brand pdf-brand" href="/" aria-label="Forma Kutusu ana sayfa"><span class="pdf-logo-mark" aria-hidden="true">FK</span><span class="pdf-logo-type"><strong>FORMA</strong><strong>KUTUSU</strong></span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
         <span class="sr-only">Menüyü aç</span>
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
-      <nav class="site-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
-        <a href="/modeller/">Forma Modelleri</a>
-        <a href="/futbol/">Futbol</a>
-        <a href="/hali-saha-formasi/">Halı Saha</a>
-        <a href="/nasil-siparis-verilir/">Nasıl Sipariş Verilir?</a>
-        <a href="/rehber/">Rehber</a>
-        <a class="button button--small" href="/teklif/">Teklif Al</a>
+      <nav class="site-nav pdf-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Formalar</summary>
+          <div class="pdf-nav-menu pdf-nav-menu--sports">
+            <a href="/futbol/"><span aria-hidden="true">01</span>Futbol</a>
+            <a href="/basketbol/"><span aria-hidden="true">02</span>Basketbol</a>
+            <a href="/voleybol/"><span aria-hidden="true">03</span>Voleybol</a>
+            <a href="/futbol/"><span aria-hidden="true">04</span>Kaleci</a>
+            <a href="/takima-ozel-forma/"><span aria-hidden="true">05</span>Tek Üst</a>
+            <a href="/forma-sort-takimi/"><span aria-hidden="true">06</span>Tek Şort</a>
+          </div>
+        </details>
+        <a class="pdf-nav-design" href="/takima-ozel-forma/">Tasarla</a>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Katalog</summary>
+          <div class="pdf-nav-menu">
+            <a href="/modeller/">Model Kataloğu</a>
+            <a href="/modeller/?sezon=2026">Yeni Sezon 2026</a>
+            <a href="/modeller/?filtre=populer">Popüler Modeller</a>
+          </div>
+        </details>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Hakkımızda</summary>
+          <div class="pdf-nav-menu">
+            <a href="/hakkimizda/">Firma Bilgisi</a>
+            <a href="/uretim-sureci/">Üretim Süreci</a>
+            <a href="/kalite-standartlari/">Kalite Standartları</a>
+            <a href="/sik-sorulan-sorular/">SSS</a>
+          </div>
+        </details>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>İletişim</summary>
+          <div class="pdf-nav-menu">
+            <a href="/iletisim/">İletişim Bilgileri</a>
+            <a href="/whatsapp-destek/">WhatsApp Destek</a>
+            <a href="/teklif/">Teklif Formu</a>
+            <a href="/bayilik-toplu-siparis/">Bayilik / Toplu Sipariş</a>
+          </div>
+        </details>
+        <div class="pdf-nav-actions" aria-label="Hızlı bağlantılar">
+          <a href="/modeller/#model-search"><span aria-hidden="true">⌕</span>Model Ara</a>
+          <a href="/modeller/?filtre=favoriler"><span aria-hidden="true">♡</span>Favoriler <b data-favorite-count>0</b></a>
+          <a class="button button--small" href="/teklif/"><span aria-hidden="true">▣</span>Teklif Al</a>
+        </div>
       </nav>
     </div>
   </header>
+  <nav class="pdf-contact-rail" aria-label="Hızlı iletişim">
+    <a href="tel:+905348578836" aria-label="Telefonla ara">Ara</a>
+    <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp üzerinden yaz">WA</a>
+    <a href="/teklif/" aria-label="Teklif formunu aç">Teklif</a>
+  </nav>
   <main id="main-content">
 
     <nav class="breadcrumbs container" aria-label="İçerik yolu">
@@ -82,19 +122,21 @@
         <div class="catalog-toolbar" data-catalog-toolbar>
           <label class="search-field">
             <span>Model kodu ara</span>
-            <input type="search" placeholder="Örn. FK-007" autocomplete="off" data-model-search>
+            <input id="model-search" type="search" placeholder="Örn. FK-007" autocomplete="off" data-model-search>
           </label>
           <div class="filter-group" role="group" aria-label="Branşa göre filtrele">
             <button type="button" class="filter-button is-active" data-model-filter="all" aria-pressed="true">Tümü</button>
             <button type="button" class="filter-button" data-model-filter="futbol" aria-pressed="false">Futbol</button>
             <button type="button" class="filter-button" data-model-filter="basketbol" aria-pressed="false">Basketbol</button>
             <button type="button" class="filter-button" data-model-filter="voleybol" aria-pressed="false">Voleybol</button>
+            <button type="button" class="filter-button" data-model-filter="season-2026" aria-pressed="false">Yeni Sezon 2026</button>
+            <button type="button" class="filter-button" data-model-filter="popular" aria-pressed="false">Popüler</button>
             <button type="button" class="filter-button" data-model-filter="favorites" aria-pressed="false">Favoriler <span data-favorite-count>0</span></button>
           </div>
           <button type="button" class="button button--small" data-share-favorites disabled>Favorileri WhatsApp’tan Gönder</button>
         </div>
         <p class="catalog-result" role="status" aria-live="polite" data-model-result>28 model gösteriliyor.</p>
-        <div class="model-grid" data-model-grid><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-001" aria-labelledby="model-title-FK-001">
+        <div class="model-grid" data-model-grid><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-001" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-001">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-001/" aria-label="FK-001 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-001.webp" alt="FK-001 turkuaz özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -125,7 +167,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-001%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-001 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-002" aria-labelledby="model-title-FK-002">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-002" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-002">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-002/" aria-label="FK-002 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-002.webp" alt="FK-002 siyah, beyaz ve turuncu özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -156,7 +198,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-002%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-002 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-005" aria-labelledby="model-title-FK-005">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-005" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-005">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-005/" aria-label="FK-005 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-005.webp" alt="FK-005 turkuaz ve mor özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -187,7 +229,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-005%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-005 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-007" aria-labelledby="model-title-FK-007">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-007" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-007">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-007/" aria-label="FK-007 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-007.webp" srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 35rem) calc(100vw - 2rem), (max-width: 52rem) 50vw, (max-width: 68rem) 33vw, 25vw" alt="FK-007 mor, sarı ve turuncu özel futbol forma ve şort modeli" width="1000" height="1250" loading="lazy">
@@ -218,7 +260,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-007%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-007 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-008" aria-labelledby="model-title-FK-008">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-008" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-008">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-008/" aria-label="FK-008 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-008.webp" alt="FK-008 takıma özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -249,7 +291,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-008%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-008 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-009" aria-labelledby="model-title-FK-009">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-009" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-009">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-009/" aria-label="FK-009 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-009.webp" alt="FK-009 takıma özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -280,7 +322,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-009%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-009 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-012" aria-labelledby="model-title-FK-012">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-012" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-012">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-012/" aria-label="FK-012 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-012.webp" alt="FK-012 siyah beyaz çizgisel özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -311,7 +353,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-012%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-012 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-019" aria-labelledby="model-title-FK-019">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-019" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-019">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-019/" aria-label="FK-019 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-019.webp" alt="FK-019 beyaz ve yeşil özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -342,7 +384,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-019%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-019 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-027" aria-labelledby="model-title-FK-027">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-027" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-027">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-027/" aria-label="FK-027 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-027.webp" alt="FK-027 lacivert ve bordo özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -373,7 +415,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-027%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-027 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-029" aria-labelledby="model-title-FK-029">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-029" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-029">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-029/" aria-label="FK-029 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-029.webp" alt="FK-029 beyaz ve kırmızı özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -404,7 +446,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-029%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-029 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-031" aria-labelledby="model-title-FK-031">
+  </article><article class="model-card" data-model-card data-sport="futbol" data-model-id="FK-031" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-031">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-031/" aria-label="FK-031 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-031.webp" alt="FK-031 siyah ve mavi özel futbol forma modeli" width="640" height="800" loading="lazy">
@@ -435,7 +477,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-031%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-031 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-001" aria-labelledby="model-title-FK-B-001">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-001" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-B-001">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-001/" aria-label="FK-B-001 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-001.webp" alt="FK-B-001 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -466,7 +508,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-001%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-001 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-002" aria-labelledby="model-title-FK-B-002">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-002" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-002">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-002/" aria-label="FK-B-002 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-002.webp" alt="FK-B-002 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -497,7 +539,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-002%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-002 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-003" aria-labelledby="model-title-FK-B-003">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-003" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-003">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-003/" aria-label="FK-B-003 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-003.webp" alt="FK-B-003 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -528,7 +570,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-003%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-003 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-004" aria-labelledby="model-title-FK-B-004">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-004" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-B-004">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-004/" aria-label="FK-B-004 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-004.webp" alt="FK-B-004 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -559,7 +601,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-004%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-004 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-005" aria-labelledby="model-title-FK-B-005">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-005" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-005">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-005/" aria-label="FK-B-005 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-005.webp" alt="FK-B-005 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -590,7 +632,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-005%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-005 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-006" aria-labelledby="model-title-FK-B-006">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-006" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-006">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-006/" aria-label="FK-B-006 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-006.webp" alt="FK-B-006 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -621,7 +663,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-006%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-006 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-007" aria-labelledby="model-title-FK-B-007">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-007" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-007">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-007/" aria-label="FK-B-007 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-007.webp" alt="FK-B-007 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -652,7 +694,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-007%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-007 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-008" aria-labelledby="model-title-FK-B-008">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-008" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-008">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-008/" aria-label="FK-B-008 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-008.webp" alt="FK-B-008 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -683,7 +725,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-008%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-008 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-009" aria-labelledby="model-title-FK-B-009">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-009" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-009">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-009/" aria-label="FK-B-009 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-009.webp" alt="FK-B-009 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -714,7 +756,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-009%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-009 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-010" aria-labelledby="model-title-FK-B-010">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-010" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-010">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-010/" aria-label="FK-B-010 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-010.webp" alt="FK-B-010 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -745,7 +787,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-010%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-010 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-011" aria-labelledby="model-title-FK-B-011">
+  </article><article class="model-card" data-model-card data-sport="basketbol" data-model-id="FK-B-011" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-B-011">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-b-011/" aria-label="FK-B-011 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-b-011.webp" alt="FK-B-011 takıma özel basketbol forma ve şort modeli" width="640" height="800" loading="lazy">
@@ -776,7 +818,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-B-011%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-B-011 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-001" aria-labelledby="model-title-FK-V-001">
+  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-001" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-V-001">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-v-001/" aria-label="FK-V-001 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-v-001.webp" alt="FK-V-001 takıma özel voleybol forma modeli" width="640" height="800" loading="lazy">
@@ -807,7 +849,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-V-001%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-V-001 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-002" aria-labelledby="model-title-FK-V-002">
+  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-002" data-season="2026" data-featured="true" aria-labelledby="model-title-FK-V-002">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-v-002/" aria-label="FK-V-002 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-v-002.webp" alt="FK-V-002 takıma özel voleybol forma modeli" width="640" height="800" loading="lazy">
@@ -838,7 +880,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-V-002%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-V-002 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-003" aria-labelledby="model-title-FK-V-003">
+  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-003" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-V-003">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-v-003/" aria-label="FK-V-003 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-v-003.webp" alt="FK-V-003 takıma özel voleybol forma modeli" width="640" height="800" loading="lazy">
@@ -869,7 +911,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-V-003%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-V-003 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-004" aria-labelledby="model-title-FK-V-004">
+  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-004" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-V-004">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-v-004/" aria-label="FK-V-004 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-v-004.webp" alt="FK-V-004 takıma özel voleybol forma modeli" width="640" height="800" loading="lazy">
@@ -900,7 +942,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-V-004%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-V-004 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-005" aria-labelledby="model-title-FK-V-005">
+  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-005" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-V-005">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-v-005/" aria-label="FK-V-005 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-v-005.webp" alt="FK-V-005 takıma özel voleybol forma modeli" width="640" height="800" loading="lazy">
@@ -931,7 +973,7 @@
         <a class="model-card__secondary" href="https://wa.me/905348578836?text=Merhaba%2C%20FK-V-005%20kodlu%20modeli%20tak%C4%B1m%C4%B1m%C4%B1za%20%C3%B6zel%20haz%C4%B1rlatmak%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="FK-V-005 modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-006" aria-labelledby="model-title-FK-V-006">
+  </article><article class="model-card" data-model-card data-sport="voleybol" data-model-id="FK-V-006" data-season="2026" data-featured="false" aria-labelledby="model-title-FK-V-006">
     <div class="model-card__media">
       <a class="model-card__image-link" href="/modeller/fk-v-006/" aria-label="FK-V-006 modelinin ayrıntılarını incele">
         <img src="/assets/models/fk-v-006.webp" alt="FK-V-006 takıma özel voleybol forma modeli" width="640" height="800" loading="lazy">
@@ -993,17 +1035,17 @@
       </div>
       <div>
         <h2>Bilgi</h2>
-        <a href="/kumas-ve-uretim/">Kumaş ve üretim</a>
-        <a href="/beden-tablosu/">Beden planlama</a>
+        <a href="/uretim-sureci/">Üretim süreci</a>
+        <a href="/kalite-standartlari/">Kalite standartları</a>
         <a href="/sik-sorulan-sorular/">Sık sorulanlar</a>
         <a href="/hakkimizda/">Hakkımızda</a>
       </div>
       <div>
         <h2>İletişim</h2>
-        <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <a href="tel:+905348578836">0534&nbsp;857&nbsp;88&nbsp;36</a>
-        <a href="https://www.instagram.com/formakutusu/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="/kvkk-ve-gizlilik/">Gizlilik notu</a>
+        <a href="/whatsapp-destek/">WhatsApp destek</a>
+        <a href="/teklif/">Teklif formu</a>
+        <a href="/bayilik-toplu-siparis/">Bayilik / toplu sipariş</a>
+        <a href="/iletisim/">İletişim bilgileri</a>
       </div>
     </div>
     <div class="container site-footer__bottom">
