@@ -201,9 +201,9 @@ function pageShell({
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/site.js?v=20260801c" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header()}
@@ -719,10 +719,20 @@ for (const model of models) {
       ])}
       <section class="product-detail">
         <div class="container product-detail__grid">
-          <div class="product-detail__gallery">
+          <div class="product-detail__gallery" data-product-gallery data-product-mode="full">
+            <div class="product-detail__thumbs" role="group" aria-label="Ürün görseli görünümü">
+              <button class="is-active" type="button" data-product-view="full" aria-pressed="true" aria-label="${model.id} tam ürün görünümünü göster">
+                <span class="product-detail__thumb-frame"><img src="${model.image}" alt="" width="${image.width}" height="${image.height}" loading="lazy"></span>
+                <span>Tam</span>
+              </button>
+              <button type="button" data-product-view="detail" aria-pressed="false" aria-label="${model.id} ürün detayını yakın göster">
+                <span class="product-detail__thumb-frame product-detail__thumb-frame--detail"><img src="${model.image}" alt="" width="${image.width}" height="${image.height}" loading="lazy"></span>
+                <span>Detay</span>
+              </button>
+            </div>
             <div class="product-detail__visual">
               <a href="${model.image}" target="_blank" rel="noopener" aria-label="${model.id} ürün görselini tam boy aç">
-                <img src="${model.image}"${image.responsive} alt="${escapeHtml(model.alt)}" width="${image.width}" height="${image.height}" loading="eager" fetchpriority="high">
+                <img src="${model.image}"${image.responsive} alt="${escapeHtml(model.alt)}" width="${image.width}" height="${image.height}" loading="eager" fetchpriority="high" data-product-image>
                 <span>Görseli tam boy aç ↗</span>
               </a>
               <div class="product-detail__badges" aria-label="Ürün özellikleri">
@@ -736,22 +746,26 @@ for (const model of models) {
             <p class="eyebrow">${escapeHtml(model.category)} · ${model.id}</p>
             <h1>${model.id} ${escapeHtml(config.singular)}</h1>
             <p class="lead">${escapeHtml(config.intro)}</p>
-            <div class="product-detail__support"><span aria-hidden="true">✓</span><div><strong>Ücretsiz tasarım desteği</strong><p>Seçtiğin model takım kimliğine göre düzenlenir ve üretimden önce onaya sunulur.</p></div></div>
+            <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Takıma özel teklif</strong><small>Adet, ürün kapsamı ve kişiselleştirme ayrıntılarına göre hazırlanır.</small></div>
             <dl class="product-detail__facts">
               <div><dt>Model kodu</dt><dd>${model.id}</dd></div>
               <div><dt>Branş</dt><dd>${escapeHtml(config.label)}</dd></div>
               <div><dt>Minimum sipariş</dt><dd>5 adet</dd></div>
               <div><dt>Ürün kapsamı</dt><dd>${escapeHtml(config.scope)}</dd></div>
             </dl>
-            <div class="product-detail__options">
-              <p>Kişiselleştirme seçenekleri</p>
-              <ul><li>Takım renkleri</li><li>Logo ve sponsor</li><li>Oyuncu ismi</li><li>Forma numarası</li><li>Beden dağılımı</li></ul>
-            </div>
             <div class="product-detail__actions">
-              <a class="button" href="${quoteUrl}">Bu Model İçin Teklif Al</a>
-              <a class="button button--ghost" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sor</a>
+              <a class="button product-detail__whatsapp" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> WhatsApp’tan Teklif Al</a>
+              <a class="button button--ghost" href="${quoteUrl}">Teklif Formunu Doldur</a>
             </div>
             <p class="product-detail__note">Fiyat ve teslim tarihi; ürün kapsamı, adet, beden dağılımı ve güncel üretim planına göre teklif sırasında paylaşılır.</p>
+            <div class="product-detail__accordions">
+              <details open><summary>Model ve ürün bilgileri</summary><div><ul><li>Model kodu: ${model.id}</li><li>Branş: ${escapeHtml(config.label)}</li><li>Ürün kapsamı: ${escapeHtml(config.scope)}</li><li>Minimum üretim: 5 adet</li></ul></div></details>
+              <details><summary>Kişiselleştirme seçenekleri</summary><div><ul><li>Takım renkleri</li><li>Logo ve sponsor</li><li>Oyuncu ismi ve forma numarası</li><li>Beden dağılımı</li></ul></div></details>
+              <details><summary>Üretim ve teslimat süreci</summary><div><p>Hazırlanan tasarım onaylandıktan sonra üretim planı oluşturulur. Güncel üretim, teslim ve gönderim bilgileri teklif görüşmesinde teyit edilir.</p></div></details>
+              <details><summary>Beden ve bakım bilgisi</summary><div><p>Çocuk ve yetişkin beden seçenekleri ile kullanılacak ürüne uygun bakım talimatları sipariş öncesinde doğrulanır.</p></div></details>
+              <details><summary>Ürün açıklaması</summary><div><p>${escapeHtml(config.intro)} Görseldeki model takım renklerine ve kimlik öğelerine göre yeniden ele alınabilir.</p></div></details>
+            </div>
+            <div class="product-detail__trust" aria-label="Sipariş avantajları"><span>5+ minimum üretim</span><span>Ücretsiz tasarım desteği</span><span>Tasarım onayı</span></div>
           </div>
         </div>
       </section>
@@ -775,6 +789,16 @@ for (const model of models) {
             <li><span>3</span><div><strong>Tasarımı kontrol et</strong><p>Takımına özel hazırlanan görseli üretim öncesinde incele.</p></div></li>
             <li><span>4</span><div><strong>Onayla ve planla</strong><p>Güncel fiyat ve teslim bilgisiyle sipariş kapsamını netleştir.</p></div></li>
           </ol>
+        </div>
+      </section>
+      <section class="product-faq">
+        <div class="container product-faq__grid">
+          ${sectionIntro("Sık sorulanlar", `${model.id} hakkında merak edilenler.`, "Ürüne ve güncel üretim planına göre değişebilecek bilgiler teklif görüşmesinde doğrulanır.")}
+          <div class="faq-list">
+            <details open><summary>Bu modelin renkleri değiştirilebilir mi?</summary><div><p>Evet. Model takımının ana ve yardımcı renklerine göre tasarım aşamasında yeniden düzenlenebilir.</p></div></details>
+            <details><summary>İsim, numara, logo ve sponsor eklenebilir mi?</summary><div><p>Evet. Oyuncu ismi, forma numarası, takım arması ve sponsor görselleri tasarım onayına eklenebilir.</p></div></details>
+            <details><summary>Fiyat neden sabit görünmüyor?</summary><div><p>Fiyat; ürün kapsamı, adet, beden dağılımı ve kişiselleştirme ayrıntılarına göre değişebileceği için güncel teklif üzerinden paylaşılır.</p></div></details>
+          </div>
         </div>
       </section>
       <section class="product-related">
