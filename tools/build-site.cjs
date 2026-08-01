@@ -201,7 +201,7 @@ function pageShell({
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260731d">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801a">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js" defer></script>
 </head>
@@ -238,23 +238,54 @@ function sectionIntro(eyebrow, title, copy = "") {
 
 function modelCard(model, eager = false) {
   const message = `Merhaba, ${model.id} kodlu modeli takımımıza özel hazırlatmak için teklif almak istiyorum.`;
+  const quoteUrl = `/teklif/?model=${encodeURIComponent(model.id)}`;
+  const sportLabels = {
+    futbol: "Futbol",
+    basketbol: "Basketbol",
+    voleybol: "Voleybol",
+  };
+  const sportCopy = {
+    futbol: "Takım renkleri, logo, isim ve numara detaylarıyla sahaya hazırla.",
+    basketbol: "Forma ve şort tasarımını takım kimliğine göre birlikte planla.",
+    voleybol: "Renk, logo, isim ve numara uygulamalarıyla takımına uyarla.",
+  };
+  const sportLabel = sportLabels[model.sport] || model.category;
+  const cardCopy = sportCopy[model.sport] || "Renk ve baskı detaylarını takımına göre kişiselleştir.";
+  const badge = model.featured ? "Öne çıkan" : "Takıma özel";
   const responsive =
     model.id === "FK-007"
-      ? ` srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 52rem) 50vw, 33vw"`
+      ? ` srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 35rem) calc(100vw - 2rem), (max-width: 52rem) 50vw, (max-width: 68rem) 33vw, 25vw"`
       : "";
-  return `<article class="model-card" data-model-card data-sport="${model.sport}" data-model-id="${model.id}">
+  return `<article class="model-card" data-model-card data-sport="${model.sport}" data-model-id="${model.id}" aria-labelledby="model-title-${model.id}">
     <div class="model-card__media">
-      <img src="${model.image}"${responsive} alt="${escapeHtml(model.alt)}" width="${model.id === "FK-007" ? 1000 : 640}" height="${model.id === "FK-007" ? 1250 : 800}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
+      <a class="model-card__image-link" href="${quoteUrl}" aria-label="${model.id} modelini teklif formunda seç">
+        <img src="${model.image}"${responsive} alt="${escapeHtml(model.alt)}" width="${model.id === "FK-007" ? 1000 : 640}" height="${model.id === "FK-007" ? 1250 : 800}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
+      </a>
+      <div class="model-card__badges" aria-label="Model özellikleri">
+        <span class="model-card__badge model-card__badge--signal">${badge}</span>
+        <span class="model-card__badge">${escapeHtml(sportLabel)}</span>
+      </div>
       <button class="favorite-button" type="button" data-favorite="${model.id}" aria-label="${model.id} modelini favorilere ekle" aria-pressed="false">
         <span aria-hidden="true">♡</span>
       </button>
     </div>
     <div class="model-card__body">
-      <div>
+      <div class="model-card__heading">
+        <div>
         <p>${escapeHtml(model.category)}</p>
-        <h3>${model.id}</h3>
+          <h3 id="model-title-${model.id}">${model.id}</h3>
+        </div>
+        <span aria-hidden="true">FK</span>
       </div>
-      <a href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer" aria-label="${model.id} modeli için WhatsApp üzerinden teklif al">Teklif al <span aria-hidden="true">↗</span></a>
+      <p class="model-card__summary">${escapeHtml(cardCopy)}</p>
+      <ul class="model-card__features" aria-label="Kişiselleştirme seçenekleri">
+        <li>Renk uyarlama</li>
+        <li>Logo · isim · numara</li>
+      </ul>
+      <div class="model-card__actions">
+        <a class="model-card__primary" href="${quoteUrl}" aria-label="${model.id} modelini seç ve teklif formuna geç">Modeli seç <span aria-hidden="true">→</span></a>
+        <a class="model-card__secondary" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer" aria-label="${model.id} modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </article>`;
 }

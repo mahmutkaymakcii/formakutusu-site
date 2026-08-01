@@ -585,11 +585,14 @@ h3 {
 
 .model-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .model-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -613,11 +616,56 @@ h3 {
   background: #dedbd2;
 }
 
+.model-card__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.model-card__image-link:focus-visible {
+  outline: 3px solid var(--gold-bright);
+  outline-offset: -3px;
+}
+
 .model-card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 300ms ease;
+}
+
+.model-card__badges {
+  position: absolute;
+  z-index: 2;
+  top: 0.8rem;
+  left: 0.8rem;
+  display: flex;
+  max-width: calc(100% - 5rem);
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+
+.model-card__badge {
+  display: inline-flex;
+  min-height: 1.8rem;
+  align-items: center;
+  padding: 0.35rem 0.58rem;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 999px;
+  background: rgb(9 10 8 / 78%);
+  color: var(--text);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.055em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.model-card__badge--signal {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #16130b;
 }
 
 .model-card:hover .model-card__media img {
@@ -648,11 +696,31 @@ h3 {
 
 .model-card__body {
   display: flex;
-  min-height: 6.4rem;
-  align-items: center;
+  min-height: 13.5rem;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1rem 1rem 1.1rem;
+}
+
+.model-card__heading {
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.75rem;
+}
+
+.model-card__heading > span {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 900;
+  place-items: center;
 }
 
 .model-card__body p {
@@ -669,11 +737,66 @@ h3 {
   font-size: 1.55rem;
 }
 
-.model-card__body > a {
-  flex: 0 0 auto;
-  color: var(--gold-bright);
-  font-size: 0.78rem;
+.model-card__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.model-card__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.model-card__features li {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted-strong);
+  font-size: 0.62rem;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.model-card__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.model-card__actions a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.65rem 0.78rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 850;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.model-card__primary {
+  background: var(--gold);
+  color: #16130b;
+}
+
+.model-card__secondary {
+  color: var(--gold-bright);
+}
+
+.model-card__actions a:focus-visible {
+  outline: 3px solid var(--gold-bright);
+  outline-offset: 2px;
 }
 
 .section-action {
@@ -1690,6 +1813,10 @@ textarea[aria-invalid="true"] {
     grid-template-columns: 1fr;
   }
 
+  .model-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .quote-layout {
     grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.4fr);
   }
@@ -1927,16 +2054,16 @@ textarea[aria-invalid="true"] {
 
   .model-grid {
     gap: 0.65rem;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .model-card__body {
-    display: grid;
     gap: 0.6rem;
     padding: 0.8rem;
   }
 
-  .model-card__body > a {
-    width: max-content;
+  .model-card__actions {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .production-grid {
