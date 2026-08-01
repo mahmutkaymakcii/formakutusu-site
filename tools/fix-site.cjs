@@ -147,9 +147,9 @@ function createIstanbulPage(chrome) {
   <meta name="twitter:description" content="İstanbul'daki takımlar için özel forma teklifini kısa adımlarla hazırlayın.">
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260731d">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/site.js?v=20260801c" defer></script>
 </head>
 <body class="content-page istanbul-page">
   ${chrome.header}

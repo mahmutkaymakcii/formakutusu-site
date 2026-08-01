@@ -231,6 +231,25 @@
     });
   }
 
+  function initProductGallery() {
+    const gallery = document.querySelector("[data-product-gallery]");
+    const image = gallery?.querySelector("[data-product-image]");
+    const controls = [...(gallery?.querySelectorAll("[data-product-view]") || [])];
+    if (!gallery || !image || !controls.length) return;
+
+    controls.forEach((button) => {
+      button.addEventListener("click", () => {
+        const mode = button.dataset.productView === "detail" ? "detail" : "full";
+        gallery.dataset.productMode = mode;
+        controls.forEach((control) => {
+          const selected = control === button;
+          control.classList.toggle("is-active", selected);
+          control.setAttribute("aria-pressed", String(selected));
+        });
+      });
+    });
+  }
+
   function initQuoteForm() {
     const form = document.querySelector("[data-quote-form]");
     if (!form) return;
@@ -406,5 +425,6 @@
   initNavigation();
   initCatalog();
   initGallery();
+  initProductGallery();
   initQuoteForm();
 })();
