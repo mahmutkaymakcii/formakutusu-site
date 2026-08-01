@@ -1158,6 +1158,173 @@ h3 {
   color: var(--hot-pink);
 }
 
+.product-page {
+  background:
+    radial-gradient(circle at 8% 18%, rgb(45 226 255 / 8%), transparent 24rem),
+    radial-gradient(circle at 96% 35%, rgb(125 92 255 / 8%), transparent 28rem),
+    var(--bg);
+}
+
+.product-detail__visual {
+  border-color: rgb(45 226 255 / 24%);
+  background:
+    radial-gradient(circle at 50% 15%, rgb(45 226 255 / 20%), transparent 18rem),
+    #e7e8e5;
+  box-shadow:
+    0 34px 90px rgb(0 0 0 / 48%),
+    0 0 0 1px rgb(255 255 255 / 5%) inset;
+}
+
+.product-detail__visual::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 68%, rgb(8 10 14 / 24%));
+  content: "";
+  pointer-events: none;
+}
+
+.product-detail__visual > a > span,
+.product-detail__badges,
+.product-detail__visual .favorite-button {
+  z-index: 3;
+}
+
+.product-detail__badges span {
+  border-color: rgb(255 255 255 / 28%);
+  background: rgb(8 10 14 / 82%);
+  box-shadow: 0 8px 22px rgb(0 0 0 / 28%);
+  backdrop-filter: blur(12px);
+}
+
+.product-detail__badges span:first-child {
+  border-color: var(--volt);
+  background: var(--volt);
+  box-shadow: 0 0 24px rgb(199 255 47 / 28%);
+  color: #080a0e;
+}
+
+.product-detail__info .eyebrow {
+  color: var(--cyan);
+}
+
+.product-detail__info h1 {
+  letter-spacing: -0.055em;
+}
+
+.product-detail__support {
+  border-color: rgb(199 255 47 / 22%);
+  background:
+    linear-gradient(135deg, rgb(199 255 47 / 9%), transparent 62%),
+    var(--surface);
+}
+
+.product-detail__support > span {
+  background: var(--volt);
+  box-shadow: 0 0 22px rgb(199 255 47 / 25%);
+  color: #080a0e;
+}
+
+.product-detail__facts {
+  overflow: hidden;
+  border-color: rgb(45 226 255 / 18%);
+  border-radius: 1.15rem;
+  background: rgb(255 255 255 / 2%);
+}
+
+.product-detail__facts div {
+  border-color: rgb(45 226 255 / 14%);
+}
+
+.product-detail__facts dd {
+  color: var(--text);
+}
+
+.product-detail__options li {
+  border-color: rgb(255 255 255 / 13%);
+  background: rgb(255 255 255 / 4%);
+}
+
+.product-detail__actions .button:first-child {
+  border-color: var(--volt);
+  background: var(--volt);
+  box-shadow: 0 0 32px rgb(199 255 47 / 17%);
+  color: #080a0e;
+}
+
+.product-detail__actions .button:first-child:hover {
+  border-color: var(--cyan);
+  background: var(--cyan);
+}
+
+.product-detail__actions .button--ghost {
+  border-color: rgb(45 226 255 / 32%);
+  background: rgb(45 226 255 / 6%);
+  color: var(--cyan);
+}
+
+.product-information {
+  border-top: 1px solid rgb(255 255 255 / 7%);
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+  background:
+    linear-gradient(115deg, rgb(45 226 255 / 4%), transparent 42%),
+    rgb(255 255 255 / 1%);
+}
+
+.product-information__grid article {
+  position: relative;
+  overflow: hidden;
+  border-color: rgb(255 255 255 / 10%);
+  border-radius: 1.45rem;
+  background:
+    linear-gradient(150deg, rgb(255 255 255 / 6%), transparent 50%),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.product-information__grid article::after {
+  position: absolute;
+  right: -3rem;
+  bottom: -4.5rem;
+  width: 9rem;
+  height: 9rem;
+  border: 1px solid rgb(45 226 255 / 14%);
+  border-radius: 50%;
+  content: "";
+}
+
+.product-information__grid article > span,
+.product-order ol > li > span {
+  color: var(--cyan);
+}
+
+.product-order {
+  border-top: 1px solid rgb(255 255 255 / 6%);
+  border-bottom: 1px solid rgb(255 255 255 / 6%);
+  background:
+    radial-gradient(circle at 15% 10%, rgb(125 92 255 / 15%), transparent 25rem),
+    var(--bg-soft);
+}
+
+.product-order ol li {
+  border-color: rgb(45 226 255 / 13%);
+  background: rgb(255 255 255 / 4%);
+}
+
+.product-order ol > li > span {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid rgb(45 226 255 / 28%);
+  border-radius: 50%;
+  background: rgb(45 226 255 / 7%);
+  place-items: center;
+}
+
+.product-related {
+  background: var(--bg);
+}
+
 .text-link {
   color: var(--volt);
 }

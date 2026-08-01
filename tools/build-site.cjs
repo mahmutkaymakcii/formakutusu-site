@@ -201,7 +201,7 @@ function pageShell({
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801a">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801b">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js" defer></script>
 </head>
@@ -236,9 +236,23 @@ function sectionIntro(eyebrow, title, copy = "") {
   </div>`;
 }
 
+function modelUrl(model) {
+  return `/modeller/${model.id.toLowerCase()}/`;
+}
+
+function modelImageAttributes(model, sizes) {
+  const responsive =
+    model.id === "FK-007"
+      ? ` srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="${sizes}"`
+      : "";
+  const width = model.id === "FK-007" ? 1000 : 640;
+  const height = model.id === "FK-007" ? 1250 : 800;
+  return { responsive, width, height };
+}
+
 function modelCard(model, eager = false) {
   const message = `Merhaba, ${model.id} kodlu modeli takımımıza özel hazırlatmak için teklif almak istiyorum.`;
-  const quoteUrl = `/teklif/?model=${encodeURIComponent(model.id)}`;
+  const detailUrl = modelUrl(model);
   const sportLabels = {
     futbol: "Futbol",
     basketbol: "Basketbol",
@@ -252,14 +266,14 @@ function modelCard(model, eager = false) {
   const sportLabel = sportLabels[model.sport] || model.category;
   const cardCopy = sportCopy[model.sport] || "Renk ve baskı detaylarını takımına göre kişiselleştir.";
   const badge = model.featured ? "Öne çıkan" : "Takıma özel";
-  const responsive =
-    model.id === "FK-007"
-      ? ` srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 35rem) calc(100vw - 2rem), (max-width: 52rem) 50vw, (max-width: 68rem) 33vw, 25vw"`
-      : "";
+  const image = modelImageAttributes(
+    model,
+    "(max-width: 35rem) calc(100vw - 2rem), (max-width: 52rem) 50vw, (max-width: 68rem) 33vw, 25vw",
+  );
   return `<article class="model-card" data-model-card data-sport="${model.sport}" data-model-id="${model.id}" aria-labelledby="model-title-${model.id}">
     <div class="model-card__media">
-      <a class="model-card__image-link" href="${quoteUrl}" aria-label="${model.id} modelini teklif formunda seç">
-        <img src="${model.image}"${responsive} alt="${escapeHtml(model.alt)}" width="${model.id === "FK-007" ? 1000 : 640}" height="${model.id === "FK-007" ? 1250 : 800}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
+      <a class="model-card__image-link" href="${detailUrl}" aria-label="${model.id} modelinin ayrıntılarını incele">
+        <img src="${model.image}"${image.responsive} alt="${escapeHtml(model.alt)}" width="${image.width}" height="${image.height}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
       </a>
       <div class="model-card__badges" aria-label="Model özellikleri">
         <span class="model-card__badge model-card__badge--signal">${badge}</span>
@@ -273,7 +287,7 @@ function modelCard(model, eager = false) {
       <div class="model-card__heading">
         <div>
         <p>${escapeHtml(model.category)}</p>
-          <h3 id="model-title-${model.id}">${model.id}</h3>
+          <h3 id="model-title-${model.id}"><a href="${detailUrl}">${model.id}</a></h3>
         </div>
         <span aria-hidden="true">FK</span>
       </div>
@@ -283,7 +297,7 @@ function modelCard(model, eager = false) {
         <li>Logo · isim · numara</li>
       </ul>
       <div class="model-card__actions">
-        <a class="model-card__primary" href="${quoteUrl}" aria-label="${model.id} modelini seç ve teklif formuna geç">Modeli seç <span aria-hidden="true">→</span></a>
+        <a class="model-card__primary" href="${detailUrl}" aria-label="${model.id} modelinin ürün sayfasını aç">Ürünü incele <span aria-hidden="true">→</span></a>
         <a class="model-card__secondary" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer" aria-label="${model.id} modeli için WhatsApp üzerinden bilgi al">WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </div>
@@ -622,6 +636,154 @@ for (const [sport, config] of Object.entries(categoryConfig)) {
       </section>
       <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", `${config.eyebrow} hakkında`, "Teklif öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(config.faq)}</div></section>
       ${finalCta()}`,
+  });
+}
+
+const productDetailConfig = {
+  futbol: {
+    label: "Futbol",
+    singular: "Futbol Forması",
+    categoryRoute: "/futbol/",
+    intro:
+      "Halı saha, okul, turnuva ve kulüp takımları için renk, logo, sponsor, isim ve numara ayrıntılarıyla kişiselleştirilebilir.",
+    scope: "Forma veya forma + şort",
+  },
+  basketbol: {
+    label: "Basketbol",
+    singular: "Basketbol Forma Modeli",
+    categoryRoute: "/basketbol/",
+    intro:
+      "Basketbol takımları için forma ve şort görünümü; takım renkleri, logo, isim ve numara ayrıntılarıyla planlanabilir.",
+    scope: "Forma + şort",
+  },
+  voleybol: {
+    label: "Voleybol",
+    singular: "Voleybol Forma Modeli",
+    categoryRoute: "/voleybol/",
+    intro:
+      "Okul, turnuva ve kulüp takımları için renk, logo, isim, numara ve beden dağılımına göre kişiselleştirilebilir.",
+    scope: "Takım ihtiyacına göre",
+  },
+};
+
+for (const model of models) {
+  const config = productDetailConfig[model.sport];
+  const route = modelUrl(model);
+  const quoteUrl = `/teklif/?model=${encodeURIComponent(model.id)}`;
+  const message = `Merhaba, ${model.id} kodlu ${config.label.toLocaleLowerCase("tr-TR")} forma modelini takımımıza özel hazırlatmak için bilgi ve teklif almak istiyorum.`;
+  const image = modelImageAttributes(
+    model,
+    "(max-width: 68rem) calc(100vw - 2rem), 48vw",
+  );
+  const related = models
+    .filter((candidate) => candidate.sport === model.sport && candidate.id !== model.id)
+    .slice(0, 3);
+  const description = `${model.id} ${config.singular.toLocaleLowerCase("tr-TR")} büyük görselini ve kişiselleştirme bilgilerini inceleyin; takımınıza özel teklif hazırlayın.`;
+
+  writePage(route, {
+    title: `${model.id} ${config.singular}`,
+    description,
+    pageClass: "product-page",
+    preloadImage: model.image,
+    schemas: [
+      breadcrumbSchema([
+        { name: "Ana Sayfa", path: "/" },
+        { name: "Forma Modelleri", path: "/modeller/" },
+        { name: model.id, path: route },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: model.name,
+        sku: model.id,
+        category: model.category,
+        image: `${site.origin}${model.image}`,
+        description,
+        url: `${site.origin}${route}`,
+        brand: { "@type": "Brand", name: site.name },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "Minimum sipariş", value: "5 adet" },
+          {
+            "@type": "PropertyValue",
+            name: "Kişiselleştirme",
+            value: "Renk, logo, sponsor, isim ve numara",
+          },
+        ],
+      },
+    ],
+    body: `
+      ${breadcrumbs([
+        { name: "Ana Sayfa", path: "/" },
+        { name: "Forma Modelleri", path: "/modeller/" },
+        { name: model.id, path: route },
+      ])}
+      <section class="product-detail">
+        <div class="container product-detail__grid">
+          <div class="product-detail__gallery">
+            <div class="product-detail__visual">
+              <a href="${model.image}" target="_blank" rel="noopener" aria-label="${model.id} ürün görselini tam boy aç">
+                <img src="${model.image}"${image.responsive} alt="${escapeHtml(model.alt)}" width="${image.width}" height="${image.height}" loading="eager" fetchpriority="high">
+                <span>Görseli tam boy aç ↗</span>
+              </a>
+              <div class="product-detail__badges" aria-label="Ürün özellikleri">
+                <span>${model.featured ? "Öne çıkan" : "Takıma özel"}</span>
+                <span>${escapeHtml(config.label)}</span>
+              </div>
+              <button class="favorite-button" type="button" data-favorite="${model.id}" aria-label="${model.id} modelini favorilere ekle" aria-pressed="false"><span aria-hidden="true">♡</span></button>
+            </div>
+          </div>
+          <div class="product-detail__info">
+            <p class="eyebrow">${escapeHtml(model.category)} · ${model.id}</p>
+            <h1>${model.id} ${escapeHtml(config.singular)}</h1>
+            <p class="lead">${escapeHtml(config.intro)}</p>
+            <div class="product-detail__support"><span aria-hidden="true">✓</span><div><strong>Ücretsiz tasarım desteği</strong><p>Seçtiğin model takım kimliğine göre düzenlenir ve üretimden önce onaya sunulur.</p></div></div>
+            <dl class="product-detail__facts">
+              <div><dt>Model kodu</dt><dd>${model.id}</dd></div>
+              <div><dt>Branş</dt><dd>${escapeHtml(config.label)}</dd></div>
+              <div><dt>Minimum sipariş</dt><dd>5 adet</dd></div>
+              <div><dt>Ürün kapsamı</dt><dd>${escapeHtml(config.scope)}</dd></div>
+            </dl>
+            <div class="product-detail__options">
+              <p>Kişiselleştirme seçenekleri</p>
+              <ul><li>Takım renkleri</li><li>Logo ve sponsor</li><li>Oyuncu ismi</li><li>Forma numarası</li><li>Beden dağılımı</li></ul>
+            </div>
+            <div class="product-detail__actions">
+              <a class="button" href="${quoteUrl}">Bu Model İçin Teklif Al</a>
+              <a class="button button--ghost" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sor</a>
+            </div>
+            <p class="product-detail__note">Fiyat ve teslim tarihi; ürün kapsamı, adet, beden dağılımı ve güncel üretim planına göre teklif sırasında paylaşılır.</p>
+          </div>
+        </div>
+      </section>
+      <section class="product-information">
+        <div class="container">
+          ${sectionIntro("Ürün bilgileri", "Modeli takımına göre tamamla.", "Görseldeki tasarım başlangıç noktasıdır; uygulama ayrıntıları teklif ve tasarım onayı sırasında netleşir.")}
+          <div class="product-information__grid">
+            <article><span>01</span><h2>Renk uyarlama</h2><p>Model, takımının ana ve yardımcı renklerine göre yeniden düzenlenebilir.</p></article>
+            <article><span>02</span><h2>Takım kimliği</h2><p>Arma, sponsor, oyuncu ismi ve forma numarası tasarıma eklenebilir.</p></article>
+            <article><span>03</span><h2>Beden planı</h2><p>Oyuncu listesi ve beden dağılımı üretim onayından önce birlikte kontrol edilir.</p></article>
+            <article><span>04</span><h2>Tasarım onayı</h2><p>Hazırlanan takım görünümü onaylanmadan üretime başlanmaz.</p></article>
+          </div>
+        </div>
+      </section>
+      <section class="product-order">
+        <div class="container product-order__grid">
+          <div><p class="eyebrow">Nasıl sipariş verilir?</p><h2>Dört kısa adımda ilerle.</h2><p>Model kodu hazır olduğu için teklif görüşmesi daha hızlı ve anlaşılır ilerler.</p></div>
+          <ol>
+            <li><span>1</span><div><strong>Modeli seç</strong><p>${model.id} kodunu teklif formuna ekle.</p></div></li>
+            <li><span>2</span><div><strong>Takım detaylarını paylaş</strong><p>Renk, logo, sponsor, isim, numara ve beden bilgilerini hazırla.</p></div></li>
+            <li><span>3</span><div><strong>Tasarımı kontrol et</strong><p>Takımına özel hazırlanan görseli üretim öncesinde incele.</p></div></li>
+            <li><span>4</span><div><strong>Onayla ve planla</strong><p>Güncel fiyat ve teslim bilgisiyle sipariş kapsamını netleştir.</p></div></li>
+          </ol>
+        </div>
+      </section>
+      <section class="product-related">
+        <div class="container">
+          ${sectionIntro("Daha fazla model", `Diğer ${config.label.toLocaleLowerCase("tr-TR")} modellerini incele.`, "Aynı branştaki farklı çizgileri karşılaştır ve takımına en uygun başlangıç modelini seç.")}
+          ${modelGrid(related)}
+          <div class="section-action"><a class="button button--ghost" href="${config.categoryRoute}">Tüm ${escapeHtml(config.label)} Modelleri</a></div>
+        </div>
+      </section>`,
   });
 }
 
