@@ -27,88 +27,130 @@
   <meta name="twitter:image" content="https://formakutusu.com/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
+  <link rel="stylesheet" href="/assets/css/pdf-redesign.css?v=20260802c">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Teklif Al","item":"https://formakutusu.com/teklif/"}]}</script>
-  <script src="/assets/js/site.js?v=20260801c" defer></script>
+  <script src="/assets/js/site.js?v=20260802c" defer></script>
 </head>
-<body class="quote-page">
+<body class="fk-redesign quote-page">
 
   <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
-  <section class="service-strip" aria-label="Hizmet özeti">
-    <div class="container service-strip__inner">
-      <span>Minimum 5 adet üretim</span>
-      <span>Ücretsiz tasarım desteği</span>
-      <span>İsim, numara ve logo uygulaması</span>
-      <span>Türkiye geneli gönderim</span>
+  <section class="service-strip pdf-service-strip" aria-label="Hizmet özeti">
+    <div class="container pdf-service-strip__inner">
+      <span><b aria-hidden="true">TR</b><strong>Türkiye Geneli Gönderim</strong><small>Güvenli kargo planlaması</small></span>
+      <span><b aria-hidden="true">✓</b><strong>Onaylı Üretim Süreci</strong><small>Tasarım onayından sonra üretim</small></span>
+      <span><b aria-hidden="true">✎</b><strong>Ücretsiz Tasarım Desteği</strong><small>Renk, logo, isim ve numara</small></span>
     </div>
   </section>
-  <header class="site-header" data-site-header>
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Forma Kutusu ana sayfa">
-        <img src="/assets/brand/formakutusu.webp" alt="Forma Kutusu" width="640" height="88">
-      </a>
+  <header class="site-header pdf-header" data-site-header>
+    <div class="container site-header__inner pdf-header__inner">
+      <a class="brand pdf-brand" href="/" aria-label="Forma Kutusu ana sayfa"><span class="pdf-logo-mark" aria-hidden="true">FK</span><span class="pdf-logo-type"><strong>FORMA</strong><strong>KUTUSU</strong></span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
         <span class="sr-only">Menüyü aç</span>
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
-      <nav class="site-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
-        <a href="/modeller/">Forma Modelleri</a>
-        <a href="/futbol/">Futbol</a>
-        <a href="/hali-saha-formasi/">Halı Saha</a>
-        <a href="/nasil-siparis-verilir/">Nasıl Sipariş Verilir?</a>
-        <a href="/rehber/">Rehber</a>
-        <a class="button button--small" href="/teklif/">Teklif Al</a>
+      <nav class="site-nav pdf-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Formalar</summary>
+          <div class="pdf-nav-menu pdf-nav-menu--sports">
+            <a href="/futbol/"><span aria-hidden="true">01</span>Futbol</a>
+            <a href="/basketbol/"><span aria-hidden="true">02</span>Basketbol</a>
+            <a href="/voleybol/"><span aria-hidden="true">03</span>Voleybol</a>
+            <a href="/futbol/"><span aria-hidden="true">04</span>Kaleci</a>
+            <a href="/takima-ozel-forma/"><span aria-hidden="true">05</span>Tek Üst</a>
+            <a href="/forma-sort-takimi/"><span aria-hidden="true">06</span>Tek Şort</a>
+          </div>
+        </details>
+        <a class="pdf-nav-design" href="/takima-ozel-forma/">Tasarla</a>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Katalog</summary>
+          <div class="pdf-nav-menu">
+            <a href="/modeller/">Model Kataloğu</a>
+            <a href="/modeller/?sezon=2026">Yeni Sezon 2026</a>
+            <a href="/modeller/?filtre=populer">Popüler Modeller</a>
+          </div>
+        </details>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>Hakkımızda</summary>
+          <div class="pdf-nav-menu">
+            <a href="/hakkimizda/">Firma Bilgisi</a>
+            <a href="/uretim-sureci/">Üretim Süreci</a>
+            <a href="/kalite-standartlari/">Kalite Standartları</a>
+            <a href="/sik-sorulan-sorular/">SSS</a>
+          </div>
+        </details>
+        <details class="pdf-nav-group" data-nav-group>
+          <summary>İletişim</summary>
+          <div class="pdf-nav-menu">
+            <a href="/iletisim/">İletişim Bilgileri</a>
+            <a href="/whatsapp-destek/">WhatsApp Destek</a>
+            <a href="/teklif/">Teklif Formu</a>
+            <a href="/bayilik-toplu-siparis/">Bayilik / Toplu Sipariş</a>
+          </div>
+        </details>
+        <div class="pdf-nav-actions" aria-label="Hızlı bağlantılar">
+          <a href="/modeller/#model-search"><span aria-hidden="true">⌕</span>Model Ara</a>
+          <a href="/modeller/?filtre=favoriler"><span aria-hidden="true">♡</span>Favoriler <b data-favorite-count>0</b></a>
+          <a class="button button--small" href="/teklif/"><span aria-hidden="true">▣</span>Teklif Al</a>
+        </div>
       </nav>
     </div>
   </header>
+  <nav class="pdf-contact-rail" aria-label="Hızlı iletişim">
+    <a href="tel:+905348578836" aria-label="Telefonla ara">Ara</a>
+    <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp üzerinden yaz">WA</a>
+    <a href="/teklif/" aria-label="Teklif formunu aç">Teklif</a>
+  </nav>
   <main id="main-content">
 
     <nav class="breadcrumbs container" aria-label="İçerik yolu">
     <a href="/">Ana Sayfa</a><span aria-hidden="true">/</span><span aria-current="page">Teklif Al</span>
   </nav>
-    <section class="quote-hero"><div class="container"><p class="eyebrow">Hızlı teklif sihirbazı</p><h1>İhtiyacını 3 kısa adımda özetle.</h1><p class="lead">Bilgiler bu sayfada sunucuya gönderilmez. Son adımda hazırlanan metinle WhatsApp açılır; seçtiğin dosyaları görüşmeye kendin eklersin.</p></div></section>
+    <section class="quote-hero"><div class="container"><p class="eyebrow">Teklif Al</p><h1>Teklif Formu</h1><p class="lead">Takımınız için özel forma teklifi almak üzere bilgileri doldurun. Ürün türü, adet, tasarım detayları ve teslimat beklentisine göre en uygun teklif görüşmesini hazırlayalım.</p></div></section>
     <section class="quote-section"><div class="container quote-layout">
-      <form class="quote-form" data-quote-form novalidate>
+      <form class="quote-form pdf-offer-form" data-quote-form data-form-mode="all" novalidate>
         <ol class="progress-steps" aria-label="Teklif adımları">
-          <li class="is-active" data-progress-step="1"><span>1</span><strong>Takım</strong></li>
-          <li data-progress-step="2"><span>2</span><strong>Ürün</strong></li>
-          <li data-progress-step="3"><span>3</span><strong>Dosyalar</strong></li>
+          <li class="is-active" data-progress-step="1"><span>1</span><strong>İletişim Bilgileri</strong></li>
+          <li data-progress-step="2"><span>2</span><strong>Ürün &amp; Tasarım</strong></li>
+          <li data-progress-step="3"><span>3</span><strong>Ek Notlar</strong></li>
         </ol>
         <div class="form-alert" role="alert" data-form-alert hidden></div>
         <fieldset data-form-step="1">
-          <legend>Takımını tanıyalım</legend>
+          <legend>İletişim Bilgileri</legend>
           <div class="form-grid">
-            <label><span>Branş *</span><select name="sport" required><option value="">Seçin</option><option>Futbol</option><option>Basketbol</option><option>Voleybol</option><option>Diğer</option></select></label>
-            <label><span>Kullanım amacı *</span><select name="useCase" required><option value="">Seçin</option><option>Halı saha takımı</option><option>Okul takımı</option><option>Turnuva / organizasyon</option><option>Spor kulübü</option><option>Diğer</option></select></label>
-            <label class="form-grid__full"><span>Takım veya organizasyon adı</span><input type="text" name="teamName" maxlength="80" autocomplete="organization" placeholder="Örn. Kuzey Yıldızı"></label>
+            <label><span>Ad Soyad *</span><input type="text" name="fullName" maxlength="80" autocomplete="name" required placeholder="Ad soyadınızı girin"></label>
+            <label><span>Telefon / WhatsApp *</span><input type="tel" name="phone" maxlength="20" autocomplete="tel" inputmode="tel" required placeholder="05XX XXX XX XX"></label>
+            <label><span>E-posta</span><input type="email" name="email" maxlength="120" autocomplete="email" placeholder="ornek@email.com"></label>
+            <label><span>Takım / Kulüp Adı</span><input type="text" name="teamName" maxlength="100" autocomplete="organization" placeholder="Takım veya kulüp adınız"></label>
           </div>
-          <div class="form-actions"><button class="button" type="button" data-next-step>Devam Et</button></div>
         </fieldset>
-        <fieldset data-form-step="2" hidden>
-          <legend>Ürün ayrıntılarını ekle</legend>
+        <fieldset data-form-step="2">
+          <legend>Ürün &amp; Tasarım Bilgileri</legend>
           <div class="form-grid">
-            <label><span>Ürün kapsamı *</span><select name="product" required><option value="">Seçin</option><option>Yalnızca forma</option><option>Forma + şort</option><option>Kaleci ürünü dahil</option><option>Kararsızım</option></select></label>
+            <label><span>Ürün Türü *</span><select name="product" required><option value="">Seçin</option><option>Tek üst forma</option><option>Forma + şort takımı</option><option>Kaleci forması</option><option>Basketbol forması</option><option>Voleybol forması</option></select></label>
             <label><span>Adet *</span><input type="number" name="quantity" min="5" max="500" step="1" inputmode="numeric" required placeholder="En az 5"></label>
+            <label><span>Beden Dağılımı</span><input type="text" name="sizes" maxlength="120" placeholder="Örn. S:10, M:10, L:5"></label>
             <label><span>Model kodu</span><input type="text" name="modelCode" maxlength="20" autocomplete="off" placeholder="Örn. FK-007"></label>
             <label><span>Takım renkleri</span><input type="text" name="colors" maxlength="80" placeholder="Örn. lacivert, altın"></label>
-            <label class="form-grid__full"><span>Ek not</span><textarea name="notes" rows="4" maxlength="500" placeholder="Hedef tarih, kaleci forması veya farklı bir ihtiyaç varsa yazın."></textarea></label>
+            <label><span>Logo / Sponsor Bilgisi</span><input type="text" name="sponsor" maxlength="160" placeholder="Logo yeri ve sponsor detayları"></label>
           </div>
-          <div class="form-actions"><button class="button button--ghost" type="button" data-prev-step>Geri</button><button class="button" type="button" data-next-step>Devam Et</button></div>
         </fieldset>
-        <fieldset data-form-step="3" hidden>
-          <legend>Dosyaları hazırlayın</legend>
+        <fieldset data-form-step="3">
+          <legend>Ek Notlar &amp; Dosya</legend>
           <div class="form-grid">
             <label class="file-field"><span>Logo veya örnek görsel</span><input type="file" name="visualFile" accept=".png,.jpg,.jpeg,.webp,.pdf,image/png,image/jpeg,image/webp,application/pdf" data-max-size="10485760"><small>PNG, JPG, WebP veya PDF · en fazla 10 MB</small></label>
             <label class="file-field"><span>İsim, numara ve beden listesi</span><input type="file" name="rosterFile" accept=".csv,.xlsx,.xls,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-max-size="10485760"><small>CSV, XLS veya XLSX · en fazla 10 MB</small></label>
+            <label><span>Teslimat Beklentisi</span><input type="date" name="deliveryDate"></label>
+            <label class="form-grid__full"><span>Ek Not</span><textarea name="notes" rows="4" maxlength="500" placeholder="Tasarım, kumaş, baskı, hedef tarih veya farklı bir ihtiyacı yazın."></textarea></label>
             <label class="checkbox-field form-grid__full"><input type="checkbox" name="consent" required><span>Bilgilerimin teklif görüşmesi amacıyla WhatsApp’a aktarılacağını anladım ve kabul ediyorum. *</span></label>
           </div>
           <p class="form-note">Dosyalar bu siteden yüklenmez. WhatsApp açıldıktan sonra seçtiğin dosyaları sohbete ayrıca eklemen gerekir.</p>
-          <div class="form-actions"><button class="button button--ghost" type="button" data-prev-step>Geri</button><button class="button" type="submit">WhatsApp Mesajını Hazırla</button></div>
+          <div class="form-actions"><button class="button" type="submit">Teklifimi WhatsApp'ta Hazırla</button></div>
         </fieldset>
       </form>
       <aside class="quote-summary" aria-live="polite">
         <p class="eyebrow">Teklif özeti</p>
         <h2>Seçimlerin burada görünecek.</h2>
-        <dl data-quote-summary><div><dt>Branş</dt><dd>—</dd></div><div><dt>Kullanım</dt><dd>—</dd></div><div><dt>Ürün</dt><dd>—</dd></div><div><dt>Adet</dt><dd>—</dd></div><div><dt>Model</dt><dd>—</dd></div></dl>
+        <dl data-quote-summary><div><dt>Ad Soyad</dt><dd>—</dd></div><div><dt>Takım</dt><dd>—</dd></div><div><dt>Ürün</dt><dd>—</dd></div><div><dt>Adet</dt><dd>—</dd></div><div><dt>Model</dt><dd>—</dd></div></dl>
         <a href="/assets/templates/takim-listesi.csv" download>Takım listesi CSV şablonunu indir →</a>
       </aside>
     </div></section>
@@ -130,17 +172,17 @@
       </div>
       <div>
         <h2>Bilgi</h2>
-        <a href="/kumas-ve-uretim/">Kumaş ve üretim</a>
-        <a href="/beden-tablosu/">Beden planlama</a>
+        <a href="/uretim-sureci/">Üretim süreci</a>
+        <a href="/kalite-standartlari/">Kalite standartları</a>
         <a href="/sik-sorulan-sorular/">Sık sorulanlar</a>
         <a href="/hakkimizda/">Hakkımızda</a>
       </div>
       <div>
         <h2>İletişim</h2>
-        <a href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <a href="tel:+905348578836">0534&nbsp;857&nbsp;88&nbsp;36</a>
-        <a href="https://www.instagram.com/formakutusu/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="/kvkk-ve-gizlilik/">Gizlilik notu</a>
+        <a href="/whatsapp-destek/">WhatsApp destek</a>
+        <a href="/teklif/">Teklif formu</a>
+        <a href="/bayilik-toplu-siparis/">Bayilik / toplu sipariş</a>
+        <a href="/iletisim/">İletişim bilgileri</a>
       </div>
     </div>
     <div class="container site-footer__bottom">
