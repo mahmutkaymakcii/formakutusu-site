@@ -24,8 +24,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p assets/hero
-          cat .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part07_09 | base64 -d > assets/hero/hero-nora-duo.webp
-          cat .hero-upload/red.part01_04 | base64 -d > assets/hero/hero-nora-red.webp
+          cat .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part07_09 | tr -cd 'A-Za-z0-9+/=' | base64 -d > assets/hero/hero-nora-duo.webp
+          cat .hero-upload/red.part01_04 | tr -cd 'A-Za-z0-9+/=' | base64 -d > assets/hero/hero-nora-red.webp
           test "$(wc -c < assets/hero/hero-nora-duo.webp)" -eq 56552
           test "$(wc -c < assets/hero/hero-nora-red.webp)" -eq 25002
           python3 - <<'PY'
