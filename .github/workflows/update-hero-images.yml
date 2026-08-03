@@ -1,11 +1,11 @@
 name: Ana sayfa hero görsellerini güncelle
 
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
-      - .github/workflows/update-hero-images.yml
+      - .hero-trigger/**
 
 permissions:
   contents: write
@@ -14,8 +14,10 @@ jobs:
   update-hero:
     runs-on: ubuntu-latest
     steps:
-      - name: Depoyu al
+      - name: Ana dalı al
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Görselleri ve HTML'i güncelle
         shell: bash
@@ -64,4 +66,4 @@ jobs:
           git add index.html assets/hero/hero-nora-duo.webp assets/hero/hero-nora-red.webp
           git rm -r .hero-upload .github/workflows/update-hero-images.yml
           git commit -m "Ana sayfa hero görsellerini NORA fotoğraflarıyla güncelle [skip ci]"
-          git push
+          git push origin main
