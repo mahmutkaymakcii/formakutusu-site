@@ -25,8 +25,14 @@ jobs:
           set -euo pipefail
           export LC_ALL=C
           mkdir -p assets/hero
+          for file in .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part06_tail .hero-upload/duo.part07_09 .hero-upload/duo.part09_tail .hero-upload/red.part01_04 .hero-upload/red.tail; do
+            wc -c "$file"
+            sha256sum "$file"
+          done
           cat .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part06_tail .hero-upload/duo.part07_09 .hero-upload/duo.part09_tail | tr -cd 'A-Za-z0-9+/=' > /tmp/duo.b64
           cat .hero-upload/red.part01_04 .hero-upload/red.tail | tr -cd 'A-Za-z0-9+/=' > /tmp/red.b64
+          wc -c /tmp/duo.b64 /tmp/red.b64
+          sha256sum /tmp/duo.b64 /tmp/red.b64
           test "$(wc -c < /tmp/duo.b64)" -eq 75404
           test "$(wc -c < /tmp/red.b64)" -eq 33336
           base64 -d /tmp/duo.b64 > assets/hero/hero-nora-duo.webp
