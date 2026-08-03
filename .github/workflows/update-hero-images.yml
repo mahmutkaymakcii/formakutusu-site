@@ -24,15 +24,11 @@ jobs:
         run: |
           set -euo pipefail
           export LC_ALL=C
-          for file in .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part07_09 .hero-upload/red.part01_04; do
-            printf '%s: ' "$file"
-            tr -cd 'A-Za-z0-9+/=' < "$file" | wc -c
-          done
           mkdir -p assets/hero
-          cat .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part07_09 | tr -cd 'A-Za-z0-9+/=' > /tmp/duo.b64
-          cat .hero-upload/red.part01_04 | tr -cd 'A-Za-z0-9+/=' > /tmp/red.b64
-          printf 'duo toplam: '; wc -c < /tmp/duo.b64
-          printf 'red toplam: '; wc -c < /tmp/red.b64
+          cat .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part06_tail .hero-upload/duo.part07_09 .hero-upload/duo.part09_tail | tr -cd 'A-Za-z0-9+/=' > /tmp/duo.b64
+          cat .hero-upload/red.part01_04 .hero-upload/red.tail | tr -cd 'A-Za-z0-9+/=' > /tmp/red.b64
+          test "$(wc -c < /tmp/duo.b64)" -eq 75404
+          test "$(wc -c < /tmp/red.b64)" -eq 33336
           base64 -d /tmp/duo.b64 > assets/hero/hero-nora-duo.webp
           base64 -d /tmp/red.b64 > assets/hero/hero-nora-red.webp
           test "$(wc -c < assets/hero/hero-nora-duo.webp)" -eq 56552
