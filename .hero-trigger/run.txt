@@ -1,1 +1,1 @@
-Ana sayfa hero görsellerini uygula — tam aktarım.
+Ana sayfa hero görsellerini uygula — veri doğrulama.
