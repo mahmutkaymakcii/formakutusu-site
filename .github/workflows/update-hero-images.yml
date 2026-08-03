@@ -1,0 +1,67 @@
+name: Ana sayfa hero görsellerini güncelle
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/update-hero-images.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-hero:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Görselleri ve HTML'i güncelle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/hero
+          cat .hero-upload/duo.part01 .hero-upload/duo.part02 .hero-upload/duo.part03 .hero-upload/duo.part04_06 .hero-upload/duo.part07_09 | base64 -d > assets/hero/hero-nora-duo.webp
+          cat .hero-upload/red.part01_04 | base64 -d > assets/hero/hero-nora-red.webp
+          test "$(wc -c < assets/hero/hero-nora-duo.webp)" -eq 56552
+          test "$(wc -c < assets/hero/hero-nora-red.webp)" -eq 25002
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("index.html")
+          text = path.read_text(encoding="utf-8")
+
+          replacements = [
+              (
+                  '<link rel="preload" href="/assets/models/fk-007-640.webp" as="image" imagesrcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" imagesizes="(max-width: 900px) 88vw, 42vw" fetchpriority="high">',
+                  '<link rel="preload" href="/assets/hero/hero-nora-duo.webp" as="image" fetchpriority="high">'
+              ),
+              (
+                  '<img class="fk-hero__model fk-hero__model--back" src="/assets/models/fk-031.webp" alt="FK-031 özel futbol forma modeli" width="640" height="800" loading="eager">',
+                  '<img class="fk-hero__model fk-hero__model--back" src="/assets/hero/hero-nora-red.webp" alt="NORA kırmızı süblimasyon forma kumaş ve baskı detayı" width="600" height="735" loading="eager">'
+              ),
+              (
+                  '<img class="fk-hero__model fk-hero__model--front" src="/assets/models/fk-007.webp" srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 900px) 72vw, 35vw" alt="FK-007 özel futbol forma ve şort modeli" width="1000" height="1250" loading="eager" fetchpriority="high">',
+                  '<img class="fk-hero__model fk-hero__model--front" src="/assets/hero/hero-nora-duo.webp" sizes="(max-width: 900px) 72vw, 35vw" alt="NORA özel üretim formalarını giyen iki futbolcu" width="800" height="858" loading="eager" fetchpriority="high">'
+              ),
+          ]
+
+          for old, new in replacements:
+              if old not in text:
+                  raise SystemExit(f"Beklenen HTML satırı bulunamadı: {old[:100]}")
+              text = text.replace(old, new, 1)
+
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Değişiklikleri kaydet
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/hero/hero-nora-duo.webp assets/hero/hero-nora-red.webp
+          git rm -r .hero-upload .github/workflows/update-hero-images.yml
+          git commit -m "Ana sayfa hero görsellerini NORA fotoğraflarıyla güncelle [skip ci]"
+          git push
