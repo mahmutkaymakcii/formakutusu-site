@@ -1,5 +1,6 @@
 /* Forma Kutusu — Görev 01 kontrollü önizleme
-   Bu dosya yalnızca /preview/header-stage-01.html tarafından kullanılır. */
+   Bu dosya yalnızca /preview/header-stage-01.html tarafından kullanılır.
+   Kontrol hedefleri: 1536, 1920, 2560 ve 3840 px masaüstü genişlikleri. */
 
 .header-stage-preview {
   --stage-bg: #05080d;
