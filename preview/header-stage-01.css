@@ -1,0 +1,297 @@
+/* Forma Kutusu — Görev 01 kontrollü önizleme
+   Bu dosya yalnızca /preview/header-stage-01.html tarafından kullanılır. */
+
+.header-stage-preview {
+  --stage-bg: #05080d;
+  --stage-surface: #0a0f16;
+  --stage-text: #f7f8f2;
+  --stage-muted: #aeb5c0;
+  --stage-line: rgb(255 255 255 / 10%);
+  --stage-lime: #c7ff2f;
+  --stage-cyan: #2de2ff;
+  --stage-violet: #b7a7ff;
+  --stage-gradient: linear-gradient(100deg, #c7ff2f 0%, #36e6c5 31%, #2de2ff 61%, #b7a7ff 100%);
+  min-width: 1180px;
+  background: var(--stage-bg);
+  color: var(--stage-text);
+}
+
+.header-stage-preview .stage-container {
+  width: min(calc(100% - clamp(40px, 5vw, 160px)), clamp(1480px, 76vw, 2400px));
+  margin-inline: auto;
+}
+
+.stage-announcement {
+  min-height: 48px;
+  background: var(--stage-gradient);
+  color: #05080d;
+}
+
+.stage-announcement__inner {
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+}
+
+.stage-announcement__item {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.72rem, 0.54vw, 0.86rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.stage-announcement__item svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.stage-header {
+  position: relative;
+  z-index: 20;
+  border-bottom: 1px solid var(--stage-line);
+  background: rgb(5 8 13 / 97%);
+  box-shadow: 0 18px 48px rgb(0 0 0 / 24%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.stage-header__inner {
+  min-height: 112px;
+  display: grid;
+  grid-template-columns: minmax(205px, 245px) minmax(540px, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 2.8vw, 4.4rem);
+}
+
+.stage-brand {
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  gap: 0.9rem;
+  color: #fff;
+}
+
+.stage-brand__mark {
+  position: relative;
+  display: inline-grid;
+  width: 64px;
+  height: 58px;
+  place-items: center;
+  color: #fff;
+  font-family: "Unbounded", "Arial Black", sans-serif;
+  font-size: 2.45rem;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.16em;
+  line-height: 1;
+  text-shadow: 7px -5px 0 var(--stage-lime);
+  transform: skew(-9deg);
+}
+
+.stage-brand__mark::after {
+  position: absolute;
+  z-index: -1;
+  top: 4px;
+  right: -5px;
+  width: 13px;
+  height: 43px;
+  background: var(--stage-lime);
+  clip-path: polygon(35% 0, 100% 0, 65% 100%, 0 100%);
+  content: "";
+}
+
+.stage-brand__type {
+  display: grid;
+  gap: 0.08rem;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.26rem;
+  letter-spacing: 0.02em;
+  line-height: 1.02;
+}
+
+.stage-brand__type strong {
+  font-weight: 800;
+}
+
+.stage-brand__type strong:last-child {
+  color: var(--stage-lime);
+}
+
+.stage-nav {
+  display: flex;
+  min-width: 0;
+  align-self: stretch;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(1.65rem, 2.15vw, 3.2rem);
+}
+
+.stage-nav > a {
+  position: relative;
+  display: inline-flex;
+  min-height: 100%;
+  align-items: center;
+  color: #f1f3f6;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.76rem, 0.62vw, 0.9rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 170ms ease;
+}
+
+.stage-nav > a::after {
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+  left: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--stage-lime);
+  box-shadow: 0 0 18px rgb(199 255 47 / 42%);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 170ms ease;
+}
+
+.stage-nav > a:hover,
+.stage-nav > a:focus-visible,
+.stage-nav > a.is-active {
+  color: var(--stage-lime);
+}
+
+.stage-nav > a:hover::after,
+.stage-nav > a:focus-visible::after,
+.stage-nav > a.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.stage-actions {
+  display: flex;
+  min-width: max-content;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.9rem, 1.25vw, 1.55rem);
+  border-left: 1px solid var(--stage-line);
+  padding-left: clamp(1rem, 1.55vw, 1.8rem);
+}
+
+.stage-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.52rem;
+  color: #f5f7fa;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.7rem, 0.52vw, 0.8rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 170ms ease, transform 170ms ease;
+}
+
+.stage-action:hover,
+.stage-action:focus-visible {
+  color: var(--stage-lime);
+  transform: translateY(-1px);
+}
+
+.stage-action svg {
+  width: 1.7rem;
+  height: 1.7rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+}
+
+.stage-action--quote {
+  min-height: 52px;
+  gap: 0.68rem;
+  border: 1px solid var(--stage-lime);
+  border-radius: 14px;
+  background: var(--stage-lime);
+  color: #080a0e;
+  padding: 0.82rem 1.35rem;
+  box-shadow: 0 12px 34px rgb(199 255 47 / 18%);
+}
+
+.stage-action--quote:hover,
+.stage-action--quote:focus-visible {
+  border-color: var(--stage-cyan);
+  background: var(--stage-cyan);
+  color: #080a0e;
+}
+
+.header-stage-preview .stage-context-hero .fk-hero__grid {
+  width: min(calc(100% - clamp(40px, 5vw, 160px)), clamp(1480px, 76vw, 2400px));
+}
+
+.stage-status {
+  position: fixed;
+  z-index: 100;
+  right: 20px;
+  bottom: 20px;
+  display: grid;
+  max-width: 390px;
+  gap: 0.25rem;
+  border: 1px solid rgb(45 226 255 / 32%);
+  border-radius: 14px;
+  background: rgb(8 10 14 / 94%);
+  box-shadow: 0 18px 54px rgb(0 0 0 / 38%);
+  color: var(--stage-text);
+  padding: 0.9rem 1rem;
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
+.stage-status strong {
+  color: var(--stage-lime);
+  font-size: 0.82rem;
+}
+
+.stage-status span {
+  color: var(--stage-muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 1420px) {
+  .stage-header__inner {
+    grid-template-columns: minmax(190px, 220px) minmax(500px, 1fr) auto;
+    gap: 1.4rem;
+  }
+
+  .stage-nav {
+    gap: 1.35rem;
+  }
+
+  .stage-actions {
+    gap: 0.85rem;
+    padding-left: 1rem;
+  }
+
+  .stage-action:not(.stage-action--quote) span {
+    display: none;
+  }
+}
