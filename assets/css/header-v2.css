@@ -1,0 +1,363 @@
+/* Forma Kutusu V2 — Görev 01
+   Masaüstü duyuru bandı ve ana header.
+   Ana sayfaya özel olarak yüklenir; sayfanın diğer bölümlerini etkilemez. */
+
+.home-v2 .fk-announcement {
+  position: relative;
+  z-index: 120;
+  min-height: 46px;
+  overflow: hidden;
+  background: linear-gradient(100deg, #c7ff2f 0%, #36e6c5 31%, #2de2ff 61%, #b7a7ff 100%);
+  color: #070a0e;
+}
+
+.home-v2 .fk-announcement__inner {
+  width: min(calc(100% - 3rem), 92rem);
+  min-height: 46px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+}
+
+.home-v2 .fk-announcement__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.home-v2 .fk-announcement__item svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.9;
+}
+
+.home-v2 .fk-header-v2 {
+  position: sticky;
+  z-index: 110;
+  top: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+  background: rgb(5 8 13 / 96%);
+  color: #f7f8f2;
+  box-shadow: 0 18px 48px rgb(0 0 0 / 28%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.home-v2 .fk-header-v2__inner {
+  width: min(calc(100% - 3rem), 92rem);
+  min-height: 108px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(190px, 230px) minmax(520px, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.4rem, 2.6vw, 3.4rem);
+}
+
+.home-v2 .fk-brand-v2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.95rem;
+  width: max-content;
+  color: #fff;
+}
+
+.home-v2 .fk-brand-v2__mark {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 58px;
+  color: #fff;
+  font-family: "Unbounded", "Arial Black", sans-serif;
+  font-size: 2.45rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.16em;
+  line-height: 1;
+  transform: skew(-9deg);
+  text-shadow: 7px -5px 0 #c7ff2f;
+}
+
+.home-v2 .fk-brand-v2__mark::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 4px;
+  width: 13px;
+  height: 43px;
+  background: #c7ff2f;
+  clip-path: polygon(35% 0, 100% 0, 65% 100%, 0 100%);
+  z-index: -1;
+}
+
+.home-v2 .fk-brand-v2__type {
+  display: grid;
+  gap: 0.08rem;
+  font-size: 1.23rem;
+  letter-spacing: 0.02em;
+  line-height: 1.02;
+}
+
+.home-v2 .fk-brand-v2__type strong {
+  font-weight: 800;
+}
+
+.home-v2 .fk-brand-v2__type strong:last-child {
+  color: #c7ff2f;
+}
+
+.home-v2 .fk-nav-v2 {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(1.15rem, 2.1vw, 2.7rem);
+  min-width: 0;
+  align-self: stretch;
+}
+
+.home-v2 .fk-nav-v2__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.home-v2 .fk-nav-v2__item > a {
+  position: relative;
+  display: inline-flex;
+  min-height: 100%;
+  align-items: center;
+  padding: 0.15rem 0;
+  color: #f1f3f6;
+  font-size: clamp(0.72rem, 0.72vw, 0.86rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 170ms ease;
+}
+
+.home-v2 .fk-nav-v2__item > a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 25px;
+  left: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: #c7ff2f;
+  box-shadow: 0 0 18px rgb(199 255 47 / 42%);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 170ms ease;
+}
+
+.home-v2 .fk-nav-v2__item > a:hover,
+.home-v2 .fk-nav-v2__item > a:focus-visible,
+.home-v2 .fk-nav-v2__item > a.is-active {
+  color: #c7ff2f;
+}
+
+.home-v2 .fk-nav-v2__item > a:hover::after,
+.home-v2 .fk-nav-v2__item > a:focus-visible::after,
+.home-v2 .fk-nav-v2__item > a.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.home-v2 .fk-header-v2__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.45rem;
+  min-width: max-content;
+  padding-left: 1.55rem;
+  border-left: 1px solid rgb(255 255 255 / 10%);
+}
+
+.home-v2 .fk-header-action-v2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #f5f7fa;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 170ms ease, transform 170ms ease;
+}
+
+.home-v2 .fk-header-action-v2:hover,
+.home-v2 .fk-header-action-v2:focus-visible {
+  color: #c7ff2f;
+  transform: translateY(-1px);
+}
+
+.home-v2 .fk-header-action-v2 svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+}
+
+.home-v2 .fk-header-action-v2--quote {
+  min-height: 52px;
+  gap: 0.7rem;
+  border: 1px solid #c7ff2f;
+  border-radius: 14px;
+  background: #c7ff2f;
+  color: #080a0e;
+  padding: 0.82rem 1.35rem;
+  box-shadow: 0 12px 34px rgb(199 255 47 / 18%);
+}
+
+.home-v2 .fk-header-action-v2--quote:hover,
+.home-v2 .fk-header-action-v2--quote:focus-visible {
+  border-color: #2de2ff;
+  background: #2de2ff;
+  color: #080a0e;
+}
+
+.home-v2 .fk-header-v2 .nav-toggle {
+  display: none;
+}
+
+@media (max-width: 1240px) {
+  .home-v2 .fk-header-v2__inner {
+    grid-template-columns: minmax(170px, 205px) minmax(450px, 1fr) auto;
+    gap: 1.15rem;
+  }
+
+  .home-v2 .fk-nav-v2 {
+    gap: 1.15rem;
+  }
+
+  .home-v2 .fk-header-v2__actions {
+    gap: 0.9rem;
+    padding-left: 1rem;
+  }
+
+  .home-v2 .fk-header-action-v2 span {
+    display: none;
+  }
+
+  .home-v2 .fk-header-action-v2--quote span {
+    display: inline;
+  }
+}
+
+/* Mobil tasarım bu görevin kapsamı değildir. Aşağıdaki kurallar yalnızca
+   mevcut canlı sitenin menü işlevini bozmamak için güvenli geri dönüş sağlar. */
+@media (max-width: 980px) {
+  .home-v2 .fk-announcement__inner {
+    width: min(calc(100% - 1.5rem), 92rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-v2 .fk-announcement__item {
+    font-size: 0.68rem;
+  }
+
+  .home-v2 .fk-announcement__item:last-child {
+    display: none;
+  }
+
+  .home-v2 .fk-header-v2__inner {
+    width: min(calc(100% - 1.5rem), 92rem);
+    min-height: 78px;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+  }
+
+  .home-v2 .fk-brand-v2__mark {
+    width: 48px;
+    height: 44px;
+    font-size: 1.8rem;
+  }
+
+  .home-v2 .fk-brand-v2__type {
+    font-size: 1rem;
+  }
+
+  .home-v2 .fk-header-v2__actions {
+    display: none;
+  }
+
+  .home-v2 .fk-header-v2 .nav-toggle {
+    display: grid;
+    border-color: rgb(255 255 255 / 14%);
+    background: #11151c;
+  }
+
+  .home-v2 .fk-nav-v2 {
+    position: fixed;
+    z-index: 109;
+    top: 124px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    align-content: start;
+    justify-content: stretch;
+    gap: 0;
+    overflow-y: auto;
+    background: rgb(5 8 13 / 99%);
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  .home-v2 .fk-nav-v2.is-open {
+    display: grid;
+  }
+
+  .home-v2 .fk-nav-v2__item,
+  .home-v2 .fk-nav-v2__item > a {
+    width: 100%;
+  }
+
+  .home-v2 .fk-nav-v2__item > a {
+    min-height: 58px;
+    border-bottom: 1px solid rgb(255 255 255 / 9%);
+    font-size: 0.92rem;
+  }
+
+  .home-v2 .fk-nav-v2__item > a::after {
+    right: auto;
+    bottom: 0;
+    width: 72px;
+  }
+}
+
+@media (max-width: 540px) {
+  .home-v2 .fk-announcement__inner {
+    display: flex;
+    justify-content: center;
+  }
+
+  .home-v2 .fk-announcement__item:nth-child(2),
+  .home-v2 .fk-announcement__item:nth-child(3) {
+    display: none;
+  }
+
+  .home-v2 .fk-brand-v2 {
+    gap: 0.65rem;
+  }
+}
