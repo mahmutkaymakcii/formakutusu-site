@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/home-v2.css?v=20260801b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
+  <link rel="stylesheet" href="/assets/css/header-v2.css?v=20260805a">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Forma Kutusu","url":"https://formakutusu.com/","logo":"https://formakutusu.com/assets/brand/formakutusu.webp","contactPoint":{"@type":"ContactPoint","telephone":"+905348578836","contactType":"sales","availableLanguage":"Turkish"},"sameAs":["https://www.instagram.com/formakutusu/","https://www.tiktok.com/@formakutusunora"]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Minimum kaç adet sipariş verebilirim?","acceptedAnswer":{"@type":"Answer","text":"Üretim en az 5 adet forma ile başlar. Ürün kapsamı ve beden dağılımı teklif sırasında netleştirilir."}},{"@type":"Question","name":"Modelin renkleri değiştirilebilir mi?","acceptedAnswer":{"@type":"Answer","text":"Evet. Seçilen model takım renklerine göre düzenlenebilir; logo, sponsor, isim ve numara detayları tasarım aşamasında eklenebilir."}},{"@type":"Question","name":"Tasarımı üretimden önce görebilir miyim?","acceptedAnswer":{"@type":"Answer","text":"Evet. Tasarım onayı alınmadan üretime geçilmez."}},{"@type":"Question","name":"Teslimat süresi nedir?","acceptedAnswer":{"@type":"Answer","text":"Süre sipariş adedi, ürün kapsamı ve üretim yoğunluğuna göre değişir. Güncel tarih teklif aşamasında paylaşılır."}}]}</script>
   <script src="/assets/js/site.js?v=20260801c" defer></script>
@@ -35,42 +36,50 @@
 <body class="home-page home-v2">
   <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
 
-  <section class="service-strip fk-service-strip" aria-label="Alışveriş ve üretim avantajları">
-    <div class="container fk-service-strip__inner">
-      <div class="fk-service-item">
-        <span class="fk-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7zM6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg></span>
-        <p><strong>Türkiye Geneli Gönderim</strong><small>Siparişler güvenli biçimde kargolanır</small></p>
+  <section class="fk-announcement" aria-label="Forma Kutusu hizmet avantajları">
+    <div class="fk-announcement__inner">
+      <div class="fk-announcement__item">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7zM6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+        <span>Türkiye Geneli Ücretsiz Kargo</span>
       </div>
-      <div class="fk-service-item">
-        <span class="fk-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span>
-        <p><strong>Onaylı Üretim Süreci</strong><small>Tasarım onayından sonra üretime geçilir</small></p>
+      <div class="fk-announcement__item">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+        <span>Onaylı Üretim Süreci</span>
       </div>
-      <div class="fk-service-item fk-service-item--desktop">
-        <span class="fk-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l8-8 3 3-8 8H6v-3Z"/><path d="m13 9 3 3"/></svg></span>
-        <p><strong>Ücretsiz Tasarım Desteği</strong><small>Renk, logo, isim ve numara uygulaması</small></p>
+      <div class="fk-announcement__item">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19h16M6 16l8-8 3 3-8 8H6v-3Z"/><path d="m13 9 3 3"/></svg>
+        <span>Ücretsiz Tasarım Desteği</span>
       </div>
     </div>
   </section>
 
-  <header class="site-header fk-header" data-site-header>
-    <div class="container fk-header__top">
-      <a class="brand fk-brand" href="/" aria-label="Forma Kutusu ana sayfa">
-        <span class="fk-logo-mark" aria-hidden="true">FK</span>
-        <span class="fk-logo-type"><strong>FORMA</strong><strong>KUTUSU</strong></span>
+  <header class="site-header fk-header-v2" data-site-header>
+    <div class="fk-header-v2__inner">
+      <a class="fk-brand-v2" href="/" aria-label="Forma Kutusu ana sayfa">
+        <span class="fk-brand-v2__mark" aria-hidden="true">FK</span>
+        <span class="fk-brand-v2__type"><strong>FORMA</strong><strong>KUTUSU</strong></span>
       </a>
 
-      <div class="fk-header__actions" aria-label="Hızlı bağlantılar">
-        <a href="/modeller/" class="fk-action-link">
+      <nav class="fk-nav-v2" id="site-nav" aria-label="Ana menü" data-site-nav>
+        <div class="fk-nav-v2__item" data-menu-root="formalar"><a href="/modeller/" data-menu-trigger="formalar">Formalar</a></div>
+        <div class="fk-nav-v2__item" data-menu-root="tasarla"><a class="is-active" href="/teklif/" data-menu-trigger="tasarla">Tasarla</a></div>
+        <div class="fk-nav-v2__item" data-menu-root="katalog"><a href="/modeller/" data-menu-trigger="katalog">Katalog</a></div>
+        <div class="fk-nav-v2__item" data-menu-root="hakkimizda"><a href="/hakkimizda/" data-menu-trigger="hakkimizda">Hakkımızda</a></div>
+        <div class="fk-nav-v2__item" data-menu-root="iletisim"><a href="/iletisim/" data-menu-trigger="iletisim">İletişim</a></div>
+      </nav>
+
+      <div class="fk-header-v2__actions" aria-label="Hızlı bağlantılar">
+        <a class="fk-header-action-v2" href="/modeller/" aria-label="Model ara">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-          <span>Model Ara</span>
+          <span>Ara</span>
         </a>
-        <a href="/modeller/?filtre=favoriler" class="fk-action-link">
-          <span class="fk-action-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg><b data-favorite-count>0</b></span>
-          <span>Favorilerim</span>
+        <a class="fk-header-action-v2" href="/modeller/?filtre=favoriler" aria-label="Favoriler">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
+          <span>Favoriler</span>
         </a>
-        <a href="/teklif/" class="fk-action-link fk-action-link--quote">
+        <a class="fk-header-action-v2 fk-header-action-v2--quote" href="/teklif/">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
-          <span>Teklifim</span>
+          <span>Teklif Al</span>
         </a>
       </div>
 
@@ -78,20 +87,6 @@
         <span class="sr-only">Menüyü aç</span>
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
-    </div>
-
-    <div class="fk-nav-wrap">
-      <nav class="site-nav fk-nav container" id="site-nav" aria-label="Ana menü" data-site-nav>
-        <a class="is-active" href="/">Ana Sayfa</a>
-        <a href="/modeller/">Formalar</a>
-        <a href="/forma-sort-takimi/">Şortlar</a>
-        <a href="/futbol/">Takım Sporları</a>
-        <a href="/modeller/">Katalog</a>
-        <a href="/takima-ozel-forma/">Özel Üretim</a>
-        <a href="/hakkimizda/">Hakkımızda</a>
-        <a href="/iletisim/">İletişim</a>
-        <a class="button button--small fk-nav-cta" href="/teklif/">Teklif Al</a>
-      </nav>
     </div>
   </header>
 
