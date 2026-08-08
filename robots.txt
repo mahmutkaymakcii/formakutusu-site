@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://formakutusu.com/sitemap.xml
+Sitemap: https://formakutusu.com/sitemap.txt
