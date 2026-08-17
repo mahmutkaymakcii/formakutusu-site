@@ -2235,6 +2235,12 @@ textarea:focus {
     padding: 0.8rem 0.85rem 0.95rem;
   }
 
+  .model-card__body p,
+  .model-card__badge,
+  .model-card__features li {
+    font-size: 0.7rem;
+  }
+
   .model-card__body h3 {
     font-size: 1.25rem;
   }

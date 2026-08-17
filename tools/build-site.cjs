@@ -84,7 +84,12 @@ function schemaTags(schemas = []) {
 }
 
 const headerLinks = [
-  { name: "Formalar", path: "/modeller/", section: "/modeller/" },
+  {
+    name: "Formalar",
+    path: "/modeller/",
+    section: "/modeller/",
+    aliases: ["/futbol/", "/basketbol/", "/voleybol/", "/hali-saha-formasi/"],
+  },
   { name: "Şortlar", path: "/forma-sort-takimi/" },
   { name: "Özel Üretim", path: "/takima-ozel-forma/" },
   { name: "Nasıl Sipariş Verilir?", path: "/nasil-siparis-verilir/" },
@@ -93,9 +98,10 @@ const headerLinks = [
 ];
 
 function headerLink(item, routePath) {
-  const isCurrent = item.section
-    ? routePath === item.path || routePath.startsWith(item.section)
-    : routePath === item.path;
+  const isCurrent =
+    routePath === item.path ||
+    (item.section && routePath.startsWith(item.section)) ||
+    item.aliases?.includes(routePath);
   return `<a href="${item.path}"${isCurrent ? ' aria-current="page"' : ""}>${item.name}</a>`;
 }
 

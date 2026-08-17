@@ -1846,6 +1846,7 @@ textarea[aria-invalid="true"] {
 
 .brand-band__inner img {
   width: min(20rem, 100%);
+  height: auto;
   justify-self: center;
 }
 
@@ -2672,6 +2673,10 @@ body.nav-open .mobile-cta {
   .button-row .button,
   .form-actions .button {
     width: 100%;
+  }
+
+  .inner-hero h1 {
+    overflow-wrap: anywhere;
   }
 
   .hero__proof {
