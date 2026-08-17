@@ -65,11 +65,11 @@ function createIstanbulPage(chrome) {
   const faq = [
     [
       "İstanbul için minimum forma siparişi kaç adettir?",
-      "Takım üretimi en az 5 adet ile başlar. Ürün kapsamı ve beden dağılımı teklif sırasında netleştirilir.",
+      "Takım üretimi en az 5 adet ile başlar. Ürün fiyatlarını Fiyatlar sayfasında inceleyebilirsin.",
     ],
     [
       "İstanbul dışındaki takımlar da sipariş verebilir mi?",
-      "Evet. Siparişler Türkiye genelinde planlanabilir; güncel gönderim ve teslim bilgisi teklif aşamasında paylaşılır.",
+      "Evet. Siparişler Türkiye genelinde planlanabilir; güncel gönderim ve teslim bilgisi sipariş görüşmesinde paylaşılır.",
     ],
     [
       "Tasarımı üretimden önce görebilir miyim?",
@@ -130,7 +130,7 @@ function createIstanbulPage(chrome) {
   <meta name="theme-color" content="#080a0e">
   <meta name="color-scheme" content="dark">
   <title>Forma Yaptırma İstanbul | Forma Kutusu</title>
-  <meta name="description" content="İstanbul'daki futbol, halı saha, basketbol ve voleybol takımları için özel forma tasarımı ve üretim teklifi hazırlayın.">
+  <meta name="description" content="İstanbul'daki futbol, halı saha, basketbol ve voleybol takımları için özel forma modellerini ve fiyatlarını inceleyin.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -140,14 +140,14 @@ function createIstanbulPage(chrome) {
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Forma Kutusu">
   <meta property="og:title" content="Forma Yaptırma İstanbul | Forma Kutusu">
-  <meta property="og:description" content="İstanbul'daki takımlar için model, renk, logo, isim, numara ve beden bilgileriyle forma teklifi hazırlayın.">
+  <meta property="og:description" content="İstanbul'daki takımlar için model, renk, logo, isim, numara ve beden bilgileriyle forma siparişini hazırlayın.">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${origin}/assets/brand/forma-kutusu-og-neon.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Forma Yaptırma İstanbul | Forma Kutusu">
-  <meta name="twitter:description" content="İstanbul'daki takımlar için özel forma teklifini kısa adımlarla hazırlayın.">
+  <meta name="twitter:description" content="İstanbul'daki takımlar için özel forma fiyatlarını inceleyin ve siparişinizi hazırlayın.">
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
@@ -165,14 +165,14 @@ function createIstanbulPage(chrome) {
         <div>
           <p class="eyebrow">İstanbul'daki takımlar için</p>
           <h1>Forma yaptırma sürecini net bilgilerle başlat.</h1>
-          <p class="lead">Futbol, halı saha, basketbol ve voleybol takımları için model, renk, logo, isim, numara ve beden dağılımını tek teklif akışında planla.</p>
-          <div class="button-row"><a class="button" href="/teklif/">Teklif Hazırla</a><a class="button button--ghost" href="/modeller/">Modelleri Gör</a></div>
+          <p class="lead">Futbol, halı saha, basketbol ve voleybol takımları için model, renk, logo, isim, numara ve beden dağılımını sipariş öncesinde planla.</p>
+          <div class="button-row"><a class="button" href="/teklif/">Fiyatları Gör</a><a class="button button--ghost" href="/modeller/">Modelleri Gör</a></div>
         </div>
         <div class="inner-hero__visual"><img src="/assets/models/fk-007.webp" srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 52rem) 92vw, 38vw" alt="FK-007 özel futbol forma ve şort modeli" width="1000" height="1250" loading="eager" fetchpriority="high"></div>
       </div>
     </section>
     <section class="feature-section"><div class="container">
-      <div class="section-intro"><p class="eyebrow">Teklif için gerekenler</p><h2>Sipariş kapsamını dört başlıkta netleştir.</h2><p>Kesin fiyat ve teslim tarihi, seçilen ürün kapsamı ve güncel üretim planına göre teklif sırasında paylaşılır.</p></div>
+      <div class="section-intro"><p class="eyebrow">Sipariş için gerekenler</p><h2>Sipariş kapsamını dört başlıkta netleştir.</h2><p>Fiyatları incele; teslim ve üretim ayrıntılarını WhatsApp görüşmesinde doğrula.</p></div>
       <div class="feature-grid">
         <article><span>01</span><h3>Model ve branş</h3><p>Futbol, basketbol veya voleybol model kodunu seç.</p></article>
         <article><span>02</span><h3>Takım kimliği</h3><p>Renk, arma, sponsor, isim ve numara bilgilerini hazırla.</p></article>
@@ -181,16 +181,16 @@ function createIstanbulPage(chrome) {
       </div>
     </div></section>
     <section class="content-band"><div class="container content-band__grid">
-      <div><p class="eyebrow">Gönderim planı</p><h2>İstanbul ve Türkiye geneli için güncel bilgiyi teklif aşamasında doğrula.</h2></div>
+      <div><p class="eyebrow">Gönderim planı</p><h2>İstanbul ve Türkiye geneli için güncel bilgiyi sipariş görüşmesinde doğrula.</h2></div>
       <ul class="check-list"><li>Minimum 5 adet üretim</li><li>Ücretsiz tasarım desteği</li><li>Forma ve şort kapsamı</li><li>Çocuk ve yetişkin bedenleri</li><li>Tasarım onayı</li><li>Güncel teslim ve kargo bilgisi</li></ul>
     </div></section>
     <section class="faq-section"><div class="container faq-section__grid">
-      <div class="section-intro"><p class="eyebrow">Sık sorulanlar</p><h2>İstanbul forma siparişi hakkında</h2><p>Doğrulanması gereken fiyat, termin ve üretim ayrıntıları teklif görüşmesinde netleştirilir.</p></div>
+      <div class="section-intro"><p class="eyebrow">Sık sorulanlar</p><h2>İstanbul forma siparişi hakkında</h2><p>Üretim ve teslim ayrıntıları sipariş görüşmesinde netleştirilir.</p></div>
       <div class="faq-list">${faqHtml}</div>
     </div></section>
     <section class="final-cta"><div class="container final-cta__inner">
-      <div><p class="eyebrow">Bir sonraki adım</p><h2>Takımın için anlaşılır bir teklif özeti hazırla.</h2><p>Model kodunu, adedi, takım renklerini ve beden listesini paylaşman yeterli.</p></div>
-      <div class="button-row"><a class="button" href="/teklif/">Teklif Sihirbazını Aç</a><a class="button button--ghost" href="https://wa.me/905348578836?text=Merhaba%2C%20%C4%B0stanbul%27daki%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp'tan Yaz</a></div>
+      <div><p class="eyebrow">Bir sonraki adım</p><h2>Fiyatları incele, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve beden listesini paylaşman yeterli.</p></div>
+      <div class="button-row"><a class="button" href="/teklif/">Fiyatları Gör</a><a class="button button--ghost" href="https://wa.me/905348578836?text=Merhaba%2C%20%C4%B0stanbul%27daki%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20sipari%C5%9Fi%20vermek%20istiyorum." target="_blank" rel="noopener noreferrer">Sipariş Ver</a></div>
     </div></section>
   </main>
   ${chrome.footer}

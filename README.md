@@ -13,7 +13,7 @@ Forma Kutusu'nun bağımlılıksız, statik ve mobil öncelikli web sitesi.
 - `assets/css/neon-sport.css`: güncel yapıyı koruyan koyu neon-sportif marka katmanı.
 - `assets/fonts/`: yerel Manrope ve Unbounded web fontları ile lisansları.
 - `assets/brand/forma-kutusu-og-neon.png`: sosyal paylaşım için 1200 × 630 neon marka görseli.
-- `assets/js/site.js`: menü, galeri, model filtreleri, favoriler ve teklif asistanı.
+- `assets/js/site.js`: menü, galeri, model filtreleri ve favoriler.
 - `assets/templates/takim-listesi.csv`: müşterilerin indirebildiği takım listesi şablonu.
 
 ## Yerel üretim
