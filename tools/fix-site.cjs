@@ -22,7 +22,7 @@ function write(relativePath, content) {
 function walk(dir) {
   const output = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if ([".git", "node_modules"].includes(entry.name)) continue;
+    if ([".git", "node_modules", "preview"].includes(entry.name)) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) output.push(...walk(full));
     else output.push(full);
@@ -195,19 +195,12 @@ function createIstanbulPage(chrome) {
 </html>`;
 }
 
-const curated = new Map();
-for (const relativePath of ["index.html", "hali-saha-formasi/index.html"]) {
-  if (fs.existsSync(file(relativePath))) curated.set(relativePath, read(relativePath));
-}
-
 const build = spawnSync(process.execPath, [file("tools/build-site.cjs")], {
   cwd: root,
   encoding: "utf8",
   stdio: "inherit",
 });
 if (build.status !== 0) process.exit(build.status || 1);
-
-for (const [relativePath, content] of curated) write(relativePath, content);
 
 const chrome = extractChrome(read("hakkimizda/index.html"));
 write("forma-yaptirma-istanbul/index.html", createIstanbulPage(chrome));
@@ -229,9 +222,10 @@ const replacements = [
 ];
 
 for (const htmlFile of walk(root).filter((target) => target.endsWith(".html"))) {
-  let html = fs.readFileSync(htmlFile, "utf8");
+  const originalHtml = fs.readFileSync(htmlFile, "utf8");
+  let html = originalHtml;
   for (const [pattern, replacement] of replacements) html = html.replace(pattern, replacement);
-  fs.writeFileSync(htmlFile, `${html.trimEnd()}\n`, "utf8");
+  if (html !== originalHtml) fs.writeFileSync(htmlFile, `${html.trimEnd()}\n`, "utf8");
 }
 
 const indexableCanonicals = [];
@@ -254,5 +248,10 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 ${canonicalUrls.map((url) => `  <url><loc>${url}</loc></url>`).join("\n")}
 </urlset>`;
 write("sitemap.xml", sitemap);
+write("sitemap.txt", canonicalUrls.join("\n"));
+write(
+  "robots.txt",
+  `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.txt`,
+);
 
 console.log(`Finalized ${canonicalUrls.length} indexable pages.`);

@@ -33,7 +33,10 @@ jobs:
       - name: Build and normalize site
         run: node tools/fix-site.cjs
 
-      - name: Audit HTML, CSS, JavaScript, links and SEO
+      - name: Verify primary sitemap contract
+        run: grep -Fx "Sitemap: https://formakutusu.com/sitemap.txt" robots.txt
+
+      - name: Audit production HTML, CSS, JavaScript, links and SEO
         run: node tools/audit-site.cjs
 
       - name: Commit generated fixes to pull request

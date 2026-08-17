@@ -17,6 +17,7 @@ const site = {
 };
 
 const routes = [];
+const curatedRoutes = new Set(["/", "/hali-saha-formasi/"]);
 
 function escapeHtml(value = "") {
   return String(value)
@@ -357,6 +358,15 @@ function finalCta(title = "Takımın için net bir teklif hazırlayalım.") {
 function writePage(routePath, options) {
   const relative = routePath === "/" ? "index.html" : `${routePath.replace(/^\/|\/$/g, "")}/index.html`;
   const filePath = path.join(root, relative);
+
+  if (curatedRoutes.has(routePath)) {
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`Curated page is missing and will not be generated: ${relative}`);
+    }
+    routes.push(routePath);
+    return;
+  }
+
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   const output = pageShell({ ...options, path: routePath }).replace(/[ \t]+$/gm, "");
   fs.writeFileSync(filePath, output, "utf8");
@@ -1296,19 +1306,26 @@ for (const [relative, target] of redirects) {
 
 fs.copyFileSync(path.join(root, "404", "index.html"), path.join(root, "404.html"));
 
+const sitemapUrls = routes
+  .filter((route) => route !== "/404/")
+  .map((route) => `${site.origin}${route}`)
+  .sort((a, b) => {
+    if (a === `${site.origin}/`) return -1;
+    if (b === `${site.origin}/`) return 1;
+    return a.localeCompare(b, "tr");
+  });
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes
-  .filter((route) => route !== "/404/")
-  .map((route) => `  <url><loc>${site.origin}${route}</loc><changefreq>${route === "/" ? "weekly" : "monthly"}</changefreq><priority>${route === "/" ? "1.0" : route === "/teklif/" || route === "/modeller/" ? "0.9" : "0.7"}</priority></url>`)
-  .join("\n")}
+${sitemapUrls.map((url) => `  <url><loc>${url}</loc></url>`).join("\n")}
 </urlset>
 `;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap, "utf8");
+fs.writeFileSync(path.join(root, "sitemap.txt"), `${sitemapUrls.join("\n")}\n`, "utf8");
 
 fs.writeFileSync(
   path.join(root, "robots.txt"),
-  `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.txt\n`,
   "utf8",
 );
 

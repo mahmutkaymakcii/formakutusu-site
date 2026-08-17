@@ -166,9 +166,10 @@ function checkBalancedCss(file, css) {
 }
 
 const files = walk(root);
-const htmlFiles = files.filter((file) => file.endsWith(".html"));
-const cssFiles = files.filter((file) => file.endsWith(".css"));
-const jsFiles = files.filter((file) => /\.(?:c?js|mjs)$/.test(file));
+const productionFiles = files.filter((file) => !relative(file).startsWith("preview/"));
+const htmlFiles = productionFiles.filter((file) => file.endsWith(".html"));
+const cssFiles = productionFiles.filter((file) => file.endsWith(".css"));
+const jsFiles = productionFiles.filter((file) => /\.(?:c?js|mjs)$/.test(file));
 const indexablePages = new Map();
 const titles = new Map();
 const canonicals = new Map();
@@ -330,11 +331,7 @@ try {
   addError(manifestFile, `Manifest JSON geçersiz: ${error.message}.`);
 }
 
-const sitemapFile = path.join(root, "sitemap.xml");
-const sitemap = read(sitemapFile);
-try {
-  if (!/^<\?xml\b/.test(sitemap.trimStart()) || !/<urlset\b/.test(sitemap)) throw new Error("XML başlığı veya urlset eksik");
-  const locations = textMatches(sitemap, /<loc>([\s\S]*?)<\/loc>/gi);
+function validateSitemapLocations(sitemapFile, locations) {
   const locationSet = new Set();
   for (const location of locations) {
     if (locationSet.has(location)) addError(sitemapFile, `Yinelenen sitemap URL'si: ${location}.`);
@@ -357,14 +354,38 @@ try {
     const parsed = new URL(location);
     if (!indexablePages.has(parsed.pathname)) addError(sitemapFile, `Sitemap URL'si indekslenebilir HTML listesinde yok: ${location}.`);
   }
+  return locationSet;
+}
+
+const sitemapFile = path.join(root, "sitemap.txt");
+try {
+  const locations = read(sitemapFile)
+    .split(/\r?\n/)
+    .map((location) => location.trim())
+    .filter(Boolean);
+  validateSitemapLocations(sitemapFile, locations);
 } catch (error) {
   addError(sitemapFile, `Sitemap yapısı geçersiz: ${error.message}.`);
+}
+
+const secondarySitemapFile = path.join(root, "sitemap.xml");
+if (fs.existsSync(secondarySitemapFile)) {
+  try {
+    const secondarySitemap = read(secondarySitemapFile);
+    if (!/^<\?xml\b/.test(secondarySitemap.trimStart()) || !/<urlset\b/.test(secondarySitemap)) {
+      throw new Error("XML başlığı veya urlset eksik");
+    }
+    const locations = textMatches(secondarySitemap, /<loc>([\s\S]*?)<\/loc>/gi);
+    validateSitemapLocations(secondarySitemapFile, locations);
+  } catch (error) {
+    addError(secondarySitemapFile, `Secondary sitemap yapısı geçersiz: ${error.message}.`);
+  }
 }
 
 const robotsFile = path.join(root, "robots.txt");
 const robots = read(robotsFile);
 if (!/User-agent:\s*\*/i.test(robots)) addError(robotsFile, "Genel user-agent kuralı yok.");
-if (!new RegExp(`Sitemap:\\s*${origin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/sitemap\\.xml`, "i").test(robots)) addError(robotsFile, "Sitemap adresi eksik veya yanlış.");
+if (!new RegExp(`Sitemap:\\s*${origin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/sitemap\\.txt`, "i").test(robots)) addError(robotsFile, "Primary TXT sitemap adresi eksik veya yanlış.");
 
 if (warnings.length) {
   console.log(`\nUYARILAR (${warnings.length})`);
