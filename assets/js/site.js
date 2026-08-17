@@ -328,7 +328,7 @@
       }
     };
 
-    const setStep = (step) => {
+    const setStep = (step, { focus = true, scroll = true } = {}) => {
       currentStep = Math.max(1, Math.min(steps.length, step));
       steps.forEach((fieldset, index) => {
         fieldset.hidden = index + 1 !== currentStep;
@@ -341,11 +341,13 @@
         else item.removeAttribute("aria-current");
       });
       syncGeneralAlert();
-      steps[currentStep - 1]?.querySelector("input,select,textarea,button")?.focus();
-      window.scrollTo({
-        top: Math.max(0, form.getBoundingClientRect().top + window.scrollY - 110),
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      });
+      if (focus) steps[currentStep - 1]?.querySelector("input,select,textarea,button")?.focus();
+      if (scroll) {
+        window.scrollTo({
+          top: Math.max(0, form.getBoundingClientRect().top + window.scrollY - 110),
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        });
+      }
     };
 
     const validateRequiredField = (field) => {
@@ -479,6 +481,8 @@
     if (modelFromQuery && fields.modelCode) {
       fields.modelCode.value = modelFromQuery.toUpperCase();
     }
+    setStep(1, { focus: false, scroll: false });
+    form.classList.add("is-enhanced");
     updateSummary();
   }
 

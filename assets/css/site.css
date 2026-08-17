@@ -1938,6 +1938,34 @@ textarea[aria-invalid="true"] {
   padding: clamp(1rem, 3vw, 2rem);
 }
 
+.quote-form:not(.is-enhanced) .progress-steps,
+.quote-form:not(.is-enhanced) .form-actions {
+  display: none;
+}
+
+.quote-form:not(.is-enhanced) [data-form-step] + [data-form-step] {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.quote-no-js {
+  margin-bottom: 2rem;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: rgb(255 204 51 / 7%);
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.quote-no-js h2 {
+  margin-bottom: 0.65rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.quote-no-js p {
+  color: var(--muted-strong);
+}
+
 .progress-steps {
   display: grid;
   margin: 0 0 2.25rem;

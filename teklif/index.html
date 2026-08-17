@@ -83,6 +83,7 @@
     <section class="quote-hero"><div class="container"><p class="eyebrow">Hızlı teklif sihirbazı</p><h1>İhtiyacını 3 kısa adımda özetle.</h1><p class="lead">Bilgiler bu sayfada sunucuya gönderilmez. Son adımda hazırlanan metinle WhatsApp açılır; seçtiğin dosyaları görüşmeye kendin eklersin.</p></div></section>
     <section class="quote-section"><div class="container quote-layout">
       <form class="quote-form" data-quote-form novalidate>
+        <noscript><div class="quote-no-js" role="note"><h2>Teklif formu için JavaScript gerekli.</h2><p>Otomatik form aktarımı JavaScript kapalıyken kullanılamaz. Aşağıdaki alanlardan gerekli bilgileri inceleyebilir, ardından teklif detaylarını doğrudan WhatsApp üzerinden paylaşabilirsin.</p><a class="button" href="https://wa.me/905348578836?text=Merhaba%2C%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20%C3%B6zel%20forma%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp'tan iletişime geç</a></div></noscript>
         <ol class="progress-steps" aria-label="Teklif adımları">
           <li class="is-active" data-progress-step="1" aria-current="step"><span>1</span><strong>Takım</strong></li>
           <li data-progress-step="2"><span>2</span><strong>Ürün</strong></li>
@@ -98,7 +99,7 @@
           </div>
           <div class="form-actions"><button class="button" type="button" data-next-step>Devam Et</button></div>
         </fieldset>
-        <fieldset data-form-step="2" hidden>
+        <fieldset data-form-step="2">
           <legend>Ürün ayrıntılarını ekle</legend>
           <div class="form-grid">
             <label><span>Ürün kapsamı *</span><select name="product" required aria-describedby="quote-error-product"><option value="">Seçin</option><option>Yalnızca forma</option><option>Forma + şort</option><option>Kaleci ürünü dahil</option><option>Kararsızım</option></select><small class="field-error" id="quote-error-product" data-field-error="product" hidden></small></label>
@@ -109,7 +110,7 @@
           </div>
           <div class="form-actions"><button class="button button--ghost" type="button" data-prev-step>Geri</button><button class="button" type="button" data-next-step>Devam Et</button></div>
         </fieldset>
-        <fieldset data-form-step="3" hidden>
+        <fieldset data-form-step="3">
           <legend>Dosyaları hazırlayın</legend>
           <div class="form-grid">
             <label class="file-field"><span>Logo veya örnek görsel</span><input type="file" name="visualFile" accept=".png,.jpg,.jpeg,.webp,.pdf,image/png,image/jpeg,image/webp,application/pdf" data-max-size="10485760" aria-describedby="quote-help-visual-file quote-error-visual-file"><small id="quote-help-visual-file">PNG, JPG, WebP veya PDF · en fazla 10 MB</small><small class="field-error" id="quote-error-visual-file" data-field-error="visualFile" hidden></small></label>
