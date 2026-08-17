@@ -2028,6 +2028,18 @@ textarea[aria-invalid="true"] {
   font-size: 0.75rem;
 }
 
+.field-error {
+  display: block;
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.field-error[hidden] {
+  display: none;
+}
+
 .checkbox-field {
   display: flex !important;
   align-items: flex-start;
@@ -2041,6 +2053,11 @@ textarea[aria-invalid="true"] {
   flex: 0 0 auto;
   margin-top: 0.2rem;
   accent-color: var(--gold);
+}
+
+.checkbox-field input[aria-invalid="true"] {
+  outline: 2px solid var(--danger);
+  outline-offset: 2px;
 }
 
 .form-alert {
@@ -2579,7 +2596,6 @@ body.nav-open .mobile-cta {
 
   .quote-summary {
     position: static;
-    order: -1;
   }
 
   .final-cta__inner {

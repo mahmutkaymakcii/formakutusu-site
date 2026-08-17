@@ -84,7 +84,7 @@
     <section class="quote-section"><div class="container quote-layout">
       <form class="quote-form" data-quote-form novalidate>
         <ol class="progress-steps" aria-label="Teklif adımları">
-          <li class="is-active" data-progress-step="1"><span>1</span><strong>Takım</strong></li>
+          <li class="is-active" data-progress-step="1" aria-current="step"><span>1</span><strong>Takım</strong></li>
           <li data-progress-step="2"><span>2</span><strong>Ürün</strong></li>
           <li data-progress-step="3"><span>3</span><strong>Dosyalar</strong></li>
         </ol>
@@ -92,8 +92,8 @@
         <fieldset data-form-step="1">
           <legend>Takımını tanıyalım</legend>
           <div class="form-grid">
-            <label><span>Branş *</span><select name="sport" required><option value="">Seçin</option><option>Futbol</option><option>Basketbol</option><option>Voleybol</option><option>Diğer</option></select></label>
-            <label><span>Kullanım amacı *</span><select name="useCase" required><option value="">Seçin</option><option>Halı saha takımı</option><option>Okul takımı</option><option>Turnuva / organizasyon</option><option>Spor kulübü</option><option>Diğer</option></select></label>
+            <label><span>Branş *</span><select name="sport" required aria-describedby="quote-error-sport"><option value="">Seçin</option><option>Futbol</option><option>Basketbol</option><option>Voleybol</option><option>Diğer</option></select><small class="field-error" id="quote-error-sport" data-field-error="sport" hidden></small></label>
+            <label><span>Kullanım amacı *</span><select name="useCase" required aria-describedby="quote-error-use-case"><option value="">Seçin</option><option>Halı saha takımı</option><option>Okul takımı</option><option>Turnuva / organizasyon</option><option>Spor kulübü</option><option>Diğer</option></select><small class="field-error" id="quote-error-use-case" data-field-error="useCase" hidden></small></label>
             <label class="form-grid__full"><span>Takım veya organizasyon adı</span><input type="text" name="teamName" maxlength="80" autocomplete="organization" placeholder="Örn. Kuzey Yıldızı"></label>
           </div>
           <div class="form-actions"><button class="button" type="button" data-next-step>Devam Et</button></div>
@@ -101,8 +101,8 @@
         <fieldset data-form-step="2" hidden>
           <legend>Ürün ayrıntılarını ekle</legend>
           <div class="form-grid">
-            <label><span>Ürün kapsamı *</span><select name="product" required><option value="">Seçin</option><option>Yalnızca forma</option><option>Forma + şort</option><option>Kaleci ürünü dahil</option><option>Kararsızım</option></select></label>
-            <label><span>Adet *</span><input type="number" name="quantity" min="5" max="500" step="1" inputmode="numeric" required placeholder="En az 5"></label>
+            <label><span>Ürün kapsamı *</span><select name="product" required aria-describedby="quote-error-product"><option value="">Seçin</option><option>Yalnızca forma</option><option>Forma + şort</option><option>Kaleci ürünü dahil</option><option>Kararsızım</option></select><small class="field-error" id="quote-error-product" data-field-error="product" hidden></small></label>
+            <label><span>Adet *</span><input type="number" name="quantity" min="5" max="500" step="1" inputmode="numeric" required placeholder="En az 5" aria-describedby="quote-error-quantity"><small class="field-error" id="quote-error-quantity" data-field-error="quantity" hidden></small></label>
             <label><span>Model kodu</span><input type="text" name="modelCode" maxlength="20" autocomplete="off" placeholder="Örn. FK-007"></label>
             <label><span>Takım renkleri</span><input type="text" name="colors" maxlength="80" placeholder="Örn. lacivert, altın"></label>
             <label class="form-grid__full"><span>Ek not</span><textarea name="notes" rows="4" maxlength="500" placeholder="Hedef tarih, kaleci forması veya farklı bir ihtiyaç varsa yazın."></textarea></label>
@@ -112,9 +112,10 @@
         <fieldset data-form-step="3" hidden>
           <legend>Dosyaları hazırlayın</legend>
           <div class="form-grid">
-            <label class="file-field"><span>Logo veya örnek görsel</span><input type="file" name="visualFile" accept=".png,.jpg,.jpeg,.webp,.pdf,image/png,image/jpeg,image/webp,application/pdf" data-max-size="10485760"><small>PNG, JPG, WebP veya PDF · en fazla 10 MB</small></label>
-            <label class="file-field"><span>İsim, numara ve beden listesi</span><input type="file" name="rosterFile" accept=".csv,.xlsx,.xls,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-max-size="10485760"><small>CSV, XLS veya XLSX · en fazla 10 MB</small></label>
-            <label class="checkbox-field form-grid__full"><input type="checkbox" name="consent" required><span>Bilgilerimin teklif görüşmesi amacıyla WhatsApp’a aktarılacağını anladım ve kabul ediyorum. *</span></label>
+            <label class="file-field"><span>Logo veya örnek görsel</span><input type="file" name="visualFile" accept=".png,.jpg,.jpeg,.webp,.pdf,image/png,image/jpeg,image/webp,application/pdf" data-max-size="10485760" aria-describedby="quote-help-visual-file quote-error-visual-file"><small id="quote-help-visual-file">PNG, JPG, WebP veya PDF · en fazla 10 MB</small><small class="field-error" id="quote-error-visual-file" data-field-error="visualFile" hidden></small></label>
+            <label class="file-field"><span>İsim, numara ve beden listesi</span><input type="file" name="rosterFile" accept=".csv,.xlsx,.xls,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-max-size="10485760" aria-describedby="quote-help-roster-file quote-error-roster-file"><small id="quote-help-roster-file">CSV, XLS veya XLSX · en fazla 10 MB</small><small class="field-error" id="quote-error-roster-file" data-field-error="rosterFile" hidden></small></label>
+            <label class="checkbox-field form-grid__full"><input type="checkbox" name="consent" required aria-describedby="quote-error-consent"><span>Bilgilerimin teklif görüşmesi amacıyla WhatsApp’a aktarılacağını anladım ve kabul ediyorum. *</span></label>
+            <small class="field-error form-grid__full" id="quote-error-consent" data-field-error="consent" hidden></small>
           </div>
           <p class="form-note">Dosyalar bu siteden yüklenmez. WhatsApp açıldıktan sonra seçtiğin dosyaları sohbete ayrıca eklemen gerekir.</p>
           <div class="form-actions"><button class="button button--ghost" type="button" data-prev-step>Geri</button><button class="button" type="submit">WhatsApp Mesajını Hazırla</button></div>
@@ -123,7 +124,7 @@
       <aside class="quote-summary" aria-live="polite">
         <p class="eyebrow">Teklif özeti</p>
         <h2>Seçimlerin burada görünecek.</h2>
-        <dl data-quote-summary><div><dt>Branş</dt><dd>—</dd></div><div><dt>Kullanım</dt><dd>—</dd></div><div><dt>Ürün</dt><dd>—</dd></div><div><dt>Adet</dt><dd>—</dd></div><div><dt>Model</dt><dd>—</dd></div></dl>
+        <dl data-quote-summary><div><dt>Branş</dt><dd data-summary-value="sport">—</dd></div><div><dt>Kullanım</dt><dd data-summary-value="useCase">—</dd></div><div><dt>Takım</dt><dd data-summary-value="teamName">—</dd></div><div><dt>Ürün</dt><dd data-summary-value="product">—</dd></div><div><dt>Adet</dt><dd data-summary-value="quantity">—</dd></div><div><dt>Model</dt><dd data-summary-value="modelCode">—</dd></div><div><dt>Renkler</dt><dd data-summary-value="colors">—</dd></div><div><dt>Not</dt><dd data-summary-value="notes">—</dd></div><div><dt>Logo / örnek</dt><dd data-summary-value="visualFile">—</dd></div><div><dt>Takım listesi</dt><dd data-summary-value="rosterFile">—</dd></div></dl>
         <a href="/assets/templates/takim-listesi.csv" download>Takım listesi CSV şablonunu indir →</a>
       </aside>
     </div></section>

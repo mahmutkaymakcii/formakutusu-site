@@ -271,16 +271,26 @@
       notes: form.elements.notes,
       visualFile: form.elements.visualFile,
       rosterFile: form.elements.rosterFile,
+      consent: form.elements.consent,
     };
 
-    const summaryKeys = ["sport", "useCase", "product", "quantity", "modelCode"];
+    const validatedFields = new WeakSet();
+    const requiredMessages = {
+      sport: "Branş seçin.",
+      useCase: "Kullanım amacı seçin.",
+      product: "Ürün kapsamını seçin.",
+      quantity: "Adet girin.",
+      consent: "Devam etmek için onay kutusunu işaretleyin.",
+    };
 
     const updateSummary = () => {
       if (!summary) return;
-      summary.querySelectorAll("div").forEach((row, index) => {
-        const value = fields[summaryKeys[index]]?.value?.trim() || "—";
-        const output = row.querySelector("dd");
-        if (output) output.textContent = value;
+      summary.querySelectorAll("[data-summary-value]").forEach((output) => {
+        const key = output.dataset.summaryValue;
+        const field = fields[key];
+        const value =
+          field?.type === "file" ? field.files?.[0]?.name : field?.value?.trim();
+        output.textContent = value || "—";
       });
     };
 
@@ -288,9 +298,33 @@
       if (!alertBox) return;
       alertBox.textContent = message;
       alertBox.hidden = !message;
+    };
+
+    const stepAlertMessage = (step) =>
+      step === 3
+        ? "Lütfen dosya türlerini, boyutlarını ve onay kutusunu kontrol edin."
+        : "Lütfen yıldızlı alanları doğru biçimde doldurun.";
+
+    const syncGeneralAlert = (step = currentStep) => {
+      const fieldset = steps[step - 1];
+      const hasInvalid = fieldset?.querySelector('[aria-invalid="true"]');
+      showAlert(hasInvalid ? stepAlertMessage(step) : "");
+    };
+
+    const setFieldError = (field, message = "") => {
+      const error = form.querySelector(`[data-field-error="${field.name}"]`);
       if (message) {
-        alertBox.setAttribute("tabindex", "-1");
-        alertBox.focus();
+        field.setAttribute("aria-invalid", "true");
+        if (error) {
+          error.textContent = message;
+          error.hidden = false;
+        }
+      } else {
+        field.removeAttribute("aria-invalid");
+        if (error) {
+          error.textContent = "";
+          error.hidden = true;
+        }
       }
     };
 
@@ -300,10 +334,13 @@
         fieldset.hidden = index + 1 !== currentStep;
       });
       progress.forEach((item, index) => {
-        item.classList.toggle("is-active", index + 1 === currentStep);
+        const isActive = index + 1 === currentStep;
+        item.classList.toggle("is-active", isActive);
         item.classList.toggle("is-complete", index + 1 < currentStep);
+        if (isActive) item.setAttribute("aria-current", "step");
+        else item.removeAttribute("aria-current");
       });
-      showAlert();
+      syncGeneralAlert();
       steps[currentStep - 1]?.querySelector("input,select,textarea,button")?.focus();
       window.scrollTo({
         top: Math.max(0, form.getBoundingClientRect().top + window.scrollY - 110),
@@ -311,27 +348,46 @@
       });
     };
 
+    const validateRequiredField = (field) => {
+      validatedFields.add(field);
+      let message = "";
+
+      if (field.name === "quantity") {
+        const value = Number(field.value);
+        if (!field.value.trim()) message = requiredMessages.quantity;
+        else if (!field.checkValidity() || value < 5 || value > 500) {
+          message = "Adet 5 ile 500 arasında olmalı.";
+        }
+      } else if (!field.checkValidity()) {
+        message = requiredMessages[field.name] || "Bu alanı kontrol edin.";
+      }
+
+      setFieldError(field, message);
+      return message;
+    };
+
     const validateFile = (input) => {
       const file = input.files?.[0];
-      input.removeAttribute("aria-invalid");
-      if (!file) return "";
+      validatedFields.add(input);
+      let message = "";
 
-      const maxSize = Number(input.dataset.maxSize || 10485760);
-      const extension = file.name.split(".").pop()?.toLowerCase() || "";
-      const allowed =
-        input.name === "visualFile"
-          ? ["png", "jpg", "jpeg", "webp", "pdf"]
-          : ["csv", "xls", "xlsx"];
+      if (file) {
+        const maxSize = Number(input.dataset.maxSize || 10485760);
+        const extension = file.name.split(".").pop()?.toLowerCase() || "";
+        const allowed =
+          input.name === "visualFile"
+            ? ["png", "jpg", "jpeg", "webp", "pdf"]
+            : ["csv", "xls", "xlsx"];
 
-      if (!allowed.includes(extension)) {
-        input.setAttribute("aria-invalid", "true");
-        return `${file.name} desteklenen bir dosya türü değil.`;
+        if (!allowed.includes(extension)) {
+          message = `${file.name} desteklenen bir dosya türü değil.`;
+        } else if (file.size > maxSize) {
+          message = `${file.name} 10 MB sınırını aşıyor.`;
+        }
       }
-      if (file.size > maxSize) {
-        input.setAttribute("aria-invalid", "true");
-        return `${file.name} 10 MB sınırını aşıyor.`;
-      }
-      return "";
+
+      setFieldError(input, message);
+      return message;
     };
 
     const validateStep = (step) => {
@@ -340,29 +396,17 @@
 
       const invalid = [];
       fieldset.querySelectorAll("[required]").forEach((field) => {
-        field.removeAttribute("aria-invalid");
-        const invalidQuantity =
-          field.name === "quantity" &&
-          (Number(field.value) < 5 || Number(field.value) > 500);
-
-        if (!field.checkValidity() || invalidQuantity) {
-          field.setAttribute("aria-invalid", "true");
-          invalid.push(field);
-        }
+        if (validateRequiredField(field)) invalid.push(field);
       });
 
       fieldset.querySelectorAll('input[type="file"]').forEach((input) => {
         if (validateFile(input)) invalid.push(input);
       });
 
+      syncGeneralAlert(step);
       if (!invalid.length) return true;
 
-      showAlert(
-        step === 3
-          ? "Lütfen dosya türlerini, boyutlarını ve onay kutusunu kontrol edin."
-          : "Lütfen yıldızlı alanları doğru biçimde doldurun.",
-      );
-      invalid[0].focus();
+      invalid[0]?.focus();
       return false;
     };
 
@@ -376,10 +420,26 @@
       button.addEventListener("click", () => setStep(currentStep - 1));
     });
 
-    form.addEventListener("input", updateSummary);
+    form.addEventListener("input", (event) => {
+      const field = event.target;
+      if (
+        field.matches("[required]") &&
+        !field.matches('input[type="file"]') &&
+        validatedFields.has(field)
+      ) {
+        validateRequiredField(field);
+        syncGeneralAlert();
+      }
+      updateSummary();
+    });
     form.addEventListener("change", (event) => {
-      if (event.target.matches('input[type="file"]')) {
-        showAlert(validateFile(event.target));
+      const field = event.target;
+      if (field.matches('input[type="file"]')) {
+        validateFile(field);
+        syncGeneralAlert();
+      } else if (field.matches("[required]") && validatedFields.has(field)) {
+        validateRequiredField(field);
+        syncGeneralAlert();
       }
       updateSummary();
     });
