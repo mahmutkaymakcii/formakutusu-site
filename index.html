@@ -35,63 +35,47 @@
 <body class="home-page home-v2">
   <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
 
-  <section class="service-strip fk-service-strip" aria-label="Alışveriş ve üretim avantajları">
-    <div class="container fk-service-strip__inner">
-      <div class="fk-service-item">
-        <span class="fk-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7zM6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg></span>
-        <p><strong>Türkiye Geneli Gönderim</strong><small>Siparişler güvenli biçimde kargolanır</small></p>
-      </div>
-      <div class="fk-service-item">
-        <span class="fk-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span>
-        <p><strong>Onaylı Üretim Süreci</strong><small>Tasarım onayından sonra üretime geçilir</small></p>
-      </div>
-      <div class="fk-service-item fk-service-item--desktop">
-        <span class="fk-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l8-8 3 3-8 8H6v-3Z"/><path d="m13 9 3 3"/></svg></span>
-        <p><strong>Ücretsiz Tasarım Desteği</strong><small>Renk, logo, isim ve numara uygulaması</small></p>
-      </div>
+  <section class="service-strip" aria-label="Hizmet özeti">
+    <div class="container service-strip__inner">
+      <span>Türkiye geneli gönderim</span>
+      <span>Minimum 5 adet üretim</span>
+      <span>Ücretsiz tasarım desteği</span>
+      <span>İsim, numara ve logo uygulaması</span>
     </div>
   </section>
 
-  <header class="site-header fk-header" data-site-header>
-    <div class="container fk-header__top">
-      <a class="brand fk-brand" href="/" aria-label="Forma Kutusu ana sayfa">
-        <span class="fk-logo-mark" aria-hidden="true">FK</span>
-        <span class="fk-logo-type"><strong>FORMA</strong><strong>KUTUSU</strong></span>
+  <header class="site-header" data-site-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Forma Kutusu ana sayfa">
+        <img src="/assets/brand/formakutusu.webp" alt="Forma Kutusu" width="640" height="88">
       </a>
-
-      <div class="fk-header__actions" aria-label="Hızlı bağlantılar">
-        <a href="/modeller/" class="fk-action-link">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-          <span>Model Ara</span>
-        </a>
-        <a href="/modeller/?filtre=favoriler" class="fk-action-link">
-          <span class="fk-action-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg><b data-favorite-count>0</b></span>
-          <span>Favorilerim</span>
-        </a>
-        <a href="/teklif/" class="fk-action-link fk-action-link--quote">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
-          <span>Teklifim</span>
-        </a>
-      </div>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-        <span class="sr-only">Menüyü aç</span>
-        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <div class="fk-nav-wrap">
-      <nav class="site-nav fk-nav container" id="site-nav" aria-label="Ana menü" data-site-nav>
-        <a class="is-active" href="/">Ana Sayfa</a>
+      <nav class="site-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
         <a href="/modeller/">Formalar</a>
         <a href="/forma-sort-takimi/">Şortlar</a>
-        <a href="/futbol/">Takım Sporları</a>
-        <a href="/modeller/">Katalog</a>
         <a href="/takima-ozel-forma/">Özel Üretim</a>
+        <a href="/nasil-siparis-verilir/">Nasıl Sipariş Verilir?</a>
         <a href="/hakkimizda/">Hakkımızda</a>
         <a href="/iletisim/">İletişim</a>
-        <a class="button button--small fk-nav-cta" href="/teklif/">Teklif Al</a>
+        <a class="site-nav__mobile-action" href="/modeller/">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg> Model Ara
+        </a>
+        <a class="button button--small site-nav__mobile-action site-nav__mobile-quote" href="/teklif/">Teklif Al</a>
       </nav>
+      <div class="header-actions" aria-label="Hızlı bağlantılar">
+        <a class="header-action header-search" href="/modeller/" aria-label="Model ara">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span class="header-action__label">Model Ara</span>
+        </a>
+        <a class="header-action header-favorites" href="/modeller/?filtre=favoriler" aria-label="Favorilerim">
+          <span class="header-favorites__icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg><b data-favorite-count>0</b></span>
+          <span class="header-action__label">Favoriler</span>
+        </a>
+        <a class="button button--small header-quote" href="/teklif/">Teklif Al</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span class="sr-only">Menüyü aç</span>
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 

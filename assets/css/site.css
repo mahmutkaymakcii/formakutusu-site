@@ -176,8 +176,9 @@ h3 {
 
 .service-strip__inner {
   display: flex;
-  gap: 1.5rem;
-  min-height: 2rem;
+  width: min(calc(100% - 2.5rem), 92rem);
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  min-height: 2.25rem;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
@@ -208,16 +209,18 @@ h3 {
 }
 
 .site-header__inner {
-  display: flex;
-  min-height: 4.7rem;
+  display: grid;
+  width: min(calc(100% - 2.5rem), 92rem);
+  min-height: 4.75rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
+  gap: clamp(0.85rem, 1.5vw, 1.5rem);
 }
 
 .brand {
   display: inline-flex;
-  width: min(13rem, 52vw);
+  width: clamp(10.5rem, 13vw, 12.5rem);
+  flex: 0 0 auto;
   align-items: center;
 }
 
@@ -228,11 +231,14 @@ h3 {
 
 .site-nav {
   display: flex;
+  min-width: 0;
   align-items: center;
-  gap: clamp(0.85rem, 2vw, 1.5rem);
+  justify-content: center;
+  gap: clamp(0.55rem, 0.9vw, 1rem);
   color: var(--muted-strong);
-  font-size: 0.87rem;
+  font-size: 0.8rem;
   font-weight: 750;
+  white-space: nowrap;
 }
 
 .site-nav > a:not(.button) {
@@ -254,9 +260,74 @@ h3 {
 }
 
 .site-nav > a:hover::after,
-.site-nav > a:focus-visible::after {
+.site-nav > a:focus-visible::after,
+.site-nav > a[aria-current="page"]::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.site-nav > a[aria-current="page"] {
+  color: var(--text);
+}
+
+.site-nav .site-nav__mobile-action {
+  display: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.header-action {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--muted-strong);
+  font-size: 0.76rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.header-action > svg,
+.header-favorites__icon > svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.header-favorites__icon {
+  position: relative;
+  display: inline-flex;
+}
+
+.header-favorites__icon b {
+  position: absolute;
+  top: -0.55rem;
+  right: -0.65rem;
+  display: grid;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding-inline: 0.2rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #16130b;
+  font-size: 0.58rem;
+  line-height: 1;
+}
+
+.header-quote {
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  white-space: nowrap;
 }
 
 .nav-toggle {
@@ -2251,16 +2322,107 @@ textarea[aria-invalid="true"] {
   display: none;
 }
 
-@media (max-width: 68rem) {
-  .site-nav {
-    gap: 0.85rem;
-    font-size: 0.78rem;
-  }
+body.nav-open .mobile-cta {
+  display: none;
+}
 
-  .site-nav > a:nth-child(4),
-  .site-nav > a:nth-child(5) {
+@media (max-width: 79.9375rem) and (min-width: 73.75rem) {
+  .header-action__label {
     display: none;
   }
+}
+
+@media (max-width: 73.6875rem) {
+  .service-strip__inner {
+    justify-content: center;
+  }
+
+  .service-strip span:nth-child(n + 3) {
+    display: none;
+  }
+
+  .site-header__inner {
+    min-height: 4.5rem;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .brand {
+    width: min(12rem, 42vw);
+  }
+
+  .header-actions {
+    justify-self: end;
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: grid;
+  }
+
+  .site-nav {
+    position: absolute;
+    inset: 100% 0 auto;
+    display: none;
+    max-height: calc(100dvh - 6.75rem);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--line);
+    background: #090a08;
+    padding: 1rem 1.25rem 6rem;
+    white-space: normal;
+  }
+
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav > a,
+  .site-nav > a:nth-child(n) {
+    display: flex;
+    min-height: 3.6rem;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    font-size: 1rem;
+    padding: 0.75rem 0.25rem;
+  }
+
+  .site-nav > a.button {
+    justify-content: center;
+    border-bottom: 0;
+    margin-top: 0.8rem;
+  }
+
+  .site-nav > a:not(.button)::after {
+    display: none;
+  }
+
+  .site-nav > a[aria-current="page"]:not(.button) {
+    border-left: 3px solid var(--gold);
+    padding-left: 0.75rem;
+  }
+
+  .site-nav .site-nav__mobile-action {
+    display: flex;
+    gap: 0.55rem;
+  }
+
+  .site-nav__mobile-action > svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+  }
+}
+
+@media (max-width: 68rem) {
 
   .hero__grid,
   .inner-hero__grid {
@@ -2346,61 +2508,6 @@ textarea[aria-invalid="true"] {
   .product-detail__visual {
     order: 1;
     max-width: none;
-  }
-
-  .service-strip__inner {
-    justify-content: start;
-    gap: 1.2rem;
-  }
-
-  .service-strip span:nth-child(n + 2) {
-    display: none;
-  }
-
-  .site-header__inner {
-    min-height: 4.25rem;
-  }
-
-  .nav-toggle {
-    display: grid;
-  }
-
-  .site-nav {
-    position: fixed;
-    inset: calc(2rem + 4.25rem) 0 auto;
-    display: none;
-    max-height: calc(100vh - 6.25rem);
-    flex-direction: column;
-    align-items: stretch;
-    overflow: auto;
-    border-bottom: 1px solid var(--line);
-    background: #090a08;
-    padding: 1rem;
-  }
-
-  .site-nav.is-open {
-    display: flex;
-  }
-
-  .site-nav > a,
-  .site-nav > a:nth-child(4),
-  .site-nav > a:nth-child(5) {
-    display: flex;
-    min-height: 3.2rem;
-    align-items: center;
-    border-bottom: 1px solid var(--line);
-    font-size: 1rem;
-    padding: 0.75rem 0.25rem;
-  }
-
-  .site-nav > a.button {
-    justify-content: center;
-    border-bottom: 0;
-    margin-top: 0.5rem;
-  }
-
-  .site-nav > a:not(.button)::after {
-    display: none;
   }
 
   .hero {
@@ -2532,6 +2639,30 @@ textarea[aria-invalid="true"] {
 }
 
 @media (max-width: 35rem) {
+  .service-strip span:nth-child(n + 2) {
+    display: none;
+  }
+
+  .brand {
+    width: min(10.75rem, 48vw);
+  }
+
+  .header-action__label,
+  .header-quote {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 0.55rem;
+  }
+
+  .header-action,
+  .nav-toggle {
+    width: 2.75rem;
+    min-height: 2.75rem;
+    justify-content: center;
+  }
+
   .button-row,
   .form-actions {
     align-items: stretch;

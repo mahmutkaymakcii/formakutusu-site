@@ -52,7 +52,10 @@ function extractChrome(html) {
     throw new Error("Ortak sayfa kabuğu çıkarılamadı.");
   }
   return {
-    header: html.slice(contentStart, mainStart).trimEnd(),
+    header: html
+      .slice(contentStart, mainStart)
+      .replace(/\saria-current="page"/g, "")
+      .trimEnd(),
     footer: html.slice(footerStart, bodyEnd).trimEnd(),
   };
 }

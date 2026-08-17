@@ -83,15 +83,31 @@ function schemaTags(schemas = []) {
     .join("\n");
 }
 
-function header() {
+const headerLinks = [
+  { name: "Formalar", path: "/modeller/", section: "/modeller/" },
+  { name: "Şortlar", path: "/forma-sort-takimi/" },
+  { name: "Özel Üretim", path: "/takima-ozel-forma/" },
+  { name: "Nasıl Sipariş Verilir?", path: "/nasil-siparis-verilir/" },
+  { name: "Hakkımızda", path: "/hakkimizda/" },
+  { name: "İletişim", path: "/iletisim/" },
+];
+
+function headerLink(item, routePath) {
+  const isCurrent = item.section
+    ? routePath === item.path || routePath.startsWith(item.section)
+    : routePath === item.path;
+  return `<a href="${item.path}"${isCurrent ? ' aria-current="page"' : ""}>${item.name}</a>`;
+}
+
+function header(routePath) {
   return `
   <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
   <section class="service-strip" aria-label="Hizmet özeti">
     <div class="container service-strip__inner">
+      <span>Türkiye geneli gönderim</span>
       <span>Minimum 5 adet üretim</span>
       <span>Ücretsiz tasarım desteği</span>
       <span>İsim, numara ve logo uygulaması</span>
-      <span>Türkiye geneli gönderim</span>
     </div>
   </section>
   <header class="site-header" data-site-header>
@@ -99,18 +115,28 @@ function header() {
       <a class="brand" href="/" aria-label="Forma Kutusu ana sayfa">
         <img src="/assets/brand/formakutusu.webp" alt="Forma Kutusu" width="640" height="88">
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-        <span class="sr-only">Menüyü aç</span>
-        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-      </button>
       <nav class="site-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
-        <a href="/modeller/">Forma Modelleri</a>
-        <a href="/futbol/">Futbol</a>
-        <a href="/hali-saha-formasi/">Halı Saha</a>
-        <a href="/nasil-siparis-verilir/">Nasıl Sipariş Verilir?</a>
-        <a href="/rehber/">Rehber</a>
-        <a class="button button--small" href="/teklif/">Teklif Al</a>
+        ${headerLinks.map((item) => headerLink(item, routePath)).join("\n        ")}
+        <a class="site-nav__mobile-action" href="/modeller/">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg> Model Ara
+        </a>
+        <a class="button button--small site-nav__mobile-action site-nav__mobile-quote" href="/teklif/"${routePath === "/teklif/" ? ' aria-current="page"' : ""}>Teklif Al</a>
       </nav>
+      <div class="header-actions" aria-label="Hızlı bağlantılar">
+        <a class="header-action header-search" href="/modeller/" aria-label="Model ara">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span class="header-action__label">Model Ara</span>
+        </a>
+        <a class="header-action header-favorites" href="/modeller/?filtre=favoriler" aria-label="Favorilerim">
+          <span class="header-favorites__icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg><b data-favorite-count>0</b></span>
+          <span class="header-action__label">Favoriler</span>
+        </a>
+        <a class="button button--small header-quote" href="/teklif/"${routePath === "/teklif/" ? ' aria-current="page"' : ""}>Teklif Al</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span class="sr-only">Menüyü aç</span>
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>`;
 }
@@ -207,7 +233,7 @@ function pageShell({
   <script src="/assets/js/site.js?v=20260801c" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
-  ${header()}
+  ${header(routePath)}
   <main id="main-content">
     ${body}
   </main>

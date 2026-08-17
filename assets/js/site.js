@@ -3,7 +3,7 @@
 
   const WHATSAPP_NUMBER = "905348578836";
   const FAVORITES_KEY = "forma-kutusu-favorites-v1";
-  const MOBILE_NAV_QUERY = "(max-width: 980px)";
+  const MOBILE_NAV_QUERY = "(max-width: 1179px)";
 
   const safeStorage = {
     get(key, fallback) {
