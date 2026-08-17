@@ -1085,6 +1085,15 @@ h3 {
   padding: 0.95rem 1.15rem 1.2rem;
 }
 
+.hali-saha-page .model-card__body {
+  min-height: 9.5rem;
+}
+
+.hali-saha-page .model-card__body > .button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 .model-card__body p {
   color: var(--lavender);
   font-size: 0.65rem;
@@ -1864,6 +1873,25 @@ textarea:focus {
 
 .article__header h1 {
   max-width: 16ch;
+}
+
+.hali-saha-content__inner {
+  max-width: 56rem;
+}
+
+.hali-saha-content h2 {
+  max-width: 18ch;
+  font-size: clamp(1.8rem, 3vw, 2.75rem);
+}
+
+.hali-saha-content h3 {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.hali-saha-content p {
+  max-width: 52rem;
+  color: var(--muted-strong);
+  font-size: 1.03rem;
 }
 
 .site-footer {
