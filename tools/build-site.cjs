@@ -1086,14 +1086,14 @@ writePage("/teklif/", {
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Fiyatlar", path: "/teklif/" }])}
     <section class="pricing-hero"><div class="container pricing-hero__grid">
       <div><p class="eyebrow">Şeffaf fiyatlandırma</p><h1>ÖZEL TASARIM FORMA FİYATLARI</h1><p class="lead">Forma Kutusu ve NORA güvencesiyle ürün fiyatlarını incele, siparişini doğrudan WhatsApp üzerinden başlat.</p></div>
-      <div class="pricing-brands" aria-label="Forma Kutusu ve NORA markaları"><img class="pricing-brands__forma" src="/assets/brand/formakutusu-logo.svg" alt="Forma Kutusu" width="338" height="128"><span aria-hidden="true">+</span><img class="pricing-brands__nora" src="/assets/brand/nora-logo.png" alt="NORA" width="3600" height="2100"></div>
+      <div class="pricing-brands" aria-label="Forma Kutusu ve NORA markaları"><img class="pricing-brands__forma" src="/assets/brand/formakutusu-logo.svg" alt="Forma Kutusu" width="338" height="128"><span aria-hidden="true">+</span><img class="pricing-brands__nora" src="/assets/brand/nora-logo.webp" alt="NORA" width="720" height="420"></div>
     </div></section>
     <section class="pricing-section" id="fiyatlar"><div class="container">
       <div class="pricing-grid" aria-label="Özel tasarım forma fiyatları">
         <article class="price-card"><p>TEK ÜST FORMA</p><strong>280₺</strong></article>
         <article class="price-card"><p>FORMA + ŞORT</p><strong>420₺</strong></article>
         <article class="price-card"><p>ÇORAP</p><strong>30₺</strong></article>
-        <article class="price-card"><p>LÜX ÇORAP</p><strong>50₺</strong></article>
+        <article class="price-card"><p>LÜKS ÇORAP</p><strong>50₺</strong></article>
       </div>
       <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>5–7 iş günü imalat sürecimiz.</p></div>
       <div class="pricing-order"><div><p class="eyebrow">Sipariş</p><h2>Modelini seç, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve varsa oyuncu listesini mesajına ekleyebilirsin.</p></div><a class="button" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sipariş Ver</a></div>

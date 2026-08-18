@@ -53,8 +53,8 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
 .fk-hero__proof { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 500px; gap: 14px; margin: 26px 0 0; padding: 16px 0 0; border-top: 1px solid #d9dee4; list-style: none; }
 .fk-hero__proof li { display: grid; grid-template-columns: 26px 1fr; column-gap: 6px; align-items: center; }
 .fk-hero__proof li > span { grid-row: 1 / 3; display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--fk-lime-2); border-radius: 50%; color: var(--fk-navy); font-size: 11px; }
-.fk-hero__proof strong { color: var(--fk-navy); font-size: 9px; text-transform: uppercase; }
-.fk-hero__proof small { color: #667085; font-size: 8px; }
+.fk-hero__proof strong { color: var(--fk-navy); font-size: 11px; line-height: 1.15; text-transform: uppercase; }
+.fk-hero__proof small { color: #667085; font-size: 11px; line-height: 1.25; }
 
 .fk-hero__stage { position: relative; min-width: 0; min-height: 560px; margin: 30px 0; overflow: hidden; border-radius: 28px; background: linear-gradient(145deg, #f9faf8, #e8eceb); box-shadow: inset 0 0 0 1px rgb(7 18 38 / 7%); }
 .fk-paint { position: absolute; z-index: 0; display: block; background: var(--fk-lime); filter: saturate(1.05); clip-path: polygon(0 20%, 80% 0, 60% 28%, 100% 15%, 72% 47%, 94% 62%, 55% 68%, 79% 100%, 34% 79%, 0 95%, 20% 56%); }
@@ -71,7 +71,7 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
 .fk-feature-card { position: relative; min-height: 148px; display: grid; grid-template-columns: minmax(0, 1fr) 42%; overflow: hidden; border: 1px solid rgb(7 18 38 / 7%); border-radius: 18px; background: #fff; box-shadow: 0 10px 28px rgb(7 18 38 / 9%); }
 .fk-feature-card > div { position: relative; z-index: 2; width: auto; padding: 20px 8px 16px 18px; }
 .fk-feature-card strong { color: var(--fk-navy); font-family: "Arial Narrow", Impact, sans-serif; font-size: 17px; text-transform: uppercase; }
-.fk-feature-card p { margin: 7px 0 12px; color: #475467; font-size: 9px; line-height: 1.4; }
+.fk-feature-card p { margin: 7px 0 12px; color: #475467; font-size: 12px; line-height: 1.4; }
 .fk-feature-card div > span { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--fk-lime-2); border-radius: 50%; color: var(--fk-navy); font-size: 16px; }
 .fk-feature-card img,
 .fk-feature-card--photo img { position: relative; z-index: 1; right: auto; bottom: auto; width: 100%; height: 100%; object-fit: cover; object-position: center; mix-blend-mode: normal; mask-image: none; }
@@ -249,14 +249,15 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
   .fk-hero__proof { gap: 7px; }
   .fk-hero__proof li { grid-template-columns: 24px 1fr; column-gap: 5px; }
   .fk-hero__proof li > span { width: 24px; height: 24px; }
-  .fk-hero__proof strong { font-size: 8px; }
-  .fk-hero__proof small { font-size: 7px; }
+  .fk-hero__proof strong { font-size: 12px; line-height: 1.15; }
+  .fk-hero__proof small { font-size: 11px; line-height: 1.25; }
   .fk-hero__stage { min-height: 440px; margin: 12px 0 22px; }
   .fk-hero__model--front { left: 5%; bottom: 5%; width: 78%; height: 68%; }
   .fk-hero__model--back { right: 4%; top: 5%; width: 54%; height: 54%; }
   .fk-stage-badge { left: 8px; bottom: 12px; }
   .fk-hero__rail { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 22px; scroll-snap-type: x mandatory; }
   .fk-feature-card { min-width: 82vw; min-height: 148px; scroll-snap-align: start; }
+  .fk-feature-card p { font-size: 12px; }
   .fk-categories { padding-top: 12px; }
   .fk-category-grid { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 7px; scroll-snap-type: x mandatory; }
   .fk-category-card { min-width: 82vw; min-height: 225px; grid-template-columns: 52% 48%; scroll-snap-align: start; }
@@ -273,7 +274,7 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
   .fk-trust__grid > div { min-height: 94px; justify-content: flex-start; padding: 14px; border-bottom: 1px solid rgb(7 18 38 / 20%); }
   .fk-trust__grid > div:nth-child(2n) { border-right: 0; }
   .fk-trust__grid strong { font-size: 17px; }
-  .fk-trust__grid p { font-size: 9px; }
+  .fk-trust__grid p { font-size: 11px; line-height: 1.35; }
   .fk-promo-grid { grid-template-columns: 1fr; }
   .fk-promo:last-child { grid-column: auto; }
   .fk-promo { min-height: 180px; }
