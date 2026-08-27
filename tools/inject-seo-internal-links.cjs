@@ -27,13 +27,13 @@ function normalizeGuideFooterLink(html) {
   // the Rehber link in the header/navigation. Existing breadcrumb or content
   // links to /rehber/ use different anchor text and remain untouched.
   let normalized = html.replace(/\s*<a href="\/rehber\/">Forma rehberi<\/a>/g, "");
-  const footerStart = normalized.indexOf('<footer class="site-footer">');
+  const footerStart = normalized.indexOf('<footer class="site-footer');
   if (footerStart < 0) return normalized;
 
   const beforeFooter = normalized.slice(0, footerStart);
   let footer = normalized.slice(footerStart);
 
-  const faqLinkPattern = /(<a href="\/sik-sorulan-sorular\/">Sık sorulanlar<\/a>)/;
+  const faqLinkPattern = /(<a href="\/sik-sorulan-sorular\/">[^<]*<\/a>)/i;
   if (faqLinkPattern.test(footer)) {
     footer = footer.replace(
       faqLinkPattern,
@@ -42,7 +42,7 @@ function normalizeGuideFooterLink(html) {
     return beforeFooter + footer;
   }
 
-  const aboutLinkPattern = /(<a href="\/hakkimizda\/">Hakkımızda<\/a>)/;
+  const aboutLinkPattern = /(<a href="\/hakkimizda\/">[^<]*<\/a>)/i;
   if (aboutLinkPattern.test(footer)) {
     footer = footer.replace(
       aboutLinkPattern,
