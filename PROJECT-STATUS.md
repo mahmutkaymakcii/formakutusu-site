@@ -55,6 +55,7 @@ Ana ticari hedef sorgular:
 | robots.txt | ✅ | `Allow: /`; primary sitemap `sitemap.txt` |
 | Primary sitemap | ✅ | 50 URL |
 | Sitemap XML | ✅ | Secondary/fallback |
+| Internal-link graph denetimi | ✅ | CI içinde orphan / weak / crawl-depth raporu |
 | Google Search Console | ✅ | URL-prefix ve domain property mevcut |
 | Google Tag Manager | ✅ | `GTM-TJL9N3XX` site geneline kurulu |
 | Google Analytics 4 | ⛔ | Henüz bağlı/kurulu değil |
@@ -94,7 +95,22 @@ Kritik ticari sayfalarda örneğin `/takima-ozel-forma/`:
 - benzersiz title ve description mevcut
 - robots.txt genel crawl'a izin veriyor
 
-Bu nedenle sonraki adım yalnızca `noindex` aramak değil; **crawl discovery, iç link gücü, içerik benzersizliği/kalitesi, site mimarisi, sitemap sinyali ve Google'ın siteye ayırdığı crawl/index önceliğini birlikte incelemek**.
+### 27 Ağustos uygulaması
+
+PR #13 ile indeksleme temeli güçlendirildi:
+
+- indekslenebilir sayfalar arasındaki iç link grafiği otomatik ölçülüyor,
+- ana sayfadan crawl depth hesaplanıyor,
+- orphan ve 1–2 inbound link alan zayıf sayfalar raporlanıyor,
+- Rehber merkezi ticari sayfalara bağlandı,
+- üç rehber makalesinden ilgili para/yardımcı sayfalara bağlamsal bağlantılar eklendi,
+- `Forma rehberi` bağlantısı site footer bilgi kümesine eklendi,
+- sitemap URL sayısı, canonical ve robots davranışı değiştirilmedi,
+- ana sayfa hero/UX tasarımına müdahale edilmedi.
+
+PR #13 `main` branch'e squash merge edildi. Merge commit: `23ae1f26a3b42e49d7c1d2336a286a222e5f19c4`.
+
+GitHub `Site Quality` workflow'u bu merge commit üzerinde başarıyla tamamlandı.
 
 ---
 
@@ -121,41 +137,58 @@ Kontrol edilen temel ticari sorgular:
 
 **Sonuç:** SEO başarısı henüz markasız müşteri kazanımı seviyesine gelmedi.
 
+Not: 27 Ağustos 2026'daki son doğrulama sırasında GSC Wizard MCP deneme süresi sona erdiği için yeni Search Console sorguları araç üzerinden çalıştırılamadı. Bu durum Search Console hesabının kendisiyle ilgili bir arıza değildir; yalnızca kullanılan yardımcı aracın abonelik durumudur.
+
 ---
 
 ## 5. P0 — Şimdi yapılacak işler
 
 ### P0.1 — SEO / Indexing Audit
 
-Durum: 🔵 YAPILIYOR
+Durum: 🧪 TEST / DOĞRULAMA
 
-Amaç: Google'ın ana sayfa dışındaki URL'leri neden crawl/index etmediğini kanıta dayalı olarak belirlemek.
+Amaç: Google'ın ana sayfa dışındaki URL'leri neden crawl/index etmediğini kanıta dayalı olarak belirlemek ve ilk düzeltme turunun etkisini ölçmek.
 
 Kontrol listesi:
 
 - [x] Sitemap'teki 50 URL'yi URL Inspection ile toplu kontrol et
 - [x] robots.txt ve primary sitemap sözleşmesini doğrula
 - [x] Kritik ticari sayfada robots + canonical kontrolü yap
-- [ ] 50 URL'yi sayfa türüne göre sınıflandır: kategori / hizmet / rehber / model / yardımcı
-- [ ] Ana sayfadan kritik para sayfalarına iç link derinliğini ölç
-- [ ] Kategori ve model sayfalarında benzer/ince içerik riskini ölç
-- [ ] Canonical zinciri veya canonical çakışması var mı kontrol et
+- [x] 50 URL'yi sayfa türüne göre sınıflandır: kategori / hizmet / rehber / model / yardımcı
+- [x] Ana sayfadan kritik para sayfalarına iç link derinliğini ölç
+- [x] Kategori ve model sayfalarında benzer/ince içerik riskini ölç
+- [x] Canonical çakışması / yinelenen canonical kontrolünü otomatik denetime al
 - [ ] Tüm sitemap URL'lerinin canlı HTTP durumlarını yeniden doğrula
-- [ ] Sitemap XML/TXT içerik farklarını doğrula
-- [ ] Dahili linklerde orphan/weak page analizi yap
-- [ ] Önemli ticari sayfalar için içerik ve başlık niyet eşleşmesini kontrol et
-- [ ] Öncelikli 8–12 URL'lik “index first” listesi oluştur
-- [ ] Gerekli teknik/içerik düzeltmelerini ayrı branch/PR üzerinden uygula
-- [ ] Düzeltmeden sonra URL Inspection sonuçlarını yeniden ölç
+- [x] Sitemap XML/TXT kapsamını indekslenebilir sayfalarla doğrula
+- [x] Dahili linklerde orphan/weak page analizi yap
+- [x] Öncelikli 8–12 URL'lik “index first” listesi oluştur
+- [x] İlk crawl/discovery düzeltmesini ayrı branch + PR üzerinden uygula (`#13`)
+- [ ] Düzeltmeden sonra öncelikli URL'lerde URL Inspection sonuçlarını yeniden ölç
+- [ ] Google yeniden crawl ettikten sonra indeks durumundaki değişimi kaydet
+
+### Index-first öncelik listesi
+
+1. `/takima-ozel-forma/`
+2. `/hali-saha-formasi/`
+3. `/futbol/`
+4. `/modeller/`
+5. `/teklif/`
+6. `/forma-sort-takimi/`
+7. `/forma-yaptirma-istanbul/`
+8. `/nasil-siparis-verilir/`
+9. `/basketbol/`
+10. `/voleybol/`
+11. `/rehber/forma-yaptirma-rehberi/`
+12. `/rehber/`
 
 ### P0.2 — Proje yönetim disiplini
 
 Durum: ✅ BAŞLATILDI
 
 - [x] `PROJECT-STATUS.md` oluştur
-- [ ] Her çalışma sonunda “Son yapılan / Sıradaki” alanını güncelle
+- [x] Her çalışma sonunda “Son yapılan / Sıradaki” alanını güncelle
 - [ ] Yeni fikirleri doğrudan kodlamadan önce backlog'a ekle
-- [ ] Siteyi etkileyen her büyük değişikliği branch + test + PR mantığıyla yap
+- [x] Siteyi etkileyen büyük değişiklikleri branch + test + PR mantığıyla yap
 
 ---
 
@@ -373,8 +406,8 @@ Dış hizmet sağlayıcıya gerekli yetki verilir; ana sahiplik Forma Kutusu kon
 
 ## 15. Aktif çalışma sırası
 
-1. 🔵 **Indexing Audit'i tamamla**
-2. 🟡 Gerekli crawl/index düzeltmelerini uygula ve yeniden test et
+1. ✅ **Indexing Audit — ilk teşhis ve iç link/crawl analizi tamamlandı**
+2. 🧪 **PR #13 sonrası canlı yayın + crawl/index etkisini doğrula**
 3. 🟡 GA4 + GTM dönüşüm ölçümünü kur
 4. 🟡 Ana sayfa UX wireframe / bilgi mimarisini kesinleştir
 5. 🟡 Ana sayfa revizyonunu branch üzerinde uygula
@@ -394,7 +427,12 @@ Dış hizmet sağlayıcıya gerekli yetki verilir; ana sahiplik Forma Kutusu kon
 - 50 sitemap URL'si URL Inspection kapsamına alındı.
 - Ana sayfanın indeksli; ana sayfa dışı URL'lerin ise `Discovered - currently not indexed` veya `URL is unknown to Google` durumlarında olduğu doğrulandı.
 - `PROJECT-STATUS.md` tek proje durum kaynağı olarak oluşturuldu.
+- Internal-link graph ve crawl-depth audit scripti geliştirildi ve `Site Quality` CI akışına eklendi.
+- Rehber → ticari sayfa ve rehber makalesi → ilgili hizmet/yardımcı sayfa bağlantıları eklendi.
+- PR #13 `main` branch'e merge edildi (`23ae1f26a3b42e49d7c1d2336a286a222e5f19c4`).
+- Merge sonrası `Site Quality` workflow'u başarıyla geçti.
+- GSC Wizard MCP deneme süresinin sona erdiği tespit edildi; yeni GSC sorguları bu araç üzerinden şu an bloklu.
 
 ### Sıradaki tek görev
 
-**P0.1 SEO / Indexing Audit'in ikinci turu: site içi crawl mimarisi, iç link derinliği, sayfa benzerliği/ince içerik, canonical yapısı ve HTTP canlılık kontrolleri.**
+**PR #13 değişikliklerinin production yayında olduğunu doğrula; ardından index-first URL'lerde canlı HTTP kontrolü ve mümkün olan ilk Search Console URL Inspection yeniden ölçümünü yap. Sonrasında GA4 kurulumuna geç.**
