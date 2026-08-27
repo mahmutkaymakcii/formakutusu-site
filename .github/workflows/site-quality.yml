@@ -27,6 +27,7 @@ jobs:
         run: |
           node --check tools/build-site.cjs
           node --check tools/fix-site.cjs
+          node --check tools/inject-seo-internal-links.cjs
           node --check tools/inject-gtm.cjs
           node --check tools/audit-site.cjs
           node --check tools/audit-link-graph.cjs
@@ -35,6 +36,7 @@ jobs:
       - name: Build and normalize site
         run: |
           node tools/fix-site.cjs
+          node tools/inject-seo-internal-links.cjs
           node tools/inject-gtm.cjs
 
       - name: Verify primary sitemap contract
