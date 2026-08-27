@@ -22,26 +22,35 @@ function walk(dir) {
   return output;
 }
 
-function addGuideFooterLink(html) {
-  if (html.includes('href="/rehber/"')) return html;
+function normalizeGuideFooterLink(html) {
+  // Remove only links created by this normalizer so an earlier run cannot leave
+  // the Rehber link in the header/navigation. Existing breadcrumb or content
+  // links to /rehber/ use different anchor text and remain untouched.
+  let normalized = html.replace(/\s*<a href="\/rehber\/">Forma rehberi<\/a>/g, "");
+  const footerStart = normalized.indexOf('<footer class="site-footer">');
+  if (footerStart < 0) return normalized;
+
+  const beforeFooter = normalized.slice(0, footerStart);
+  let footer = normalized.slice(footerStart);
 
   const faqLinkPattern = /(<a href="\/sik-sorulan-sorular\/">Sık sorulanlar<\/a>)/;
-  if (faqLinkPattern.test(html)) {
-    return html.replace(
+  if (faqLinkPattern.test(footer)) {
+    footer = footer.replace(
       faqLinkPattern,
       '$1\n        <a href="/rehber/">Forma rehberi</a>',
     );
+    return beforeFooter + footer;
   }
 
   const aboutLinkPattern = /(<a href="\/hakkimizda\/">Hakkımızda<\/a>)/;
-  if (aboutLinkPattern.test(html)) {
-    return html.replace(
+  if (aboutLinkPattern.test(footer)) {
+    footer = footer.replace(
       aboutLinkPattern,
       '<a href="/rehber/">Forma rehberi</a>\n        $1',
     );
   }
 
-  return html;
+  return beforeFooter + footer;
 }
 
 function addGuideHubCommercialLinks(html) {
@@ -83,7 +92,7 @@ let footerUpdates = 0;
 for (const file of htmlFiles) {
   const relativePath = path.relative(root, file).split(path.sep).join("/");
   const original = fs.readFileSync(file, "utf8");
-  const updated = addGuideFooterLink(original);
+  const updated = normalizeGuideFooterLink(original);
   if (updated !== original) {
     write(relativePath, updated);
     footerUpdates += 1;
