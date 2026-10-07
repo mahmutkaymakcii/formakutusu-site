@@ -1,8 +1,31 @@
 # Forma Kutusu — Proje Durumu ve Ana Yol Haritası
 
-Son güncelleme: 27 Ağustos 2026
+Son güncelleme: 7 Ekim 2026
 
 Bu dosya `formakutusu.com` projesinin tek durum kaynağıdır. Yeni iş başlamadan önce burası kontrol edilir; tamamlanan veya yön değiştiren her önemli işten sonra güncellenir.
+
+## 7 Ekim 2026 — Güncel doğrulama ve devam noktası
+
+İncelenen production/main commit: `5dc24538477a5bd6f735eff1e1490f0b58cd99a7`.
+
+Ayrıntılı güncel rapor: [7 Ekim genel proje denetimi](docs/audits/2026-10-07-project-audit.md).
+
+- ✅ Sitemap'teki 50 sayfa canlı HTTP 200; HTML içerikleri Cloudflare beacon hariç main ile birebir eşleşiyor.
+- ✅ Kontrol edilen 45 yerel varlık HTTP 200 ve main ile birebir eşleşiyor; robots ve TXT/XML sitemap erişilebilir.
+- ✅ Site yeniden üretildi; syntax/site/link-graph denetimleri geçti; üretim sonrasında git diff yok.
+- ✅ Katalog 28 model: 11 futbol, 11 basketbol, 6 voleybol. Örnek canlı arama/filtre/favori/galeri/WhatsApp link akışları doğrulandı.
+- ⚠️ 10 futbol modeli görselinde eski `0543 232 18 53` numarası var; site düğmeleri `0534 857 88 36` hattına gidiyor. Öncelik P0.
+- ⛔ Yayımlanmış GTM `GTM-TJL9N3XX` resource version 1: tags/rules/predicates boş. Bu konteyner üzerinden GA4 ve dönüşüm ölçümü çalışmıyor; GA4 hesap/workspace durumu ayrıca bilinmiyor.
+- ⛔ Güncel Search Console/GA4 özel verileri GSC Wizard abonelik engeli nedeniyle doğrulanamadı. Aşağıdaki 27 Ağustos Google/KPI kayıtları tarihsel veridir.
+- 🧪 Dar viewport/gerçek mobil ve güncel Lighthouse açık; 7 eski URL, CSV ve OG HTTP ek kontrolleri tamamlandı. Önceki responsive/laboratuvar sonuçları bugünkü sonuç sayılmamalı.
+- 🟡 Beden sayfası planlama ve CSV sunuyor; gerçek santimetre tablosu henüz yok. Tasarım vaadi, imalat/kargo ayrımı ve ticari bilgi kapsamı düzeltilecek.
+- 🟡 İç link grafiği: 0 orphan/0 unreachable; 20 sayfa 1–2 inbound link alıyor. Bu tek başına indeksleme nedeni veya hata değildir.
+
+**Sıradaki tek görev:** 10 model görseli ve kullanılan türevlerindeki telefon numarasını mevcut site hattıyla eşitle. Bağımsız hazırlık: GA4 Measurement ID ve güncel GSC dışa aktarımı. Çekirdek indeks/ölçüm durumu bilinmeden local SEO ölçekleme veya yeni ana sayfa tasarımı başlatma.
+
+Aşağıdaki 27 Ağustos tarihli teşhis ve yol haritası arşiv bağlamını korur; yukarıdaki güncel doğrulama ile birlikte okunur.
+
+---
 
 ## Durum işaretleri
 
@@ -48,7 +71,7 @@ Ana ticari hedef sorgular:
 | Model detay sayfaları | ✅ | Futbol, basketbol, voleybol model sayfaları |
 | Fiyat sayfası | ✅ | `/teklif/`; fiyat + WhatsApp sipariş yaklaşımı |
 | Sipariş anlatımı | ✅ | `/nasil-siparis-verilir/` |
-| Beden tablosu | ✅ | Canlı |
+| Beden planlama | ✅ / 🟡 | Sayfa ve CSV var; gerçek santimetre tablosu yok |
 | Kumaş / üretim | ✅ | Canlı |
 | SSS | ✅ | Canlı |
 | KVKK / gizlilik | ✅ / 🧪 | Sayfa var; hukuki doğrulama ayrı konu |
@@ -58,7 +81,7 @@ Ana ticari hedef sorgular:
 | Internal-link graph denetimi | ✅ | CI içinde orphan / weak / crawl-depth raporu |
 | Google Search Console | ✅ | URL-prefix ve domain property mevcut |
 | Google Tag Manager | ✅ | `GTM-TJL9N3XX` site geneline kurulu |
-| Google Analytics 4 | ⛔ | Henüz bağlı/kurulu değil |
+| Google Analytics 4 | ⛔ / 🧪 | Yayımlanmış GTM boş; GA4 hesap/stream durumu doğrulanamadı |
 | Google İşletme Profili | ⛔ | Doğrulama için uygun ve kalıcı işletme konumu bekleniyor |
 | Dönüşüm event ölçümü | ⛔ | WhatsApp/model/fiyat/sipariş eventleri henüz doğrulanmadı |
 | Yerel il/ilçe SEO sistemi | 🟡 | İstanbul başlangıcı var; ölçekleme henüz yapılmayacak |
@@ -158,7 +181,7 @@ Kontrol listesi:
 - [x] Ana sayfadan kritik para sayfalarına iç link derinliğini ölç
 - [x] Kategori ve model sayfalarında benzer/ince içerik riskini ölç
 - [x] Canonical çakışması / yinelenen canonical kontrolünü otomatik denetime al
-- [ ] Tüm sitemap URL'lerinin canlı HTTP durumlarını yeniden doğrula
+- [x] Tüm sitemap URL'lerinin canlı HTTP durumlarını yeniden doğrula (7 Ekim: 50/50 HTTP 200)
 - [x] Sitemap XML/TXT kapsamını indekslenebilir sayfalarla doğrula
 - [x] Dahili linklerde orphan/weak page analizi yap
 - [x] Öncelikli 8–12 URL'lik “index first” listesi oluştur
@@ -404,24 +427,26 @@ Dış hizmet sağlayıcıya gerekli yetki verilir; ana sahiplik Forma Kutusu kon
 
 ---
 
-## 15. Aktif çalışma sırası
+## 15. Aktif çalışma sırası (7 Ekim güncellemesi)
 
-1. ✅ **Indexing Audit — ilk teşhis ve iç link/crawl analizi tamamlandı**
-2. 🧪 **PR #13 sonrası canlı yayın + crawl/index etkisini doğrula**
-3. 🟡 GA4 + GTM dönüşüm ölçümünü kur
-4. 🟡 Ana sayfa UX wireframe / bilgi mimarisini kesinleştir
-5. 🟡 Ana sayfa revizyonunu branch üzerinde uygula
-6. 🟡 Gerçek üretim / müşteri kanıt katmanını güçlendir
-7. 🟡 Ticari SEO içerik kümelerini büyüt
-8. 🟡 Kontrollü yerel SEO pilotu
-9. 🟡 Backlink çalışması
-10. 💡 Gelişmiş forma tasarlama ve takım araçları
+1. ✅ **PR #13 sonrası canlı yayın + sitemap HTTP durumunu doğrula** (7 Ekim tamamlandı)
+2. 🟡 **10 model görselindeki eski iletişim numarasını ve türevlerini eşitle**
+3. ⛔ **GA4 Measurement ID / hesap erişimi ve güncel GSC dışa aktarımını temin et**
+4. 🟡 GA4 + GTM dönüşüm ölçümünü yapılandır ve doğrula
+5. 🧪 Öncelikli URL'lerde güncel indeks/crawl etkisini ölç
+6. 🧪 Gerçek mobil / dar ekran ve performans kontrollerini tamamla
+7. 🟡 Ticari metin, beden ölçüleri ve gerçek güven içeriklerini tamamla
+8. 🟡 Ölçüm verisine göre ana sayfa UX ve iç bağlantıları revize et
+9. 🟡 Çekirdek URL sonuçlarına göre kontrollü SEO içerik/pilot büyümesi
+10. 💡 Gelişmiş tasarlama ve takım araçları
 
 ---
 
 ## 16. Son yapılan / sıradaki
 
 ### Son yapılan
+
+- 7 Ekim 2026: Güncel kod/canlı eşleşmesi, 50 sitemap URL'si ve 45 varlık, site yeniden üretimi ve örnek katalog akışları doğrulandı. 10 eski görsel numarası ve boş yayımlanmış GTM konteyneri tespit edildi. Güncel GSC/GA4 verisi abonelik nedeniyle doğrulanamadı. Ayrıntı: `docs/audits/2026-10-07-project-audit.md`.
 
 - 27 Ağustos 2026: Güncel repo, Search Console, sitemap, URL Inspection ve ölçüm altyapısı yeniden değerlendirildi.
 - 50 sitemap URL'si URL Inspection kapsamına alındı.
@@ -435,4 +460,4 @@ Dış hizmet sağlayıcıya gerekli yetki verilir; ana sahiplik Forma Kutusu kon
 
 ### Sıradaki tek görev
 
-**PR #13 değişikliklerinin production yayında olduğunu doğrula; ardından index-first URL'lerde canlı HTTP kontrolü ve mümkün olan ilk Search Console URL Inspection yeniden ölçümünü yap. Sonrasında GA4 kurulumuna geç.**
+**10 futbol modelinin ve kullanılan görsel türevlerinin iletişim bandını mevcut site hattıyla eşitle. Ardından doğru GA4 Measurement ID ile ölçümü kur ve güncel Search Console verisiyle indeks etkisini yeniden değerlendir.**
