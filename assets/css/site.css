@@ -1145,10 +1145,10 @@ h3 {
 }
 
 .product-detail__info h1 {
-  max-width: 12ch;
+  max-width: 20ch;
   margin: 0;
-  font-size: clamp(2.4rem, 5vw, 5.4rem);
-  line-height: 0.96;
+  font-size: clamp(1.2rem, 2.5vw, 2.7rem);
+  line-height: 1;
 }
 
 .product-detail__info .lead {
@@ -1342,6 +1342,7 @@ h3 {
 
 .order-form input[type="text"],
 .order-form input[type="number"],
+.order-form textarea,
 .order-form select {
   width: 100%;
   min-height: 2.75rem;
@@ -1354,7 +1355,61 @@ h3 {
   padding: 0.5rem 0.75rem;
 }
 
+.order-form textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.order-design-list {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.order-design-list[hidden] {
+  display: none;
+}
+
+.order-design-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted-strong);
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+.order-design-list img {
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  border-radius: 0.4rem;
+  background: #fff;
+  object-fit: contain;
+}
+
+.custom-order-section {
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+
+.custom-order__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+@media (max-width: 52rem) {
+  .custom-order__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .order-form input:focus-visible,
+.order-form textarea:focus-visible,
 .order-form select:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 1px;

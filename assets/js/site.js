@@ -162,7 +162,21 @@
     const shorts = form.querySelector("[data-order-shorts]");
     const totalLabel = form.querySelector("[data-order-total]");
     const totalDetail = form.querySelector("[data-order-total-detail]");
-    const goalkeeperCount = form.querySelector('[name="goalkeeper-count"]');
+    const sportSelect = form.querySelector("[data-order-sport]");
+    const collarSelect = form.elements.collar;
+    const designInput = form.querySelector("[data-design-input]");
+    const designPreview = form.querySelector("[data-design-preview]");
+    const MAX_DESIGN_FILES = 5;
+    const COLLARS = {
+      futbol: ["Sıfır yaka", "V yaka", "Polo yaka"],
+      basketbol: ["Sıfır yaka", "V yaka"],
+      voleybol: ["Sıfır yaka", "V yaka", "Polo yaka"],
+    };
+    // Kaleci (+50₺) ve libero (fiyat farkı yok) ek forma seçenekleri.
+    const EXTRAS = [
+      { name: "goalkeeper", title: "KALECİ", label: "Kaleci forması", price: PRICES.goalkeeper, note: "uzun kol" },
+      { name: "libero", title: "LİBERO", label: "Libero forması", price: 0, note: "" },
+    ].filter((extra) => form.elements[extra.name]);
     const errorBox = form.querySelector("[data-order-errors]");
     const status = form.querySelector("[data-order-status]");
     const uploads = [...form.querySelectorAll("[data-upload]")];
@@ -206,9 +220,15 @@
       roster.querySelectorAll('[data-roster-field="number"]').forEach((input) => (input.disabled = !hasNumber));
     };
 
-    const goalkeepers = () => {
-      if (!isOn("goalkeeper") || !goalkeeperCount) return 0;
-      const value = Number.parseInt(goalkeeperCount.value, 10);
+    // Seçeneğin bölümü branşa göre gizliyse (özel tasarım formu) hesaba katılmaz.
+    const extraActive = (name) => {
+      const section = form.elements[name]?.closest("[data-sport-only]");
+      return Boolean(form.elements[name]) && !section?.hidden && isOn(name);
+    };
+
+    const extraCount = (name) => {
+      if (!extraActive(name)) return 0;
+      const value = Number.parseInt(form.elements[`${name}-count`]?.value, 10);
       return Number.isFinite(value) && value > 0 ? value : 0;
     };
 
@@ -217,7 +237,7 @@
       const scope = checked("scope") === "ust" ? "ust" : "takim";
       const base = PRICES[scope];
       const socks = checked("socks") === "var" ? PRICES.socks : 0;
-      const keepers = Math.min(goalkeepers(), qty);
+      const keepers = Math.min(extraCount("goalkeeper"), qty);
       const total = qty * (base + socks) + keepers * PRICES.goalkeeper;
       const parts = [`${qty} × ${scope === "ust" ? "tek üst forma" : "forma + şort"} (${formatTL(base)})`];
       if (socks) parts.push(`${qty} × çorap (${formatTL(socks)})`);
@@ -225,10 +245,46 @@
       return { qty, total, parts };
     };
 
+    const syncSport = () => {
+      if (!sportSelect) return;
+      const sport = sportSelect.value;
+      form.querySelectorAll("[data-sport-only]").forEach((section) => (section.hidden = section.dataset.sportOnly !== sport));
+      const current = collarSelect.value;
+      const options = COLLARS[sport] || COLLARS.futbol;
+      collarSelect.replaceChildren(
+        new Option("Seçin", ""),
+        ...options.map((collar) => new Option(collar, collar, false, collar === current)),
+      );
+    };
+
+    const designFiles = () => [...(designInput?.files || [])];
+
+    const showDesignPreview = () => {
+      if (!designPreview) return;
+      const files = designFiles();
+      designPreview.replaceChildren(
+        ...files.map((file) => {
+          const item = document.createElement("li");
+          if (file.type.startsWith("image/")) {
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            img.alt = "";
+            img.onload = () => URL.revokeObjectURL(img.src);
+            item.append(img);
+          }
+          item.append(document.createTextNode(file.name));
+          return item;
+        }),
+      );
+      designPreview.hidden = files.length === 0;
+    };
+
     const updateTotal = () => {
       shorts.hidden = checked("scope") === "ust";
-      const keeperOn = isOn("goalkeeper");
-      form.querySelectorAll("[data-goalkeeper-count], [data-goalkeeper-note]").forEach((el) => (el.hidden = !keeperOn));
+      EXTRAS.forEach(({ name }) => {
+        const on = isOn(name);
+        form.querySelectorAll(`[data-${name}-count], [data-${name}-note]`).forEach((el) => (el.hidden = !on));
+      });
 
       const { qty, total, parts } = calculate();
       if (qty < MIN_QTY) {
@@ -301,13 +357,27 @@
       const qty = quantity();
       if (qty < MIN_QTY) errors.push(`Adet en az ${MIN_QTY} olmalı.`);
       if (qty > MAX_QTY) errors.push(`${MAX_QTY} adetten fazla siparişler için lütfen WhatsApp'tan yaz.`);
+      if (sportSelect && !sportSelect.value) errors.push("Branşı seç.");
       if (!checked("collar")) errors.push("Yaka tipini seç.");
 
-      if (isOn("goalkeeper")) {
-        const keepers = goalkeepers();
-        if (!keepers) errors.push("Kaleci forması adedini gir.");
-        else if (keepers > qty) errors.push("Kaleci forması adedi toplam adetten fazla olamaz.");
+      if (form.hasAttribute("data-custom")) {
+        const files = designFiles();
+        const note = form.elements["design-note"]?.value.trim();
+        if (!files.length && !note) errors.push("Tasarım görseli yükle ya da tasarım notu yaz.");
+        if (files.length > MAX_DESIGN_FILES) errors.push(`En fazla ${MAX_DESIGN_FILES} tasarım görseli yükleyebilirsin.`);
+        files.forEach((file) => {
+          const allowed = FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name);
+          if (!allowed) errors.push(`${file.name}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
+          if (file.size > MAX_FILE) errors.push(`${file.name}: dosya 10 MB'tan küçük olmalı.`);
+        });
       }
+
+      EXTRAS.forEach(({ name, label }) => {
+        if (!extraActive(name)) return;
+        const count = extraCount(name);
+        if (!count) errors.push(`${label} adedini gir.`);
+        else if (count > qty) errors.push(`${label} adedi toplam adetten fazla olamaz.`);
+      });
 
       uploadState().forEach(({ label, file, none, alt }) => {
         if (!file && !none && !alt) errors.push(`${label}: dosya yükle ya da bir seçenek işaretle.`);
@@ -334,10 +404,21 @@
       const { qty, total, parts } = calculate();
       const scope = checked("scope");
       const yesNo = (value) => (value ? "Var" : "Yok");
+      const sportLabel = sportSelect ? sportSelect.selectedOptions[0]?.textContent || "" : form.dataset.sportLabel;
+      const designLines = form.hasAttribute("data-custom")
+        ? [
+            "",
+            "ÖZEL TASARIM",
+            `Tasarım görselleri: ${designFiles().length ? designFiles().map((file) => file.name).join(", ") : "Yok"}`,
+            `Tasarım notu: ${form.elements["design-note"]?.value.trim() || "Yok"}`,
+          ]
+        : [];
       const lines = [
         "Merhaba, sipariş vermek istiyorum.",
         "",
-        `Model: ${form.dataset.model} (${form.dataset.sportLabel})`,
+        `Model: ${form.dataset.model} (${sportLabel})`,
+        ...designLines,
+        "",
         `Adet: ${qty}`,
         `Ürün: ${scope === "ust" ? "Tek üst forma" : "Forma + şort"}`,
         `Çorap: ${checked("socks") === "var" ? "Var" : "Yok"}`,
@@ -356,9 +437,12 @@
         lines.push("", "ŞORT", `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
       }
 
-      if (goalkeeperCount) {
-        lines.push("", "KALECİ", isOn("goalkeeper") ? `Kaleci forması: ${goalkeepers()} adet (uzun kol, +${formatTL(PRICES.goalkeeper)})` : "Kaleci forması: Yok");
-      }
+      EXTRAS.forEach(({ name, title, label, price, note }) => {
+        const section = form.elements[name].closest("[data-sport-only]");
+        if (section?.hidden) return;
+        const detail = [note, price ? `+${formatTL(price)}` : "fiyat farkı yok"].filter(Boolean).join(", ");
+        lines.push("", title, extraActive(name) ? `${label}: ${extraCount(name)} adet (${detail})` : `${label}: Yok`);
+      });
 
       lines.push("", "LİSTE (İSİM - NUMARA - BEDEN)");
       roster.querySelectorAll("[data-roster-row]").forEach((row, index) => {
@@ -380,7 +464,9 @@
       if (event.target.matches("[data-roster-toggle]")) syncRosterFields();
       updateTotal();
     });
-    goalkeeperCount?.addEventListener("input", updateTotal);
+    EXTRAS.forEach(({ name }) => form.elements[`${name}-count`]?.addEventListener("input", updateTotal));
+    sportSelect?.addEventListener("change", syncSport);
+    designInput?.addEventListener("change", showDesignPreview);
 
     roster.addEventListener("input", (event) => {
       if (event.target.matches('[data-roster-field="number"]')) {
@@ -399,7 +485,7 @@
       }
 
       const message = buildMessage();
-      const files = uploadState().map(({ file }) => file).filter(Boolean);
+      const files = [...designFiles(), ...uploadState().map(({ file }) => file).filter(Boolean)];
 
       // Paylaşım ve pencere açma kullanıcı etkileşimi gerektirir; pano yazımı beklenmez.
       navigator.clipboard?.writeText(message).catch(() => {});
@@ -420,6 +506,7 @@
         : "WhatsApp açıldı; mesajı kontrol edip gönderebilirsin. Mesaj panoya da kopyalandı.";
     });
 
+    syncSport();
     buildRoster();
     updateTotal();
   }
