@@ -1371,8 +1371,17 @@ h3 {
   gap: 0.5rem;
 }
 
+.order-choice {
+  position: relative;
+}
+
 .order-choice input {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
   opacity: 0;
   pointer-events: none;
 }
