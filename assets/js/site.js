@@ -151,7 +151,7 @@
     if (!form) return;
 
     const SIZES = ["116", "128", "140", "152", "164", "XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
-    const PRICES = { ust: 300, takim: 450, socks: 30 };
+    const PRICES = { ust: 300, takim: 450, socks: 30, goalkeeper: 50 };
     const MIN_QTY = 5;
     const MAX_QTY = 60;
     const MAX_FILE = 10 * 1024 * 1024;
@@ -161,6 +161,8 @@
     const roster = form.querySelector("[data-order-roster]");
     const shorts = form.querySelector("[data-order-shorts]");
     const totalLabel = form.querySelector("[data-order-total]");
+    const totalDetail = form.querySelector("[data-order-total-detail]");
+    const goalkeeperCount = form.querySelector('[name="goalkeeper-count"]');
     const errorBox = form.querySelector("[data-order-errors]");
     const status = form.querySelector("[data-order-status]");
     const uploads = [...form.querySelectorAll("[data-upload]")];
@@ -170,7 +172,7 @@
       const value = Number.parseInt(quantityInput.value, 10);
       return Number.isFinite(value) ? value : 0;
     };
-    const checked = (name) => form.querySelector(`[name="${name}"]:checked`)?.value || "";
+    const checked = (name) => form.elements[name]?.value || "";
     const isOn = (name) => Boolean(form.querySelector(`[name="${name}"]`)?.checked);
 
     const sizeOptions = SIZES.map((size) => `<option value="${size}">${size}</option>`).join("");
@@ -204,20 +206,54 @@
       roster.querySelectorAll('[data-roster-field="number"]').forEach((input) => (input.disabled = !hasNumber));
     };
 
-    const updateTotal = () => {
+    const goalkeepers = () => {
+      if (!isOn("goalkeeper") || !goalkeeperCount) return 0;
+      const value = Number.parseInt(goalkeeperCount.value, 10);
+      return Number.isFinite(value) && value > 0 ? value : 0;
+    };
+
+    const calculate = () => {
       const qty = quantity();
-      const unit = (checked("scope") === "ust" ? PRICES.ust : PRICES.takim) + (checked("socks") === "var" ? PRICES.socks : 0);
+      const scope = checked("scope") === "ust" ? "ust" : "takim";
+      const base = PRICES[scope];
+      const socks = checked("socks") === "var" ? PRICES.socks : 0;
+      const keepers = Math.min(goalkeepers(), qty);
+      const total = qty * (base + socks) + keepers * PRICES.goalkeeper;
+      const parts = [`${qty} × ${scope === "ust" ? "tek üst forma" : "forma + şort"} (${formatTL(base)})`];
+      if (socks) parts.push(`${qty} × çorap (${formatTL(socks)})`);
+      if (keepers) parts.push(`${keepers} × kaleci uzun kol farkı (${formatTL(PRICES.goalkeeper)})`);
+      return { qty, total, parts };
+    };
+
+    const updateTotal = () => {
       shorts.hidden = checked("scope") === "ust";
-      totalLabel.textContent =
-        qty >= MIN_QTY
-          ? `Tahmini tutar: ${qty} × ${formatTL(unit)} = ${formatTL(qty * unit)} (kaleci farkı hariç; kesin tutar sipariş görüşmesinde teyit edilir)`
-          : `En az ${MIN_QTY} adet sipariş verilebilir.`;
+      const keeperOn = isOn("goalkeeper");
+      form.querySelectorAll("[data-goalkeeper-count], [data-goalkeeper-note]").forEach((el) => (el.hidden = !keeperOn));
+
+      const { qty, total, parts } = calculate();
+      if (qty < MIN_QTY) {
+        totalLabel.textContent = "—";
+        totalDetail.textContent = `En az ${MIN_QTY} adet sipariş verilebilir.`;
+        return;
+      }
+      totalLabel.textContent = formatTL(total);
+      totalDetail.textContent = `${parts.join(" + ")}. Kesin tutar sipariş görüşmesinde teyit edilir.`;
     };
 
     uploads.forEach((upload) => {
       const input = upload.querySelector("[data-upload-input]");
       const none = upload.querySelector("[data-upload-none]");
+      const alt = upload.querySelector("[data-upload-alt]");
       const preview = upload.querySelector("[data-upload-preview]");
+
+      // "Yok" ve alternatif (TR Arma) seçenekleri dosya yüklemeyi pasif yapar ve birbirini dışlar.
+      const sync = () => {
+        const blocked = none.checked || Boolean(alt?.checked);
+        if (blocked) input.value = "";
+        input.disabled = blocked;
+        upload.classList.toggle("is-none", blocked);
+        showPreview();
+      };
 
       const showPreview = () => {
         const file = input.files?.[0];
@@ -234,25 +270,30 @@
         preview.append(document.createTextNode(file.name));
       };
 
-      input.addEventListener("change", () => {
-        if (input.files?.length) none.checked = false;
-        upload.classList.toggle("is-none", none.checked);
-        showPreview();
-      });
+      input.addEventListener("change", showPreview);
 
       none.addEventListener("change", () => {
-        if (none.checked) input.value = "";
-        input.disabled = none.checked;
-        upload.classList.toggle("is-none", none.checked);
-        showPreview();
+        if (none.checked && alt) alt.checked = false;
+        sync();
+      });
+
+      alt?.addEventListener("change", () => {
+        if (alt.checked) none.checked = false;
+        sync();
       });
     });
 
     const uploadState = () =>
       uploads.map((upload) => {
         const input = upload.querySelector("[data-upload-input]");
+        const alt = upload.querySelector("[data-upload-alt]");
         const label = upload.querySelector(".order-upload__field > span").textContent;
-        return { label, file: input.files?.[0] || null, none: upload.querySelector("[data-upload-none]").checked };
+        return {
+          label,
+          file: input.files?.[0] || null,
+          none: upload.querySelector("[data-upload-none]").checked,
+          alt: alt?.checked ? alt.dataset.uploadAlt : "",
+        };
       });
 
     const validate = () => {
@@ -262,8 +303,14 @@
       if (qty > MAX_QTY) errors.push(`${MAX_QTY} adetten fazla siparişler için lütfen WhatsApp'tan yaz.`);
       if (!checked("collar")) errors.push("Yaka tipini seç.");
 
-      uploadState().forEach(({ label, file, none }) => {
-        if (!file && !none) errors.push(`${label}: dosya yükle ya da "yok" seçeneğini işaretle.`);
+      if (isOn("goalkeeper")) {
+        const keepers = goalkeepers();
+        if (!keepers) errors.push("Kaleci forması adedini gir.");
+        else if (keepers > qty) errors.push("Kaleci forması adedi toplam adetten fazla olamaz.");
+      }
+
+      uploadState().forEach(({ label, file, none, alt }) => {
+        if (!file && !none && !alt) errors.push(`${label}: dosya yükle ya da bir seçenek işaretle.`);
         const allowed = file && (FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name));
         if (file && !allowed) errors.push(`${label}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
         if (file && file.size > MAX_FILE) errors.push(`${label}: dosya 10 MB'tan küçük olmalı.`);
@@ -284,9 +331,8 @@
     };
 
     const buildMessage = () => {
-      const qty = quantity();
+      const { qty, total, parts } = calculate();
       const scope = checked("scope");
-      const unit = (scope === "ust" ? PRICES.ust : PRICES.takim) + (checked("socks") === "var" ? PRICES.socks : 0);
       const yesNo = (value) => (value ? "Var" : "Yok");
       const lines = [
         "Merhaba, sipariş vermek istiyorum.",
@@ -298,7 +344,7 @@
         `Yaka: ${checked("collar")}`,
         "",
         "FORMA ÖNÜ",
-        ...uploadState().map(({ label, file }) => `${label}: ${file ? `Var (dosya: ${file.name})` : "Yok"}`),
+        ...uploadState().map(({ label, file, alt }) => `${label}: ${alt || (file ? `Var (dosya: ${file.name})` : "Yok")}`),
         "",
         "FORMA ARKASI",
         `Sırt yazısı: ${form.querySelector('[name="back-text"]').value.trim() || "Yok"}`,
@@ -310,6 +356,10 @@
         lines.push("", "ŞORT", `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
       }
 
+      if (goalkeeperCount) {
+        lines.push("", "KALECİ", isOn("goalkeeper") ? `Kaleci forması: ${goalkeepers()} adet (uzun kol, +${formatTL(PRICES.goalkeeper)})` : "Kaleci forması: Yok");
+      }
+
       lines.push("", "LİSTE (İSİM - NUMARA - BEDEN)");
       roster.querySelectorAll("[data-roster-row]").forEach((row, index) => {
         const name = isOn("has-name") ? row.querySelector('[data-roster-field="name"]').value.trim() : "";
@@ -318,7 +368,7 @@
         lines.push(`${index + 1}. ${[name || "-", number || "-", size].join(" - ")}`);
       });
 
-      lines.push("", `Tahmini tutar: ${qty} × ${formatTL(unit)} = ${formatTL(qty * unit)} (kaleci farkı hariç)`);
+      lines.push("", `TOPLAM TUTAR: ${formatTL(total)} (${parts.join(" + ")})`);
       return lines.join("\n");
     };
 
@@ -330,6 +380,7 @@
       if (event.target.matches("[data-roster-toggle]")) syncRosterFields();
       updateTotal();
     });
+    goalkeeperCount?.addEventListener("input", updateTotal);
 
     roster.addEventListener("input", (event) => {
       if (event.target.matches('[data-roster-field="number"]')) {

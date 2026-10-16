@@ -1364,49 +1364,66 @@ h3 {
   opacity: 0.4;
 }
 
-.order-choices,
 .order-checks {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.25rem 1rem;
 }
 
-.order-choice {
-  position: relative;
+.order-selects {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
 }
 
-.order-choice input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  margin: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.order-choice span {
-  display: inline-flex;
-  min-height: 2.6rem;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+.order-selects select {
   cursor: pointer;
+}
+
+.order-form__warning {
+  margin: 0;
+  border-left: 3px solid var(--gold);
+  border-radius: 0.3rem;
+  background: rgb(255 255 255 / 5%);
+  color: var(--text);
   font-size: 0.8rem;
-  font-weight: 750;
-  padding: 0.45rem 1rem;
+  font-weight: 700;
+  padding: 0.6rem 0.8rem;
 }
 
-.order-choice input:checked + span {
-  border-color: var(--gold);
-  background: var(--gold);
-  color: #080a0e;
+.order-form__warning[hidden],
+.order-field[hidden] {
+  display: none;
 }
 
-.order-choice input:focus-visible + span {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
+.order-total {
+  display: grid;
+  gap: 0.3rem;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: rgb(255 255 255 / 4%);
+  padding: 1rem 1.1rem;
+}
+
+.order-total__label {
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.order-total__value {
+  color: var(--text);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.order-total__detail {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
 }
 
 .order-check {
@@ -1509,12 +1526,6 @@ h3 {
   padding-top: 1rem;
 }
 
-.order-form__total {
-  margin: 0;
-  font-size: 0.85rem;
-  font-weight: 750;
-}
-
 .order-form__errors {
   display: grid;
   gap: 0.3rem;
@@ -1548,7 +1559,18 @@ h3 {
   text-underline-offset: 0.2em;
 }
 
+@media (max-width: 24rem) {
+  .order-selects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 35rem) {
+  .order-selects select {
+    padding-inline: 0.5rem;
+    font-size: 0.78rem;
+  }
+
   .order-roster__row {
     grid-template-columns: 1.3rem minmax(0, 1fr) 3.4rem 4.6rem;
     gap: 0.3rem;
