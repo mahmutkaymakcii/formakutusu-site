@@ -112,7 +112,7 @@ const headerLinks = [
     section: "/modeller/",
     aliases: ["/futbol/", "/basketbol/", "/voleybol/", "/hali-saha-formasi/"],
   },
-  { name: "Şortlar", path: "/forma-sort-takimi/" },
+  { name: "Forma + Şort", path: "/forma-sort-takimi/" },
   { name: "Özel Üretim", path: "/takima-ozel-forma/" },
   { name: "Nasıl Sipariş Verilir?", path: "/nasil-siparis-verilir/" },
   { name: "Hakkımızda", path: "/hakkimizda/" },
@@ -205,7 +205,7 @@ function footer() {
       <a href="/iletisim/">İletişim</a>
     </div>
   </footer>
-  <a class="mobile-cta" href="/teklif/" aria-label="Fiyatları ve sipariş bilgilerini aç">
+  <a class="mobile-cta" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp üzerinden sipariş ver">
     <span aria-hidden="true">↗</span> Sipariş Ver
   </a>`;
 }
