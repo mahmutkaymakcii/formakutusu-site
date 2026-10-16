@@ -624,7 +624,7 @@ const categoryConfig = {
     faq: [
       ["Futbol formalarına isim ve numara eklenebilir mi?", "İsim, numara, logo ve sponsor bilgileri tasarım aşamasında modele uygulanabilir."],
       ["Kaleci forması da hazırlanabilir mi?", "Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta; ihtiyacı WhatsApp mesajında belirt."],
-      ["Forma ve şort birlikte planlanabilir mi?", "Evet. Forma + şort fiyatı 420₺’dir."],
+      ["Forma ve şort birlikte planlanabilir mi?", "Evet. Forma + şort fiyatı 450₺’dir."],
     ],
   },
   basketbol: {
@@ -637,7 +637,7 @@ const categoryConfig = {
     copy: "Basketbol forma ve şort modellerini kodla seç; takım renklerini, logoyu ve oyuncu listesini sipariş görüşmesine ekle.",
     image: { src: "/assets/models/fk-b-004.webp", alt: "FK-B-004 özel basketbol forma ve şort modeli", width: 640, height: 800 },
     faq: [
-      ["Basketbol forması ve şortu birlikte hazırlanır mı?", "Evet. Forma + şort fiyatı 420₺’dir; adet ve beden dağılımı WhatsApp görüşmesinde belirtilir."],
+      ["Basketbol forması ve şortu birlikte hazırlanır mı?", "Evet. Forma + şort fiyatı 450₺’dir; adet ve beden dağılımı WhatsApp görüşmesinde belirtilir."],
       ["Oyuncu isim ve numaraları nasıl iletilir?", "Takım listesi CSV veya Excel dosyasıyla hazırlanabilir ve WhatsApp görüşmesine eklenebilir."],
       ["Çocuk ve yetişkin bedenleri aynı siparişte olabilir mi?", "Beden dağılımı sipariş öncesinde teyit edilerek takım listesine işlenir."],
     ],
@@ -808,7 +808,7 @@ for (const model of models) {
             <p class="eyebrow">${escapeHtml(model.category)} · ${model.id}</p>
             <h1>${model.id} ${escapeHtml(config.singular)}</h1>
             <p class="lead">${escapeHtml(config.intro)}</p>
-            <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Üst forma 280₺</strong><small>Forma + şort 420₺ · Çorap 30₺ · Lüks çorap 50₺</small></div>
+            <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Üst forma 300₺</strong><small>Forma + şort 450₺ · Forma + şort + çorap 480₺ · Çorap 30₺</small></div>
             <dl class="product-detail__facts">
               <div><dt>Model kodu</dt><dd>${model.id}</dd></div>
               <div><dt>Branş</dt><dd>${escapeHtml(config.label)}</dd></div>
@@ -932,7 +932,7 @@ const servicePages = [
     faq: [
       ["Forma ve şort birlikte sipariş edilebilir mi?", "Evet. Forma + şort fiyatını Fiyatlar sayfasında görebilir, siparişi WhatsApp’tan başlatabilirsin."],
       ["Şorta numara eklenebilir mi?", "İhtiyacı WhatsApp mesajında belirt; uygulama tasarım görüşmesinde netleştirilir."],
-      ["Forma ve şort fiyatı nedir?", "Forma + şort fiyatı 420₺’dir."],
+      ["Forma ve şort fiyatı nedir?", "Forma + şort fiyatı 450₺’dir."],
     ],
   },
   {
@@ -1071,7 +1071,7 @@ const allFaq = [
   ["Logo için hangi dosya türünü göndermeliyim?", "PNG, JPG veya PDF dosyası ön değerlendirme için seçilebilir. Baskıya uygunluk tasarım görüşmesinde kontrol edilir."],
   ["Takım listesini Excel veya CSV olarak gönderebilir miyim?", "Evet. Dosyayı WhatsApp görüşmesine kendin ekleyebilirsin."],
   ["Dosyalarımı nasıl gönderebilirim?", "Logo, örnek görsel ve takım listesi dosyalarını WhatsApp görüşmesine kendin ekleyebilirsin."],
-  ["Güncel forma fiyatları nedir?", "Tek üst forma 280₺, forma + şort 420₺, çorap 30₺ ve lüks çorap 50₺."],
+  ["Güncel forma fiyatları nedir?", "Tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺ ve çorap 30₺."],
 ];
 
 writePage("/sik-sorulan-sorular/", {
@@ -1094,7 +1094,7 @@ writePage("/sik-sorulan-sorular/", {
 
 writePage("/teklif/", {
   title: "Özel Tasarım Forma Fiyatları",
-  description: "Özel tasarım forma fiyatlarını inceleyin: tek üst forma 280₺, forma ve şort 420₺, çorap 30₺, lüks çorap 50₺.",
+  description: "Özel tasarım forma fiyatlarını inceleyin: tek üst forma 300₺, forma ve şort 450₺, forma, şort ve çorap 480₺, çorap 30₺.",
   pageClass: "pricing-page",
   schemas: [
     breadcrumbSchema([
@@ -1110,10 +1110,10 @@ writePage("/teklif/", {
     </div></section>
     <section class="pricing-section" id="fiyatlar"><div class="container">
       <div class="pricing-grid" aria-label="Özel tasarım forma fiyatları">
-        <article class="price-card"><p>TEK ÜST FORMA</p><strong>280₺</strong></article>
-        <article class="price-card"><p>FORMA + ŞORT</p><strong>420₺</strong></article>
+        <article class="price-card"><p>TEK ÜST FORMA</p><strong>300₺</strong></article>
+        <article class="price-card"><p>FORMA + ŞORT</p><strong>450₺</strong></article>
+        <article class="price-card"><p>FORMA + ŞORT + ÇORAP</p><strong>480₺</strong></article>
         <article class="price-card"><p>ÇORAP</p><strong>30₺</strong></article>
-        <article class="price-card"><p>LÜKS ÇORAP</p><strong>50₺</strong></article>
       </div>
       <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>Tasarım onayından sonra 5–7 iş günü imalat; kargo süresi ayrıca eklenir.</p></div>
       <div class="pricing-order"><div><p class="eyebrow">Sipariş</p><h2>Modelini seç, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve varsa oyuncu listesini mesajına ekleyebilirsin.</p></div><a class="button" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sipariş Ver</a></div>
