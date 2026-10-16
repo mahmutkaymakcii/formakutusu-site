@@ -69,7 +69,7 @@ function createIstanbulPage(chrome) {
     ],
     [
       "İstanbul dışındaki takımlar da sipariş verebilir mi?",
-      "Evet. Siparişler Türkiye genelinde planlanabilir; güncel gönderim ve teslim bilgisi sipariş görüşmesinde paylaşılır.",
+      "Evet. Siparişler Türkiye genelinde planlanabilir. İmalat tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir.",
     ],
     [
       "Tasarımı üretimden önce görebilir miyim?",
@@ -172,7 +172,7 @@ function createIstanbulPage(chrome) {
       </div>
     </section>
     <section class="feature-section"><div class="container">
-      <div class="section-intro"><p class="eyebrow">Sipariş için gerekenler</p><h2>Sipariş kapsamını dört başlıkta netleştir.</h2><p>Fiyatları incele; teslim ve üretim ayrıntılarını WhatsApp görüşmesinde doğrula.</p></div>
+      <div class="section-intro"><p class="eyebrow">Sipariş için gerekenler</p><h2>Sipariş kapsamını dört başlıkta netleştir.</h2><p>Fiyatları incele; siparişini WhatsApp’tan başlat.</p></div>
       <div class="feature-grid">
         <article><span>01</span><h3>Model ve branş</h3><p>Futbol, basketbol veya voleybol model kodunu seç.</p></article>
         <article><span>02</span><h3>Takım kimliği</h3><p>Renk, arma, sponsor, isim ve numara bilgilerini hazırla.</p></article>
@@ -182,10 +182,10 @@ function createIstanbulPage(chrome) {
     </div></section>
     <section class="content-band"><div class="container content-band__grid">
       <div><p class="eyebrow">Gönderim planı</p><h2>İstanbul ve Türkiye geneli için güncel bilgiyi sipariş görüşmesinde doğrula.</h2></div>
-      <ul class="check-list"><li>Minimum 5 adet üretim</li><li>Ücretsiz tasarım desteği</li><li>Forma ve şort kapsamı</li><li>Çocuk ve yetişkin bedenleri</li><li>Tasarım onayı</li><li>Güncel teslim ve kargo bilgisi</li></ul>
+      <ul class="check-list"><li>Minimum 5 adet üretim</li><li>Ücretsiz tasarım desteği</li><li>Forma ve şort kapsamı</li><li>Çocuk ve yetişkin bedenleri</li><li>Tasarım onayı</li><li>Onaydan sonra 5–7 iş günü imalat</li></ul>
     </div></section>
     <section class="faq-section"><div class="container faq-section__grid">
-      <div class="section-intro"><p class="eyebrow">Sık sorulanlar</p><h2>İstanbul forma siparişi hakkında</h2><p>Üretim ve teslim ayrıntıları sipariş görüşmesinde netleştirilir.</p></div>
+      <div class="section-intro"><p class="eyebrow">Sık sorulanlar</p><h2>İstanbul forma siparişi hakkında</h2><p>İmalat tasarım onayından sonra 5–7 iş günü sürer.</p></div>
       <div class="faq-list">${faqHtml}</div>
     </div></section>
     <section class="final-cta"><div class="container final-cta__inner">

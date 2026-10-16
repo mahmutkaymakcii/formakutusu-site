@@ -420,7 +420,7 @@ const homeFaq = [
   ],
   [
     "Teslimat süresi nedir?",
-    "İmalat süremiz 5–7 iş günüdür.",
+    "İmalat süremiz, tasarım onayından sonra 5–7 iş günüdür; kargo süresi buna dahil değildir.",
   ],
   [
     "Çocuk ve yetişkin bedenleri birlikte hazırlanabilir mi?",
@@ -799,11 +799,11 @@ for (const model of models) {
               <a class="button product-detail__whatsapp" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> WhatsApp’tan Sipariş Ver</a>
               <a class="button button--ghost" href="${priceUrl}">Fiyatları Gör</a>
             </div>
-            <p class="product-detail__note">Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta. İmalat süresi 5–7 iş günüdür.</p>
+            <p class="product-detail__note">Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta. İmalat süresi tasarım onayından sonra 5–7 iş günüdür.</p>
             <div class="product-detail__accordions">
               <details open><summary>Model ve ürün bilgileri</summary><div><ul><li>Model kodu: ${model.id}</li><li>Branş: ${escapeHtml(config.label)}</li><li>Ürün kapsamı: ${escapeHtml(config.scope)}</li><li>Minimum üretim: 5 adet</li></ul></div></details>
               <details><summary>Kişiselleştirme seçenekleri</summary><div><ul><li>Takım renkleri</li><li>Logo ve sponsor</li><li>Oyuncu ismi ve forma numarası</li><li>Beden dağılımı</li></ul></div></details>
-              <details><summary>Üretim ve teslimat süreci</summary><div><p>Hazırlanan tasarım onaylandıktan sonra üretim planı oluşturulur. Güncel üretim, teslim ve gönderim bilgileri teklif görüşmesinde teyit edilir.</p></div></details>
+              <details><summary>Üretim ve teslimat süreci</summary><div><p>Tasarım onaylandıktan sonra imalat 5–7 iş günü sürer. Ardından sipariş kargoyla Türkiye geneline gönderilir; kargo süresi buna dahil değildir.</p></div></details>
               <details><summary>Beden ve bakım bilgisi</summary><div><p>Çocuk ve yetişkin beden seçenekleri ile kullanılacak ürüne uygun bakım talimatları sipariş öncesinde doğrulanır.</p></div></details>
               <details><summary>Ürün açıklaması</summary><div><p>${escapeHtml(config.intro)} Görseldeki model takım renklerine ve kimlik öğelerine göre yeniden ele alınabilir.</p></div></details>
             </div>
@@ -829,7 +829,7 @@ for (const model of models) {
             <li><span>1</span><div><strong>Modeli seç</strong><p>${model.id} kodunu WhatsApp mesajına ekle.</p></div></li>
             <li><span>2</span><div><strong>Takım detaylarını paylaş</strong><p>Renk, logo, sponsor, isim, numara ve beden bilgilerini hazırla.</p></div></li>
             <li><span>3</span><div><strong>Tasarımı kontrol et</strong><p>Takımına özel hazırlanan görseli üretim öncesinde incele.</p></div></li>
-            <li><span>4</span><div><strong>Onayla ve planla</strong><p>Güncel fiyat ve teslim bilgisiyle sipariş kapsamını netleştir.</p></div></li>
+            <li><span>4</span><div><strong>Onayla ve planla</strong><p>Fiyatı ve teslim planını netleştir; onaydan sonra üretim başlar.</p></div></li>
           </ol>
         </div>
       </section>
@@ -1068,7 +1068,7 @@ writePage("/sik-sorulan-sorular/", {
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Sık Sorulan Sorular", path: "/sik-sorulan-sorular/" }])}
     ${innerHero({ eyebrow: "Sık sorulanlar", title: "Sipariş öncesinde bilmen gerekenler.", copy: "Minimum adet, tasarım, dosya, beden ve teslim planıyla ilgili yanıtları tek yerde topladık.", cta: false })}
-    <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Yanıtlar", "Kısa ve doğrulanabilir bilgi.", "Güncel üretim veya teslim ayrıntıları sipariş görüşmesinde teyit edilir.")}${faqBlock(allFaq)}</div></section>
+    <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Yanıtlar", "Kısa ve doğrulanabilir bilgi.", "Kargo ve özel tarih talepleri sipariş görüşmesinde netleştirilir.")}${faqBlock(allFaq)}</div></section>
     ${finalCta()}`,
 });
 
@@ -1095,7 +1095,7 @@ writePage("/teklif/", {
         <article class="price-card"><p>ÇORAP</p><strong>30₺</strong></article>
         <article class="price-card"><p>LÜKS ÇORAP</p><strong>50₺</strong></article>
       </div>
-      <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>5–7 iş günü imalat sürecimiz.</p></div>
+      <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>Tasarım onayından sonra 5–7 iş günü imalat; kargo süresi ayrıca eklenir.</p></div>
       <div class="pricing-order"><div><p class="eyebrow">Sipariş</p><h2>Modelini seç, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve varsa oyuncu listesini mesajına ekleyebilirsin.</p></div><a class="button" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sipariş Ver</a></div>
     </div></section>`,
 });
@@ -1114,8 +1114,8 @@ writePage("/hakkimizda/", {
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Hakkımızda", path: "/hakkimizda/" }])}
     ${innerHero({ eyebrow: "Forma Kutusu", title: "Takım kimliğini üretime hazırlayan sade yaklaşım.", copy: "Model seçimini, takım detaylarını, tasarım onayını ve üretim iletişimini tek anlaşılır süreçte birleştiriyoruz.", image: { src: "/assets/references/ref-15.webp", alt: "Forma Kutusu üretiminden tamamlanan siyah ve mavi takım formaları", width: 1000, height: 700 } })}
     <section class="feature-section"><div class="container">
-      ${sectionIntro("Çalışma ilkeleri", "Güven, iddiadan değil süreçten doğar.", "Sitede doğrulanamayan satış sayıları, sahte yorumlar, sabit termin veya gerçek olmayan garanti ifadeleri kullanmıyoruz.")}
-      <div class="feature-grid"><article><span>01</span><h3>Net kapsam</h3><p>Adet, ürün, beden ve kişiselleştirme detayları sipariş öncesinde yazılı hâle gelir.</p></article><article><span>02</span><h3>Görsel onay</h3><p>Takım renkleri ve kimlik öğeleri üretimden önce kontrol edilir.</p></article><article><span>03</span><h3>Güncel bilgi</h3><p>Üretim ve teslim ayrıntıları sipariş görüşmesinde teyit edilir.</p></article><article><span>04</span><h3>Gizlilik</h3><p>Müşteri listeleri ve özel sipariş dosyaları web sitesinde yayınlanmaz.</p></article></div>
+      ${sectionIntro("Çalışma ilkeleri", "Güven, iddiadan değil süreçten doğar.", "Sitede doğrulanamayan satış sayıları, sahte yorumlar veya gerçek olmayan garanti ifadeleri kullanmıyoruz.")}
+      <div class="feature-grid"><article><span>01</span><h3>Net kapsam</h3><p>Adet, ürün, beden ve kişiselleştirme detayları sipariş öncesinde yazılı hâle gelir.</p></article><article><span>02</span><h3>Görsel onay</h3><p>Takım renkleri ve kimlik öğeleri üretimden önce kontrol edilir.</p></article><article><span>03</span><h3>Güncel bilgi</h3><p>İmalat tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir.</p></article><article><span>04</span><h3>Gizlilik</h3><p>Müşteri listeleri ve özel sipariş dosyaları web sitesinde yayınlanmaz.</p></article></div>
     </div></section>
     <section class="brand-band"><div class="container brand-band__inner"><div><p class="eyebrow">Üretim gücü</p><h2>NORA</h2><p>Forma Kutusu ve NORA marka materyalleri mevcut web arşivinde birlikte kullanılıyor. Güncel kurumsal veya üretim ayrıntıları sipariş görüşmesinde teyit edilebilir.</p></div><img src="/assets/brand/nora.webp" alt="NORA" width="420" height="245" loading="lazy"></div></section>
     ${finalCta()}`,
