@@ -273,10 +273,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261016c">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261016b" defer></script>
+  <script src="/assets/js/site.js?v=20261016c" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header(routePath)}
@@ -748,11 +748,68 @@ const productDetailConfig = {
   },
 };
 
+function orderUpload(name, label, noneLabel) {
+  return `<div class="order-upload" data-upload>
+                    <label class="order-upload__field"><span>${label}</span><input type="file" name="${name}" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-upload-input></label>
+                    <p class="order-upload__preview" data-upload-preview hidden></p>
+                    <label class="order-check"><input type="checkbox" name="${name}-none" data-upload-none> ${noneLabel}</label>
+                  </div>`;
+}
+
+function orderChoice(name, value, label, checked = false) {
+  return `<label class="order-choice"><input type="radio" name="${name}" value="${value}"${checked ? " checked" : ""}><span>${label}</span></label>`;
+}
+
+function orderForm(model, config) {
+  return `<form class="order-form" data-order-form data-model="${model.id}" data-sport-label="${escapeHtml(config.label)}" novalidate>
+              <h2 class="order-form__title">Siparişini oluştur</h2>
+              <fieldset class="order-form__section">
+                <legend>Sipariş bilgileri</legend>
+                <label class="order-field"><span>Adet <small>(en az 5)</small></span><input type="number" name="quantity" min="5" max="60" value="5" inputmode="numeric" required data-order-quantity></label>
+                <div class="order-field"><span>Ürün</span><div class="order-choices">${orderChoice("scope", "ust", "Tek üst forma")}${orderChoice("scope", "takim", "Forma + şort", true)}</div></div>
+                <div class="order-field"><span>Çorap</span><div class="order-choices">${orderChoice("socks", "var", "Çorap var")}${orderChoice("socks", "yok", "Çorap yok", true)}</div></div>
+                <div class="order-field"><span>Yaka tipi</span><div class="order-choices">${orderChoice("collar", "Sıfır yaka", "Sıfır yaka")}${orderChoice("collar", "V yaka", "V yaka")}${orderChoice("collar", "Polo yaka", "Polo yaka")}</div></div>
+              </fieldset>
+              <fieldset class="order-form__section">
+                <legend>Forma önünü tasarla</legend>
+                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok")}
+                ${orderUpload("logo-right", "Sağ göğüs logosu", "Sağ göğüste logo yok")}
+                ${orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok")}
+              </fieldset>
+              <fieldset class="order-form__section">
+                <legend>Forma arkasını tasarla</legend>
+                <label class="order-field"><span>Sırt yazısı</span><input type="text" name="back-text" maxlength="24" autocomplete="off" placeholder="ÖRN. KULÜP İSMİ" data-uppercase></label>
+                <div class="order-checks">
+                  <label class="order-check"><input type="checkbox" name="has-number" checked data-roster-toggle="number"> Numara var</label>
+                  <label class="order-check"><input type="checkbox" name="has-name" checked data-roster-toggle="name"> İsim var</label>
+                </div>
+              </fieldset>
+              <fieldset class="order-form__section">
+                <legend>İsim, numara ve beden listesi</legend>
+                <p class="order-form__hint">Forma üzerine yazılacak bilgiler. Satır sayısı adet kadar oluşur.</p>
+                <div class="order-roster" data-order-roster></div>
+                <noscript><p class="order-form__hint">Listeyi oluşturmak için tarayıcında JavaScript açık olmalı; dilersen listeyi WhatsApp'tan gönderebilirsin.</p></noscript>
+              </fieldset>
+              <fieldset class="order-form__section" data-order-shorts>
+                <legend>Şort</legend>
+                <div class="order-checks">
+                  <label class="order-check"><input type="checkbox" name="shorts-logo"> Sağ paçaya logo ekle</label>
+                  <label class="order-check"><input type="checkbox" name="shorts-number"> Sol paçaya numara ekle</label>
+                </div>
+              </fieldset>
+              <div class="order-form__summary">
+                <p class="order-form__total" data-order-total aria-live="polite"></p>
+                <p class="order-form__errors" data-order-errors role="alert" hidden></p>
+                <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
+                <p class="order-form__hint" data-order-status aria-live="polite">Logolar telefonunda paylaşım menüsüyle mesaja eklenir; bilgisayarda WhatsApp açıldıktan sonra dosyaları sohbete eklemen gerekir. Dosyalar bu siteye yüklenmez.</p>
+                <a class="order-form__prices" href="/teklif/#fiyatlar">Fiyatları ve teslimat koşullarını gör</a>
+              </div>
+            </form>`;
+}
+
 for (const model of models) {
   const config = productDetailConfig[model.sport];
   const route = modelUrl(model);
-  const priceUrl = "/teklif/#fiyatlar";
-  const message = `Merhaba, ${model.id} kodlu ${config.label.toLocaleLowerCase("tr-TR")} forma modelini takımımıza özel hazırlatmak için sipariş vermek istiyorum.`;
   const image = modelImageAttributes(
     model,
     "(max-width: 68rem) calc(100vw - 2rem), 48vw",
@@ -849,10 +906,7 @@ for (const model of models) {
               <div><dt>Minimum sipariş</dt><dd>5 adet</dd></div>
               <div><dt>Ürün kapsamı</dt><dd>${escapeHtml(config.scope)}</dd></div>
             </dl>
-            <div class="product-detail__actions">
-              <a class="button product-detail__whatsapp" href="${whatsappUrl(message)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> WhatsApp’tan Sipariş Ver</a>
-              <a class="button button--ghost" href="${priceUrl}">Fiyatları Gör</a>
-            </div>
+            ${orderForm(model, config)}
             <p class="product-detail__note">Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta. İmalat süresi tasarım onayından sonra 5–7 iş günüdür.</p>
             <div class="product-detail__accordions">
               <details open><summary>Model ve ürün bilgileri</summary><div><ul><li>Model kodu: ${model.id}</li><li>Branş: ${escapeHtml(config.label)}</li><li>Ürün kapsamı: ${escapeHtml(config.scope)}</li><li>Minimum üretim: 5 adet</li></ul></div></details>
