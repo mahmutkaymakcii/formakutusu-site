@@ -3,6 +3,15 @@ const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
 const containerId = "GTM-TJL9N3XX";
+const consentKey = "forma-kutusu-consent-v1";
+
+// Consent Mode v2: izin verilene kadar analiz ve reklam depolaması kapalı kalır.
+// Kayıtlı tercih, GTM yüklenmeden önce uygulanır.
+const consentSnippet = `<!-- Consent Mode -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+try{if(JSON.parse(localStorage.getItem('${consentKey}'))==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- End Consent Mode -->`;
 
 const headSnippet = `<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -37,6 +46,10 @@ for (const htmlFile of walk(root).filter((target) => target.endsWith(".html"))) 
 
   if (!html.includes("<!-- Google Tag Manager -->")) {
     html = html.replace(/<head>/i, `<head>\n${headSnippet}`);
+  }
+
+  if (!html.includes("<!-- Consent Mode -->")) {
+    html = html.replace("<!-- Google Tag Manager -->", `${consentSnippet}\n<!-- Google Tag Manager -->`);
   }
 
   if (!html.includes("<!-- Google Tag Manager (noscript) -->")) {

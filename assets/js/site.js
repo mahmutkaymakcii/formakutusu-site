@@ -3,6 +3,7 @@
 
   const WHATSAPP_NUMBER = "905348578836";
   const FAVORITES_KEY = "forma-kutusu-favorites-v1";
+  const CONSENT_KEY = "forma-kutusu-consent-v1";
   const MOBILE_NAV_QUERY = "(max-width: 1179px)";
 
   const safeStorage = {
@@ -250,7 +251,76 @@
     });
   }
 
+  function initConsent() {
+    let banner = null;
+
+    const updateConsent = (state) => {
+      window.dataLayer = window.dataLayer || [];
+      const gtag =
+        typeof window.gtag === "function"
+          ? window.gtag
+          : function () {
+              window.dataLayer.push(arguments);
+            };
+      gtag("consent", "update", {
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+        analytics_storage: state,
+      });
+    };
+
+    const hide = () => {
+      banner?.remove();
+      banner = null;
+      document.body.classList.remove("has-consent-banner");
+    };
+
+    const show = () => {
+      if (banner) {
+        banner.querySelector("button")?.focus();
+        return;
+      }
+
+      banner = document.createElement("section");
+      banner.className = "consent-banner";
+      banner.setAttribute("aria-label", "Çerez tercihleri");
+      banner.innerHTML = `
+        <p>Siteyi geliştirmek için analiz çerezleri kullanmak istiyoruz. Onay vermezsen yalnızca sitenin çalışması için gerekli olanlar kullanılır. <a href="/kvkk-ve-gizlilik/">Gizlilik notu</a></p>
+        <div class="consent-banner__actions">
+          <button class="consent-banner__button" type="button" data-consent="denied">Reddet</button>
+          <button class="consent-banner__button" type="button" data-consent="granted">Kabul et</button>
+        </div>`;
+
+      banner.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-consent]");
+        if (!button) return;
+        const state = button.dataset.consent === "granted" ? "granted" : "denied";
+        safeStorage.set(CONSENT_KEY, state);
+        updateConsent(state);
+        hide();
+      });
+
+      document.body.append(banner);
+      document.body.classList.add("has-consent-banner");
+    };
+
+    const footerBottom = document.querySelector(".site-footer__bottom");
+    if (footerBottom) {
+      const settings = document.createElement("button");
+      settings.className = "consent-link";
+      settings.type = "button";
+      settings.textContent = "Çerez tercihleri";
+      settings.addEventListener("click", show);
+      footerBottom.append(settings);
+    }
+
+    const stored = safeStorage.get(CONSENT_KEY, null);
+    if (stored !== "granted" && stored !== "denied") show();
+  }
+
   initNavigation();
+  initConsent();
   initCatalog();
   initGallery();
   initProductGallery();
