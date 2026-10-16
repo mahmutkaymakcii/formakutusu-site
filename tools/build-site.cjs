@@ -273,10 +273,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016c">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261016d">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261016c" defer></script>
+  <script src="/assets/js/site.js?v=20261016d" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header(routePath)}
@@ -748,31 +748,49 @@ const productDetailConfig = {
   },
 };
 
-function orderUpload(name, label, noneLabel) {
+function orderUpload(name, label, noneLabel, altLabel = "") {
+  const alt = altLabel
+    ? `<label class="order-check"><input type="checkbox" name="${name}-alt" data-upload-alt="${altLabel}"> ${altLabel}</label>`
+    : "";
   return `<div class="order-upload" data-upload>
                     <label class="order-upload__field"><span>${label}</span><input type="file" name="${name}" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-upload-input></label>
                     <p class="order-upload__preview" data-upload-preview hidden></p>
-                    <label class="order-check"><input type="checkbox" name="${name}-none" data-upload-none> ${noneLabel}</label>
+                    <div class="order-checks">${alt}<label class="order-check"><input type="checkbox" name="${name}-none" data-upload-none> ${noneLabel}</label></div>
                   </div>`;
 }
 
-function orderChoice(name, value, label, checked = false) {
-  return `<label class="order-choice"><input type="radio" name="${name}" value="${value}"${checked ? " checked" : ""}><span>${label}</span></label>`;
+function orderSelect(name, label, options, placeholder = "") {
+  const empty = placeholder ? `<option value="">${placeholder}</option>` : "";
+  const items = options.map(([value, text]) => `<option value="${value}">${text}</option>`).join("");
+  return `<label class="order-field"><span>${label}</span><select name="${name}" required>${empty}${items}</select></label>`;
 }
 
 function orderForm(model, config) {
+  // Basketbolda polo yaka yok; kaleci seçeneği yalnızca futbolda.
+  const collars = model.sport === "basketbol" ? ["Sıfır yaka", "V yaka"] : ["Sıfır yaka", "V yaka", "Polo yaka"];
+  const goalkeeper =
+    model.sport === "futbol"
+      ? `<fieldset class="order-form__section">
+                <legend>Kaleci</legend>
+                <label class="order-check"><input type="checkbox" name="goalkeeper" data-goalkeeper-toggle> Kaleci forması var (uzun kol)</label>
+                <label class="order-field" data-goalkeeper-count hidden><span>Kaleci forması adedi</span><input type="number" name="goalkeeper-count" min="1" max="60" value="1" inputmode="numeric"></label>
+                <p class="order-form__warning" data-goalkeeper-note hidden>Kaleci formalarında uzun kol için adet başı +50₺ fiyat farkı uygulanır.</p>
+              </fieldset>`
+      : "";
   return `<form class="order-form" data-order-form data-model="${model.id}" data-sport-label="${escapeHtml(config.label)}" novalidate>
               <h2 class="order-form__title">Siparişini oluştur</h2>
               <fieldset class="order-form__section">
                 <legend>Sipariş bilgileri</legend>
                 <label class="order-field"><span>Adet <small>(en az 5)</small></span><input type="number" name="quantity" min="5" max="60" value="5" inputmode="numeric" required data-order-quantity></label>
-                <div class="order-field"><span>Ürün</span><div class="order-choices">${orderChoice("scope", "ust", "Tek üst forma")}${orderChoice("scope", "takim", "Forma + şort", true)}</div></div>
-                <div class="order-field"><span>Çorap</span><div class="order-choices">${orderChoice("socks", "var", "Çorap var")}${orderChoice("socks", "yok", "Çorap yok", true)}</div></div>
-                <div class="order-field"><span>Yaka tipi</span><div class="order-choices">${orderChoice("collar", "Sıfır yaka", "Sıfır yaka")}${orderChoice("collar", "V yaka", "V yaka")}${orderChoice("collar", "Polo yaka", "Polo yaka")}</div></div>
+                <div class="order-selects">
+                  ${orderSelect("scope", "Ürün", [["takim", "Forma + şort"], ["ust", "Tek üst forma"]])}
+                  ${orderSelect("collar", "Yaka tipi", collars.map((collar) => [collar, collar]), "Seçin")}
+                  ${orderSelect("socks", "Çorap", [["yok", "Çorap yok"], ["var", "Çorap var"]])}
+                </div>
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>Forma önünü tasarla</legend>
-                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok")}
+                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
                 ${orderUpload("logo-right", "Sağ göğüs logosu", "Sağ göğüste logo yok")}
                 ${orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok")}
               </fieldset>
@@ -797,8 +815,13 @@ function orderForm(model, config) {
                   <label class="order-check"><input type="checkbox" name="shorts-number"> Sol paçaya numara ekle</label>
                 </div>
               </fieldset>
+              ${goalkeeper}
               <div class="order-form__summary">
-                <p class="order-form__total" data-order-total aria-live="polite"></p>
+                <div class="order-total" aria-live="polite">
+                  <span class="order-total__label">Toplam tutar</span>
+                  <strong class="order-total__value" data-order-total></strong>
+                  <span class="order-total__detail" data-order-total-detail></span>
+                </div>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
                 <p class="order-form__hint" data-order-status aria-live="polite">Logolar telefonunda paylaşım menüsüyle mesaja eklenir; bilgisayarda WhatsApp açıldıktan sonra dosyaları sohbete eklemen gerekir. Dosyalar bu siteye yüklenmez.</p>
