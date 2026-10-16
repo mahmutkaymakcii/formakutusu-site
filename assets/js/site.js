@@ -124,6 +124,255 @@
     });
   }
 
+  // Yazılabilir alanlar Türkçe kurallarıyla büyük harfe çevrilir (i → İ, ı → I).
+  function initUppercaseFields() {
+    const toUpper = (field) => {
+      const start = field.selectionStart;
+      const end = field.selectionEnd;
+      const upper = field.value.toLocaleUpperCase("tr-TR");
+      if (upper === field.value) return;
+      field.value = upper;
+      if (start !== null && document.activeElement === field) field.setSelectionRange(start, end);
+    };
+
+    document.addEventListener("input", (event) => {
+      const field = event.target.closest?.("[data-uppercase]");
+      if (field && !event.isComposing) toUpper(field);
+    });
+
+    document.addEventListener("compositionend", (event) => {
+      const field = event.target.closest?.("[data-uppercase]");
+      if (field) toUpper(field);
+    });
+  }
+
+  function initOrderForm() {
+    const form = document.querySelector("[data-order-form]");
+    if (!form) return;
+
+    const SIZES = ["116", "128", "140", "152", "164", "XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
+    const PRICES = { ust: 300, takim: 450, socks: 30 };
+    const MIN_QTY = 5;
+    const MAX_QTY = 60;
+    const MAX_FILE = 10 * 1024 * 1024;
+    const FILE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "application/pdf"];
+
+    const quantityInput = form.querySelector("[data-order-quantity]");
+    const roster = form.querySelector("[data-order-roster]");
+    const shorts = form.querySelector("[data-order-shorts]");
+    const totalLabel = form.querySelector("[data-order-total]");
+    const errorBox = form.querySelector("[data-order-errors]");
+    const status = form.querySelector("[data-order-status]");
+    const uploads = [...form.querySelectorAll("[data-upload]")];
+    const formatTL = (value) => `${value.toLocaleString("tr-TR")}₺`;
+
+    const quantity = () => {
+      const value = Number.parseInt(quantityInput.value, 10);
+      return Number.isFinite(value) ? value : 0;
+    };
+    const checked = (name) => form.querySelector(`[name="${name}"]:checked`)?.value || "";
+    const isOn = (name) => Boolean(form.querySelector(`[name="${name}"]`)?.checked);
+
+    const sizeOptions = SIZES.map((size) => `<option value="${size}">${size}</option>`).join("");
+
+    const buildRoster = () => {
+      const count = Math.min(Math.max(quantity(), 0), MAX_QTY);
+      const rows = [...roster.querySelectorAll("[data-roster-row]")];
+
+      for (let index = rows.length; index < count; index += 1) {
+        const row = document.createElement("div");
+        row.className = "order-roster__row";
+        row.dataset.rosterRow = "";
+        row.innerHTML = `
+          <span class="order-roster__index">${index + 1}</span>
+          <label><span class="sr-only">${index + 1}. oyuncu ismi</span><input type="text" name="player-name" maxlength="20" autocomplete="off" placeholder="İSİM" data-uppercase data-roster-field="name"></label>
+          <label><span class="sr-only">${index + 1}. oyuncu numarası</span><input type="text" name="player-number" maxlength="3" inputmode="numeric" autocomplete="off" placeholder="NO" data-roster-field="number"></label>
+          <label><span class="sr-only">${index + 1}. oyuncu bedeni</span><select name="player-size" data-roster-field="size"><option value="">BEDEN</option>${sizeOptions}</select></label>`;
+        roster.append(row);
+      }
+
+      rows.slice(count).forEach((row) => row.remove());
+      syncRosterFields();
+    };
+
+    const syncRosterFields = () => {
+      const hasName = isOn("has-name");
+      const hasNumber = isOn("has-number");
+      roster.classList.toggle("is-no-name", !hasName);
+      roster.classList.toggle("is-no-number", !hasNumber);
+      roster.querySelectorAll('[data-roster-field="name"]').forEach((input) => (input.disabled = !hasName));
+      roster.querySelectorAll('[data-roster-field="number"]').forEach((input) => (input.disabled = !hasNumber));
+    };
+
+    const updateTotal = () => {
+      const qty = quantity();
+      const unit = (checked("scope") === "ust" ? PRICES.ust : PRICES.takim) + (checked("socks") === "var" ? PRICES.socks : 0);
+      shorts.hidden = checked("scope") === "ust";
+      totalLabel.textContent =
+        qty >= MIN_QTY
+          ? `Tahmini tutar: ${qty} × ${formatTL(unit)} = ${formatTL(qty * unit)} (kaleci farkı hariç; kesin tutar sipariş görüşmesinde teyit edilir)`
+          : `En az ${MIN_QTY} adet sipariş verilebilir.`;
+    };
+
+    uploads.forEach((upload) => {
+      const input = upload.querySelector("[data-upload-input]");
+      const none = upload.querySelector("[data-upload-none]");
+      const preview = upload.querySelector("[data-upload-preview]");
+
+      const showPreview = () => {
+        const file = input.files?.[0];
+        preview.replaceChildren();
+        preview.hidden = !file;
+        if (!file) return;
+        if (file.type.startsWith("image/")) {
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(file);
+          img.alt = "";
+          img.onload = () => URL.revokeObjectURL(img.src);
+          preview.append(img);
+        }
+        preview.append(document.createTextNode(file.name));
+      };
+
+      input.addEventListener("change", () => {
+        if (input.files?.length) none.checked = false;
+        upload.classList.toggle("is-none", none.checked);
+        showPreview();
+      });
+
+      none.addEventListener("change", () => {
+        if (none.checked) input.value = "";
+        input.disabled = none.checked;
+        upload.classList.toggle("is-none", none.checked);
+        showPreview();
+      });
+    });
+
+    const uploadState = () =>
+      uploads.map((upload) => {
+        const input = upload.querySelector("[data-upload-input]");
+        const label = upload.querySelector(".order-upload__field > span").textContent;
+        return { label, file: input.files?.[0] || null, none: upload.querySelector("[data-upload-none]").checked };
+      });
+
+    const validate = () => {
+      const errors = [];
+      const qty = quantity();
+      if (qty < MIN_QTY) errors.push(`Adet en az ${MIN_QTY} olmalı.`);
+      if (qty > MAX_QTY) errors.push(`${MAX_QTY} adetten fazla siparişler için lütfen WhatsApp'tan yaz.`);
+      if (!checked("collar")) errors.push("Yaka tipini seç.");
+
+      uploadState().forEach(({ label, file, none }) => {
+        if (!file && !none) errors.push(`${label}: dosya yükle ya da "yok" seçeneğini işaretle.`);
+        const allowed = file && (FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name));
+        if (file && !allowed) errors.push(`${label}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
+        if (file && file.size > MAX_FILE) errors.push(`${label}: dosya 10 MB'tan küçük olmalı.`);
+      });
+
+      const rows = [...roster.querySelectorAll("[data-roster-row]")];
+      const missingSize = rows.filter((row) => !row.querySelector('[data-roster-field="size"]').value).length;
+      if (missingSize) errors.push(`${missingSize} satırda beden seçilmedi.`);
+      if (isOn("has-number")) {
+        const missingNumber = rows.filter((row) => !row.querySelector('[data-roster-field="number"]').value.trim()).length;
+        if (missingNumber) errors.push(`${missingNumber} satırda numara eksik.`);
+      }
+      if (isOn("has-name")) {
+        const missingName = rows.filter((row) => !row.querySelector('[data-roster-field="name"]').value.trim()).length;
+        if (missingName) errors.push(`${missingName} satırda isim eksik.`);
+      }
+      return errors;
+    };
+
+    const buildMessage = () => {
+      const qty = quantity();
+      const scope = checked("scope");
+      const unit = (scope === "ust" ? PRICES.ust : PRICES.takim) + (checked("socks") === "var" ? PRICES.socks : 0);
+      const yesNo = (value) => (value ? "Var" : "Yok");
+      const lines = [
+        "Merhaba, sipariş vermek istiyorum.",
+        "",
+        `Model: ${form.dataset.model} (${form.dataset.sportLabel})`,
+        `Adet: ${qty}`,
+        `Ürün: ${scope === "ust" ? "Tek üst forma" : "Forma + şort"}`,
+        `Çorap: ${checked("socks") === "var" ? "Var" : "Yok"}`,
+        `Yaka: ${checked("collar")}`,
+        "",
+        "FORMA ÖNÜ",
+        ...uploadState().map(({ label, file }) => `${label}: ${file ? `Var (dosya: ${file.name})` : "Yok"}`),
+        "",
+        "FORMA ARKASI",
+        `Sırt yazısı: ${form.querySelector('[name="back-text"]').value.trim() || "Yok"}`,
+        `Numara: ${yesNo(isOn("has-number"))}`,
+        `İsim: ${yesNo(isOn("has-name"))}`,
+      ];
+
+      if (scope !== "ust") {
+        lines.push("", "ŞORT", `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
+      }
+
+      lines.push("", "LİSTE (İSİM - NUMARA - BEDEN)");
+      roster.querySelectorAll("[data-roster-row]").forEach((row, index) => {
+        const name = isOn("has-name") ? row.querySelector('[data-roster-field="name"]').value.trim() : "";
+        const number = isOn("has-number") ? row.querySelector('[data-roster-field="number"]').value.trim() : "";
+        const size = row.querySelector('[data-roster-field="size"]').value;
+        lines.push(`${index + 1}. ${[name || "-", number || "-", size].join(" - ")}`);
+      });
+
+      lines.push("", `Tahmini tutar: ${qty} × ${formatTL(unit)} = ${formatTL(qty * unit)} (kaleci farkı hariç)`);
+      return lines.join("\n");
+    };
+
+    quantityInput.addEventListener("input", () => {
+      buildRoster();
+      updateTotal();
+    });
+    form.addEventListener("change", (event) => {
+      if (event.target.matches("[data-roster-toggle]")) syncRosterFields();
+      updateTotal();
+    });
+
+    roster.addEventListener("input", (event) => {
+      if (event.target.matches('[data-roster-field="number"]')) {
+        event.target.value = event.target.value.replace(/\D/g, "");
+      }
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const errors = validate();
+      errorBox.hidden = errors.length === 0;
+      errorBox.replaceChildren(...errors.map((error) => Object.assign(document.createElement("span"), { textContent: error })));
+      if (errors.length) {
+        errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      const message = buildMessage();
+      const files = uploadState().map(({ file }) => file).filter(Boolean);
+
+      // Paylaşım ve pencere açma kullanıcı etkileşimi gerektirir; pano yazımı beklenmez.
+      navigator.clipboard?.writeText(message).catch(() => {});
+
+      if (files.length && navigator.canShare?.({ files, text: message })) {
+        try {
+          await navigator.share({ files, text: message, title: `${form.dataset.model} sipariş` });
+          status.textContent = "Paylaşım menüsü açıldı. WhatsApp'ı seçerek logoları ve sipariş bilgilerini gönderebilirsin; mesaj ayrıca panoya kopyalandı.";
+          return;
+        } catch (error) {
+          if (error?.name === "AbortError") return;
+        }
+      }
+
+      openWhatsApp(message);
+      status.textContent = files.length
+        ? `WhatsApp açıldı. Logo dosyalarını (${files.map((file) => file.name).join(", ")}) sohbete ekleyerek gönder. Mesaj panoya da kopyalandı.`
+        : "WhatsApp açıldı; mesajı kontrol edip gönderebilirsin. Mesaj panoya da kopyalandı.";
+    });
+
+    buildRoster();
+    updateTotal();
+  }
+
   function initCatalog() {
     const cards = [...document.querySelectorAll("[data-model-card]")];
     const favoriteButtons = [...document.querySelectorAll("[data-favorite]")];
@@ -362,6 +611,8 @@
 
   initNavigation();
   initNavGroups();
+  initUppercaseFields();
+  initOrderForm();
   initConsent();
   initCatalog();
   initGallery();
