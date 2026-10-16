@@ -113,6 +113,13 @@ const headerLinks = [
     path: "/modeller/",
     section: "/modeller/",
     aliases: ["/futbol/", "/basketbol/", "/voleybol/", "/hali-saha-formasi/"],
+    children: [
+      { name: "Futbol", path: "/futbol/" },
+      { name: "Basketbol", path: "/basketbol/" },
+      { name: "Voleybol", path: "/voleybol/" },
+      { name: "Halı Saha", path: "/hali-saha-formasi/" },
+      { name: "Tüm Modeller", path: "/modeller/" },
+    ],
   },
   { name: "Forma + Şort", path: "/forma-sort-takimi/" },
   { name: "Özel Üretim", path: "/takima-ozel-forma/" },
@@ -126,7 +133,12 @@ function headerLink(item, routePath) {
     routePath === item.path ||
     (item.section && routePath.startsWith(item.section)) ||
     item.aliases?.includes(routePath);
-  return `<a href="${item.path}"${isCurrent ? ' aria-current="page"' : ""}>${item.name}</a>`;
+  const link = `<a href="${item.path}"${isCurrent ? ' aria-current="page"' : ""}>${item.name}</a>`;
+  if (!item.children) return link;
+  const children = item.children
+    .map((child) => `<a href="${child.path}"${routePath === child.path ? ' aria-current="page"' : ""}>${child.name}</a>`)
+    .join("");
+  return `<div class="site-nav__group" data-nav-group>${link}<button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sports" aria-label="${item.name} alt menüsünü aç"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="site-nav__submenu" id="nav-sports">${children}</div></div>`;
 }
 
 function header(routePath) {
@@ -259,10 +271,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261016b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261016" defer></script>
+  <script src="/assets/js/site.js?v=20261016b" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header(routePath)}
