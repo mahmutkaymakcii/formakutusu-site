@@ -39,11 +39,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:image" content="https://formakutusu.com/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016d">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261016e">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Forma Modelleri","item":"https://formakutusu.com/modeller/"},{"@type":"ListItem","position":3,"name":"FK-007","item":"https://formakutusu.com/modeller/fk-007/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"FK-007 Futbol Forma Modeli","sku":"FK-007","category":"Futbol Forması","image":"https://formakutusu.com/assets/models/fk-007.webp","description":"FK-007 futbol forması: mor, turuncu, sarı ve turkuaz, renkli boya lekeleri. Takım renklerine uyarlanır; üst forma 300₺, minimum 5 adet.","url":"https://formakutusu.com/modeller/fk-007/","brand":{"@type":"Brand","name":"Forma Kutusu"},"additionalProperty":[{"@type":"PropertyValue","name":"Minimum sipariş","value":"5 adet"},{"@type":"PropertyValue","name":"Kişiselleştirme","value":"Renk, logo, sponsor, isim ve numara"}],"offers":{"@type":"Offer","url":"https://formakutusu.com/modeller/fk-007/","price":"300","priceCurrency":"TRY","availability":"https://schema.org/InStock","eligibleQuantity":{"@type":"QuantitativeValue","minValue":5,"unitCode":"C62"},"seller":{"@type":"Organization","name":"Forma Kutusu"},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"TR","returnPolicyCategory":"https://schema.org/MerchantReturnNotPermitted"}}}</script>
-  <script src="/assets/js/site.js?v=20261016d" defer></script>
+  <script src="/assets/js/site.js?v=20261016e" defer></script>
 </head>
 <body class="product-page">
 <!-- Google Tag Manager (noscript) -->
@@ -137,6 +137,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </dl>
             <form class="order-form" data-order-form data-model="FK-007" data-sport-label="Futbol" novalidate>
               <h2 class="order-form__title">Siparişini oluştur</h2>
+
               <fieldset class="order-form__section">
                 <legend>Sipariş bilgileri</legend>
                 <label class="order-field"><span>Adet <small>(en az 5)</small></span><input type="number" name="quantity" min="5" max="60" value="5" inputmode="numeric" required data-order-quantity></label>
@@ -185,12 +186,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <label class="order-check"><input type="checkbox" name="shorts-number"> Sol paçaya numara ekle</label>
                 </div>
               </fieldset>
-              <fieldset class="order-form__section">
+              <fieldset class="order-form__section" data-sport-only="futbol">
                 <legend>Kaleci</legend>
-                <label class="order-check"><input type="checkbox" name="goalkeeper" data-goalkeeper-toggle> Kaleci forması var (uzun kol)</label>
+                <label class="order-check"><input type="checkbox" name="goalkeeper"> Kaleci forması var (uzun kol)</label>
                 <label class="order-field" data-goalkeeper-count hidden><span>Kaleci forması adedi</span><input type="number" name="goalkeeper-count" min="1" max="60" value="1" inputmode="numeric"></label>
                 <p class="order-form__warning" data-goalkeeper-note hidden>Kaleci formalarında uzun kol için adet başı +50₺ fiyat farkı uygulanır.</p>
               </fieldset>
+
               <div class="order-form__summary">
                 <div class="order-total" aria-live="polite">
                   <span class="order-total__label">Toplam tutar</span>
