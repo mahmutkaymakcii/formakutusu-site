@@ -19,6 +19,8 @@ const site = {
   region: "İstanbul",
   hoursDisplay: "Hafta içi 09:00–18:00",
   foundingDate: "2017-04",
+  // Model sayfalarındaki Offer şeması: tek üst forma fiyatı (TRY).
+  priceFrom: 300,
 };
 
 const routes = [];
@@ -771,6 +773,15 @@ for (const model of models) {
             value: "Renk, logo, sponsor, isim ve numara",
           },
         ],
+        offers: {
+          "@type": "Offer",
+          url: `${site.origin}${route}`,
+          price: String(site.priceFrom),
+          priceCurrency: "TRY",
+          availability: "https://schema.org/InStock",
+          eligibleQuantity: { "@type": "QuantitativeValue", minValue: 5, unitCode: "C62" },
+          seller: { "@type": "Organization", name: site.name },
+        },
       },
     ],
     body: `
