@@ -234,7 +234,7 @@ function pageShell({
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.png">
   <link rel="stylesheet" href="/assets/css/site.css?v=20261016">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20260801c">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261016" defer></script>
 </head>
