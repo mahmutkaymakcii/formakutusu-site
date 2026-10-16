@@ -2279,8 +2279,75 @@ textarea[aria-invalid="true"] {
   display: none;
 }
 
-body.nav-open .mobile-cta {
+body.nav-open .mobile-cta,
+body.has-consent-banner .mobile-cta {
   display: none;
+}
+
+.consent-banner {
+  position: fixed;
+  z-index: 95;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  display: grid;
+  gap: 0.85rem;
+  width: min(26rem, calc(100% - 2rem));
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  box-shadow: 0 18px 50px rgb(0 0 0 / 45%);
+  color: var(--text);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.consent-banner p {
+  margin: 0;
+}
+
+.consent-banner a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.consent-banner__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.consent-banner__button {
+  min-height: 2.75rem;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.consent-banner__button:hover,
+.consent-banner__button:focus-visible {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.consent-banner__button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.consent-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 @media (max-width: 79.9375rem) and (min-width: 73.75rem) {
@@ -2720,6 +2787,13 @@ body.nav-open .mobile-cta {
     align-items: flex-start;
     flex-direction: column;
   }
+
+  .consent-banner {
+    right: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    left: 0.75rem;
+    width: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2741,6 +2815,7 @@ body.nav-open .mobile-cta {
   .service-strip,
   .site-header,
   .mobile-cta,
+  .consent-banner,
   .site-footer,
   .button-row,
   .favorite-button {
