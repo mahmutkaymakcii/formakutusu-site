@@ -273,10 +273,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016d">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261016e">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261016d" defer></script>
+  <script src="/assets/js/site.js?v=20261016e" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header(routePath)}
@@ -765,20 +765,42 @@ function orderSelect(name, label, options, placeholder = "") {
   return `<label class="order-field"><span>${label}</span><select name="${name}" required>${empty}${items}</select></label>`;
 }
 
-function orderForm(model, config) {
-  // Basketbolda polo yaka yok; kaleci seçeneği yalnızca futbolda.
-  const collars = model.sport === "basketbol" ? ["Sıfır yaka", "V yaka"] : ["Sıfır yaka", "V yaka", "Polo yaka"];
+function orderForm({ id, sport = "", label, custom = false }) {
+  // Basketbolda polo yaka yok; kaleci yalnızca futbolda, libero yalnızca voleybolda.
+  // Özel tasarım formunda branş müşteri tarafından seçilir; ilgili bölümleri JS gösterir.
+  const collars = sport === "basketbol" ? ["Sıfır yaka", "V yaka"] : ["Sıfır yaka", "V yaka", "Polo yaka"];
   const goalkeeper =
-    model.sport === "futbol"
-      ? `<fieldset class="order-form__section">
+    custom || sport === "futbol"
+      ? `<fieldset class="order-form__section" data-sport-only="futbol"${custom ? " hidden" : ""}>
                 <legend>Kaleci</legend>
-                <label class="order-check"><input type="checkbox" name="goalkeeper" data-goalkeeper-toggle> Kaleci forması var (uzun kol)</label>
+                <label class="order-check"><input type="checkbox" name="goalkeeper"> Kaleci forması var (uzun kol)</label>
                 <label class="order-field" data-goalkeeper-count hidden><span>Kaleci forması adedi</span><input type="number" name="goalkeeper-count" min="1" max="60" value="1" inputmode="numeric"></label>
                 <p class="order-form__warning" data-goalkeeper-note hidden>Kaleci formalarında uzun kol için adet başı +50₺ fiyat farkı uygulanır.</p>
               </fieldset>`
       : "";
-  return `<form class="order-form" data-order-form data-model="${model.id}" data-sport-label="${escapeHtml(config.label)}" novalidate>
-              <h2 class="order-form__title">Siparişini oluştur</h2>
+  const libero =
+    custom || sport === "voleybol"
+      ? `<fieldset class="order-form__section" data-sport-only="voleybol"${custom ? " hidden" : ""}>
+                <legend>Libero</legend>
+                <label class="order-check"><input type="checkbox" name="libero"> Libero forması var</label>
+                <label class="order-field" data-libero-count hidden><span>Libero forması adedi</span><input type="number" name="libero-count" min="1" max="60" value="1" inputmode="numeric"></label>
+                <p class="order-form__hint" data-libero-note hidden>Libero formaları için fiyat farkı yoktur.</p>
+              </fieldset>`
+      : "";
+  const design = custom
+    ? `<fieldset class="order-form__section">
+                <legend>Kendi tasarımını yükle</legend>
+                <label class="order-field"><span>Branş</span><select name="sport" required data-order-sport><option value="">Seçin</option><option value="futbol">Futbol</option><option value="basketbol">Basketbol</option><option value="voleybol">Voleybol</option></select></label>
+                <div class="order-upload">
+                  <label class="order-upload__field"><span>Desen veya tasarım görselleri <small>(en fazla 5 dosya)</small></span><input type="file" name="design" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-design-input></label>
+                  <ul class="order-design-list" data-design-preview hidden></ul>
+                </div>
+                <label class="order-field"><span>Tasarım notu</span><textarea name="design-note" rows="3" maxlength="400" placeholder="RENKLER, DESEN YERLEŞİMİ, ÖRNEK ALINAN TAKIM VB." data-uppercase></textarea></label>
+              </fieldset>`
+    : "";
+  return `<form class="order-form" data-order-form data-model="${escapeHtml(id)}" data-sport-label="${escapeHtml(label)}"${custom ? " data-custom" : ""} novalidate>
+              <h2 class="order-form__title">${custom ? "Özel tasarım siparişini oluştur" : "Siparişini oluştur"}</h2>
+              ${design}
               <fieldset class="order-form__section">
                 <legend>Sipariş bilgileri</legend>
                 <label class="order-field"><span>Adet <small>(en az 5)</small></span><input type="number" name="quantity" min="5" max="60" value="5" inputmode="numeric" required data-order-quantity></label>
@@ -816,6 +838,7 @@ function orderForm(model, config) {
                 </div>
               </fieldset>
               ${goalkeeper}
+              ${libero}
               <div class="order-form__summary">
                 <div class="order-total" aria-live="polite">
                   <span class="order-total__label">Toplam tutar</span>
@@ -824,7 +847,7 @@ function orderForm(model, config) {
                 </div>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
-                <p class="order-form__hint" data-order-status aria-live="polite">Logolar telefonunda paylaşım menüsüyle mesaja eklenir; bilgisayarda WhatsApp açıldıktan sonra dosyaları sohbete eklemen gerekir. Dosyalar bu siteye yüklenmez.</p>
+                <p class="order-form__hint" data-order-status aria-live="polite">${custom ? "Tasarım görselleri ve logolar" : "Logolar"} telefonunda paylaşım menüsüyle mesaja eklenir; bilgisayarda WhatsApp açıldıktan sonra dosyaları sohbete eklemen gerekir. Dosyalar bu siteye yüklenmez.</p>
                 <a class="order-form__prices" href="/teklif/#fiyatlar">Fiyatları ve teslimat koşullarını gör</a>
               </div>
             </form>`;
@@ -929,7 +952,7 @@ for (const model of models) {
               <div><dt>Minimum sipariş</dt><dd>5 adet</dd></div>
               <div><dt>Ürün kapsamı</dt><dd>${escapeHtml(config.scope)}</dd></div>
             </dl>
-            ${orderForm(model, config)}
+            ${orderForm({ id: model.id, sport: model.sport, label: config.label })}
             <p class="product-detail__note">Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta. İmalat süresi tasarım onayından sonra 5–7 iş günüdür.</p>
             <div class="product-detail__accordions">
               <details open><summary>Model ve ürün bilgileri</summary><div><ul><li>Model kodu: ${model.id}</li><li>Branş: ${escapeHtml(config.label)}</li><li>Ürün kapsamı: ${escapeHtml(config.scope)}</li><li>Minimum üretim: 5 adet</li></ul></div></details>
@@ -1010,9 +1033,10 @@ const servicePages = [
     route: "/takima-ozel-forma/",
     title: "Takıma Özel Forma Yaptırma",
     description: "Takımınıza özel forma tasarımı için model, renk, logo, sponsor, isim, numara ve beden bilgilerini planlayın; siparişinizi hazırlayın.",
-    eyebrow: "Takım kimliği",
-    heading: "Hazır modeli, takımına ait bir kimliğe dönüştür.",
-    copy: "Taklit bir görünüm yerine takım renklerini, armayı ve kullanım amacını merkeze alan kontrollü bir tasarım süreci.",
+    eyebrow: "Özel tasarım",
+    heading: "Kendi deseninle takımına özel forma.",
+    copy: "Hazır model seçmek zorunda değilsin. Desenini, görselini ya da çizimini yükle; renk, logo ve oyuncu listesiyle birlikte siparişini oluştur.",
+    customForm: true,
     image: { src: "/assets/models/fk-019.webp", alt: "FK-019 beyaz ve yeşil özel futbol forma modeli", width: 640, height: 800 },
     cards: [
       ["Takım renkleri", "Ana ve yardımcı renkleri görünür bir hiyerarşiyle belirle."],
@@ -1021,7 +1045,7 @@ const servicePages = [
       ["Onaylı üretim", "Son görseli kontrol etmeden üretime geçme."],
     ],
     faq: [
-      ["Sıfırdan tasarım isteyebilir miyim?", "Model seçmeden de tasarım yönünü anlatabilirsin; kapsam sipariş görüşmesinde değerlendirilir."],
+      ["Sıfırdan tasarım isteyebilir miyim?", "Evet. Bu sayfadaki formdan kendi desenini veya görselini yükleyebilirsin; tasarım onaylanmadan üretime geçilmez."],
       ["Renkleri tamamen değiştirebilir miyim?", "Modelin uygulanabilirliği korunarak takım renklerine göre düzenleme yapılabilir."],
       ["Tasarım revizesi yapılır mı?", "Gerekli düzenlemeler tasarım onayı aşamasında konuşulur."],
     ],
@@ -1045,6 +1069,8 @@ const servicePages = [
       ["Şorta numara eklenebilir mi?", "İhtiyacı WhatsApp mesajında belirt; uygulama tasarım görüşmesinde netleştirilir."],
       ["Forma ve şort fiyatı nedir?", "Forma + şort fiyatı 450₺’dir."],
     ],
+    models,
+    modelsIntro: ["Tüm modeller", "Takımına uygun modeli seç.", "Futbol, basketbol ve voleybol modellerinin tamamı; ürün sayfasından forma ve şort siparişini oluşturabilirsin."],
   },
   {
     route: "/okul-turnuva-formasi/",
@@ -1092,10 +1118,17 @@ for (const service of servicePages) {
         ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
         <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
       </div></section>
-      <section class="models-section"><div class="container">
-        ${sectionIntro("Başlangıç modelleri", "Önce modeli seçebilirsin.", "Beğendiğin kodu WhatsApp mesajına ekle; renk ve kişiselleştirme detayları görüşmede netleşir.")}
+      ${
+        service.customForm
+          ? `<section class="custom-order-section"><div class="container custom-order__grid">
+        ${sectionIntro("Kendi tasarımın", "Deseni sen getir, gerisini birlikte hazırlayalım.", "Görselini yükle, branşı ve ürün seçeneklerini belirle, oyuncu listesini doldur. Sipariş özeti WhatsApp'a hazır gelir.")}
+        ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", custom: true })}
+      </div></section>`
+          : `<section class="models-section"><div class="container">
+        ${sectionIntro(...(service.modelsIntro || ["Başlangıç modelleri", "Önce modeli seçebilirsin.", "Beğendiğin kodu WhatsApp mesajına ekle; renk ve kişiselleştirme detayları görüşmede netleşir."]))}
         ${modelGrid(items)}
-      </div></section>
+      </div></section>`
+      }
       <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>
       <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>
       ${finalCta()}`,
