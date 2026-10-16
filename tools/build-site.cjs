@@ -746,7 +746,7 @@ for (const model of models) {
   const related = models
     .filter((candidate) => candidate.sport === model.sport && candidate.id !== model.id)
     .slice(0, 3);
-  const description = `${model.id} ${config.singular.toLocaleLowerCase("tr-TR")} büyük görselini ve kişiselleştirme bilgilerini inceleyin; fiyatları görüp siparişinizi başlatın.`;
+  const description = `${model.id} ${config.singular.toLocaleLowerCase("tr-TR")}: ${model.colors}, ${model.pattern}. Takım renklerine uyarlanır; üst forma ${site.priceFrom}₺, minimum 5 adet.`;
 
   writePage(route, {
     title: `${model.id} ${config.singular}`,
@@ -822,7 +822,7 @@ for (const model of models) {
           <div class="product-detail__info">
             <p class="eyebrow">${escapeHtml(model.category)} · ${model.id}</p>
             <h1>${model.id} ${escapeHtml(config.singular)}</h1>
-            <p class="lead">${escapeHtml(config.intro)}</p>
+            <p class="lead">${escapeHtml(model.summary)}</p>
             <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Üst forma 300₺</strong><small>Forma + şort 450₺ · Forma + şort + çorap 480₺ · Çorap 30₺</small></div>
             <dl class="product-detail__facts">
               <div><dt>Model kodu</dt><dd>${model.id}</dd></div>
@@ -840,7 +840,7 @@ for (const model of models) {
               <details><summary>Kişiselleştirme seçenekleri</summary><div><ul><li>Takım renkleri</li><li>Logo ve sponsor</li><li>Oyuncu ismi ve forma numarası</li><li>Beden dağılımı</li></ul></div></details>
               <details><summary>Üretim ve teslimat süreci</summary><div><p>Tasarım onaylandıktan sonra imalat 5–7 iş günü sürer. Ardından sipariş kargoyla Türkiye geneline gönderilir; kargo süresi buna dahil değildir.</p></div></details>
               <details><summary>Beden ve bakım bilgisi</summary><div><p>Çocuk ve yetişkin beden seçenekleri ile kullanılacak ürüne uygun bakım talimatları sipariş öncesinde doğrulanır.</p></div></details>
-              <details><summary>Ürün açıklaması</summary><div><p>${escapeHtml(config.intro)} Görseldeki model takım renklerine ve kimlik öğelerine göre yeniden ele alınabilir.</p></div></details>
+              <details><summary>Ürün açıklaması</summary><div><p>${escapeHtml(model.summary)} Görseldeki model takım renklerine ve kimlik öğelerine göre yeniden ele alınabilir.</p></div></details>
             </div>
             <div class="product-detail__trust" aria-label="Sipariş avantajları"><span>5+ minimum üretim</span><span>Ücretsiz tasarım desteği</span><span>Tasarım onayı</span></div>
           </div>

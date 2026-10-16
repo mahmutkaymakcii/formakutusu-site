@@ -5,7 +5,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-001.webp",
-    "alt": "FK-001 turkuaz özel futbol forma modeli",
+    "alt": "FK-001 turkuaz, ton sür ton dalgalı desenli futbol forma ve şort modeli",
+    "colors": "turkuaz",
+    "pattern": "ton sür ton dalgalı desen",
+    "summary": "FK-001, turkuaz zemin üzerinde ton sür ton dalgalı desenle sade ama hareketli bir görünüm sunar. Arka yüz ve şort düz turkuaz olduğu için isim, numara ve sponsor alanları net okunur.",
     "featured": true
   },
   {
@@ -14,7 +17,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-002.webp",
-    "alt": "FK-002 siyah, beyaz ve turuncu özel futbol forma modeli",
+    "alt": "FK-002 gri noktalı gövdeli, çapraz turuncu şeritli siyah futbol forma ve şort modeli",
+    "colors": "siyah, gri ve turuncu",
+    "pattern": "noktalı gövde ve çapraz şeritler",
+    "summary": "FK-002, gri-beyaz noktalı gövdesini kesen çapraz turuncu ve siyah şeritlerle dinamik bir görünüm sunar. Arka yüz siyah, kol ağızları turuncu; siyah şortun yanlarında turuncu şerit var.",
     "featured": true
   },
   {
@@ -23,7 +29,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-005.webp",
-    "alt": "FK-005 turkuaz ve mor özel futbol forma modeli",
+    "alt": "FK-005 su yeşili zemin üzerinde mor çapraz fırça çizgili futbol forma ve şort modeli",
+    "colors": "su yeşili ve mor",
+    "pattern": "çapraz fırça çizgileri",
+    "summary": "FK-005, su yeşili zemin üzerinde göğüsten bele inen mor fırça çizgileriyle hız hissi veren bir model. Arka yüz düz su yeşili; şortun yanlarında mor şerit var.",
     "featured": true
   },
   {
@@ -32,7 +41,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-007.webp",
-    "alt": "FK-007 mor, sarı ve turuncu özel futbol forma ve şort modeli",
+    "alt": "FK-007 mor zemin üzerinde turuncu, sarı ve turkuaz boya lekeli futbol forma ve şort modeli",
+    "colors": "mor, turuncu, sarı ve turkuaz",
+    "pattern": "renkli boya lekeleri",
+    "summary": "FK-007, mor zemin üzerine dağılan turuncu, sarı, kırmızı ve turkuaz boya lekeleriyle canlı bir model. Arka yüz ve şort düz mor; desen kollarda devam ediyor.",
     "featured": true
   },
   {
@@ -41,7 +53,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-008.webp",
-    "alt": "FK-008 takıma özel futbol forma modeli",
+    "alt": "FK-008 mor zemin üzerinde sarı-pembe dalga desenli futbol forma ve şort modeli",
+    "colors": "mor, sarı ve pembe",
+    "pattern": "dalga çizgileri",
+    "summary": "FK-008, mor zeminde sarıdan pembeye geçen dalga çizgileriyle sahada dikkat çeken bir model. Arka yüz ve şort düz mor; isim ve numara uzaktan kolayca okunur.",
     "featured": false
   },
   {
@@ -50,7 +65,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-009.webp",
-    "alt": "FK-009 takıma özel futbol forma modeli",
+    "alt": "FK-009 iki ton yeşil labirent desenli futbol forma ve şort modeli",
+    "colors": "koyu ve açık yeşil",
+    "pattern": "organik labirent deseni",
+    "summary": "FK-009, iki ton yeşilde ön ve arka yüzü kaplayan organik labirent deseniyle bütünlüklü bir görünüm sunar. Şort düz yeşil; beyaz isim ve numara desen üzerinde net okunur.",
     "featured": false
   },
   {
@@ -59,7 +77,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-012.webp",
-    "alt": "FK-012 siyah beyaz çizgisel özel futbol forma modeli",
+    "alt": "FK-012 siyah-beyaz çizim desenli, kırmızı numaralı futbol forması ve siyah şort modeli",
+    "colors": "siyah, beyaz ve kırmızı",
+    "pattern": "siyah-beyaz çizim deseni",
+    "summary": "FK-012, ön yüzü kaplayan siyah-beyaz çizim deseniyle sıra dışı bir model. Arka yüz ve şort siyah; kırmızı isim, numara ve sponsor alanı güçlü bir kontrast oluşturur.",
     "featured": false
   },
   {
@@ -68,7 +89,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-019.webp",
-    "alt": "FK-019 beyaz ve yeşil özel futbol forma modeli",
+    "alt": "FK-019 beyazdan yeşile geçişli, üçgen ağ desenli futbol forması ve yeşil şort modeli",
+    "colors": "beyaz ve yeşil",
+    "pattern": "üçgen ağ deseni ve renk geçişi",
+    "summary": "FK-019, beyazdan yeşile geçen gövdesi ve ince yeşil üçgen ağ deseniyle ferah bir model. Arkada siyah isim ve numara yer alıyor; şort düz yeşil.",
     "featured": false
   },
   {
@@ -77,7 +101,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-027.webp",
-    "alt": "FK-027 lacivert ve bordo özel futbol forma modeli",
+    "alt": "FK-027 lacivert, bordo göğüs bantlı ve ince çizgili futbol forma, şort ve çorap modeli",
+    "colors": "lacivert, bordo ve beyaz",
+    "pattern": "göğüs bandı ve ince yatay çizgiler",
+    "summary": "FK-027, lacivert gövdesindeki ince yatay çizgiler ve göğüsteki bordo bantla klasik bir kulüp havası taşır. Omuzlar beyaz noktalı, yaka bordo; şort ve çorap lacivert.",
     "featured": false
   },
   {
@@ -86,7 +113,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-029.webp",
-    "alt": "FK-029 beyaz ve kırmızı özel futbol forma modeli",
+    "alt": "FK-029 beyaz, yanlarda kırmızı noktalı geçişli futbol forması ve kırmızı şort modeli",
+    "colors": "beyaz ve kırmızı",
+    "pattern": "kırmızı noktalı geçiş",
+    "summary": "FK-029, beyaz gövdenin yanlarına ve omuzlarına yayılan kırmızı nokta geçişiyle sade ama hareketli bir model. Yaka kırmızı; şort kırmızı.",
     "featured": false
   },
   {
@@ -95,7 +125,10 @@
     "sport": "futbol",
     "category": "Futbol Forması",
     "image": "/assets/models/fk-031.webp",
-    "alt": "FK-031 siyah ve mavi özel futbol forma modeli",
+    "alt": "FK-031 siyah gövdeli, mavi-sarı petek desenli futbol forma, şort ve çorap modeli",
+    "colors": "siyah, mavi ve sarı",
+    "pattern": "petek geçiş deseni",
+    "summary": "FK-031, siyah gövdeye yukarıdan inen mavi ve sarı petek desenle güçlü bir görünüm sunar. Yaka ve kol ağızları mavi; şort ve çorap siyah.",
     "featured": true
   },
   {
@@ -104,7 +137,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-001.webp",
-    "alt": "FK-B-001 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-001 siyah zemin üzerinde pembe-turkuaz grafiti desenli basketbol forması ve mercan şort",
+    "colors": "siyah, pembe, turkuaz ve mercan",
+    "pattern": "grafiti tarzı çizim",
+    "summary": "FK-B-001, siyah zemin üzerindeki pembe ve turkuaz grafiti çizimleriyle cesur bir parke görünümü sunar. Mercan rengi şortun yanlarında koyu şeritler var; ön ve arkadaki geniş numara alanı uzaktan okunur.",
     "featured": true
   },
   {
@@ -113,7 +149,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-002.webp",
-    "alt": "FK-B-002 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-002 turkuaz-lacivert zikzak desenli basketbol forması ve turkuaz şort",
+    "colors": "turkuaz ve lacivert",
+    "pattern": "zikzak çizgiler",
+    "summary": "FK-B-002, turkuaz ve lacivert zikzak çizgileri ve boya serpintisi dokusuyla enerjik bir parke modeli. Turkuaz şortun yanlarında lacivert şerit var; ön ve arkada geniş numara alanı bulunur.",
     "featured": false
   },
   {
@@ -122,7 +161,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-003.webp",
-    "alt": "FK-B-003 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-003 siyah-turuncu poligon desenli basketbol forması ve siyah şort",
+    "colors": "siyah ve turuncu",
+    "pattern": "kırık cam (poligon) deseni",
+    "summary": "FK-B-003, siyah zemin üzerindeki turuncu poligon parçalarıyla sert ve modern bir görünüm sunar. Yaka ve kol ağızları turuncu; siyah şortun yanlarında turuncu şerit var.",
     "featured": false
   },
   {
@@ -131,7 +173,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-004.webp",
-    "alt": "FK-B-004 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-004 yeşil-sarı eskitme desenli basketbol forması ve sarı şort",
+    "colors": "yeşil ve sarı",
+    "pattern": "eskitme leke dokusu",
+    "summary": "FK-B-004, yeşil ve sarının iç içe geçtiği eskitme leke dokusuyla dikkat çeken bir model. Sarı şortun yanlarında yeşil şerit var; beyaz numaralar desen üzerinde öne çıkar.",
     "featured": true
   },
   {
@@ -140,7 +185,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-005.webp",
-    "alt": "FK-B-005 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-005 turuncu-beyaz, göğsü ızgara motifli basketbol forması ve turuncu şort",
+    "colors": "turuncu ve beyaz",
+    "pattern": "göğüste kare ızgara motifi",
+    "summary": "FK-B-005, turuncu gövdesi, beyaz yan panelleri ve göğüsteki kare ızgara motifiyle sade bir parke modeli. Arka yüz düz turuncu; turuncu şortun yanları beyaz.",
     "featured": false
   },
   {
@@ -149,7 +197,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-006.webp",
-    "alt": "FK-B-006 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-006 beyaz gövdeli, göğsü mavi fırça desenli basketbol forması ve beyaz şort",
+    "colors": "beyaz ve mavi",
+    "pattern": "göğüste fırça darbeleri",
+    "summary": "FK-B-006, beyaz gövdesi ve göğüsteki mavi fırça darbeleriyle temiz, ferah bir model. Yaka ve kenarlar mavi; mavi isim ve numaralar beyaz zeminde net okunur.",
     "featured": false
   },
   {
@@ -158,7 +209,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-007.webp",
-    "alt": "FK-B-007 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-007 yeşil-mor çapraz çizgili basketbol forması ve mor şort",
+    "colors": "yeşil ve mor",
+    "pattern": "çapraz kesik çizgiler",
+    "summary": "FK-B-007, yeşil gövdeyi saran çapraz mor kesik çizgilerle sıra dışı bir renk ikilisi sunar. Yaka ve kenarlar mor; mor şortun yanlarında yeşil şerit var.",
     "featured": false
   },
   {
@@ -167,7 +221,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-008.webp",
-    "alt": "FK-B-008 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-008 sarıdan laciverte geçişli basketbol forması ve lacivert şort",
+    "colors": "lacivert ve sarı",
+    "pattern": "sarıdan laciverte geçiş",
+    "summary": "FK-B-008, sarı omuzlardan laciverte inen dikey çizgili geçişiyle klasik bir kulüp renk ikilisi sunar. Lacivert şortun yanlarında sarı şerit var.",
     "featured": false
   },
   {
@@ -176,7 +233,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-009.webp",
-    "alt": "FK-B-009 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-009 siyah-kırmızı, beyaz şimşek desenli basketbol forması ve siyah şort",
+    "colors": "siyah, kırmızı ve beyaz",
+    "pattern": "şimşek ve noktalı geçiş",
+    "summary": "FK-B-009, siyah gövdeyi kesen beyaz şimşek ve kırmızı noktalı geçişlerle güçlü bir görünüm sunar. Yaka ve kenarlar kırmızı; siyah şortun yanlarında kırmızı şerit var.",
     "featured": false
   },
   {
@@ -185,7 +245,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-010.webp",
-    "alt": "FK-B-010 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-010 kırmızı, siyah-beyaz geometrik desenli basketbol forması ve kırmızı şort",
+    "colors": "kırmızı, siyah ve beyaz",
+    "pattern": "geometrik şerit ve yıldız motifi",
+    "summary": "FK-B-010, kırmızı gövdenin üst ve alt kısmındaki siyah-beyaz geometrik şerit ve yıldız motifleriyle hareketli bir model. Kırmızı şortun yanları siyah.",
     "featured": false
   },
   {
@@ -194,7 +257,10 @@
     "sport": "basketbol",
     "category": "Basketbol Forması",
     "image": "/assets/models/fk-b-011.webp",
-    "alt": "FK-B-011 takıma özel basketbol forma ve şort modeli",
+    "alt": "FK-B-011 gri zemin üzerinde su yeşili süsleme desenli basketbol forması ve gri şort",
+    "colors": "açık gri ve su yeşili",
+    "pattern": "süsleme deseni",
+    "summary": "FK-B-011, açık gri zemin üzerindeki su yeşili süsleme deseniyle zarif ve farklı bir model. Numaralar su yeşili; gri şortun yanlarında su yeşili şerit var.",
     "featured": false
   },
   {
@@ -203,7 +269,10 @@
     "sport": "voleybol",
     "category": "Voleybol Forması",
     "image": "/assets/models/fk-v-001.webp",
-    "alt": "FK-V-001 takıma özel voleybol forma modeli",
+    "alt": "FK-V-001 lacivert-beyaz, kırmızı alev motifli kolsuz voleybol forma ve şort modeli",
+    "colors": "lacivert, beyaz ve kırmızı",
+    "pattern": "yanlarda alev motifi",
+    "summary": "FK-V-001, lacivert-beyaz gövdesi ve yanlardaki kırmızı alev motifiyle klasik ama dinamik bir voleybol modeli. Kolsuz kesim ve V yakalı; göğüste, sırtta ve şortta numara alanı var.",
     "featured": true
   },
   {
@@ -212,7 +281,10 @@
     "sport": "voleybol",
     "category": "Voleybol Forması",
     "image": "/assets/models/fk-v-002.webp",
-    "alt": "FK-V-002 takıma özel voleybol forma modeli",
+    "alt": "FK-V-002 açık mavi-turkuaz barok desenli kolsuz voleybol forma ve şort modeli",
+    "colors": "açık mavi ve turkuaz",
+    "pattern": "barok süsleme deseni",
+    "summary": "FK-V-002, açık mavi zemini kaplayan turkuaz barok süslemelerle zarif bir voleybol modeli. Kolsuz kesim ve V yakalı; turkuaz şortta numara alanı var.",
     "featured": true
   },
   {
@@ -221,7 +293,10 @@
     "sport": "voleybol",
     "category": "Voleybol Forması",
     "image": "/assets/models/fk-v-003.webp",
-    "alt": "FK-V-003 takıma özel voleybol forma modeli",
+    "alt": "FK-V-003 çok renkli ebru desenli kolsuz voleybol forması ve kırmızı şort",
+    "colors": "kırmızı, turuncu, mavi ve sarı",
+    "pattern": "ebru deseni",
+    "summary": "FK-V-003, kırmızı, turuncu, mavi ve sarının karıştığı ebru deseniyle sahada kolayca fark edilen bir model. Kolsuz kesim ve V yakalı; kırmızı şortta numara alanı var.",
     "featured": false
   },
   {
@@ -230,7 +305,10 @@
     "sport": "voleybol",
     "category": "Voleybol Forması",
     "image": "/assets/models/fk-v-004.webp",
-    "alt": "FK-V-004 takıma özel voleybol forma modeli",
+    "alt": "FK-V-004 petrol yeşili, ton sür ton dalgalı desenli kolsuz voleybol forma ve şort modeli",
+    "colors": "petrol yeşili",
+    "pattern": "ton sür ton dalgalı desen",
+    "summary": "FK-V-004, petrol yeşili zemin üzerinde ton sür ton dalgalı desenle sade ve şık bir voleybol modeli. Kolsuz kesim ve V yakalı; aynı renk şortta numara alanı var.",
     "featured": false
   },
   {
@@ -239,7 +317,10 @@
     "sport": "voleybol",
     "category": "Voleybol Forması",
     "image": "/assets/models/fk-v-005.webp",
-    "alt": "FK-V-005 takıma özel voleybol forma modeli",
+    "alt": "FK-V-005 iki ton yeşil zebra desenli kolsuz voleybol forma ve şort modeli",
+    "colors": "yeşil",
+    "pattern": "zebra çizgileri",
+    "summary": "FK-V-005, iki ton yeşilde zebra çizgileriyle hareketli bir voleybol modeli. Kolsuz kesim ve V yakalı; yeşil şortta numara alanı var.",
     "featured": false
   },
   {
@@ -248,7 +329,10 @@
     "sport": "voleybol",
     "category": "Voleybol Forması",
     "image": "/assets/models/fk-v-006.webp",
-    "alt": "FK-V-006 takıma özel voleybol forma modeli",
+    "alt": "FK-V-006 siyah zemin üzerinde tropikal çiçek desenli, kırmızı göğüs bantlı kolsuz voleybol forması ve siyah şort",
+    "colors": "siyah, pembe, yeşil ve kırmızı",
+    "pattern": "tropikal çiçek deseni",
+    "summary": "FK-V-006, siyah zemin üzerindeki pembe çiçekler ve tropikal yapraklarla dikkat çeken bir model. Göğüste sarı çizgili kırmızı bant var; siyah şortta numara alanı bulunur.",
     "featured": false
   }
 ]
