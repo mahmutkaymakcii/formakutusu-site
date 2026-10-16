@@ -14,6 +14,11 @@ const site = {
   whatsapp: "905348578836",
   instagram: "https://www.instagram.com/formakutusu/",
   tiktok: "https://www.tiktok.com/@formakutusunora",
+  email: "formakutusu@gmail.com",
+  locality: "Zeytinburnu",
+  region: "İstanbul",
+  hoursDisplay: "Hafta içi 09:00–18:00",
+  foundingDate: "2017-04",
 };
 
 const routes = [];
@@ -64,11 +69,26 @@ function organizationSchema() {
     name: site.name,
     url: `${site.origin}/`,
     logo: `${site.origin}/assets/brand/formakutusu.webp`,
+    email: site.email,
+    foundingDate: site.foundingDate,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.locality,
+      addressRegion: site.region,
+      addressCountry: "TR",
+    },
     contactPoint: {
       "@type": "ContactPoint",
       telephone: site.phoneHref,
+      email: site.email,
       contactType: "sales",
       availableLanguage: "Turkish",
+      hoursAvailable: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
     },
     sameAs: [site.instagram, site.tiktok],
   };
@@ -1113,11 +1133,12 @@ writePage("/hakkimizda/", {
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Hakkımızda", path: "/hakkimizda/" }])}
     ${innerHero({ eyebrow: "Forma Kutusu", title: "Takım kimliğini üretime hazırlayan sade yaklaşım.", copy: "Model seçimini, takım detaylarını, tasarım onayını ve üretim iletişimini tek anlaşılır süreçte birleştiriyoruz.", image: { src: "/assets/references/ref-15.webp", alt: "Forma Kutusu üretiminden tamamlanan siyah ve mavi takım formaları", width: 1000, height: 700 } })}
+    <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Hikâyemiz</p><h2>Nisan 2017'den bu yana takımlarla.</h2></div><p>Forma Kutusu, Nisan 2017'de İstanbul Zeytinburnu'nda kuruldu. O günden bu yana takımlara özel forma tasarlıyoruz. Formalarımız kendi markamız NORA ile hazırlanıyor; model seçiminden tasarım onayına kadar her adımda takımınla birlikte çalışıyoruz.</p></div></section>
     <section class="feature-section"><div class="container">
-      ${sectionIntro("Çalışma ilkeleri", "Güven, iddiadan değil süreçten doğar.", "Sitede doğrulanamayan satış sayıları, sahte yorumlar veya gerçek olmayan garanti ifadeleri kullanmıyoruz.")}
+      ${sectionIntro("Nasıl çalışıyoruz", "Her siparişte aynı dört ilke.", "Modelden teslimata kadar her adımı seninle birlikte netleştiriyoruz.")}
       <div class="feature-grid"><article><span>01</span><h3>Net kapsam</h3><p>Adet, ürün, beden ve kişiselleştirme detayları sipariş öncesinde yazılı hâle gelir.</p></article><article><span>02</span><h3>Görsel onay</h3><p>Takım renkleri ve kimlik öğeleri üretimden önce kontrol edilir.</p></article><article><span>03</span><h3>Güncel bilgi</h3><p>İmalat tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir.</p></article><article><span>04</span><h3>Gizlilik</h3><p>Müşteri listeleri ve özel sipariş dosyaları web sitesinde yayınlanmaz.</p></article></div>
     </div></section>
-    <section class="brand-band"><div class="container brand-band__inner"><div><p class="eyebrow">Üretim gücü</p><h2>NORA</h2><p>Forma Kutusu ve NORA marka materyalleri mevcut web arşivinde birlikte kullanılıyor. Güncel kurumsal veya üretim ayrıntıları sipariş görüşmesinde teyit edilebilir.</p></div><img src="/assets/brand/nora.webp" alt="NORA" width="420" height="245" loading="lazy"></div></section>
+    <section class="brand-band"><div class="container brand-band__inner"><div><p class="eyebrow">Kendi markamız</p><h2>NORA</h2><p>NORA, Forma Kutusu'nun kendi forma markasıdır. Sipariş verdiğin formalar NORA etiketiyle hazırlanır.</p></div><img src="/assets/brand/nora.webp" alt="NORA" width="420" height="245" loading="lazy"></div></section>
     ${finalCta()}`,
 });
 
@@ -1126,6 +1147,7 @@ writePage("/iletisim/", {
   description: "Forma Kutusu ile WhatsApp veya telefon üzerinden iletişime geçin; model kodunuzu, forma adedinizi ve takım renklerinizi paylaşın.",
   pageClass: "contact-page",
   schemas: [
+    organizationSchema(),
     breadcrumbSchema([
       { name: "Ana Sayfa", path: "/" },
       { name: "İletişim", path: "/iletisim/" },
@@ -1137,7 +1159,10 @@ writePage("/iletisim/", {
     <section class="contact-section"><div class="container contact-grid">
       <a class="contact-card" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span>01</span><h2>WhatsApp</h2><p>Sipariş ve model soruları için doğrudan yaz.</p><strong>Mesaj gönder ↗</strong></a>
       <a class="contact-card" href="tel:${site.phoneHref}"><span>02</span><h2>Telefon</h2><p>${site.phoneDisplay.split(" ").join("&#8209;")}</p></a>
-      <a class="contact-card" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><span>03</span><h2>Instagram</h2><p>Yayınlanan tasarım ve içerikleri incele.</p><strong>Profili aç ↗</strong></a>
+      <a class="contact-card" href="mailto:${site.email}"><span>03</span><h2>E-posta</h2><p>${site.email}</p><strong>E-posta gönder ↗</strong></a>
+      <div class="contact-card"><span>04</span><h2>Saatler ve konum</h2><p>${site.hoursDisplay}<br>${site.locality}, ${site.region}</p></div>
+      <a class="contact-card" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><span>05</span><h2>Instagram</h2><p>Yayınlanan tasarım ve içerikleri incele.</p><strong>Profili aç ↗</strong></a>
+      <a class="contact-card" href="${site.tiktok}" target="_blank" rel="noopener noreferrer"><span>06</span><h2>TikTok</h2><p>@formakutusunora hesabını takip et.</p><strong>Profili aç ↗</strong></a>
     </div></section>
     <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Mesaj kontrol listesi</p><h2>İlk mesajda bunları ekle.</h2></div><ul class="check-list"><li>Branş ve kullanım amacı</li><li>Beğendiğin model kodu</li><li>Forma adedi</li><li>Forma veya forma + şort</li><li>Takım renkleri</li><li>Varsa hedef tarih</li></ul></div></section>
     ${finalCta()}`,
