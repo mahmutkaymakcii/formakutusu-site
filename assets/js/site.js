@@ -83,6 +83,47 @@
     }
   }
 
+  function initNavGroups() {
+    document.querySelectorAll("[data-nav-group]").forEach((group) => {
+      const toggle = group.querySelector(".site-nav__toggle");
+      const label = group.querySelector("a")?.textContent || "";
+      if (!toggle) return;
+
+      const setOpen = (open) => {
+        group.classList.toggle("is-open", open);
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", `${label} alt menüsünü ${open ? "kapat" : "aç"}`);
+      };
+
+      toggle.addEventListener("click", () => {
+        group.classList.remove("is-dismissed");
+        setOpen(!group.classList.contains("is-open"));
+      });
+
+      group.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const visible = group.classList.contains("is-open") || group.matches(":focus-within");
+        if (!visible) return;
+        event.stopPropagation();
+        setOpen(false);
+        group.classList.add("is-dismissed");
+        toggle.focus();
+      });
+
+      group.addEventListener("focusout", (event) => {
+        if (group.contains(event.relatedTarget)) return;
+        setOpen(false);
+        group.classList.remove("is-dismissed");
+      });
+
+      group.addEventListener("mouseleave", () => group.classList.remove("is-dismissed"));
+
+      document.addEventListener("click", (event) => {
+        if (!group.contains(event.target)) setOpen(false);
+      });
+    });
+  }
+
   function initCatalog() {
     const cards = [...document.querySelectorAll("[data-model-card]")];
     const favoriteButtons = [...document.querySelectorAll("[data-favorite]")];
@@ -320,6 +361,7 @@
   }
 
   initNavigation();
+  initNavGroups();
   initConsent();
   initCatalog();
   initGallery();
