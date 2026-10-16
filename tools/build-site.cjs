@@ -11,6 +11,8 @@ const site = {
   origin: "https://formakutusu.com",
   phoneDisplay: "0534 857 88 36",
   phoneHref: "+905348578836",
+  phone2Display: "0543 232 18 53",
+  phone2Href: "+905432321853",
   whatsapp: "905348578836",
   instagram: "https://www.instagram.com/formakutusu/",
   tiktok: "https://www.tiktok.com/@formakutusunora",
@@ -79,9 +81,9 @@ function organizationSchema() {
       addressRegion: site.region,
       addressCountry: "TR",
     },
-    contactPoint: {
+    contactPoint: [site.phoneHref, site.phone2Href].map((telephone) => ({
       "@type": "ContactPoint",
-      telephone: site.phoneHref,
+      telephone,
       email: site.email,
       contactType: "sales",
       availableLanguage: "Turkish",
@@ -91,7 +93,7 @@ function organizationSchema() {
         opens: "09:00",
         closes: "18:00",
       },
-    },
+    })),
     sameAs: [site.instagram, site.tiktok],
   };
 }
@@ -1171,7 +1173,7 @@ writePage("/iletisim/", {
     ${innerHero({ eyebrow: "İletişim", title: "Takımın için konuşmaya başlayalım.", copy: "En hızlı başlangıç için model kodunu, forma adedini ve takım renklerini mesajına ekle.", cta: false })}
     <section class="contact-section"><div class="container contact-grid">
       <a class="contact-card" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span>01</span><h2>WhatsApp</h2><p>Sipariş ve model soruları için doğrudan yaz.</p><strong>Mesaj gönder ↗</strong></a>
-      <a class="contact-card" href="tel:${site.phoneHref}"><span>02</span><h2>Telefon</h2><p>${site.phoneDisplay.split(" ").join("&#8209;")}</p></a>
+      <div class="contact-card"><span>02</span><h2>Telefon</h2><p><a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&#8209;")}</a><br><a href="tel:${site.phone2Href}">${site.phone2Display.split(" ").join("&#8209;")}</a></p></div>
       <a class="contact-card" href="mailto:${site.email}"><span>03</span><h2>E-posta</h2><p>${site.email}</p><strong>E-posta gönder ↗</strong></a>
       <div class="contact-card"><span>04</span><h2>Saatler ve konum</h2><p>${site.hoursDisplay}<br>${site.locality}, ${site.region}</p></div>
       <a class="contact-card" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><span>05</span><h2>Instagram</h2><p>Yayınlanan tasarım ve içerikleri incele.</p><strong>Profili aç ↗</strong></a>
