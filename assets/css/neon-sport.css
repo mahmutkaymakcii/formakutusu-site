@@ -307,6 +307,15 @@ body.home-v2 .fk-mobile-cta {
   color: #080a0e;
 }
 
+/* Unbounded geniş bir font; başlık boyutu ekran yerine sütun genişliğine bağlanır. */
+body.home-v2 .fk-hero__content {
+  container-type: inline-size;
+}
+
+body.home-v2 .fk-hero h1 {
+  font-size: min(14cqi, 82px);
+}
+
 @media (max-width: 680px) {
   body.home-v2 .fk-hero h1 {
     font-size: clamp(2.85rem, 12vw, 3rem);
