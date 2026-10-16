@@ -81,6 +81,7 @@ function organizationSchema() {
       addressRegion: site.region,
       addressCountry: "TR",
     },
+    areaServed: { "@type": "Country", name: "Türkiye" },
     contactPoint: [site.phoneHref, site.phone2Href].map((telephone) => ({
       "@type": "ContactPoint",
       telephone,
@@ -204,6 +205,7 @@ function footer() {
         <a href="/kumas-ve-uretim/">Kumaş ve üretim</a>
         <a href="/beden-tablosu/">Beden planlama</a>
         <a href="/sik-sorulan-sorular/">Sık sorulanlar</a>
+        <a href="/teslimat-ve-iade/">Teslimat ve iade</a>
         <a href="/hakkimizda/">Hakkımızda</a>
       </div>
       <div>
@@ -797,6 +799,11 @@ for (const model of models) {
           availability: "https://schema.org/InStock",
           eligibleQuantity: { "@type": "QuantitativeValue", minValue: 5, unitCode: "C62" },
           seller: { "@type": "Organization", name: site.name },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "TR",
+            returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+          },
         },
       },
     ],
@@ -1142,7 +1149,7 @@ writePage("/teklif/", {
         <article class="price-card"><p>FORMA + ŞORT + ÇORAP</p><strong>480₺</strong></article>
         <article class="price-card"><p>ÇORAP</p><strong>30₺</strong></article>
       </div>
-      <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>Tasarım onayından sonra 5–7 iş günü imalat; kargo süresi ayrıca eklenir.</p></div>
+      <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>Tasarım onayından sonra 5–7 iş günü imalat; kargo süresi ayrıca eklenir.</p><p>Kargo ücreti alıcıya aittir. <a href="/teslimat-ve-iade/">Teslimat ve iade koşulları</a></p></div>
       <div class="pricing-order"><div><p class="eyebrow">Sipariş</p><h2>Modelini seç, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve varsa oyuncu listesini mesajına ekleyebilirsin.</p></div><a class="button" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sipariş Ver</a></div>
     </div></section>`,
 });
@@ -1213,6 +1220,29 @@ writePage("/kvkk-ve-gizlilik/", {
       <h2>Dosya paylaşımı</h2><p>Logo, örnek görsel veya takım listesini bu siteye yüklemezsin. Gerekli dosyaları WhatsApp görüşmesine kendin ekleyebilirsin.</p>
       <h2>Hassas bilgiler</h2><p>Müşteri adı, telefon, adres, logo, takım listesi veya özel sipariş bilgisini web sitesinde yayınlamıyoruz. İletişim sırasında yalnızca sipariş ve üretim için gerekli bilgileri paylaşmanı öneriyoruz.</p>
       <h2>Harici hizmet</h2><p>WhatsApp, Instagram ve TikTok bağlantıları harici platformlara gider. Bu platformlardaki veri işlemleri kendi koşullarına tabidir.</p>
+    </div></section>
+    ${finalCta()}`,
+});
+
+writePage("/teslimat-ve-iade/", {
+  title: "Teslimat, Kargo ve İade Koşulları",
+  description: "Forma Kutusu teslimat, kargo ve iade koşulları: tasarım onayından sonra 5–7 iş günü üretim, Türkiye geneli gönderim ve kişiye özel ürünlerde iade şartları.",
+  pageClass: "content-page",
+  schemas: [
+    breadcrumbSchema([
+      { name: "Ana Sayfa", path: "/" },
+      { name: "Teslimat ve İade", path: "/teslimat-ve-iade/" },
+    ]),
+  ],
+  body: `
+    ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Teslimat ve İade", path: "/teslimat-ve-iade/" }])}
+    ${innerHero({ eyebrow: "Teslimat ve iade", title: "Teslimat, kargo ve iade koşulları.", copy: "Sipariş vermeden önce üretim, gönderim ve iade süreçlerimizi buradan inceleyebilirsiniz.", cta: false })}
+    <section class="content-section"><div class="container prose">
+      <h2>Üretim ve gönderim</h2><p>Siparişler, tasarım onayının ardından 5–7 iş günü içinde üretilir ve Türkiye'nin tüm illerine kargo ile gönderilir. Gönderim ücreti alıcıya aittir.</p>
+      <h2>Teslim alırken</h2><p>Paketi kargo görevlisinin yanında kontrol etmenizi rica ederiz. Hasarlı ya da açılmış paketleri teslim almadan kargo görevlisine hasar tespit tutanağı düzenletmeniz ve durumu bize iletmeniz gerekir. Kargo sürecindeki gecikme, kayıp ve hasar durumlarında, kargo firması nezdindeki süreci sizinle birlikte takip ederiz.</p>
+      <h2>İade ve değişim</h2><p>Ürünlerimiz takımınıza özel isim, numara ve logo ile üretildiğinden, Mesafeli Sözleşmeler Yönetmeliği'nin 15. maddesi uyarınca cayma hakkı kapsamı dışındadır. Onaylanan tasarıma uygun üretilen ürünlerde iade ve değişim yapılmaz. Siparişinizi vermeden önce tasarımı, beden listesini ve isim/numara bilgilerini dikkatle kontrol etmenizi rica ederiz.</p>
+      <h2>Üretim hatası</h2><p>Onaylanan tasarımdan farklı baskı, hatalı isim/numara veya dikiş hatası gibi üretimden kaynaklanan durumlarda, yasal haklarınız saklı kalmak kaydıyla ürün düzeltilir ya da yeniden üretilir. Bu durumda gönderim masrafları tarafımızca karşılanır.</p>
+      <h2>Alıcı kaynaklı değişiklikler</h2><p>Onay sonrasında alıcının talep ettiği değişiklikler ve bunlara bağlı gönderimlerin kargo ücreti alıcıya aittir.</p>
     </div></section>
     ${finalCta()}`,
 });
