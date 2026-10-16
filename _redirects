@@ -1,0 +1,7 @@
+/docs/*                          /404/  302
+/tools/*                         /404/  302
+/preview/*                       /404/  302
+/.github/*                       /404/  302
+/README.md                       /404/  302
+/PROJECT-STATUS.md               /404/  302
+/.cloudflare-production-redeploy /404/  302
