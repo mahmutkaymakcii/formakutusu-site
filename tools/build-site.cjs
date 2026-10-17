@@ -278,7 +278,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261018c">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019a">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019b">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018d" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -1354,7 +1354,7 @@ writePage("/iletisim/", {
         <a class="social-tile" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-instagram.png" alt="Instagram'da takip et: @formakutusu" width="560" height="571" loading="lazy"></a>
         <a class="social-tile" href="${site.facebook}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-facebook.png" alt="Facebook'ta takip et: @formakutusu" width="560" height="571" loading="lazy"></a>
         <a class="social-tile" href="${site.tiktok}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-tiktok.png" alt="TikTok'ta takip et: @formakutusunora" width="560" height="571" loading="lazy"></a>
-        <a class="social-tile" href="mailto:${site.email}?subject=Forma%20sipari%C5%9Fi"><img src="/assets/home/sosyal-gmail.png" alt="E-posta: ${site.email}" width="560" height="571" loading="lazy"></a>
+        <a class="social-tile" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=${encodeURIComponent(site.email)}&amp;su=Forma%20sipari%C5%9Fi" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-gmail.png" alt="E-posta: ${site.email}" width="560" height="571" loading="lazy"></a>
       </div>
       <div class="contact-info">
         <a class="contact-info__card contact-info__card--whatsapp" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.2-2.2l.8-1-1-2z"/></svg></span><span class="contact-info__text"><small>WhatsApp</small><strong>Mesaj gönder</strong><span>Sipariş ve model soruları için doğrudan yaz.</span></span><b aria-hidden="true">→</b></a>

@@ -2554,6 +2554,8 @@ body.home-v2 .fk-social-tile {
 .social-tile[href^="mailto"],
 .fk-social-tile[href^="mailto"],
 .social-tile[href*="email-protection"],
+.social-tile[href*="mail.google"],
+.fk-social-tile[href*="mail.google"],
 .fk-social-tile[href*="email-protection"] { --tile-stroke: #ea4335; }
 
 .social-tile:hover,
