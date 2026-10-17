@@ -304,9 +304,10 @@
       const alt = upload.querySelector("[data-upload-alt]");
       const preview = upload.querySelector("[data-upload-preview]");
 
-      // "Yok" ve alternatif (TR Arma) seçenekleri dosya yüklemeyi pasif yapar ve birbirini dışlar.
+      // "Yok" dosya yüklemeyi pasif yapar; TR Arma ile "Yok" birbirini dışlar. TR Arma seçiliyken
+      // yüklenen logo sağ göğse geçer, bu yüzden yükleme açık kalır.
       const sync = () => {
-        const blocked = none.checked || Boolean(alt?.checked);
+        const blocked = none.checked;
         if (blocked) input.value = "";
         input.disabled = blocked;
         upload.classList.toggle("is-none", blocked);
@@ -429,7 +430,10 @@
         `Yaka: ${checked("collar")}`,
         "",
         "FORMA ÖNÜ",
-        ...uploadState().map(({ label, file, alt }) => `${label}: ${alt || (file ? `Var (dosya: ${file.name})` : "Yok")}`),
+        ...uploadState().map(({ label, file, alt }) => {
+          if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo sağ göğse geçer, dosya: ${file.name})` : ""}`;
+          return `${label}: ${file ? `Var (dosya: ${file.name})` : "Yok"}`;
+        }),
         "",
         "FORMA ARKASI",
         `${backLabel}: ${form.querySelector('[name="back-text"]').value.trim() || "Yok"}`,
