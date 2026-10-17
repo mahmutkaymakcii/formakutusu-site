@@ -2707,3 +2707,116 @@ a.contact-info__card:hover {
   body.home-v2 .fk-trust__icon { width: 42px; height: 42px; border-radius: 12px; }
   body.home-v2 .fk-trust__list strong { font-size: 15px; }
 }
+
+/* ---- İç sayfa "Bir sonraki adım": ana sayfadaki Sahaya Farkınla Çık ile aynı ölçü ---- */
+.final-cta {
+  padding: 0 0 65px;
+}
+
+.final-cta__inner {
+  display: flex;
+  min-height: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 40px 46px;
+  border: 1px solid rgb(45 226 255 / 22%);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 90% 10%, rgb(45 226 255 / 18%), transparent 18rem),
+    linear-gradient(135deg, #11151c, #171225);
+  box-shadow: var(--shadow);
+}
+
+.final-cta__inner::before {
+  display: none;
+}
+
+.final-cta .eyebrow {
+  margin: 0;
+  color: var(--volt);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: normal;
+}
+
+.final-cta .eyebrow::before {
+  display: none;
+}
+
+.final-cta h2 {
+  max-width: 760px;
+  margin: 8px 0 0;
+  font-size: clamp(35px, 4vw, 58px);
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.final-cta .button-row {
+  flex: none;
+}
+
+.final-cta .button {
+  min-height: 3.35rem;
+  border-radius: 13px;
+  font-size: 14.72px;
+  text-transform: uppercase;
+}
+
+.final-cta .button--ghost {
+  border-color: rgb(45 226 255 / 42%);
+  background: var(--surface);
+  color: var(--text);
+}
+
+@media (max-width: 980px) {
+  .final-cta__inner { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 680px) {
+  .final-cta { padding-bottom: 42px; }
+  .final-cta__inner { padding: 30px 23px; }
+  .final-cta__inner > div { width: 100%; min-width: 0; }
+  .final-cta h2 { max-width: 100%; overflow-wrap: anywhere; }
+  .final-cta .button-row { display: grid; width: 100%; }
+  .final-cta .button { width: 100%; }
+}
+
+/* ---- Mobil alt çubuk: Tasarla + Fiyatları Gör yan yana ---- */
+body .mobile-cta.mobile-cta--pair {
+  gap: 10px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.mobile-cta--pair a {
+  display: flex;
+  flex: 1;
+  min-height: 3.4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 16px 42px rgb(0 0 0 / 50%);
+}
+
+.mobile-cta--pair .mobile-cta__primary {
+  border-color: var(--volt);
+  background: var(--volt);
+  color: #080a0e;
+  box-shadow: 0 16px 42px rgb(0 0 0 / 50%), 0 0 34px rgb(199 255 47 / 22%);
+}
+
+.mobile-cta--pair .mobile-cta__secondary {
+  border-color: rgb(45 226 255 / 42%);
+  background: #11151c;
+  color: var(--text);
+}

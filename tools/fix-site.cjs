@@ -152,7 +152,7 @@ function createIstanbulPage(chrome) {
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019c">
   ${schemas.map(schemaTag).join("\n  ")}
   <script src="/assets/js/site.js?v=20261017" defer></script>
 </head>
@@ -189,8 +189,8 @@ function createIstanbulPage(chrome) {
       <div class="faq-list">${faqHtml}</div>
     </div></section>
     <section class="final-cta"><div class="container final-cta__inner">
-      <div><p class="eyebrow">Bir sonraki adım</p><h2>Fiyatları incele, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve beden listesini paylaşman yeterli.</p></div>
-      <div class="button-row"><a class="button" href="/teklif/">Fiyatları Gör</a><a class="button button--ghost" href="https://wa.me/905348578836?text=Merhaba%2C%20%C4%B0stanbul%27daki%20tak%C4%B1m%C4%B1m%C4%B1z%20i%C3%A7in%20forma%20sipari%C5%9Fi%20vermek%20istiyorum." target="_blank" rel="noopener noreferrer">Sipariş Ver</a></div>
+      <div><p class="eyebrow">Bir sonraki adım</p><h2>Takımına yakışan formayı birlikte hazırlayalım.</h2></div>
+      <div class="button-row"><a class="button" href="/forma-sort-takimi/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
     </div></section>
   </main>
   ${chrome.footer}
