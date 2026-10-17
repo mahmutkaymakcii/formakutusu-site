@@ -275,7 +275,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261018c">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261018x">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261018y">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018d" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -850,7 +850,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
               ${patternPick}
               <fieldset class="order-form__section">
                 <legend>Forma önünü tasarla</legend>
-                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", custom ? "" : "TR Arma")}
+                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
                 ${orderUpload("logo-right", "Sağ göğüs logosu", "Sağ göğüste logo yok")}
                 ${orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok")}
               </fieldset>
