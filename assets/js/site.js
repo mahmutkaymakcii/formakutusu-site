@@ -181,6 +181,7 @@
     const status = form.querySelector("[data-order-status]");
     const uploads = [...form.querySelectorAll("[data-upload]")];
     const formatTL = (value) => `${value.toLocaleString("tr-TR")}₺`;
+    const currentSport = () => (sportSelect ? sportSelect.value : form.dataset.sport || "");
 
     const quantity = () => {
       const value = Number.parseInt(quantityInput.value, 10);
@@ -280,7 +281,8 @@
     };
 
     const updateTotal = () => {
-      shorts.hidden = checked("scope") === "ust";
+      // Voleybolda şorta logo/numara eklenmez; tek üst formada şort yoktur
+      shorts.hidden = checked("scope") === "ust" || currentSport() === "voleybol";
       EXTRAS.forEach(({ name }) => {
         const on = isOn(name);
         form.querySelectorAll(`[data-${name}-count], [data-${name}-note]`).forEach((el) => (el.hidden = !on));
@@ -362,8 +364,7 @@
 
       if (form.hasAttribute("data-custom")) {
         const files = designFiles();
-        const note = form.elements["design-note"]?.value.trim();
-        if (!files.length && !note) errors.push("Tasarım görseli yükle ya da tasarım notu yaz.");
+        if (!files.length) errors.push("Desen veya tasarım görseli yükle.");
         if (files.length > MAX_DESIGN_FILES) errors.push(`En fazla ${MAX_DESIGN_FILES} tasarım görseli yükleyebilirsin.`);
         files.forEach((file) => {
           const allowed = FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name);
@@ -410,7 +411,6 @@
             "",
             "ÖZEL TASARIM",
             `Tasarım görselleri: ${designFiles().length ? designFiles().map((file) => file.name).join(", ") : "Yok"}`,
-            `Tasarım notu: ${form.elements["design-note"]?.value.trim() || "Yok"}`,
           ]
         : [];
       // Önizlemeli formlarda: galeriden seçilen desen kodu, kulüp ismi etiketi, yazı rengi
@@ -438,7 +438,7 @@
         ...(textColor ? [`Yazı ve numara rengi: ${textColor}`] : []),
       ];
 
-      if (scope !== "ust") {
+      if (scope !== "ust" && currentSport() !== "voleybol") {
         lines.push("", "ŞORT", `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
       }
 

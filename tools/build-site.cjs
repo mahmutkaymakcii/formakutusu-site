@@ -277,7 +277,7 @@ function pageShell({
   <link rel="stylesheet" href="/assets/css/site.css?v=20261018b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017c">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261018" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261018c" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -798,8 +798,8 @@ function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
                 <div class="order-upload">
                   <label class="order-upload__field"><span>Desen veya tasarım görselleri <small>(en fazla 5 dosya)</small></span><input type="file" name="design" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-design-input></label>
                   <ul class="order-design-list" data-design-preview hidden></ul>
+                  <p class="order-form__hint">İlk görsel önizlemede formaya uygulanır. Branşı seçtiğinizde önizleme o branşın modeline geçer.</p>
                 </div>
-                <label class="order-field"><span>Tasarım notu</span><textarea name="design-note" rows="3" maxlength="400" placeholder="RENKLER, DESEN YERLEŞİMİ, ÖRNEK ALINAN TAKIM VB." data-uppercase></textarea></label>
               </fieldset>`
     : "";
   const patternPick =
@@ -827,7 +827,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
                   </div>
                 </div>`
     : "";
-  return `<form class="order-form" data-order-form data-model="${escapeHtml(id)}" data-sport-label="${escapeHtml(label)}"${custom ? " data-custom" : ""}${preview ? ` data-preview="${preview}"` : ""} novalidate>
+  return `<form class="order-form" data-order-form data-model="${escapeHtml(id)}" data-sport-label="${escapeHtml(label)}"${sport ? ` data-sport="${escapeHtml(sport)}"` : ""}${custom ? " data-custom" : ""}${preview ? ` data-preview="${preview}"` : ""} novalidate>
               <h2 class="order-form__title">${custom ? "Özel tasarım siparişini oluştur" : "Siparişini oluştur"}</h2>
               ${design}
               <fieldset class="order-form__section">
@@ -838,12 +838,12 @@ function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
                   ${orderSelect("collar", "Yaka tipi", collars.map((collar) => [collar, collar]), "Seçin")}
                   ${orderSelect("socks", "Çorap", [["yok", "Çorap yok"], ["var", "Çorap var"]])}
                 </div>${preview ? `
-                <p class="order-form__hint">Yaka tipini seçtiğinizde önizleme o yakayla gösterilir.</p>` : ""}
+                <p class="order-form__hint">${custom ? "Futbolda önizleme seçtiğiniz yaka tipiyle, basketbol ve voleybolda V yaka ile gösterilir." : "Yaka tipini seçtiğinizde önizleme o yakayla gösterilir."}</p>` : ""}
               </fieldset>
               ${patternPick}
               <fieldset class="order-form__section">
                 <legend>Forma önünü tasarla</legend>
-                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
+                ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", custom ? "" : "TR Arma")}
                 ${orderUpload("logo-right", "Sağ göğüs logosu", "Sağ göğüste logo yok")}
                 ${orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok")}
               </fieldset>
@@ -1137,7 +1137,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018b"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018c"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
