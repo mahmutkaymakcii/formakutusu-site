@@ -756,11 +756,16 @@ function orderSelect(name, label, options, placeholder = "") {
   return `<label class="order-field"><span>${label}</span><select name="${name}" required>${empty}${items}</select></label>`;
 }
 
-// Önizlemeli formların "Desen Seç" galerisi. Yeni desenler model koduyla buraya eklenir;
-// dosyalar /assets/onizleme/desen/ altında (büyük görsel + 180 px genişliğinde "-k" küçük kopya).
-const previewPatterns = [
-  { code: "FK-001", src: "/assets/onizleme/desen/fk-001.jpg", thumb: "/assets/onizleme/desen/fk-001-k.jpg" },
-];
+// Önizlemeli formların "Desen Seç" galerisi: assets/data/desenler.json (branş + model kodu).
+// Dosyalar /assets/onizleme/desen/<kod>.jpg (1650 px yükseklik) ve <kod>-k.jpg (180 px küçük kopya).
+// Galeri seçilen branşın desenlerini gösterir; liste futbol, basketbol, voleybol sırasıyla.
+const sportOrder = { futbol: 0, basketbol: 1, voleybol: 2 };
+const previewPatterns = JSON.parse(fs.readFileSync(path.join(root, "assets", "data", "desenler.json"), "utf8"))
+  .sort((a, b) => sportOrder[a.sport] - sportOrder[b.sport] || a.code.localeCompare(b.code))
+  .map(({ sport, code }) => {
+    const file = `/assets/onizleme/desen/${code.toLowerCase()}`;
+    return { sport, code, src: `${file}.jpg`, thumb: `${file}-k.jpg` };
+  });
 
 function previewStage() {
   return `<div class="order-studio__stage" data-preview-stage>
@@ -1139,7 +1144,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018g"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018h"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
