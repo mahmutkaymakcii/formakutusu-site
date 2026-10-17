@@ -1534,6 +1534,35 @@ h3 {
   object-fit: contain;
 }
 
+.order-upload__preview > span {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Seçili dosyayı kaldırma */
+.order-upload__remove {
+  flex: none;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.order-upload__remove:hover {
+  border-color: #ff5a6e;
+  color: #ff5a6e;
+}
+
+.order-design-list li > span {
+  flex: 1;
+  min-width: 0;
+}
+
 .order-form__hint {
   margin: 0;
   color: var(--muted);
@@ -3417,6 +3446,18 @@ body.has-consent-banner .mobile-cta {
   gap: 0.25rem;
   height: clamp(4.5rem, 9vw, 6.5rem);
   min-width: 0;
+  touch-action: pan-y;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.reel__track.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.reel__item img {
+  -webkit-user-drag: none;
 }
 
 .reel__item {
