@@ -646,7 +646,12 @@
   // Desen Seç: elastik makara galerisi (8 sabit kare, oklarla sayfa değişir)
   // ---------------------------------------------------------------------------
   const reel = form.querySelector("[data-pattern-reel]");
-  const patterns = reel ? JSON.parse(reel.dataset.patterns || "[]") : [];
+  // Galeri seçilen branşın desenlerini gösterir (branş seçilmemişse futbol)
+  const allPatterns = reel ? JSON.parse(reel.dataset.patterns || "[]") : [];
+  const sportPatterns = () => {
+    const list = allPatterns.filter((p) => p.sport === sport());
+    return list.length ? list : allPatterns;
+  };
   const PER_PAGE = 8;
   let page = 0;
   async function choosePattern(p) {
@@ -659,6 +664,7 @@
   function renderReel() {
     if (!reel) return;
     const track = reel.querySelector("[data-reel-track]");
+    const patterns = sportPatterns();
     const pages = Math.max(1, Math.ceil(patterns.length / PER_PAGE));
     page = (page + pages) % pages;
     track.replaceChildren(...Array.from({ length: PER_PAGE }, (_, n) => {
@@ -705,7 +711,18 @@
     try { await useCollar(mockupKey()); showStatus(); schedule(); } catch { say("Önizleme yüklenemedi"); }
   };
   el("collar")?.addEventListener("change", switchModel);
-  el("sport")?.addEventListener("change", switchModel);
+  el("sport")?.addEventListener("change", async () => {
+    // Galeri o branşın desenlerine geçer; seçili desen bu branşta yoksa ilk desen seçilir
+    if (reel) {
+      page = 0;
+      const list = sportPatterns();
+      if (state.ready && list.length && !list.some((p) => p.code === state.patternCode)) {
+        try { await choosePattern(list[0]); } catch { say("Desen yüklenemedi"); }
+      }
+      renderReel();
+    }
+    switchModel();
+  });
   form.addEventListener("input", (e) => { if (e.target.name === "back-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
     if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|has-name|has-number|text-color|scope)$/.test(e.target.name)) schedule();
@@ -725,7 +742,7 @@
   async function boot() {
     try {
       say("Önizleme hazırlanıyor…");
-      const first = patterns[0] || { code: "FK-001", src: ASSETS + "desen/fk-001.jpg" };
+      const first = sportPatterns()[0] || { code: "FK-001", src: ASSETS + "desen/fk-001.jpg" };
       const [pattern, scene, left, right, sponsor] = await Promise.all([
         loadImage(first.src), loadImage(ASSETS + "sahne.webp"),
         loadImage(ASSETS + "ornek-arma.png"), loadImage(ASSETS + "ornek-nora.png"), loadImage(ASSETS + "ornek-reklam.png"),
