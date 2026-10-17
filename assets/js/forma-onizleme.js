@@ -72,6 +72,8 @@
         { poly: [[185, 0], [190, 13], [200, 51], [217, 84], [259, 122], [299, 146], [339, 122], [381, 84], [398, 51], [408, 13], [413, 0]], r: 4 },
       ],
       backEdge: (x) => 240 + 0.00048 * (x - 837) ** 2, backX: [650, 1025],
+      // Forma eteği (gölge çizgisi ölçüldü: ortada 734, kenarlarda ~725); altı şort
+      hem: (x) => 734 - 0.0002 * (x - 300) ** 2,
       // Yaka açıklığı ve bant piksel bazında (zone: arama alanı, dark: açıklık eşiği, band: bant genişliği)
       neck: { zone: [170, 0, 430, 175], dark: 148, band: 22 },
       trims: { band: 26, zones: [
@@ -539,6 +541,7 @@
   // ---------------------------------------------------------------------------
   const tex = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const texBack = Object.assign(document.createElement("canvas"), { width: W, height: H });
+  const texShorts = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const gar = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const textColor = () => (form.querySelector('input[name="text-color"]:checked')?.value) || "#ffffff";
 
@@ -567,7 +570,9 @@
     gb.filter = "blur(0.6px)";
     drawCover(g, state.pattern, boxes.front, state.cfg.frontAnchor); drawCover(gb, state.pattern, boxes.back);
     g.filter = "none"; gb.filter = "none";
-    g.fillStyle = `rgb(${solid.join(",")})`; g.fillRect(sx0, sy0, sx1 - sx0 + 1, sy1 - sy0 + 1);
+    // Şort ayrı katmanda düz renk: kavisli etekte şort dikdörtgeni formanın alt kısmını kesiyordu
+    const gs = texShorts.getContext("2d", { willReadFrequently: true });
+    gs.fillStyle = `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
 
     const P = state.P;
     const L = { right: logo("right", "logo-right"), left: logo("left", "logo-left"), sponsor: logo("sponsor", "sponsor") };
@@ -586,11 +591,11 @@
     if (P.frontNumber && num) textInBox(g, num, "NoraNumara", P.frontNumber, sizeInBox(g, num, "NoraNumara", P.frontNumber), color);
     // Voleybolda şorta logo ve numara eklenmez
     const shortsItems = !state.cfg.noShortsItems && sport() !== "voleybol";
-    if (shortsItems && isOn("shorts-logo") && L.left) drawInBox(g, L.left, P.shortsLogo);
-    if (shortsItems && isOn("shorts-number") && num) textInBox(g, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
+    if (shortsItems && isOn("shorts-logo") && L.left) drawInBox(gs, L.left, P.shortsLogo);
+    if (shortsItems && isOn("shorts-number") && num) textInBox(gs, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
 
     // Birleştirme: bükülmüş doku × gölge + sıcak parlaklık, ardından canlılık
-    const tf = g.getImageData(0, 0, W, H).data, tb = gb.getImageData(0, 0, W, H).data;
+    const tf = g.getImageData(0, 0, W, H).data, tb = gb.getImageData(0, 0, W, H).data, ts = gs.getImageData(0, 0, W, H).data;
     const out = new ImageData(W, H), o = out.data, b = A.base;
     const GL = [255, 238, 210], SAT = 1.45, LIFT = 1.12;
     for (let y = 0, i = 0; y < H; y++) for (let x = 0; x < W; x++, i++) {
@@ -601,7 +606,7 @@
       if (reg >= 4) [r0, g0, b0] = solid;
       else {
         const sx = Math.min(W - 1, Math.max(0, x + A.dispX[i])), sy = Math.min(H - 1, Math.max(0, y + A.dispY[i]));
-        const t = reg === 2 ? tb : tf; // arka parça arka katmandan, ön ve şort ön katmandan
+        const t = reg === 2 ? tb : reg === 3 ? ts : tf; // her parça kendi katmanından
         const tq = (sy * W + sx) * 4; r0 = t[tq]; g0 = t[tq + 1]; b0 = t[tq + 2];
       }
       const s = A.shade[i], gl = A.gloss[i];

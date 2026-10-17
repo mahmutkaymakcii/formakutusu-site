@@ -2315,3 +2315,56 @@ textarea:focus {
     animation: none;
   }
 }
+
+/* ---- Tipografi düzeni (tüm site) ----
+   Başlıklar Unbounded ile -0.055…-0.075em harf aralığı ve 0.96–0.98 satır yüksekliğindeydi;
+   harfler ve satırlar birbirine değecek kadar sıkışıktı. Aralıklar okunur seviyeye açıldı. */
+h1,
+h2,
+h3,
+body.home-v2 h1,
+body.home-v2 h2,
+body.home-v2 h3,
+body.home-v2 .fk-feature-card strong,
+body.home-v2 .fk-section-heading > p,
+.product-detail__info h1 {
+  letter-spacing: -0.012em;
+  line-height: 1.16;
+}
+
+h1,
+body.home-v2 h1,
+.product-detail__info h1 {
+  line-height: 1.1;
+}
+
+.hero h1,
+body.home-v2 .fk-hero h1 {
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+h3,
+body.home-v2 h3 {
+  line-height: 1.24;
+}
+
+.hero__model-code,
+.price-card strong,
+.inner-hero__mark span {
+  letter-spacing: -0.02em;
+}
+
+p,
+li,
+dd {
+  line-height: 1.7;
+}
+/* Dar sütundaki ana sayfa başlıkları sütuna sığacak boyutta */
+body.home-v2 .fk-models__intro h2 {
+  font-size: clamp(28px, 2.5vw, 42px);
+}
+
+body.home-v2 .fk-promo h2 {
+  font-size: clamp(20px, 1.7vw, 30px);
+}
