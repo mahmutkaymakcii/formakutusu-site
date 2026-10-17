@@ -24,12 +24,16 @@
     },
   };
 
-  function openWhatsApp(message) {
+  // win: önceden (tıklama anında) açılmış boş pencere; dosya yüklemesi gibi bekleme sonrası
+  // açılan pencereler engellendiği için mesaj hazır olunca bu pencere yönlendirilir.
+  function openWhatsApp(message, win = null) {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     // "noopener" ile window.open her zaman null döner ve sayfa da yönlenirdi; opener elle kesilir
-    const popup = window.open(url, "_blank");
-    if (popup) popup.opener = null;
-    else window.location.assign(url);
+    const popup = win && !win.closed ? win : window.open(url, "_blank");
+    if (popup) {
+      popup.opener = null;
+      if (popup === win) popup.location.href = url;
+    } else window.location.assign(url);
   }
 
   function initNavigation() {
@@ -522,21 +526,57 @@
         return;
       }
 
-      // Mesaj doğrudan Forma Kutusu WhatsApp sohbetine gider (paylaşım menüsü açılmaz). Pencere
-      // açma kullanıcı etkileşimi gerektirdiğinden beklemeden açılır; pano yazımı beklenmez.
-      const message = buildMessage();
-      navigator.clipboard?.writeText(message).catch(() => {});
-      openWhatsApp(message);
+      // Mesaj doğrudan Forma Kutusu WhatsApp sohbetine gider (paylaşım menüsü açılmaz). WhatsApp
+      // bağlantısı dosya taşıyamadığından logo, reklam, tasarım görselleri ve forma önizlemesi
+      // önce /api/dosya'ya yüklenir, bağlantıları mesaja eklenir. Pencere tıklama anında açılır.
+      const win = window.open("about:blank", "_blank");
+      try {
+        win?.document.write('<meta name="viewport" content="width=device-width"><p style="font:16px sans-serif;padding:24px">WhatsApp açılıyor…</p>');
+      } catch {
+        // Boş pencereye yazılamasa da yönlendirme çalışır
+      }
+      const button = form.querySelector('[type="submit"]');
+      if (button) button.disabled = true;
+      status.replaceChildren("Dosyalar hazırlanıyor, WhatsApp birazdan açılacak…");
 
-      // WhatsApp bağlantısıyla dosya gönderilemez: yüklenen dosyalar sohbete elle eklenir,
-      // önizleme görseli de indirilebilir
-      const files = [...designFiles(), ...uploadState().map(({ file }) => file)].filter(Boolean);
+      const preview = form.formaPreview ? await form.formaPreview().catch(() => null) : null;
+      const attachments = [
+        ...(preview ? [{ label: "Forma önizlemesi", file: preview }] : []),
+        ...uploadState().filter(({ file, none }) => file && !none).map(({ label, file }) => ({ label, file })),
+        ...designFiles().map((file) => ({ label: "Tasarım görseli", file })),
+      ];
+
+      let links = [];
+      if (attachments.length) {
+        try {
+          const body = new FormData();
+          attachments.forEach(({ file }) => body.append("file", file, file.name));
+          const response = await fetch("/api/dosya", { method: "POST", body, signal: AbortSignal.timeout?.(45000) });
+          if (response.ok) links = (await response.json()).files || [];
+        } catch {
+          links = [];
+        }
+      }
+
+      let message = buildMessage();
+      if (links.length === attachments.length && links.length) {
+        message += `\n\nDOSYALAR\n${attachments.map(({ label, file }, i) => `${label} (${file.name}): ${links[i].url}`).join("\n")}`;
+      }
+      navigator.clipboard?.writeText(message).catch(() => {});
+      openWhatsApp(message, win);
+      if (button) button.disabled = false;
+
+      if (!attachments.length || links.length) {
+        status.replaceChildren("WhatsApp sohbeti açıldı; mesajı kontrol edip gönderebilirsin.", links.length ? " Dosyaların bağlantıları mesajda." : "");
+        return;
+      }
+      // Yükleme yapılamadıysa dosyalar sohbete elle eklenir; önizleme indirilebilir
+      const manual = attachments.filter(({ file }) => file !== preview).map(({ file }) => file.name);
       status.replaceChildren(
-        files.length
-          ? `WhatsApp sohbeti açıldı. Mesajı gönderdikten sonra dosyalarını (${files.map((file) => file.name).join(", ")}) sohbete ekle.`
+        manual.length
+          ? `WhatsApp sohbeti açıldı. Mesajı gönderdikten sonra dosyalarını (${manual.join(", ")}) sohbete ekle.`
           : "WhatsApp sohbeti açıldı; mesajı kontrol edip gönderebilirsin.",
       );
-      const preview = form.formaPreview ? await form.formaPreview().catch(() => null) : null;
       if (preview) {
         const link = Object.assign(document.createElement("a"), { href: URL.createObjectURL(preview), download: preview.name, textContent: "Forma önizlemesini indir" });
         status.append(" ", link);
