@@ -275,7 +275,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261018b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017c">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261018u">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018c" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -1144,7 +1144,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018i"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018j"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
