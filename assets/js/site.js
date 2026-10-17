@@ -413,10 +413,14 @@
             `Tasarım notu: ${form.elements["design-note"]?.value.trim() || "Yok"}`,
           ]
         : [];
+      // Önizlemeli formlarda: galeriden seçilen desen kodu, kulüp ismi etiketi, yazı rengi
+      const patternCode = form.elements["pattern-code"]?.value || "";
+      const backLabel = form.querySelector('[name="back-text"]')?.closest("label")?.querySelector("span")?.textContent || "Sırt yazısı";
+      const textColor = form.querySelector('input[name="text-color"]:checked')?.dataset.label || "";
       const lines = [
         "Merhaba, sipariş vermek istiyorum.",
         "",
-        `Model: ${form.dataset.model} (${sportLabel})`,
+        `Model: ${patternCode || form.dataset.model} (${sportLabel})`,
         ...designLines,
         "",
         `Adet: ${qty}`,
@@ -428,9 +432,10 @@
         ...uploadState().map(({ label, file, alt }) => `${label}: ${alt || (file ? `Var (dosya: ${file.name})` : "Yok")}`),
         "",
         "FORMA ARKASI",
-        `Sırt yazısı: ${form.querySelector('[name="back-text"]').value.trim() || "Yok"}`,
+        `${backLabel}: ${form.querySelector('[name="back-text"]').value.trim() || "Yok"}`,
         `Numara: ${yesNo(isOn("has-number"))}`,
         `İsim: ${yesNo(isOn("has-name"))}`,
+        ...(textColor ? [`Yazı ve numara rengi: ${textColor}`] : []),
       ];
 
       if (scope !== "ust") {
@@ -443,6 +448,9 @@
         const detail = [note, price ? `+${formatTL(price)}` : "fiyat farkı yok"].filter(Boolean).join(", ");
         lines.push("", title, extraActive(name) ? `${label}: ${extraCount(name)} adet (${detail})` : `${label}: Yok`);
       });
+
+      const note = form.elements["order-note"]?.value.trim();
+      if (form.elements["order-note"]) lines.push("", "SİPARİŞ NOTU", note || "Yok");
 
       lines.push("", "LİSTE (İSİM - NUMARA - BEDEN)");
       roster.querySelectorAll("[data-roster-row]").forEach((row, index) => {
@@ -485,7 +493,9 @@
       }
 
       const message = buildMessage();
-      const files = [...designFiles(), ...uploadState().map(({ file }) => file).filter(Boolean)];
+      // Önizlemeli formlarda formanın son hali de paylaşıma eklenir
+      const preview = form.formaPreview ? await form.formaPreview().catch(() => null) : null;
+      const files = [preview, ...designFiles(), ...uploadState().map(({ file }) => file)].filter(Boolean);
 
       // Paylaşım ve pencere açma kullanıcı etkileşimi gerektirir; pano yazımı beklenmez.
       navigator.clipboard?.writeText(message).catch(() => {});
@@ -493,7 +503,7 @@
       if (files.length && navigator.canShare?.({ files, text: message })) {
         try {
           await navigator.share({ files, text: message, title: `${form.dataset.model} sipariş` });
-          status.textContent = "Paylaşım menüsü açıldı. WhatsApp'ı seçerek logoları ve sipariş bilgilerini gönderebilirsin; mesaj ayrıca panoya kopyalandı.";
+          status.textContent = "Paylaşım menüsü açıldı. WhatsApp'ı seçerek dosyaları ve sipariş bilgilerini gönderebilirsin; mesaj ayrıca panoya kopyalandı.";
           return;
         } catch (error) {
           if (error?.name === "AbortError") return;
@@ -502,7 +512,7 @@
 
       openWhatsApp(message);
       status.textContent = files.length
-        ? `WhatsApp açıldı. Logo dosyalarını (${files.map((file) => file.name).join(", ")}) sohbete ekleyerek gönder. Mesaj panoya da kopyalandı.`
+        ? `WhatsApp açıldı. Dosyaları (${files.map((file) => file.name).join(", ")}) sohbete ekleyerek gönder. Mesaj panoya da kopyalandı.`
         : "WhatsApp açıldı; mesajı kontrol edip gönderebilirsin. Mesaj panoya da kopyalandı.";
     });
 

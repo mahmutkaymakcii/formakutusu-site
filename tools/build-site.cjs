@@ -234,6 +234,7 @@ function pageShell({
   schemas = [],
   pageClass = "",
   preloadImage = "",
+  scripts = [],
 }) {
   const canonical = `${site.origin}${routePath}`;
   const fullTitle = title.includes("Forma Kutusu")
@@ -273,10 +274,11 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261018">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017c">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261017" defer></script>
+  <script src="/assets/js/site.js?v=20261018" defer></script>${scripts.map((src) => `
+  <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header(routePath)}
@@ -754,7 +756,20 @@ function orderSelect(name, label, options, placeholder = "") {
   return `<label class="order-field"><span>${label}</span><select name="${name}" required>${empty}${items}</select></label>`;
 }
 
-function orderForm({ id, sport = "", label, custom = false }) {
+// Önizlemeli formların "Desen Seç" galerisi. Yeni desenler model koduyla buraya eklenir;
+// dosyalar /assets/onizleme/desen/ altında (büyük görsel + 180 px genişliğinde "-k" küçük kopya).
+const previewPatterns = [
+  { code: "FK-001", src: "/assets/onizleme/desen/fk-001.jpg", thumb: "/assets/onizleme/desen/fk-001-k.jpg" },
+];
+
+function previewStage() {
+  return `<div class="order-studio__stage" data-preview-stage>
+              <canvas class="order-studio__canvas" width="1848" height="1888" role="img" aria-label="Seçimlerinize göre forma ve şort önizlemesi"></canvas>
+              <span class="order-studio__status" data-preview-status aria-live="polite">Önizleme yükleniyor…</span>
+            </div>`;
+}
+
+function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
   // Basketbolda polo yaka yok; kaleci yalnızca futbolda, libero yalnızca voleybolda.
   // Özel tasarım formunda branş müşteri tarafından seçilir; ilgili bölümleri JS gösterir.
   const collars = sport === "basketbol" ? ["Sıfır yaka", "V yaka"] : ["Sıfır yaka", "V yaka", "Polo yaka"];
@@ -787,7 +802,32 @@ function orderForm({ id, sport = "", label, custom = false }) {
                 <label class="order-field"><span>Tasarım notu</span><textarea name="design-note" rows="3" maxlength="400" placeholder="RENKLER, DESEN YERLEŞİMİ, ÖRNEK ALINAN TAKIM VB." data-uppercase></textarea></label>
               </fieldset>`
     : "";
-  return `<form class="order-form" data-order-form data-model="${escapeHtml(id)}" data-sport-label="${escapeHtml(label)}"${custom ? " data-custom" : ""} novalidate>
+  const patternPick =
+    preview === "gallery"
+      ? `<fieldset class="order-form__section">
+                <legend>Desen</legend>
+                <div class="reel" data-pattern-reel data-patterns="${escapeHtml(JSON.stringify(previewPatterns))}">
+                  <span class="reel__label">Desen Seç</span>
+                  <div class="reel__row">
+                    <button type="button" class="reel__nav" data-reel-prev aria-label="Önceki desenler">‹</button>
+                    <div class="reel__track" data-reel-track role="listbox" aria-label="Desenler"></div>
+                    <button type="button" class="reel__nav" data-reel-next aria-label="Sonraki desenler">›</button>
+                  </div>
+                  <p class="reel__meta"><strong data-reel-name>${escapeHtml(previewPatterns[0].code)}</strong><span data-reel-page></span></p>
+                </div>
+                <input type="hidden" name="pattern-code" value="${escapeHtml(previewPatterns[0].code)}">
+              </fieldset>`
+      : "";
+  const textColor = preview
+    ? `<div class="order-field" role="radiogroup" aria-label="Yazı ve numara rengi">
+                  <span>Yazı ve numara rengi</span>
+                  <div class="order-colors">
+                    <label class="order-color"><input type="radio" name="text-color" value="#ffffff" data-label="Beyaz" checked><i style="background:#ffffff"></i> Beyaz</label>
+                    <label class="order-color"><input type="radio" name="text-color" value="#111111" data-label="Siyah"><i style="background:#111111"></i> Siyah</label>
+                  </div>
+                </div>`
+    : "";
+  return `<form class="order-form" data-order-form data-model="${escapeHtml(id)}" data-sport-label="${escapeHtml(label)}"${custom ? " data-custom" : ""}${preview ? ` data-preview="${preview}"` : ""} novalidate>
               <h2 class="order-form__title">${custom ? "Özel tasarım siparişini oluştur" : "Siparişini oluştur"}</h2>
               ${design}
               <fieldset class="order-form__section">
@@ -797,8 +837,10 @@ function orderForm({ id, sport = "", label, custom = false }) {
                   ${orderSelect("scope", "Ürün", [["takim", "Forma + şort"], ["ust", "Tek üst forma"]])}
                   ${orderSelect("collar", "Yaka tipi", collars.map((collar) => [collar, collar]), "Seçin")}
                   ${orderSelect("socks", "Çorap", [["yok", "Çorap yok"], ["var", "Çorap var"]])}
-                </div>
+                </div>${preview ? `
+                <p class="order-form__hint">Yaka tipini seçtiğinizde önizleme o yakayla gösterilir.</p>` : ""}
               </fieldset>
+              ${patternPick}
               <fieldset class="order-form__section">
                 <legend>Forma önünü tasarla</legend>
                 ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
@@ -807,11 +849,13 @@ function orderForm({ id, sport = "", label, custom = false }) {
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>Forma arkasını tasarla</legend>
-                <label class="order-field"><span>Sırt yazısı</span><input type="text" name="back-text" maxlength="24" autocomplete="off" placeholder="ÖRN. KULÜP İSMİ" data-uppercase></label>
+                <label class="order-field"><span>${preview ? "Kulüp ismi" : "Sırt yazısı"}</span><input type="text" name="back-text" maxlength="24" autocomplete="off" placeholder="ÖRN. KULÜP İSMİ" data-uppercase></label>
                 <div class="order-checks">
                   <label class="order-check"><input type="checkbox" name="has-number" checked data-roster-toggle="number"> Numara var</label>
                   <label class="order-check"><input type="checkbox" name="has-name" checked data-roster-toggle="name"> İsim var</label>
                 </div>
+                ${textColor}${preview ? `
+                <p class="order-form__hint">Önizlemede “10” ve “OYUNCU” örnek olarak gösterilir; her formaya listedeki isim ve numara yazılır.</p>` : ""}
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>İsim, numara ve beden listesi</legend>
@@ -822,12 +866,16 @@ function orderForm({ id, sport = "", label, custom = false }) {
               <fieldset class="order-form__section" data-order-shorts>
                 <legend>Şort</legend>
                 <div class="order-checks">
-                  <label class="order-check"><input type="checkbox" name="shorts-logo"> Sağ paçaya logo ekle</label>
-                  <label class="order-check"><input type="checkbox" name="shorts-number"> Sol paçaya numara ekle</label>
+                  <label class="order-check"><input type="checkbox" name="shorts-logo"${preview ? " checked" : ""}> Sağ paçaya logo ekle</label>
+                  <label class="order-check"><input type="checkbox" name="shorts-number"${preview ? " checked" : ""}> Sol paçaya numara ekle</label>
                 </div>
               </fieldset>
               ${goalkeeper}
               ${libero}
+              <fieldset class="order-form__section">
+                <legend>Sipariş notu</legend>
+                <label class="order-field"><span>Eklemek istedikleriniz <small>(isteğe bağlı)</small></span><textarea name="order-note" rows="3" maxlength="500" placeholder="Teslim tarihi, renk tercihi, özel istekler…"></textarea></label>
+              </fieldset>
               <div class="order-form__summary">
                 <div class="order-total" aria-live="polite">
                   <span class="order-total__label">Toplam tutar</span>
@@ -1024,7 +1072,7 @@ const servicePages = [
     description: "Takımınıza özel forma tasarımı için model, renk, logo, sponsor, isim, numara ve beden bilgilerini planlayın; siparişinizi hazırlayın.",
     eyebrow: "Özel tasarım",
     heading: "Kendi deseninle takımına özel forma.",
-    copy: "Hazır model seçmek zorunda değilsin. Desenini, görselini ya da çizimini yükle; renk, logo ve oyuncu listesiyle birlikte siparişini oluştur.",
+    copy: "Hazır model seçmek zorunda değilsin. Desenini yükle, formanın üzerinde anında gör; logo ve oyuncu listesiyle birlikte siparişini oluştur.",
     customForm: true,
     image: { src: "/assets/models/fk-019.webp", alt: "FK-019 beyaz ve yeşil özel futbol forma modeli", width: 640, height: 800 },
     cards: [
@@ -1045,7 +1093,8 @@ const servicePages = [
     description: "Takımınıza özel forma ve şort takımını model, renk, logo, isim, numara, adet ve beden dağılımıyla birlikte planlayın.",
     eyebrow: "Forma + şort",
     heading: "Üst ve alt parçayı aynı takım diliyle planla.",
-    copy: "Forma ve şort kapsamını en başta belirt; renk, numara uygulaması ve adet bilgisini tek sipariş içinde netleştir.",
+    copy: "Deseni seç; logonu, kulüp ismini ve yaka tipini anında forma ve şort üzerinde gör, siparişini aynı sayfada oluştur.",
+    previewForm: true,
     image: { src: "/assets/models/fk-007.webp", alt: "FK-007 özel forma ve şort takımı", width: 1000, height: 1250 },
     cards: [
       ["Tek tasarım dili", "Forma ve şort renklerini birbiriyle uyumlu ele al."],
@@ -1088,6 +1137,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
@@ -1103,8 +1153,14 @@ for (const service of servicePages) {
       ${innerHero({ eyebrow: service.eyebrow, title: service.heading, copy: service.copy })}
       ${
         service.customForm
-          ? `<section class="custom-order-section"><div class="container custom-order__grid">
-        ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", custom: true })}
+          ? `<section class="custom-order-section"><div class="container order-studio">
+        ${previewStage()}
+        ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", custom: true, preview: "upload" })}
+      </div></section>`
+          : service.previewForm
+          ? `<section class="custom-order-section"><div class="container order-studio">
+        ${previewStage()}
+        ${orderForm({ id: "Forma + şort", sport: "futbol", label: "Forma + şort", preview: "gallery" })}
       </div></section>`
           : `<section class="models-section"><div class="container">
         ${modelGrid(items)}

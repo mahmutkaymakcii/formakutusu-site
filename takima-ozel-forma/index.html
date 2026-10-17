@@ -39,11 +39,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:image" content="https://formakutusu.com/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261018">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017c">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Takıma Özel Forma Yaptırma","item":"https://formakutusu.com/takima-ozel-forma/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Sıfırdan tasarım isteyebilir miyim?","acceptedAnswer":{"@type":"Answer","text":"Evet. Bu sayfadaki formdan kendi desenini veya görselini yükleyebilirsin; tasarım onaylanmadan üretime geçilmez."}},{"@type":"Question","name":"Renkleri tamamen değiştirebilir miyim?","acceptedAnswer":{"@type":"Answer","text":"Modelin uygulanabilirliği korunarak takım renklerine göre düzenleme yapılabilir."}},{"@type":"Question","name":"Tasarım revizesi yapılır mı?","acceptedAnswer":{"@type":"Answer","text":"Gerekli düzenlemeler tasarım onayı aşamasında konuşulur."}}]}</script>
-  <script src="/assets/js/site.js?v=20261017" defer></script>
+  <script src="/assets/js/site.js?v=20261018" defer></script>
+  <script src="/assets/js/forma-onizleme.js?v=20261018" defer></script>
 </head>
 <body class="service-page">
 <!-- Google Tag Manager (noscript) -->
@@ -104,12 +105,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div>
         <p class="eyebrow">Özel tasarım</p>
         <h1>Kendi deseninle takımına özel forma.</h1>
-        <p class="lead">Hazır model seçmek zorunda değilsin. Desenini, görselini ya da çizimini yükle; renk, logo ve oyuncu listesiyle birlikte siparişini oluştur.</p>
+        <p class="lead">Hazır model seçmek zorunda değilsin. Desenini yükle, formanın üzerinde anında gör; logo ve oyuncu listesiyle birlikte siparişini oluştur.</p>
       </div>
     </div>
   </section>
-      <section class="custom-order-section"><div class="container custom-order__grid">
-        <form class="order-form" data-order-form data-model="Özel tasarım" data-sport-label="Özel tasarım" data-custom novalidate>
+      <section class="custom-order-section"><div class="container order-studio">
+        <div class="order-studio__stage" data-preview-stage>
+              <canvas class="order-studio__canvas" width="1848" height="1888" role="img" aria-label="Seçimlerinize göre forma ve şort önizlemesi"></canvas>
+              <span class="order-studio__status" data-preview-status aria-live="polite">Önizleme yükleniyor…</span>
+            </div>
+        <form class="order-form" data-order-form data-model="Özel tasarım" data-sport-label="Özel tasarım" data-custom data-preview="upload" novalidate>
               <h2 class="order-form__title">Özel tasarım siparişini oluştur</h2>
               <fieldset class="order-form__section">
                 <legend>Kendi tasarımını yükle</legend>
@@ -128,7 +133,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <label class="order-field"><span>Yaka tipi</span><select name="collar" required><option value="">Seçin</option><option value="Sıfır yaka">Sıfır yaka</option><option value="V yaka">V yaka</option><option value="Polo yaka">Polo yaka</option></select></label>
                   <label class="order-field"><span>Çorap</span><select name="socks" required><option value="yok">Çorap yok</option><option value="var">Çorap var</option></select></label>
                 </div>
+                <p class="order-form__hint">Yaka tipini seçtiğinizde önizleme o yakayla gösterilir.</p>
               </fieldset>
+
               <fieldset class="order-form__section">
                 <legend>Forma önünü tasarla</legend>
                 <div class="order-upload" data-upload>
@@ -149,11 +156,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>Forma arkasını tasarla</legend>
-                <label class="order-field"><span>Sırt yazısı</span><input type="text" name="back-text" maxlength="24" autocomplete="off" placeholder="ÖRN. KULÜP İSMİ" data-uppercase></label>
+                <label class="order-field"><span>Kulüp ismi</span><input type="text" name="back-text" maxlength="24" autocomplete="off" placeholder="ÖRN. KULÜP İSMİ" data-uppercase></label>
                 <div class="order-checks">
                   <label class="order-check"><input type="checkbox" name="has-number" checked data-roster-toggle="number"> Numara var</label>
                   <label class="order-check"><input type="checkbox" name="has-name" checked data-roster-toggle="name"> İsim var</label>
                 </div>
+                <div class="order-field" role="radiogroup" aria-label="Yazı ve numara rengi">
+                  <span>Yazı ve numara rengi</span>
+                  <div class="order-colors">
+                    <label class="order-color"><input type="radio" name="text-color" value="#ffffff" data-label="Beyaz" checked><i style="background:#ffffff"></i> Beyaz</label>
+                    <label class="order-color"><input type="radio" name="text-color" value="#111111" data-label="Siyah"><i style="background:#111111"></i> Siyah</label>
+                  </div>
+                </div>
+                <p class="order-form__hint">Önizlemede “10” ve “OYUNCU” örnek olarak gösterilir; her formaya listedeki isim ve numara yazılır.</p>
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>İsim, numara ve beden listesi</legend>
@@ -164,8 +179,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <fieldset class="order-form__section" data-order-shorts>
                 <legend>Şort</legend>
                 <div class="order-checks">
-                  <label class="order-check"><input type="checkbox" name="shorts-logo"> Sağ paçaya logo ekle</label>
-                  <label class="order-check"><input type="checkbox" name="shorts-number"> Sol paçaya numara ekle</label>
+                  <label class="order-check"><input type="checkbox" name="shorts-logo" checked> Sağ paçaya logo ekle</label>
+                  <label class="order-check"><input type="checkbox" name="shorts-number" checked> Sol paçaya numara ekle</label>
                 </div>
               </fieldset>
               <fieldset class="order-form__section" data-sport-only="futbol" hidden>
@@ -179,6 +194,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <label class="order-check"><input type="checkbox" name="libero"> Libero forması var</label>
                 <label class="order-field" data-libero-count hidden><span>Libero forması adedi</span><input type="number" name="libero-count" min="1" max="60" value="1" inputmode="numeric"></label>
                 <p class="order-form__hint" data-libero-note hidden>Libero formaları için fiyat farkı yoktur.</p>
+              </fieldset>
+              <fieldset class="order-form__section">
+                <legend>Sipariş notu</legend>
+                <label class="order-field"><span>Eklemek istedikleriniz <small>(isteğe bağlı)</small></span><textarea name="order-note" rows="3" maxlength="500" placeholder="Teslim tarihi, renk tercihi, özel istekler…"></textarea></label>
               </fieldset>
               <div class="order-form__summary">
                 <div class="order-total" aria-live="polite">
