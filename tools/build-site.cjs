@@ -273,7 +273,7 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261017b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017b">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261017" defer></script>
@@ -1104,7 +1104,6 @@ for (const service of servicePages) {
       ${
         service.customForm
           ? `<section class="custom-order-section"><div class="container custom-order__grid">
-        ${sectionIntro("Kendi tasarımın", "Deseni sen getir, gerisini birlikte hazırlayalım.", "Görselini yükle, branşı ve ürün seçeneklerini belirle, oyuncu listesini doldur. Sipariş özeti WhatsApp'a hazır gelir.")}
         ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", custom: true })}
       </div></section>`
           : `<section class="models-section"><div class="container">

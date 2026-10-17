@@ -150,7 +150,7 @@ function createIstanbulPage(chrome) {
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261017b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017b">
   ${schemas.map(schemaTag).join("\n  ")}
   <script src="/assets/js/site.js?v=20261017" defer></script>
