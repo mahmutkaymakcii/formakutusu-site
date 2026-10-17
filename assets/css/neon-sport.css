@@ -1583,13 +1583,31 @@ h3 {
   top: -16rem;
 }
 
+/* Kompakt iç sayfa başlığı: içerik ilk ekranda görünsün. */
+.inner-hero {
+  padding: clamp(1.5rem, 3.5vw, 2.75rem) 0 clamp(1rem, 2.5vw, 2rem);
+}
+
 .inner-hero__grid {
-  min-height: 30rem;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .inner-hero h1 {
-  max-width: 14ch;
-  font-size: clamp(2.9rem, 6.6vw, 5.8rem);
+  max-width: 24ch;
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.9rem, 3.8vw, 3.2rem);
+}
+
+.inner-hero .lead {
+  max-width: 60ch;
+  margin: 0;
+}
+
+.inner-hero__visual,
+.inner-hero__mark,
+.inner-hero .button-row {
+  display: none !important;
 }
 
 .inner-hero__visual,

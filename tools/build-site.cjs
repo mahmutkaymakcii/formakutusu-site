@@ -273,10 +273,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016e">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261017b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261016e" defer></script>
+  <script src="/assets/js/site.js?v=20261017" defer></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   ${header(routePath)}
@@ -396,24 +396,15 @@ function faqBlock(items) {
   </div>`;
 }
 
-function innerHero({ eyebrow, title, copy, cta = true, image }) {
+// İç sayfalarda kompakt başlık: görsel ve butonlar yok, içerik ilk ekrana gelir.
+function innerHero({ eyebrow, title, copy }) {
   return `<section class="inner-hero">
     <div class="container inner-hero__grid">
       <div>
         <p class="eyebrow">${escapeHtml(eyebrow)}</p>
         <h1>${escapeHtml(title)}</h1>
         <p class="lead">${escapeHtml(copy)}</p>
-        ${
-          cta
-            ? `<div class="button-row"><a class="button" href="/teklif/">Fiyatları Gör</a><a class="button button--ghost" href="/modeller/">Modelleri Gör</a></div>`
-            : ""
-        }
       </div>
-      ${
-        image
-          ? `<div class="inner-hero__visual"><img src="${image.src}"${image.src === "/assets/models/fk-007.webp" ? ' srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 52rem) 92vw, 38vw"' : ""} alt="${escapeHtml(image.alt)}" width="${image.width}" height="${image.height}" loading="eager" fetchpriority="high"></div>`
-          : `<div class="inner-hero__mark" aria-hidden="true"><span>FK</span><strong>Takımına özel</strong></div>`
-      }
     </div>
   </section>`;
 }
@@ -685,7 +676,6 @@ for (const [sport, config] of Object.entries(categoryConfig)) {
     title: config.title,
     description: config.description,
     pageClass: "category-page",
-    preloadImage: config.image.src,
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
@@ -1100,7 +1090,6 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    preloadImage: service.image.src,
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
@@ -1113,11 +1102,7 @@ for (const service of servicePages) {
         { name: "Ana Sayfa", path: "/" },
         { name: service.title, path: service.route },
       ])}
-      ${innerHero({ eyebrow: service.eyebrow, title: service.heading, copy: service.copy, image: service.image })}
-      <section class="feature-section"><div class="container">
-        ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
-        <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
-      </div></section>
+      ${innerHero({ eyebrow: service.eyebrow, title: service.heading, copy: service.copy })}
       ${
         service.customForm
           ? `<section class="custom-order-section"><div class="container custom-order__grid">
@@ -1129,6 +1114,10 @@ for (const service of servicePages) {
         ${modelGrid(items)}
       </div></section>`
       }
+      <section class="feature-section"><div class="container">
+        ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
+        <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
+      </div></section>
       <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>
       <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>
       ${finalCta()}`,
