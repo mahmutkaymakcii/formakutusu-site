@@ -188,6 +188,19 @@ body.home-v2 .fk-category-card > div {
   background: linear-gradient(90deg, rgb(17 21 28 / 98%) 0 84%, rgb(17 21 28 / 78%) 100%);
 }
 
+/* Unbounded geniş bir font; kategori başlığı yazı sütununa göre boyutlanır ve görselin üstüne taşmaz. */
+body.home-v2 .fk-category-card {
+  grid-template-columns: 60% 40%;
+}
+
+body.home-v2 .fk-category-card > div {
+  container-type: inline-size;
+}
+
+body.home-v2 .fk-category-card h3 {
+  font-size: min(34px, 12.5cqi);
+}
+
 body.home-v2 .fk-category-card::before,
 body.home-v2 .fk-category-card b,
 body.home-v2 .fk-new-label {
