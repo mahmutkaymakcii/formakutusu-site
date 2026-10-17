@@ -2533,22 +2533,147 @@ body.home-v2 .fk-social__grid {
   align-items: center;
 }
 
-/* Hazır sosyal medya kartı görselleri (saydam PNG) */
+/* Hazır sosyal medya kartı görselleri (saydam PNG; ana sayfa ve iletişim).
+   Üzerine gelince kartın kendi şeklini izleyen platform renginde çerçeve belirir. */
+.social-tile,
 body.home-v2 .fk-social-tile {
   display: block;
-  border-radius: 24px;
+  width: 90%;
+  justify-self: center;
   transition: transform 180ms ease, filter 180ms ease;
 }
 
-body.home-v2 .fk-social-tile:hover {
+.social-tile,
+.fk-social-tile { --tile-stroke: var(--cyan); }
+.social-tile[href*="instagram"],
+.fk-social-tile[href*="instagram"] { --tile-stroke: #c13cff; }
+.social-tile[href*="facebook"],
+.fk-social-tile[href*="facebook"] { --tile-stroke: #2f7bff; }
+.social-tile[href*="tiktok"],
+.fk-social-tile[href*="tiktok"] { --tile-stroke: #fe2c55; }
+.social-tile[href^="mailto"],
+.fk-social-tile[href^="mailto"],
+.social-tile[href*="email-protection"],
+.fk-social-tile[href*="email-protection"] { --tile-stroke: #ea4335; }
+
+.social-tile:hover,
+.social-tile:focus-visible,
+body.home-v2 .fk-social-tile:hover,
+body.home-v2 .fk-social-tile:focus-visible {
   transform: translateY(-6px);
-  filter: drop-shadow(0 18px 28px rgb(0 0 0 / 45%));
+  filter:
+    drop-shadow(2px 0 0 var(--tile-stroke))
+    drop-shadow(-2px 0 0 var(--tile-stroke))
+    drop-shadow(0 2px 0 var(--tile-stroke))
+    drop-shadow(0 -2px 0 var(--tile-stroke))
+    drop-shadow(0 0 16px var(--tile-stroke));
+  outline: none;
 }
 
+.social-tile img,
 body.home-v2 .fk-social-tile img {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ---- İletişim sayfası ---- */
+.contact-social {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: center;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.contact-info__card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(160deg, #11151c, #1a1f2b);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+a.contact-info__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan);
+}
+
+.contact-info__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--signal-gradient);
+  color: #080a0e;
+}
+
+.contact-info__card--whatsapp .contact-info__icon {
+  background: #25d366;
+  color: #fff;
+}
+
+.contact-info__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.contact-info__text {
+  display: grid;
+  flex: 1;
+  gap: 4px;
+  min-width: 0;
+}
+
+.contact-info__text small {
+  color: var(--volt);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.contact-info__text strong {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.contact-info__text strong a {
+  color: inherit;
+}
+
+.contact-info__text > span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.contact-info__card b {
+  flex: none;
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: var(--volt);
+  color: #080a0e;
+  font-size: 14px;
+}
+
+@media (max-width: 980px) {
+  .contact-social { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .contact-info { grid-template-columns: 1fr; gap: 12px; margin-top: 28px; }
 }
 
 @media (max-width: 1240px) {

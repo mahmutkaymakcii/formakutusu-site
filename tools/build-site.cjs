@@ -16,6 +16,7 @@ const site = {
   whatsapp: "905348578836",
   instagram: "https://www.instagram.com/formakutusu/",
   tiktok: "https://www.tiktok.com/@formakutusunora",
+  facebook: "https://www.facebook.com/share/198st7XEzE/",
   email: "formakutusu@gmail.com",
   locality: "Zeytinburnu",
   region: "İstanbul",
@@ -95,7 +96,7 @@ function organizationSchema() {
         closes: "18:00",
       },
     })),
-    sameAs: [site.instagram, site.tiktok],
+    sameAs: [site.instagram, site.tiktok, site.facebook],
   };
 }
 
@@ -213,6 +214,8 @@ function footer() {
         <a href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         <a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&nbsp;")}</a>
         <a href="${site.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="${site.facebook}" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="${site.tiktok}" target="_blank" rel="noopener noreferrer">TikTok</a>
         <a href="/kvkk-ve-gizlilik/">Gizlilik notu</a>
       </div>
     </div>
@@ -275,7 +278,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261018c">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261018z">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019a">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018d" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -1346,13 +1349,18 @@ writePage("/iletisim/", {
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "İletişim", path: "/iletisim/" }])}
     ${innerHero({ eyebrow: "İletişim", title: "Takımın için konuşmaya başlayalım.", copy: "En hızlı başlangıç için model kodunu, forma adedini ve takım renklerini mesajına ekle.", cta: false })}
-    <section class="contact-section"><div class="container contact-grid">
-      <a class="contact-card" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span>01</span><h2>WhatsApp</h2><p>Sipariş ve model soruları için doğrudan yaz.</p><strong>Mesaj gönder ↗</strong></a>
-      <div class="contact-card"><span>02</span><h2>Telefon</h2><p><a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&#8209;")}</a><br><a href="tel:${site.phone2Href}">${site.phone2Display.split(" ").join("&#8209;")}</a></p></div>
-      <a class="contact-card" href="mailto:${site.email}"><span>03</span><h2>E-posta</h2><p>${site.email}</p><strong>E-posta gönder ↗</strong></a>
-      <div class="contact-card"><span>04</span><h2>Saatler ve konum</h2><p>${site.hoursDisplay}<br>${site.locality}, ${site.region}</p></div>
-      <a class="contact-card" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><span>05</span><h2>Instagram</h2><p>Yayınlanan tasarım ve içerikleri incele.</p><strong>Profili aç ↗</strong></a>
-      <a class="contact-card" href="${site.tiktok}" target="_blank" rel="noopener noreferrer"><span>06</span><h2>TikTok</h2><p>@formakutusunora hesabını takip et.</p><strong>Profili aç ↗</strong></a>
+    <section class="contact-section"><div class="container">
+      <div class="contact-social" aria-label="Sosyal medya hesapları">
+        <a class="social-tile" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-instagram.png" alt="Instagram'da takip et: @formakutusu" width="560" height="571" loading="lazy"></a>
+        <a class="social-tile" href="${site.facebook}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-facebook.png" alt="Facebook'ta takip et: @formakutusu" width="560" height="571" loading="lazy"></a>
+        <a class="social-tile" href="${site.tiktok}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-tiktok.png" alt="TikTok'ta takip et: @formakutusunora" width="560" height="571" loading="lazy"></a>
+        <a class="social-tile" href="mailto:${site.email}?subject=Forma%20sipari%C5%9Fi"><img src="/assets/home/sosyal-gmail.png" alt="E-posta: ${site.email}" width="560" height="571" loading="lazy"></a>
+      </div>
+      <div class="contact-info">
+        <a class="contact-info__card contact-info__card--whatsapp" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.2-2.2l.8-1-1-2z"/></svg></span><span class="contact-info__text"><small>WhatsApp</small><strong>Mesaj gönder</strong><span>Sipariş ve model soruları için doğrudan yaz.</span></span><b aria-hidden="true">→</b></a>
+        <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></span><span class="contact-info__text"><small>Telefon</small><strong><a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&nbsp;")}</a></strong><strong><a href="tel:${site.phone2Href}">${site.phone2Display.split(" ").join("&nbsp;")}</a></strong></span></div>
+        <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="contact-info__text"><small>Saatler ve konum</small><strong>${site.hoursDisplay}</strong><span>${site.locality}, ${site.region}</span></span></div>
+      </div>
     </div></section>
     <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Mesaj kontrol listesi</p><h2>İlk mesajda bunları ekle.</h2></div><ul class="check-list"><li>Branş ve kullanım amacı</li><li>Beğendiğin model kodu</li><li>Forma adedi</li><li>Forma veya forma + şort</li><li>Takım renkleri</li><li>Varsa hedef tarih</li></ul></div></section>
     ${finalCta()}`,
