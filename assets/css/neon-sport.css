@@ -2528,112 +2528,27 @@ body.home-v2 .fk-social__intro {
 
 body.home-v2 .fk-social__grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: center;
 }
 
-body.home-v2 .fk-social-card {
-  position: relative;
-  min-height: 320px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 16px;
-  overflow: hidden;
-  padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(160deg, #11151c, #1a1f2b);
-  box-shadow: var(--shadow);
-  color: var(--text);
-  transition: transform 180ms ease, border-color 180ms ease;
+/* Hazır sosyal medya kartı görselleri (saydam PNG) */
+body.home-v2 .fk-social-tile {
+  display: block;
+  border-radius: 24px;
+  transition: transform 180ms ease, filter 180ms ease;
 }
 
-body.home-v2 .fk-social-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--cyan);
+body.home-v2 .fk-social-tile:hover {
+  transform: translateY(-6px);
+  filter: drop-shadow(0 18px 28px rgb(0 0 0 / 45%));
 }
 
-body.home-v2 .fk-social-card > img {
-  position: absolute;
-  inset: 0;
+body.home-v2 .fk-social-tile img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-body.home-v2 .fk-social-card--instagram::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, rgb(8 10 14 / 5%) 20%, rgb(8 10 14 / 94%) 82%);
-}
-
-body.home-v2 .fk-social-card > :not(img) {
-  position: relative;
-  z-index: 2;
-}
-
-body.home-v2 .fk-social-card__icon {
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
-  margin-bottom: auto;
-  border-radius: 16px;
-  background: #25d366;
-  color: #fff;
-}
-
-body.home-v2 .fk-social-card--instagram .fk-social-card__icon {
-  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-}
-
-body.home-v2 .fk-social-card[href*="tiktok"] .fk-social-card__icon {
-  background: #000;
-  box-shadow: -3px -3px 0 #25f4ee, 3px 3px 0 #fe2c55;
-}
-
-body.home-v2 .fk-social-card__icon svg {
-  width: 26px;
-  height: 26px;
-}
-
-body.home-v2 .fk-social-card__text small {
-  display: block;
-  color: var(--volt);
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-body.home-v2 .fk-social-card__text strong {
-  display: block;
-  margin-top: 6px;
-  font-size: 21px;
-  font-weight: 900;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
-}
-
-body.home-v2 .fk-social-card__text > span {
-  display: block;
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-body.home-v2 .fk-social-card b {
-  align-self: flex-start;
-  padding: 9px 13px;
-  border-radius: 9px;
-  background: var(--volt);
-  color: #080a0e;
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
+  height: auto;
 }
 
 @media (max-width: 1240px) {
@@ -2655,18 +2570,7 @@ body.home-v2 .fk-social-card b {
 
 @media (max-width: 680px) {
   body.home-v2 .fk-social { padding-top: 42px; }
-  body.home-v2 .fk-social__grid { grid-template-columns: 1fr; gap: 10px; }
-  body.home-v2 .fk-social-card { padding: 18px; gap: 12px; }
-  body.home-v2 .fk-social-card--instagram { min-height: 260px; }
-  /* Fotoğrafsız kartlar telefonda tek satır: ikon, bilgi, ok */
-  body.home-v2 .fk-social-card:not(.fk-social-card--instagram) { min-height: 0; flex-direction: row; align-items: center; gap: 14px; }
-  body.home-v2 .fk-social-card:not(.fk-social-card--instagram) .fk-social-card__icon { margin-bottom: 0; }
-  body.home-v2 .fk-social-card:not(.fk-social-card--instagram) .fk-social-card__text { flex: 1; min-width: 0; }
-  body.home-v2 .fk-social-card:not(.fk-social-card--instagram) b { align-self: center; padding: 9px 11px; font-size: 0; }
-  body.home-v2 .fk-social-card:not(.fk-social-card--instagram) b::after { content: "→"; font-size: 14px; }
-  body.home-v2 .fk-social-card__icon { flex: none; width: 46px; height: 46px; border-radius: 14px; }
-  body.home-v2 .fk-social-card__text strong { font-size: 17px; overflow-wrap: normal; }
-  body.home-v2 .fk-social-card__text > span { font-size: 12px; }
+  body.home-v2 .fk-social__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   body.home-v2 .fk-trust__box { grid-template-columns: 1fr; border-radius: 16px; }
   body.home-v2 .fk-trust__brand { flex-direction: row; align-items: center; gap: 14px; padding: 16px 18px; border-right: 0; border-bottom: 1px solid rgb(8 10 14 / 16%); }
   body.home-v2 .fk-category-card { flex: none; width: 78vw; scroll-snap-align: start; }
