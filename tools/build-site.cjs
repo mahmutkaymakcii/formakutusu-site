@@ -769,13 +769,14 @@ function previewStage() {
             </div>`;
 }
 
-function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
+function orderForm({ id, sport = "", label, custom = false, preview = "", sportPick = false }) {
   // Basketbolda polo yaka yok; kaleci yalnızca futbolda, libero yalnızca voleybolda.
-  // Özel tasarım formunda branş müşteri tarafından seçilir; ilgili bölümleri JS gösterir.
+  // Özel tasarım ve Forma + şort formlarında branş müşteri tarafından seçilir; ilgili bölümleri JS gösterir.
+  const pickSport = custom || sportPick;
   const collars = sport === "basketbol" ? ["Sıfır yaka", "V yaka"] : ["Sıfır yaka", "V yaka", "Polo yaka"];
   const goalkeeper =
-    custom || sport === "futbol"
-      ? `<fieldset class="order-form__section" data-sport-only="futbol"${custom ? " hidden" : ""}>
+    pickSport || sport === "futbol"
+      ? `<fieldset class="order-form__section" data-sport-only="futbol"${pickSport ? " hidden" : ""}>
                 <legend>Kaleci</legend>
                 <label class="order-check"><input type="checkbox" name="goalkeeper"> Kaleci forması var (uzun kol)</label>
                 <label class="order-field" data-goalkeeper-count hidden><span>Kaleci forması adedi</span><input type="number" name="goalkeeper-count" min="1" max="60" value="1" inputmode="numeric"></label>
@@ -783,8 +784,8 @@ function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
               </fieldset>`
       : "";
   const libero =
-    custom || sport === "voleybol"
-      ? `<fieldset class="order-form__section" data-sport-only="voleybol"${custom ? " hidden" : ""}>
+    pickSport || sport === "voleybol"
+      ? `<fieldset class="order-form__section" data-sport-only="voleybol"${pickSport ? " hidden" : ""}>
                 <legend>Libero</legend>
                 <label class="order-check"><input type="checkbox" name="libero"> Libero forması var</label>
                 <label class="order-field" data-libero-count hidden><span>Libero forması adedi</span><input type="number" name="libero-count" min="1" max="60" value="1" inputmode="numeric"></label>
@@ -832,13 +833,14 @@ function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
               ${design}
               <fieldset class="order-form__section">
                 <legend>Sipariş bilgileri</legend>
-                <label class="order-field"><span>Adet <small>(en az 5)</small></span><input type="number" name="quantity" min="5" max="60" value="5" inputmode="numeric" required data-order-quantity></label>
+                ${sportPick && !custom ? `<label class="order-field"><span>Branş</span><select name="sport" required data-order-sport><option value="">Seçin</option><option value="futbol">Futbol</option><option value="basketbol">Basketbol</option><option value="voleybol">Voleybol</option></select></label>
+                ` : ""}<label class="order-field"><span>Adet <small>(en az 5)</small></span><input type="number" name="quantity" min="5" max="60" value="5" inputmode="numeric" required data-order-quantity></label>
                 <div class="order-selects">
                   ${orderSelect("scope", "Ürün", [["takim", "Forma + şort"], ["ust", "Tek üst forma"]])}
                   ${orderSelect("collar", "Yaka tipi", collars.map((collar) => [collar, collar]), "Seçin")}
                   ${orderSelect("socks", "Çorap", [["yok", "Çorap yok"], ["var", "Çorap var"]])}
                 </div>${preview ? `
-                <p class="order-form__hint">${custom ? "Futbolda önizleme seçtiğiniz yaka tipiyle, basketbol ve voleybolda V yaka ile gösterilir." : "Yaka tipini seçtiğinizde önizleme o yakayla gösterilir."}</p>` : ""}
+                <p class="order-form__hint">${pickSport ? "Futbolda önizleme seçtiğiniz yaka tipiyle, basketbol ve voleybolda V yaka ile gösterilir." : "Yaka tipini seçtiğinizde önizleme o yakayla gösterilir."}</p>` : ""}
               </fieldset>
               ${patternPick}
               <fieldset class="order-form__section">
@@ -1137,7 +1139,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018c"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018e"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
@@ -1160,7 +1162,7 @@ for (const service of servicePages) {
           : service.previewForm
           ? `<section class="custom-order-section"><div class="container order-studio">
         ${previewStage()}
-        ${orderForm({ id: "Forma + şort", sport: "futbol", label: "Forma + şort", preview: "gallery" })}
+        ${orderForm({ id: "Forma + şort", label: "Forma + şort", preview: "gallery", sportPick: true })}
       </div></section>`
           : `<section class="models-section"><div class="container">
         ${modelGrid(items)}

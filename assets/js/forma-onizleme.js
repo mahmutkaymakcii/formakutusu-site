@@ -84,12 +84,16 @@
       },
     },
     "Voleybol": {
-      src: "mockup-voleybol.webp", native: [1168, 1160], inner: [0, 169], gain: [1.15, 1.9], noShortsItems: true,
+      // frontAnchor: desen önde etek (alt) kısmından hizalanır
+      src: "mockup-voleybol.webp", native: [1168, 1160], inner: [0, 163], gain: [1.15, 1.9], noShortsItems: true, frontAnchor: "bottom",
       front: [
-        { poly: [[198, 0], [200, 14], [231, 116], [293, 165], [303, 169], [313, 165], [375, 116], [406, 14], [408, 0]], r: 5 },
-        { poly: [[174, 0], [178, 22], [213, 116], [257, 161], [303, 196], [349, 161], [393, 116], [428, 22], [432, 0]], r: 4 },
+        // V yaka merkezi x = 313 (yakın planda yeniden ölçüldü)
+        { poly: [[207, 0], [209, 7], [228, 45], [248, 84], [280, 124], [313, 163], [346, 124], [378, 84], [398, 45], [417, 7], [419, 0]], r: 5 },
+        { poly: [[184, 0], [187, 22], [208, 60], [229, 99], [270, 140], [313, 182], [356, 140], [397, 99], [418, 60], [439, 22], [442, 0]], r: 4 },
       ],
       backEdge: () => 186, backX: [798, 1018],
+      // Forma eteği kavisli (ortada aşağıda); forma ile şort bu çizgiden ayrılır
+      hem: (x) => 877 - 0.00047 * (x - 313) ** 2,
       trims: { band: 20, zones: [
         [[0, 60], [90, 60], [90, 310], [0, 310]], [[520, 60], [640, 60], [640, 310], [520, 310]],
         [[640, 220], [710, 220], [710, 470], [640, 470]], [[1100, 220], [1168, 220], [1168, 470], [1100, 470]],
@@ -111,6 +115,7 @@
     cfg.front = cfg.front.map((p) => ({ ...p, poly: p.poly.map(pt) }));
     const edge = cfg.backEdge;
     cfg.backEdge = (xf) => edge((xf - ox) / fs) * fs + oy;
+    if (cfg.hem) { const hem = cfg.hem; cfg.hem = (xf) => hem((xf - ox) / fs) * fs + oy; }
     cfg.backX = cfg.backX.map((x) => x * fs + ox);
     cfg.inner = cfg.inner.map((y) => y * fs + oy);
     if (cfg.trims) cfg.trims = { band: cfg.trims.band * fs, zones: cfg.trims.zones.map((z) => z.map(pt)) };
@@ -239,7 +244,8 @@
       const x = i % W, y = (i - x) / W;
       if (id === back.id) { region[i] = 2; grow(boxes.back, x, y); }
       else if (leftIds.has(id)) {
-        if (y < hemY) { region[i] = 1; grow(boxes.front, x, y); } else { region[i] = 3; grow(boxes.shorts, x, y); }
+        const shirt = cfg.hem ? y < cfg.hem(x / k) * k : y < hemY;
+        if (shirt) { region[i] = 1; grow(boxes.front, x, y); } else { region[i] = 3; grow(boxes.shorts, x, y); }
       }
     }
 
@@ -363,11 +369,12 @@
     const w = img.naturalWidth * r, h = img.naturalHeight * r;
     g.drawImage(img, cx - w / 2, cy - h / 2, w, h);
   }
-  function drawCover(g, img, box) {
+  // anchor "bottom": görselin alt kenarı kutunun alt kenarına (etek) hizalanır; varsayılan ortalı
+  function drawCover(g, img, box, anchor = "center") {
     const [x0, y0, x1, y1] = box, bw = x1 - x0, bh = y1 - y0;
     const r = Math.max(bw / img.naturalWidth, bh / img.naturalHeight);
     const w = img.naturalWidth * r, h = img.naturalHeight * r;
-    g.drawImage(img, x0 + (bw - w) / 2, y0 + (bh - h) / 2, w, h);
+    g.drawImage(img, x0 + (bw - w) / 2, anchor === "bottom" ? y1 - h : y0 + (bh - h) / 2, w, h);
   }
   const drawInBox = (g, img, b) => drawFit(g, img, b.x + b.w / 2, b.y + b.h / 2, b.w, b.h);
   // Kutuya yazı: kutunun yüksekliği harf yüksekliğidir (isimde "H", numarada rakamlar)
@@ -496,7 +503,7 @@
     const g = tex.getContext("2d", { willReadFrequently: true });
     g.clearRect(0, 0, W, H);
     g.filter = "blur(0.6px)"; // vektör desenin keskin kenarlarını kumaşa yaklaştırır
-    drawCover(g, state.pattern, boxes.front); drawCover(g, state.pattern, boxes.back);
+    drawCover(g, state.pattern, boxes.front, state.cfg.frontAnchor); drawCover(g, state.pattern, boxes.back);
     g.filter = "none";
     g.fillStyle = `rgb(${solid.join(",")})`; g.fillRect(sx0, sy0, sx1 - sx0 + 1, sy1 - sy0 + 1);
 
