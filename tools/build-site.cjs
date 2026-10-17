@@ -224,9 +224,7 @@ function footer() {
       <a href="/iletisim/">İletişim</a>
     </div>
   </footer>
-  <a class="mobile-cta" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp üzerinden sipariş ver">
-    <span aria-hidden="true">↗</span> Sipariş Ver
-  </a>`;
+  <nav class="mobile-cta mobile-cta--pair" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="/forma-sort-takimi/">Tasarla <span aria-hidden="true">→</span></a><a class="mobile-cta__secondary" href="/teklif/">Fiyatları Gör</a></nav>`;
 }
 
 function pageShell({
@@ -278,7 +276,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261018c">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019c">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018d" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -414,11 +412,11 @@ function innerHero({ eyebrow, title, copy }) {
   </section>`;
 }
 
-function finalCta(title = "Forma fiyatlarını incele, siparişini WhatsApp’tan başlat.") {
+function finalCta(title = "Takımına yakışan formayı birlikte hazırlayalım.") {
   return `<section class="final-cta">
     <div class="container final-cta__inner">
-      <div><p class="eyebrow">Bir sonraki adım</p><h2>${escapeHtml(title)}</h2><p>Model kodunu, forma adedini ve takım renklerini paylaşman yeterli.</p></div>
-      <div class="button-row"><a class="button" href="/teklif/">Fiyatları Gör</a><a class="button button--ghost" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">Sipariş Ver</a></div>
+      <div><p class="eyebrow">Bir sonraki adım</p><h2>${escapeHtml(title)}</h2></div>
+      <div class="button-row"><a class="button" href="/forma-sort-takimi/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
     </div>
   </section>`;
 }
