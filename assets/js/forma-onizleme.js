@@ -80,7 +80,8 @@
       ] },
       layout: {
         logoRight: { x: 164, y: 177, w: 66, h: 38 }, logoLeft: { x: 380, y: 155, w: 75, h: 84 },
-        sponsor: { x: 160, y: 265, w: 292, h: 112 },
+        // Ön yüzde göğüs ortasında numara, reklam numaranın altında
+        frontNumber: { x: 236, y: 262, w: 140, h: 150 }, sponsor: { x: 175, y: 440, w: 262, h: 100 },
         club: { x: 657, y: 332, w: 360, h: 51 }, number: { x: 701, y: 422, w: 272, h: 239 }, player: { x: 657, y: 697, w: 360, h: 51 },
         shortsLogo: { x: 69, y: 998, w: 82, h: 84 }, shortsNumber: { x: 430, y: 904, w: 107, h: 124 },
       },
@@ -103,7 +104,7 @@
       ] },
       layout: {
         logoRight: { x: 166, y: 215, w: 70, h: 40 }, logoLeft: { x: 398, y: 190, w: 80, h: 89 },
-        sponsor: { x: 162, y: 326, w: 311, h: 119 },
+        frontNumber: { x: 246, y: 300, w: 134, h: 150 }, sponsor: { x: 177, y: 470, w: 272, h: 100 },
         club: { x: 738, y: 298, w: 340, h: 54 }, number: { x: 765, y: 404, w: 285, h: 251 }, player: { x: 738, y: 702, w: 340, h: 54 },
       },
     },
@@ -575,6 +576,8 @@
     textInBox(g, club, "FIBA", P.club, nameSize, color);
     textInBox(g, num, "NoraNumara", P.number, sizeInBox(g, num, "NoraNumara", P.number), color);
     textInBox(g, player, "FIBA", P.player, nameSize, color);
+    // Basketbol ve voleybolda ön yüzde de numara
+    if (P.frontNumber && num) textInBox(g, num, "NoraNumara", P.frontNumber, sizeInBox(g, num, "NoraNumara", P.frontNumber), color);
     // Voleybolda şorta logo ve numara eklenmez
     const shortsItems = !state.cfg.noShortsItems && sport() !== "voleybol";
     if (shortsItems && isOn("shorts-logo") && L.left) drawInBox(g, L.left, P.shortsLogo);
