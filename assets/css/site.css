@@ -1406,6 +1406,15 @@ h3 {
   .custom-order__grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  /* Mobilde başlık zaten aynı bilgiyi veriyor; form hemen başlasın. */
+  .custom-order__grid > .section-intro {
+    display: none;
+  }
+
+  .custom-order-section {
+    padding-top: 0.5rem;
+  }
 }
 
 .order-form input:focus-visible,
