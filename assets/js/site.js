@@ -26,8 +26,10 @@
 
   function openWhatsApp(message) {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    const popup = window.open(url, "_blank", "noopener,noreferrer");
-    if (!popup) window.location.assign(url);
+    // "noopener" ile window.open her zaman null döner ve sayfa da yönlenirdi; opener elle kesilir
+    const popup = window.open(url, "_blank");
+    if (popup) popup.opener = null;
+    else window.location.assign(url);
   }
 
   function initNavigation() {
@@ -260,11 +262,29 @@
 
     const designFiles = () => [...(designInput?.files || [])];
 
+    // Seçili dosyayı kaldırma düğmesi; dosya alanının change olayı önizlemeyi de günceller
+    const removeButton = (file, onRemove) => {
+      const button = Object.assign(document.createElement("button"), { type: "button", className: "order-upload__remove", textContent: "Kaldır" });
+      button.setAttribute("aria-label", `${file.name} dosyasını kaldır`);
+      button.addEventListener("click", onRemove);
+      return button;
+    };
+    const setFiles = (input, files) => {
+      try {
+        const transfer = new DataTransfer();
+        files.forEach((file) => transfer.items.add(file));
+        input.files = transfer.files;
+      } catch {
+        input.value = "";
+      }
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+
     const showDesignPreview = () => {
       if (!designPreview) return;
       const files = designFiles();
       designPreview.replaceChildren(
-        ...files.map((file) => {
+        ...files.map((file, index) => {
           const item = document.createElement("li");
           if (file.type.startsWith("image/")) {
             const img = document.createElement("img");
@@ -273,7 +293,10 @@
             img.onload = () => URL.revokeObjectURL(img.src);
             item.append(img);
           }
-          item.append(document.createTextNode(file.name));
+          item.append(
+            Object.assign(document.createElement("span"), { textContent: file.name }),
+            removeButton(file, () => setFiles(designInput, designFiles().filter((_, i) => i !== index))),
+          );
           return item;
         }),
       );
@@ -305,7 +328,7 @@
       const preview = upload.querySelector("[data-upload-preview]");
 
       // "Yok" dosya yüklemeyi pasif yapar; TR Arma ile "Yok" birbirini dışlar. TR Arma seçiliyken
-      // yüklenen logo sağ göğse geçer, bu yüzden yükleme açık kalır.
+      // yüklenen logo göğsün ortasına geçer, bu yüzden yükleme açık kalır.
       const sync = () => {
         const blocked = none.checked;
         if (blocked) input.value = "";
@@ -326,7 +349,10 @@
           img.onload = () => URL.revokeObjectURL(img.src);
           preview.append(img);
         }
-        preview.append(document.createTextNode(file.name));
+        preview.append(
+          Object.assign(document.createElement("span"), { textContent: file.name }),
+          removeButton(file, () => setFiles(input, [])),
+        );
       };
 
       input.addEventListener("change", showPreview);
@@ -431,7 +457,7 @@
         "",
         "FORMA ÖNÜ",
         ...uploadState().map(({ label, file, alt }) => {
-          if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo sağ göğse geçer, dosya: ${file.name})` : ""}`;
+          if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo göğsün ortasına geçer, dosya: ${file.name})` : ""}`;
           return `${label}: ${file ? `Var (dosya: ${file.name})` : "Yok"}`;
         }),
         "",
@@ -496,28 +522,25 @@
         return;
       }
 
+      // Mesaj doğrudan Forma Kutusu WhatsApp sohbetine gider (paylaşım menüsü açılmaz). Pencere
+      // açma kullanıcı etkileşimi gerektirdiğinden beklemeden açılır; pano yazımı beklenmez.
       const message = buildMessage();
-      // Önizlemeli formlarda formanın son hali de paylaşıma eklenir
-      const preview = form.formaPreview ? await form.formaPreview().catch(() => null) : null;
-      const files = [preview, ...designFiles(), ...uploadState().map(({ file }) => file)].filter(Boolean);
-
-      // Paylaşım ve pencere açma kullanıcı etkileşimi gerektirir; pano yazımı beklenmez.
       navigator.clipboard?.writeText(message).catch(() => {});
-
-      if (files.length && navigator.canShare?.({ files, text: message })) {
-        try {
-          await navigator.share({ files, text: message, title: `${form.dataset.model} sipariş` });
-          status.textContent = "Paylaşım menüsü açıldı. WhatsApp'ı seçerek dosyaları ve sipariş bilgilerini gönderebilirsin; mesaj ayrıca panoya kopyalandı.";
-          return;
-        } catch (error) {
-          if (error?.name === "AbortError") return;
-        }
-      }
-
       openWhatsApp(message);
-      status.textContent = files.length
-        ? `WhatsApp açıldı. Dosyaları (${files.map((file) => file.name).join(", ")}) sohbete ekleyerek gönder. Mesaj panoya da kopyalandı.`
-        : "WhatsApp açıldı; mesajı kontrol edip gönderebilirsin. Mesaj panoya da kopyalandı.";
+
+      // WhatsApp bağlantısıyla dosya gönderilemez: yüklenen dosyalar sohbete elle eklenir,
+      // önizleme görseli de indirilebilir
+      const files = [...designFiles(), ...uploadState().map(({ file }) => file)].filter(Boolean);
+      status.replaceChildren(
+        files.length
+          ? `WhatsApp sohbeti açıldı. Mesajı gönderdikten sonra dosyalarını (${files.map((file) => file.name).join(", ")}) sohbete ekle.`
+          : "WhatsApp sohbeti açıldı; mesajı kontrol edip gönderebilirsin.",
+      );
+      const preview = form.formaPreview ? await form.formaPreview().catch(() => null) : null;
+      if (preview) {
+        const link = Object.assign(document.createElement("a"), { href: URL.createObjectURL(preview), download: preview.name, textContent: "Forma önizlemesini indir" });
+        status.append(" ", link);
+      }
     });
 
     syncSport();

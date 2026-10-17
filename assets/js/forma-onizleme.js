@@ -556,7 +556,10 @@
     gs.fillStyle = `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
 
     const P = state.P;
-    const L = { right: logo("right", "logo-right"), left: logo("left", "logo-left"), sponsor: logo("sponsor", "sponsor") };
+    // Kutular giyene göre adlandırılmış (logoLeft = giyenin solu = görselde sağda, arma yeri).
+    // Formdaki sağ/sol ise görsele bakana göre: "Sağ göğüs" yüklemesi armanın yerine (şorttaki
+    // logo da odur), "Sol göğüs" yüklemesi Nora'nın yerine geçer.
+    const L = { right: logo("right", "logo-left"), left: logo("left", "logo-right"), sponsor: logo("sponsor", "sponsor") };
     if (trOn()) {
       // TR Arma: bayrak sol göğüste, kulüp logosu sağ göğse geçer, sağdaki logo (Nora) ikisinin ortasına
       const at = (box, cx, cy) => ({ ...box, x: cx - box.w / 2, y: cy - box.h / 2 });
@@ -693,20 +696,102 @@
   reel?.querySelector("[data-reel-prev]").addEventListener("click", () => { page--; renderReel(); });
   reel?.querySelector("[data-reel-next]").addEventListener("click", () => { page++; renderReel(); });
 
+  // Galeriye tıklandıktan sonra klavye okları desenler arasında gezer (sayfa gerekirse değişir)
+  let reelActive = false;
+  document.addEventListener("pointerdown", (e) => { reelActive = Boolean(reel?.contains(e.target)); });
+  reel?.addEventListener("focusin", () => { reelActive = true; });
+  document.addEventListener("keydown", (e) => {
+    if (!reelActive || !state.ready || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+    if (e.target.closest?.("input, select, textarea")) return;
+    const list = sportPatterns();
+    if (!list.length) return;
+    e.preventDefault();
+    const i = (Math.max(0, list.findIndex((p) => p.code === state.patternCode)) + (e.key === "ArrowRight" ? 1 : -1) + list.length) % list.length;
+    page = Math.floor(i / PER_PAGE);
+    choosePattern(list[i]).then(() => reel.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true })).catch(() => say("Desen yüklenemedi"));
+  });
+
+  // Basılı tutup sürükleyince (dokunmatik ve fare) önceki/sonraki sayfaya geçer
+  const track = reel?.querySelector("[data-reel-track]");
+  let drag = null;
+  track?.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    drag = { id: e.pointerId, x: e.clientX, dx: 0, moved: false };
+  });
+  track?.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(drag.dx) > 8) { drag.moved = true; try { track.setPointerCapture(e.pointerId); } catch {} track.classList.add("is-dragging"); }
+    if (drag.moved) track.style.transform = `translateX(${drag.dx * 0.6}px)`;
+  });
+  const endDrag = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const { dx, moved } = drag;
+    drag = null;
+    track.classList.remove("is-dragging");
+    track.style.transform = "";
+    if (!moved) return;
+    // Sürükleme sonrası bırakılan karede tıklama desen seçmesin
+    const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); };
+    track.addEventListener("click", swallow, true);
+    setTimeout(() => track.removeEventListener("click", swallow, true), 0);
+    if (Math.abs(dx) > 40) { page += dx < 0 ? 1 : -1; renderReel(); }
+  };
+  track?.addEventListener("pointerup", endDrag);
+  track?.addEventListener("pointercancel", endDrag);
+
   // ---------------------------------------------------------------------------
   // Form olayları
   // ---------------------------------------------------------------------------
+  // Yüklenen logonun boş kenarlarını kırpar (saydam görselde saydam, diğerlerinde köşe rengindeki
+  // zemin); böylece logo kutusunu boşlukla değil kendisiyle doldurur.
+  function trimImage(img) {
+    const w = img.naturalWidth, h = img.naturalHeight;
+    if (!w || !h) return img;
+    const s = Math.min(1, 600 / Math.max(w, h));
+    const cw = Math.max(1, Math.round(w * s)), ch = Math.max(1, Math.round(h * s));
+    const c = Object.assign(document.createElement("canvas"), { width: cw, height: ch });
+    const g = c.getContext("2d", { willReadFrequently: true });
+    g.drawImage(img, 0, 0, cw, ch);
+    const d = g.getImageData(0, 0, cw, ch).data;
+    const corners = [0, cw - 1, (ch - 1) * cw, ch * cw - 1].map((p) => p * 4);
+    const alpha = corners.some((i) => d[i + 3] < 250);
+    const [r0, g0, b0] = [d[0], d[1], d[2]];
+    let x0 = cw, y0 = ch, x1 = -1, y1 = -1;
+    for (let y = 0; y < ch; y++) {
+      for (let x = 0; x < cw; x++) {
+        const i = (y * cw + x) * 4;
+        const empty = alpha ? d[i + 3] < 24 : Math.abs(d[i] - r0) + Math.abs(d[i + 1] - g0) + Math.abs(d[i + 2] - b0) < 48;
+        if (empty) continue;
+        if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+      }
+    }
+    if (x1 < 0 || (x1 - x0 > cw * 0.97 && y1 - y0 > ch * 0.97)) return img;
+    const sx = Math.max(0, (x0 - 1) / s), sy = Math.max(0, (y0 - 1) / s);
+    const sw = Math.min(w - sx, (x1 - x0 + 3) / s), sh = Math.min(h - sy, (y1 - y0 + 3) / s);
+    const k2 = Math.min(1, 1200 / Math.max(sw, sh));
+    const out = Object.assign(document.createElement("canvas"), { width: Math.round(sw * k2), height: Math.round(sh * k2) });
+    out.getContext("2d").drawImage(img, sx, sy, sw, sh, 0, 0, out.width, out.height);
+    return Object.assign(out, { naturalWidth: out.width, naturalHeight: out.height });
+  }
+
   for (const name of ["logo-left", "logo-right", "sponsor"]) {
     el(name)?.addEventListener("change", async (e) => {
       const f = e.target.files?.[0];
       if (!f || !f.type.startsWith("image/")) { delete state.uploads[name]; schedule(); return; }
-      try { state.uploads[name] = await fileToImage(f); } catch { delete state.uploads[name]; }
+      try { state.uploads[name] = trimImage(await fileToImage(f)); } catch { delete state.uploads[name]; }
       schedule();
     });
   }
+  // Özel üretimde desen yokken (ya da yüklenen desen kaldırılınca) forma desensiz beyazdır
+  const plainPattern = () => {
+    const plain = Object.assign(document.createElement("canvas"), { width: 16, height: 22, naturalWidth: 16, naturalHeight: 22 });
+    const pg = plain.getContext("2d"); pg.fillStyle = "#f2f2f0"; pg.fillRect(0, 0, 16, 22);
+    setPattern(plain, "Beyaz forma");
+  };
   form.querySelector("[data-design-input]")?.addEventListener("change", async (e) => {
     const f = [...(e.target.files || [])].find((file) => file.type.startsWith("image/") && file.type !== "image/svg+xml");
-    if (!f) return;
+    if (!f) { if (state.ready && MODE === "upload") { plainPattern(); showStatus(); schedule(); } return; }
     try { setPattern(await fileToImage(f), "Özel desen"); showStatus(); schedule(); } catch { say("Desen okunamadı"); }
   });
   const switchModel = async () => {
@@ -757,11 +842,8 @@
       state.scene = scene;
       state.samples = { left, right, sponsor };
       // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
-      if (MODE === "upload") {
-        const plain = Object.assign(document.createElement("canvas"), { width: 16, height: 22, naturalWidth: 16, naturalHeight: 22 });
-        const pg = plain.getContext("2d"); pg.fillStyle = "#f2f2f0"; pg.fillRect(0, 0, 16, 22);
-        setPattern(plain, "Beyaz forma");
-      } else setPattern(pattern, first.code);
+      if (MODE === "upload") plainPattern();
+      else setPattern(pattern, first.code);
       if (el("pattern-code")) el("pattern-code").value = first.code;
       await useCollar(mockupKey());
       state.ready = true;

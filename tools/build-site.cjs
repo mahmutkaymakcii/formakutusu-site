@@ -275,10 +275,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261018c">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019c">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261018d" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -892,7 +892,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 </div>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
-                <p class="order-form__hint" data-order-status aria-live="polite">${custom ? "Tasarım görselleri ve logolar" : "Logolar"} telefonunda paylaşım menüsüyle mesaja eklenir; bilgisayarda WhatsApp açıldıktan sonra dosyaları sohbete eklemen gerekir. Dosyalar bu siteye yüklenmez.</p>
+                <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom ? "Tasarım görsellerini ve logoları" : "Logoları"} mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>
                 <a class="order-form__prices" href="/teklif/#fiyatlar">Fiyatları ve teslimat koşullarını gör</a>
               </div>
             </form>`;
@@ -1145,7 +1145,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018k"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261019a"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
