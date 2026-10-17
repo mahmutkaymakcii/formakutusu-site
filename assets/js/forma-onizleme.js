@@ -470,37 +470,23 @@
   // Basketbol ve voleybolun kendi yerleşimi var (çerçeveye çevrilmiş); diğerleri FK-001 yerleşimi
   const layoutFor = (cfg) => Object.fromEntries(Object.entries(cfg.layout || LAYOUT).map(([id, b]) => [id, { x: b.x * k, y: b.y * k, w: b.w * k, h: b.h * k }]));
 
-  // TR arması (sol göğüste "TR Arma" seçildiğinde): kırmızı zemin üzerinde ay yıldız
-  function trCrest() {
-    const c = Object.assign(document.createElement("canvas"), { width: 300, height: 340 });
-    const g = c.getContext("2d");
-    g.fillStyle = "#e30a17";
-    g.beginPath(); g.moveTo(20, 20); g.lineTo(280, 20); g.lineTo(280, 200);
-    g.quadraticCurveTo(280, 290, 150, 330); g.quadraticCurveTo(20, 290, 20, 200); g.closePath(); g.fill();
-    g.fillStyle = "#fff";
-    g.beginPath(); g.arc(128, 165, 70, 0, Math.PI * 2); g.fill();
-    g.fillStyle = "#e30a17";
-    g.beginPath(); g.arc(146, 165, 56, 0, Math.PI * 2); g.fill();
-    g.fillStyle = "#fff"; g.beginPath();
-    for (let n = 0; n < 10; n++) {
-      const a = -Math.PI / 2 + (n * Math.PI) / 5, rr = n % 2 ? 15 : 37;
-      g.lineTo(212 + Math.cos(a) * rr, 165 + Math.sin(a) * rr);
-    }
-    g.closePath(); g.fill();
-    g.font = "800 46px sans-serif"; g.textAlign = "center"; g.fillText("TR", 150, 82);
-    return Object.assign(c, { naturalWidth: 300, naturalHeight: 340 });
-  }
-
   // ---------------------------------------------------------------------------
   // Durum ve formdan okunan seçimler
   // ---------------------------------------------------------------------------
   const state = {
     analysis: null, collar: "", wantCollar: "",
     pattern: null, patternCode: "", mainColor: [0, 143, 135],
-    samples: { left: null, right: null, sponsor: null }, uploads: {}, tr: null,
+    samples: { left: null, right: null, sponsor: null }, uploads: {}, flag: null,
     scene: null, sceneCanvas: null, sceneKey: "", ready: false,
   };
-  const analyses = {};
+  const analyses = {}, mockupImages = {};
+  // Mockup görseli bir kez indirilir; analiz (ışık/gölge haritaları) ilk kullanımda ya da boşta yapılır
+  const mockupImage = (type) => (mockupImages[type] ||= loadImage(ASSETS + MOCKUPS[type].src).catch((e) => { delete mockupImages[type]; throw e; }));
+  async function prepare(type) {
+    const img = await mockupImage(type);
+    if (!analyses[type]) await new Promise((r) => setTimeout(r, 0));
+    return (analyses[type] ||= analyseMockup(img, MOCKUPS[type]));
+  }
   const el = (name) => form.elements[name];
   const isOn = (name) => Boolean(el(name)?.checked);
   const val = (name) => el(name)?.value || "";
@@ -510,9 +496,9 @@
   const sport = () => val("sport") || form.dataset.sport || "futbol";
   const mockupKey = () => (sport() === "basketbol" ? "Basketbol" : sport() === "voleybol" ? "Voleybol" : val("collar"));
 
+  const trOn = () => isOn("logo-left-alt") && Boolean(state.flag);
   function logo(slot, name) {
     if (isOn(`${name}-none`)) return null;
-    if (name === "logo-left" && isOn(`${name}-alt`)) return (state.tr ||= trCrest());
     return state.uploads[name] || state.samples[slot];
   }
 
@@ -520,12 +506,7 @@
     if (!MOCKUPS[type]) type = "Sıfır yaka";
     state.wantCollar = type;
     if (state.collar === type) return;
-    if (!analyses[type]) {
-      say("Model hazırlanıyor…");
-      const img = await loadImage(ASSETS + MOCKUPS[type].src);
-      await new Promise((r) => setTimeout(r, 0));
-      analyses[type] ||= analyseMockup(img, MOCKUPS[type]);
-    }
+    if (!analyses[type]) { say("Model hazırlanıyor…"); await prepare(type); }
     if (state.wantCollar !== type) return;
     state.analysis = analyses[type]; state.collar = type; state.sceneKey = "";
     state.cfg = MOCKUPS[type]; state.P = layoutFor(MOCKUPS[type]);
@@ -576,8 +557,18 @@
 
     const P = state.P;
     const L = { right: logo("right", "logo-right"), left: logo("left", "logo-left"), sponsor: logo("sponsor", "sponsor") };
-    if (L.right) drawInBox(g, L.right, P.logoRight);
-    if (L.left) drawInBox(g, L.left, P.logoLeft);
+    if (trOn()) {
+      // TR Arma: bayrak sol göğüste, kulüp logosu sağ göğse geçer, sağdaki logo (Nora) ikisinin ortasına
+      const at = (box, cx, cy) => ({ ...box, x: cx - box.w / 2, y: cy - box.h / 2 });
+      const cR = [P.logoRight.x + P.logoRight.w / 2, P.logoRight.y + P.logoRight.h / 2];
+      const cL = [P.logoLeft.x + P.logoLeft.w / 2, P.logoLeft.y + P.logoLeft.h / 2];
+      drawInBox(g, state.flag, P.logoLeft);
+      if (L.left) drawInBox(g, L.left, at(P.logoLeft, ...cR));
+      if (L.right) drawInBox(g, L.right, at(P.logoRight, (cR[0] + cL[0]) / 2, (cR[1] + cL[1]) / 2));
+    } else {
+      if (L.right) drawInBox(g, L.right, P.logoRight);
+      if (L.left) drawInBox(g, L.left, P.logoLeft);
+    }
     if (L.sponsor) drawInBox(g, L.sponsor, P.sponsor);
     const color = textColor();
     const club = (val("back-text").trim() || "KULÜP İSMİ").toLocaleUpperCase("tr-TR");
@@ -666,10 +657,10 @@
   };
   const PER_PAGE = 8;
   let page = 0;
+  const patternImage = (p) => (p.load ||= loadImage(p.src).then((img) => (p.img = img)).catch((e) => { delete p.load; throw e; }));
   async function choosePattern(p) {
-    say("Desen yükleniyor…");
-    p.img ||= await loadImage(p.src);
-    setPattern(p.img, p.code);
+    if (!p.img) say("Desen yükleniyor…");
+    setPattern(await patternImage(p), p.code);
     el("pattern-code").value = p.code;
     renderReel(); showStatus(); schedule();
   }
@@ -724,16 +715,18 @@
   };
   el("collar")?.addEventListener("change", switchModel);
   el("sport")?.addEventListener("change", async () => {
-    // Galeri o branşın desenlerine geçer; seçili desen bu branşta yoksa ilk desen seçilir
-    if (reel) {
-      page = 0;
-      const list = sportPatterns();
-      if (state.ready && list.length && !list.some((p) => p.code === state.patternCode)) {
-        try { await choosePattern(list[0]); } catch { say("Desen yüklenemedi"); }
-      }
-      renderReel();
-    }
-    switchModel();
+    // Galeri o branşın desenlerine geçer; seçili desen bu branşta yoksa ilk desen seçilir.
+    // Desen ve mockup birlikte hazırlanır, önizleme tek seferde çizilir.
+    page = 0;
+    if (!state.ready) { renderReel(); return; }
+    const s = sport(), list = reel ? sportPatterns() : [];
+    const p = list.length && !list.some((q) => q.code === state.patternCode) ? list[0] : null;
+    try {
+      const [, img] = await Promise.all([useCollar(mockupKey()), p && patternImage(p)]);
+      if (sport() !== s) return;
+      if (p) { setPattern(img, p.code); el("pattern-code").value = p.code; }
+      renderReel(); showStatus(); schedule();
+    } catch { say("Önizleme yüklenemedi"); }
   });
   form.addEventListener("input", (e) => { if (e.target.name === "back-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
@@ -760,7 +753,7 @@
         loadImage(ASSETS + "ornek-arma.png"), loadImage(ASSETS + "ornek-nora.png"), loadImage(ASSETS + "ornek-reklam.png"),
         loadFont("FIBA", ASSETS + "fiba.ttf"), loadFont("NoraNumara", ASSETS + "nora-numara.ttf"),
       ]);
-      first.img = pattern;
+      first.img = pattern; first.load = Promise.resolve(pattern);
       state.scene = scene;
       state.samples = { left, right, sponsor };
       // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
@@ -774,10 +767,24 @@
       state.ready = true;
       render(); renderReel(); showStatus();
       stage.classList.add("is-ready");
+      warmUp();
     } catch {
       say("Önizleme bu tarayıcıda yüklenemedi; siparişinizi yine de gönderebilirsiniz.");
     }
   }
+  // İlk çizimden sonra boşta: TR bayrağı, diğer mockup görselleri ve her branşın ilk deseni
+  // indirilir; branş mockup'ları önceden analiz edilir (branş değişimi beklemesiz olsun diye)
+  function warmUp() {
+    const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300));
+    if (el("logo-left-alt")) loadImage(ASSETS + "tr-bayrak.png").then((img) => { state.flag = img; if (isOn("logo-left-alt")) schedule(); }).catch(() => {});
+    for (const type of Object.keys(MOCKUPS)) mockupImage(type).catch(() => {});
+    for (const s of ["futbol", "basketbol", "voleybol"]) { const p = allPatterns.find((q) => q.sport === s); if (p) patternImage(p).catch(() => {}); }
+    if (!el("sport")) return;
+    const queue = ["Basketbol", "Voleybol"].filter((t) => !analyses[t]);
+    const next = () => { const t = queue.shift(); if (t) prepare(t).catch(() => {}).then(() => idle(next)); };
+    idle(next);
+  }
+
   renderReel();
   let started = false;
   const start = () => { if (!started) { started = true; boot(); } };

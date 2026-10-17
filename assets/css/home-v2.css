@@ -32,6 +32,8 @@ body.home-v2 h3 {
   text-transform: uppercase;
 }
 body.home-v2 a { color: inherit; }
+/* Yeşil üst menü butonu: yukarıdaki kural yazıyı beyaza çeviriyordu */
+body.home-v2 .header-quote, body.home-v2 .site-nav__mobile-quote { color: #080a0e; }
 body.home-v2 .container:not(.site-header__inner):not(.service-strip__inner) { width: min(calc(100% - 40px), 1480px); }
 body.home-v2 .button { border-radius: 13px; }
 body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
