@@ -72,6 +72,8 @@
         { poly: [[185, 0], [190, 13], [200, 51], [217, 84], [259, 122], [299, 146], [339, 122], [381, 84], [398, 51], [408, 13], [413, 0]], r: 4 },
       ],
       backEdge: (x) => 240 + 0.00048 * (x - 837) ** 2, backX: [650, 1025],
+      // Yaka açıklığı ve bant piksel bazında (zone: arama alanı, dark: açıklık eşiği, band: bant genişliği)
+      neck: { zone: [170, 0, 430, 175], dark: 148, band: 22 },
       trims: { band: 26, zones: [
         [[0, 30], [135, 30], [135, 300], [0, 300]], [[465, 30], [600, 30], [600, 300], [465, 300]],
         [[575, 240], [690, 240], [690, 480], [575, 480]], [[990, 240], [1078, 240], [1078, 480], [990, 480]],
@@ -92,6 +94,7 @@
         { poly: [[184, 0], [187, 22], [208, 60], [229, 99], [270, 140], [313, 182], [356, 140], [397, 99], [418, 60], [439, 22], [442, 0]], r: 4 },
       ],
       backEdge: () => 186, backX: [798, 1018],
+      neck: { zone: [165, 0, 465, 215], dark: 148, band: 20 },
       // Forma eteği kavisli (ortada aşağıda); forma ile şort bu çizgiden ayrılır
       hem: (x) => 877 - 0.00047 * (x - 313) ** 2,
       trims: { band: 20, zones: [
@@ -116,6 +119,10 @@
     const edge = cfg.backEdge;
     cfg.backEdge = (xf) => edge((xf - ox) / fs) * fs + oy;
     if (cfg.hem) { const hem = cfg.hem; cfg.hem = (xf) => hem((xf - ox) / fs) * fs + oy; }
+    if (cfg.neck) {
+      const [x0, y0, x1, y1] = cfg.neck.zone;
+      cfg.neck = { ...cfg.neck, zone: [x0 * fs + ox, y0 * fs + oy, x1 * fs + ox, y1 * fs + oy], band: cfg.neck.band * fs };
+    }
     cfg.backX = cfg.backX.map((x) => x * fs + ox);
     cfg.inner = cfg.inner.map((y) => y * fs + oy);
     if (cfg.trims) cfg.trims = { band: cfg.trims.band * fs, zones: cfg.trims.zones.map((z) => z.map(pt)) };
@@ -266,6 +273,54 @@
         const hit = cfg.front.find((p) => inPoly(x, y, p.poly));
         if (hit) region[i] = hit.r;
       } else if (r === 2 && x >= cfg.backX[0] && x <= cfg.backX[1] && y <= cfg.backEdge(x)) region[i] = 6;
+    }
+
+    // 2b') Basketbol/voleybol yakası piksel bazında: yaka açıklığı (iç görünüm) koyu tonlu; içindeki
+    //      açık tonlu etiket gibi boşluklar dolgu ile eklenir. V bant, açıklığın çevresinde sabit
+    //      genişlikte şerittir. Böylece ne bantta desen ne içeride karanlık leke kalır.
+    if (cfg.neck) {
+      const [zx0, zy0, zx1, zy1] = cfg.neck.zone.map((v) => Math.round(v * k));
+      const zw = zx1 - zx0 + 1, zh = zy1 - zy0 + 1, Z = zw * zh;
+      const zi = (x, y) => (zy0 + y) * W + zx0 + x;
+      const dark = new Uint8Array(Z), seen = new Uint8Array(Z);
+      for (let y = 0; y < zh; y++) for (let x = 0; x < zw; x++) {
+        const i = zi(x, y), r = region[i];
+        if (r === 4 || r === 5) region[i] = 1;
+        if (region[i] === 1 && lum[i] < cfg.neck.dark) dark[y * zw + x] = 1;
+      }
+      // Bölge kenarından koyu olmayan piksellerle ulaşılamayan yerler açıklığın içidir
+      const q = [];
+      for (let x = 0; x < zw; x++) for (const y of [0, zh - 1]) if (!dark[y * zw + x]) { seen[y * zw + x] = 1; q.push(y * zw + x); }
+      for (let y = 0; y < zh; y++) for (const x of [0, zw - 1]) if (!dark[y * zw + x] && !seen[y * zw + x]) { seen[y * zw + x] = 1; q.push(y * zw + x); }
+      while (q.length) {
+        const j = q.pop(), x = j % zw, y = (j - x) / zw;
+        for (const n of [x > 0 ? j - 1 : -1, x < zw - 1 ? j + 1 : -1, y > 0 ? j - zw : -1, y < zh - 1 ? j + zw : -1]) {
+          if (n >= 0 && !seen[n] && !dark[n]) { seen[n] = 1; q.push(n); }
+        }
+      }
+      const dist = new Float32Array(Z).fill(1e9);
+      let maxY = 0;
+      for (let y = 0; y < zh; y++) for (let x = 0; x < zw; x++) {
+        const j = y * zw + x, i = zi(x, y);
+        if (region[i] === 1 && (dark[j] || !seen[j])) { region[i] = 5; dist[j] = 0; maxY = Math.max(maxY, y); }
+      }
+      for (let y = 0; y < zh; y++) for (let x = 0; x < zw; x++) {
+        const j = y * zw + x; let v = dist[j]; if (!v) continue;
+        if (x > 0) v = Math.min(v, dist[j - 1] + 1);
+        if (y > 0) { v = Math.min(v, dist[j - zw] + 1); if (x > 0) v = Math.min(v, dist[j - zw - 1] + 1.4); if (x < zw - 1) v = Math.min(v, dist[j - zw + 1] + 1.4); }
+        dist[j] = v;
+      }
+      for (let y = zh - 1; y >= 0; y--) for (let x = zw - 1; x >= 0; x--) {
+        const j = y * zw + x; let v = dist[j]; if (!v) continue;
+        if (x < zw - 1) v = Math.min(v, dist[j + 1] + 1);
+        if (y < zh - 1) { v = Math.min(v, dist[j + zw] + 1); if (x < zw - 1) v = Math.min(v, dist[j + zw + 1] + 1.4); if (x > 0) v = Math.min(v, dist[j + zw - 1] + 1.4); }
+        dist[j] = v;
+      }
+      const D = cfg.neck.band * k, yLim = maxY + D * 1.4;
+      for (let y = 0; y < zh; y++) for (let x = 0; x < zw; x++) {
+        const i = zi(x, y);
+        if (region[i] === 1 && dist[y * zw + x] <= D && y <= yLim) region[i] = 4;
+      }
     }
 
     // 2c) Kolsuz modellerde kolluk bantları: bölge içinde siluet kenarına "band" kadar yakın kumaş
