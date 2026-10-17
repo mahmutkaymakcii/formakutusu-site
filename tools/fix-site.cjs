@@ -135,7 +135,6 @@ function createIstanbulPage(chrome) {
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preload" href="/assets/models/fk-007-640.webp" as="image" imagesrcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" imagesizes="(max-width: 52rem) 92vw, 38vw" fetchpriority="high">
   <meta property="og:locale" content="tr_TR">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Forma Kutusu">
@@ -151,10 +150,10 @@ function createIstanbulPage(chrome) {
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261016e">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261016">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261017">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js?v=20261016e" defer></script>
+  <script src="/assets/js/site.js?v=20261017" defer></script>
 </head>
 <body class="content-page istanbul-page">
   ${chrome.header}
@@ -168,9 +167,7 @@ function createIstanbulPage(chrome) {
           <p class="eyebrow">İstanbul'daki takımlar için</p>
           <h1>Forma yaptırma sürecini net bilgilerle başlat.</h1>
           <p class="lead">Futbol, halı saha, basketbol ve voleybol takımları için model, renk, logo, isim, numara ve beden dağılımını sipariş öncesinde planla.</p>
-          <div class="button-row"><a class="button" href="/teklif/">Fiyatları Gör</a><a class="button button--ghost" href="/modeller/">Modelleri Gör</a></div>
         </div>
-        <div class="inner-hero__visual"><img src="/assets/models/fk-007.webp" srcset="/assets/models/fk-007-640.webp 640w, /assets/models/fk-007.webp 1000w" sizes="(max-width: 52rem) 92vw, 38vw" alt="FK-007 özel futbol forma ve şort modeli" width="1000" height="1250" loading="eager" fetchpriority="high"></div>
       </div>
     </section>
     <section class="feature-section"><div class="container">
