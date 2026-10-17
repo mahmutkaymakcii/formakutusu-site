@@ -278,7 +278,7 @@ function pageShell({
   <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019c">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261019b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -892,7 +892,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 </div>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
-                <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom ? "Tasarım görsellerini ve logoları" : "Logoları"} mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>
+                <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom ? "Tasarım görselleri, logolar" : "Logolar"} ve forma önizlemesi mesaja bağlantı olarak eklenir; dosyalar yalnızca siparişin için saklanır ve 90 gün sonra silinir.</p>
                 <a class="order-form__prices" href="/teklif/#fiyatlar">Fiyatları ve teslimat koşullarını gör</a>
               </div>
             </form>`;
@@ -1376,10 +1376,10 @@ writePage("/kvkk-ve-gizlilik/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Gizlilik", path: "/kvkk-ve-gizlilik/" }])}
-    ${innerHero({ eyebrow: "Şeffaflık", title: "Dosyaların bu sitede tutulmaz.", copy: "Site üzerinden dosya yüklenmez; sipariş için paylaşacağın bilgiler WhatsApp görüşmesinde senin kontrolünde iletilir.", cta: false })}
+    ${innerHero({ eyebrow: "Şeffaflık", title: "Dosyaların yalnızca siparişin için kullanılır.", copy: "Sipariş formunda seçtiğin logo ve görseller, siparişini gönderdiğinde bize iletilmek üzere korumalı bir alana yüklenir; yayınlanmaz ve süre sonunda silinir.", cta: false })}
     <section class="content-section"><div class="container prose">
       <h2>WhatsApp bağlantısı nasıl çalışır?</h2><p>Sipariş bağlantısına bastığında WhatsApp açılır. Mesajı göndermek veya vazgeçmek senin kontrolündedir.</p>
-      <h2>Dosya paylaşımı</h2><p>Logo, örnek görsel veya takım listesini bu siteye yüklemezsin. Gerekli dosyaları WhatsApp görüşmesine kendin ekleyebilirsin.</p>
+      <h2>Dosya paylaşımı</h2><p>Sipariş formunda seçtiğin logo, reklam ve tasarım görselleri ile oluşturulan forma önizlemesi, yalnızca "Siparişi WhatsApp'a gönder" butonuna bastığında korumalı bir depolama alanına yüklenir. Dosyalara tahmin edilemeyen bağlantılarla ulaşılır; bağlantılar yalnızca bize gönderdiğin WhatsApp mesajında yer alır, arama motorlarına kapalıdır ve dosyalar 90 gün sonra otomatik silinir. Butona basmadığın sürece dosyaların cihazından çıkmaz.</p>
       <h2>Hassas bilgiler</h2><p>Müşteri adı, telefon, adres, logo, takım listesi veya özel sipariş bilgisini web sitesinde yayınlamıyoruz. İletişim sırasında yalnızca sipariş ve üretim için gerekli bilgileri paylaşmanı öneriyoruz.</p>
       <h2>Harici hizmet</h2><p>WhatsApp, Instagram ve TikTok bağlantıları harici platformlara gider. Bu platformlardaki veri işlemleri kendi koşullarına tabidir.</p>
     </div></section>
