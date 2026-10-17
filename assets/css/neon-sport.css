@@ -1610,6 +1610,11 @@ h3 {
   display: none !important;
 }
 
+/* Başlığın hemen altındaki içerik (model listesi, form vb.) ek boşluk olmadan başlar. */
+.inner-hero + section {
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+}
+
 .inner-hero__visual,
 .inner-hero__mark {
   position: relative;

@@ -274,7 +274,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261017b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017b">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261017" defer></script>
 </head>
@@ -696,7 +696,6 @@ for (const [sport, config] of Object.entries(categoryConfig)) {
       })}
       <section class="models-section">
         <div class="container">
-          ${sectionIntro("Model seçimi", `${categoryModels.length} erişilebilir model`, "Model kodunu doğrudan WhatsApp üzerinden paylaşabilir veya önce fiyatları inceleyebilirsin.")}
           ${modelGrid(categoryModels)}
         </div>
       </section>
@@ -1060,7 +1059,6 @@ const servicePages = [
       ["Forma ve şort fiyatı nedir?", "Forma + şort fiyatı 450₺’dir."],
     ],
     models,
-    modelsIntro: ["Tüm modeller", "Takımına uygun modeli seç.", "Futbol, basketbol ve voleybol modellerinin tamamı; ürün sayfasından forma ve şort siparişini oluşturabilirsin."],
   },
   {
     route: "/okul-turnuva-formasi/",
@@ -1110,7 +1108,6 @@ for (const service of servicePages) {
         ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", custom: true })}
       </div></section>`
           : `<section class="models-section"><div class="container">
-        ${sectionIntro(...(service.modelsIntro || ["Başlangıç modelleri", "Önce modeli seçebilirsin.", "Beğendiğin kodu WhatsApp mesajına ekle; renk ve kişiselleştirme detayları görüşmede netleşir."]))}
         ${modelGrid(items)}
       </div></section>`
       }
