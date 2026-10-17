@@ -577,7 +577,12 @@
       first.img = pattern;
       state.scene = scene;
       state.samples = { left, right, sponsor };
-      setPattern(pattern, MODE === "upload" ? "Örnek desen" : first.code);
+      // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
+      if (MODE === "upload") {
+        const plain = Object.assign(document.createElement("canvas"), { width: 16, height: 22, naturalWidth: 16, naturalHeight: 22 });
+        const pg = plain.getContext("2d"); pg.fillStyle = "#f2f2f0"; pg.fillRect(0, 0, 16, 22);
+        setPattern(plain, "Beyaz forma");
+      } else setPattern(pattern, first.code);
       if (el("pattern-code")) el("pattern-code").value = first.code;
       await useCollar(val("collar"));
       state.ready = true;

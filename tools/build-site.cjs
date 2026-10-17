@@ -274,7 +274,7 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261018">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261018b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017c">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018" defer></script>${scripts.map((src) => `
@@ -822,8 +822,8 @@ function orderForm({ id, sport = "", label, custom = false, preview = "" }) {
     ? `<div class="order-field" role="radiogroup" aria-label="Yazı ve numara rengi">
                   <span>Yazı ve numara rengi</span>
                   <div class="order-colors">
-                    <label class="order-color"><input type="radio" name="text-color" value="#ffffff" data-label="Beyaz" checked><i style="background:#ffffff"></i> Beyaz</label>
-                    <label class="order-color"><input type="radio" name="text-color" value="#111111" data-label="Siyah"><i style="background:#111111"></i> Siyah</label>
+                    <label class="order-color"><input type="radio" name="text-color" value="#ffffff" data-label="Beyaz"${preview === "upload" ? "" : " checked"}><i style="background:#ffffff"></i> Beyaz</label>
+                    <label class="order-color"><input type="radio" name="text-color" value="#111111" data-label="Siyah"${preview === "upload" ? " checked" : ""}><i style="background:#111111"></i> Siyah</label>
                   </div>
                 </div>`
     : "";
@@ -1137,7 +1137,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261018b"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
