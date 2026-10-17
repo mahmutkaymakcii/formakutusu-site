@@ -57,8 +57,7 @@ body.home-v2 .fk-hero__noise {
     radial-gradient(circle at 70% 45%, rgb(45 226 255 / 38%) 0 1px, transparent 1.2px);
 }
 
-body.home-v2 .fk-kicker,
-body.home-v2 .fk-hero__proof strong {
+body.home-v2 .fk-kicker {
   color: var(--text);
 }
 
@@ -77,7 +76,6 @@ body.home-v2 .fk-section-heading h2 em {
 }
 
 body.home-v2 .fk-hero__lead,
-body.home-v2 .fk-hero__proof small,
 body.home-v2 .fk-feature-card p,
 body.home-v2 .fk-section-heading > span,
 body.home-v2 .fk-product-card__body p,
@@ -108,15 +106,6 @@ body.home-v2 .fk-secondary-button {
 body.home-v2 .fk-secondary-button:hover {
   border-color: var(--cyan);
   background: var(--surface-2);
-}
-
-body.home-v2 .fk-hero__proof {
-  border-color: var(--line);
-}
-
-body.home-v2 .fk-hero__proof li > span {
-  border-color: var(--cyan);
-  color: var(--cyan);
 }
 
 body.home-v2 .fk-hero__stage {
@@ -184,21 +173,74 @@ body.home-v2 .fk-final-cta {
   background: transparent;
 }
 
-body.home-v2 .fk-category-card > div {
-  background: linear-gradient(90deg, rgb(17 21 28 / 98%) 0 84%, rgb(17 21 28 / 78%) 100%);
-}
-
-/* Unbounded geniş bir font; kategori başlığı yazı sütununa göre boyutlanır ve görselin üstüne taşmaz. */
+/* Kategori kartı: üstte görsel, altta başlık ve Keşfet */
 body.home-v2 .fk-category-card {
-  grid-template-columns: 60% 40%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+  transition: transform 180ms ease, border-color 180ms ease;
 }
 
-body.home-v2 .fk-category-card > div {
-  container-type: inline-size;
+body.home-v2 .fk-category-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan);
+}
+
+body.home-v2 .fk-category-card::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+}
+
+body.home-v2 .fk-category-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 32%;
+}
+
+body.home-v2 .fk-category-card__body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-top: 1px solid var(--line);
 }
 
 body.home-v2 .fk-category-card h3 {
-  font-size: min(34px, 12.5cqi);
+  margin: 0;
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-style: italic;
+  line-height: 1.1;
+}
+
+body.home-v2 .fk-category-card h3 span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+body.home-v2 .fk-category-card b {
+  flex: none;
+  display: inline-flex;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 body.home-v2 .fk-category-card::before,
@@ -2374,12 +2416,10 @@ body.home-v2 .fk-trust__box {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   overflow: hidden;
-  border: 1px solid transparent;
   border-radius: 22px;
-  background:
-    linear-gradient(135deg, #11151c, #161a27) padding-box,
-    var(--signal-gradient) border-box;
+  background: var(--signal-gradient);
   box-shadow: var(--shadow);
+  color: #080a0e;
 }
 
 body.home-v2 .fk-trust__brand {
@@ -2388,8 +2428,7 @@ body.home-v2 .fk-trust__brand {
   justify-content: center;
   gap: 10px;
   padding: 26px 28px;
-  background: var(--signal-gradient);
-  color: #080a0e;
+  border-right: 1px solid rgb(8 10 14 / 16%);
 }
 
 body.home-v2 .fk-trust__brand > span {
@@ -2427,7 +2466,7 @@ body.home-v2 .fk-trust__list li {
   gap: 14px;
   min-width: 0;
   padding: 28px 22px;
-  border-left: 1px solid var(--line);
+  border-left: 1px solid rgb(8 10 14 / 16%);
 }
 
 body.home-v2 .fk-trust__list li:first-child {
@@ -2441,8 +2480,7 @@ body.home-v2 .fk-trust__icon {
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: rgb(199 255 47 / 10%);
-  box-shadow: inset 0 0 0 1px rgb(199 255 47 / 28%);
+  background: #080a0e;
   color: var(--volt);
 }
 
@@ -2453,7 +2491,7 @@ body.home-v2 .fk-trust__icon svg {
 
 body.home-v2 .fk-trust__list strong {
   display: block;
-  color: var(--text);
+  color: #080a0e;
   font-size: 18px;
   font-weight: 900;
   line-height: 1.15;
@@ -2463,8 +2501,9 @@ body.home-v2 .fk-trust__list strong {
 body.home-v2 .fk-trust__list small {
   display: block;
   margin-top: 4px;
-  color: var(--muted);
+  color: rgb(8 10 14 / 72%);
   font-size: 12px;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -2609,7 +2648,7 @@ body.home-v2 .fk-social-card b {
   body.home-v2 .fk-social__intro { padding: 0; }
   body.home-v2 .fk-social__intro h2 { font-size: clamp(32px, 6vw, 48px); }
   body.home-v2 .fk-trust__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  body.home-v2 .fk-trust__list li { border-top: 1px solid var(--line); }
+  body.home-v2 .fk-trust__list li { border-top: 1px solid rgb(8 10 14 / 16%); }
   body.home-v2 .fk-trust__list li:nth-child(odd) { border-left: 0; }
   body.home-v2 .fk-trust__list li:nth-child(-n + 2) { border-top: 0; }
 }
@@ -2629,7 +2668,9 @@ body.home-v2 .fk-social-card b {
   body.home-v2 .fk-social-card__text strong { font-size: 17px; overflow-wrap: normal; }
   body.home-v2 .fk-social-card__text > span { font-size: 12px; }
   body.home-v2 .fk-trust__box { grid-template-columns: 1fr; border-radius: 16px; }
-  body.home-v2 .fk-trust__brand { flex-direction: row; align-items: center; gap: 14px; padding: 16px 18px; }
+  body.home-v2 .fk-trust__brand { flex-direction: row; align-items: center; gap: 14px; padding: 16px 18px; border-right: 0; border-bottom: 1px solid rgb(8 10 14 / 16%); }
+  body.home-v2 .fk-category-card { flex: none; width: 78vw; scroll-snap-align: start; }
+  body.home-v2 .fk-category-card__body { padding: 14px 16px; }
   body.home-v2 .fk-trust__brand > span { font-size: 34px; }
   body.home-v2 .fk-trust__list li { flex-direction: column; align-items: flex-start; gap: 10px; padding: 18px 14px; }
   body.home-v2 .fk-trust__icon { width: 42px; height: 42px; border-radius: 12px; }
