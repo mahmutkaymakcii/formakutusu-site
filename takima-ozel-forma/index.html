@@ -43,8 +43,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261017c">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Takıma Özel Forma Yaptırma","item":"https://formakutusu.com/takima-ozel-forma/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Sıfırdan tasarım isteyebilir miyim?","acceptedAnswer":{"@type":"Answer","text":"Evet. Bu sayfadaki formdan kendi desenini veya görselini yükleyebilirsin; tasarım onaylanmadan üretime geçilmez."}},{"@type":"Question","name":"Renkleri tamamen değiştirebilir miyim?","acceptedAnswer":{"@type":"Answer","text":"Modelin uygulanabilirliği korunarak takım renklerine göre düzenleme yapılabilir."}},{"@type":"Question","name":"Tasarım revizesi yapılır mı?","acceptedAnswer":{"@type":"Answer","text":"Gerekli düzenlemeler tasarım onayı aşamasında konuşulur."}}]}</script>
-  <script src="/assets/js/site.js?v=20261018" defer></script>
-  <script src="/assets/js/forma-onizleme.js?v=20261018b" defer></script>
+  <script src="/assets/js/site.js?v=20261018c" defer></script>
+  <script src="/assets/js/forma-onizleme.js?v=20261018c" defer></script>
 </head>
 <body class="service-page">
 <!-- Google Tag Manager (noscript) -->
@@ -122,8 +122,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="order-upload">
                   <label class="order-upload__field"><span>Desen veya tasarım görselleri <small>(en fazla 5 dosya)</small></span><input type="file" name="design" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-design-input></label>
                   <ul class="order-design-list" data-design-preview hidden></ul>
+                  <p class="order-form__hint">İlk görsel önizlemede formaya uygulanır. Branşı seçtiğinizde önizleme o branşın modeline geçer.</p>
                 </div>
-                <label class="order-field"><span>Tasarım notu</span><textarea name="design-note" rows="3" maxlength="400" placeholder="RENKLER, DESEN YERLEŞİMİ, ÖRNEK ALINAN TAKIM VB." data-uppercase></textarea></label>
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>Sipariş bilgileri</legend>
@@ -133,7 +133,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <label class="order-field"><span>Yaka tipi</span><select name="collar" required><option value="">Seçin</option><option value="Sıfır yaka">Sıfır yaka</option><option value="V yaka">V yaka</option><option value="Polo yaka">Polo yaka</option></select></label>
                   <label class="order-field"><span>Çorap</span><select name="socks" required><option value="yok">Çorap yok</option><option value="var">Çorap var</option></select></label>
                 </div>
-                <p class="order-form__hint">Yaka tipini seçtiğinizde önizleme o yakayla gösterilir.</p>
+                <p class="order-form__hint">Futbolda önizleme seçtiğiniz yaka tipiyle, basketbol ve voleybolda V yaka ile gösterilir.</p>
               </fieldset>
 
               <fieldset class="order-form__section">
@@ -141,7 +141,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="order-upload" data-upload>
                     <label class="order-upload__field"><span>Sol göğüs logosu</span><input type="file" name="logo-left" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-upload-input></label>
                     <p class="order-upload__preview" data-upload-preview hidden></p>
-                    <div class="order-checks"><label class="order-check"><input type="checkbox" name="logo-left-alt" data-upload-alt="TR Arma"> TR Arma</label><label class="order-check"><input type="checkbox" name="logo-left-none" data-upload-none> Sol göğüste logo yok</label></div>
+                    <div class="order-checks"><label class="order-check"><input type="checkbox" name="logo-left-none" data-upload-none> Sol göğüste logo yok</label></div>
                   </div>
                 <div class="order-upload" data-upload>
                     <label class="order-upload__field"><span>Sağ göğüs logosu</span><input type="file" name="logo-right" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-upload-input></label>

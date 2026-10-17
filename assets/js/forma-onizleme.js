@@ -62,7 +62,60 @@
       ],
       backEdge: (x) => 547 + 0.00055 * (x - 1395) ** 2, backX: [1238, 1552],
     },
+    // Basketbol ve voleybol: ölçüler görselin kendi pikselinde (native); görsel çerçeveye oranı
+    // korunarak yerleştirilir ve ölçüler aşağıda çerçeveye çevrilir. Yaka V; kolluk bantları
+    // belirtilen bölgelerde siluet kenarına yakın şerit olarak tek renge boyanır.
+    "Basketbol": {
+      src: "mockup-basketbol.webp", native: [1078, 1152], inner: [0, 122], gain: [1.05, 1.7],
+      front: [
+        { poly: [[205, 0], [209, 10], [221, 40], [226, 63], [259, 97], [299, 122], [339, 97], [372, 63], [377, 40], [389, 10], [393, 0]], r: 5 },
+        { poly: [[185, 0], [190, 13], [200, 51], [217, 84], [259, 122], [299, 146], [339, 122], [381, 84], [398, 51], [408, 13], [413, 0]], r: 4 },
+      ],
+      backEdge: (x) => 240 + 0.00048 * (x - 837) ** 2, backX: [650, 1025],
+      trims: { band: 26, zones: [
+        [[0, 30], [135, 30], [135, 300], [0, 300]], [[465, 30], [600, 30], [600, 300], [465, 300]],
+        [[575, 240], [690, 240], [690, 480], [575, 480]], [[990, 240], [1078, 240], [1078, 480], [990, 480]],
+      ] },
+      layout: {
+        logoRight: { x: 164, y: 177, w: 66, h: 38 }, logoLeft: { x: 380, y: 155, w: 75, h: 84 },
+        sponsor: { x: 160, y: 265, w: 292, h: 112 },
+        club: { x: 657, y: 332, w: 360, h: 51 }, number: { x: 701, y: 422, w: 272, h: 239 }, player: { x: 657, y: 697, w: 360, h: 51 },
+        shortsLogo: { x: 69, y: 998, w: 82, h: 84 }, shortsNumber: { x: 430, y: 904, w: 107, h: 124 },
+      },
+    },
+    "Voleybol": {
+      src: "mockup-voleybol.webp", native: [1168, 1160], inner: [0, 169], gain: [1.15, 1.9], noShortsItems: true,
+      front: [
+        { poly: [[198, 0], [200, 14], [231, 116], [293, 165], [303, 169], [313, 165], [375, 116], [406, 14], [408, 0]], r: 5 },
+        { poly: [[174, 0], [178, 22], [213, 116], [257, 161], [303, 196], [349, 161], [393, 116], [428, 22], [432, 0]], r: 4 },
+      ],
+      backEdge: () => 186, backX: [798, 1018],
+      trims: { band: 20, zones: [
+        [[0, 60], [90, 60], [90, 310], [0, 310]], [[520, 60], [640, 60], [640, 310], [520, 310]],
+        [[640, 220], [710, 220], [710, 470], [640, 470]], [[1100, 220], [1168, 220], [1168, 470], [1100, 470]],
+      ] },
+      layout: {
+        logoRight: { x: 166, y: 215, w: 70, h: 40 }, logoLeft: { x: 398, y: 190, w: 80, h: 89 },
+        sponsor: { x: 162, y: 326, w: 311, h: 119 },
+        club: { x: 738, y: 298, w: 340, h: 54 }, number: { x: 765, y: 404, w: 285, h: 251 }, player: { x: 738, y: 702, w: 340, h: 54 },
+      },
+    },
   };
+  // Native ölçülü mockup'ları çerçeve koordinatına çevir (oran korunarak ortalanmış yerleşim)
+  for (const cfg of Object.values(MOCKUPS)) {
+    if (!cfg.native) continue;
+    const [nw, nh] = cfg.native, fs = Math.min(FW / nw, FH / nh);
+    const ox = (FW - nw * fs) / 2, oy = (FH - nh * fs) / 2;
+    const pt = ([x, y]) => [x * fs + ox, y * fs + oy];
+    cfg.fit = { fs, ox, oy };
+    cfg.front = cfg.front.map((p) => ({ ...p, poly: p.poly.map(pt) }));
+    const edge = cfg.backEdge;
+    cfg.backEdge = (xf) => edge((xf - ox) / fs) * fs + oy;
+    cfg.backX = cfg.backX.map((x) => x * fs + ox);
+    cfg.inner = cfg.inner.map((y) => y * fs + oy);
+    if (cfg.trims) cfg.trims = { band: cfg.trims.band * fs, zones: cfg.trims.zones.map((z) => z.map(pt)) };
+    if (cfg.layout) for (const b of Object.values(cfg.layout)) { b.x = b.x * fs + ox; b.y = b.y * fs + oy; b.w *= fs; b.h *= fs; }
+  }
   const inPoly = (x, y, pts) => {
     let inside = false;
     for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
@@ -93,7 +146,8 @@
     const c = Object.assign(document.createElement("canvas"), { width: W, height: H });
     const cx = c.getContext("2d", { willReadFrequently: true });
     cx.imageSmoothingQuality = "high";
-    cx.drawImage(img, 0, 0, W, H);
+    if (cfg.fit) cx.drawImage(img, cfg.fit.ox * k, cfg.fit.oy * k, cfg.native[0] * cfg.fit.fs * k, cfg.native[1] * cfg.fit.fs * k);
+    else cx.drawImage(img, 0, 0, W, H);
     const data = cx.getImageData(0, 0, W, H).data;
     const lum = new Float32Array(N);
     for (let i = 0; i < N; i++) lum[i] = 0.299 * data[i * 4] + 0.587 * data[i * 4 + 1] + 0.114 * data[i * 4 + 2];
@@ -193,6 +247,7 @@
     const NX = 533, NY = 40;
     const sup = (x, y, rx, ry) => Math.abs((x - NX) / rx) ** 3 + Math.abs((y - NY) / ry) ** 3;
     const backTop = boxes.back[1] / k;
+    const frontMax = cfg.front ? Math.max(...cfg.front.flatMap((p) => p.poly.map((q) => q[1]))) + 2 : 0;
     for (let i = 0; i < N; i++) {
       const r = region[i]; if (r !== 1 && r !== 2) continue;
       const x = (i % W) / k, y = Math.floor(i / W) / k;
@@ -201,10 +256,35 @@
           if (y >= 20 && sup(x, y, 128, 60) <= 1) region[i] = 5;
           else if (sup(x, y, 160, 99) <= 1) region[i] = 4;
         } else if (r === 2 && y < backTop + 70 && data[i * 4 + 3] < 250) region[i] = 6;
-      } else if (r === 1 && y < 260) {
+      } else if (r === 1 && y < frontMax) {
         const hit = cfg.front.find((p) => inPoly(x, y, p.poly));
         if (hit) region[i] = hit.r;
       } else if (r === 2 && x >= cfg.backX[0] && x <= cfg.backX[1] && y <= cfg.backEdge(x)) region[i] = 6;
+    }
+
+    // 2c) Kolsuz modellerde kolluk bantları: bölge içinde siluet kenarına "band" kadar yakın kumaş
+    if (cfg.trims) {
+      // Arka plana uzaklık (iki geçişli 3-4 chamfer, çerçeve pikseli ölçeğinde)
+      const dist = new Float32Array(N);
+      for (let i = 0; i < N; i++) dist[i] = bg[i] ? 0 : 1e9;
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        const i = y * W + x; let v = dist[i]; if (!v) continue;
+        if (x > 0) v = Math.min(v, dist[i - 1] + 1);
+        if (y > 0) { v = Math.min(v, dist[i - W] + 1); if (x > 0) v = Math.min(v, dist[i - W - 1] + 1.4); if (x < W - 1) v = Math.min(v, dist[i - W + 1] + 1.4); }
+        dist[i] = v;
+      }
+      for (let y = H - 1; y >= 0; y--) for (let x = W - 1; x >= 0; x--) {
+        const i = y * W + x; let v = dist[i]; if (!v) continue;
+        if (x < W - 1) v = Math.min(v, dist[i + 1] + 1);
+        if (y < H - 1) { v = Math.min(v, dist[i + W] + 1); if (x < W - 1) v = Math.min(v, dist[i + W + 1] + 1.4); if (x > 0) v = Math.min(v, dist[i + W - 1] + 1.4); }
+        dist[i] = v;
+      }
+      const band = cfg.trims.band * k;
+      for (let i = 0; i < N; i++) {
+        const r = region[i]; if ((r !== 1 && r !== 2) || dist[i] > band) continue;
+        const x = (i % W) / k, y = Math.floor(i / W) / k;
+        if (cfg.trims.zones.some((z) => inPoly(x, y, z))) region[i] = r === 1 ? 4 : 6;
+      }
     }
 
     // 3) Işık haritası: kumaşın ortanca tonu 1.0. Geniş aydınlatma ve ince kırışıklar güçlendirilir;
@@ -322,7 +402,8 @@
     shortsLogo: { x: 225, y: 1695, w: 132, h: 135 },
     shortsNumber: { x: 769, y: 1522, w: 173, h: 200 },
   };
-  const P = Object.fromEntries(Object.entries(LAYOUT).map(([id, b]) => [id, { x: b.x * k, y: b.y * k, w: b.w * k, h: b.h * k }]));
+  // Basketbol ve voleybolun kendi yerleşimi var (çerçeveye çevrilmiş); diğerleri FK-001 yerleşimi
+  const layoutFor = (cfg) => Object.fromEntries(Object.entries(cfg.layout || LAYOUT).map(([id, b]) => [id, { x: b.x * k, y: b.y * k, w: b.w * k, h: b.h * k }]));
 
   // TR arması (sol göğüste "TR Arma" seçildiğinde): kırmızı zemin üzerinde ay yıldız
   function trCrest() {
@@ -359,6 +440,10 @@
   const isOn = (name) => Boolean(el(name)?.checked);
   const val = (name) => el(name)?.value || "";
   const hideShorts = () => val("scope") === "ust";
+  // Branş: özel üretimde seçimden, model sayfalarında formdan. Basketbol ve voleybolda kendi
+  // mockup'ı (V yaka) kullanılır; futbolda yaka tipine göre.
+  const sport = () => val("sport") || form.dataset.sport || "futbol";
+  const mockupKey = () => (sport() === "basketbol" ? "Basketbol" : sport() === "voleybol" ? "Voleybol" : val("collar"));
 
   function logo(slot, name) {
     if (isOn(`${name}-none`)) return null;
@@ -371,13 +456,14 @@
     state.wantCollar = type;
     if (state.collar === type) return;
     if (!analyses[type]) {
-      say("Yaka hazırlanıyor…");
+      say("Model hazırlanıyor…");
       const img = await loadImage(ASSETS + MOCKUPS[type].src);
       await new Promise((r) => setTimeout(r, 0));
       analyses[type] ||= analyseMockup(img, MOCKUPS[type]);
     }
     if (state.wantCollar !== type) return;
     state.analysis = analyses[type]; state.collar = type; state.sceneKey = "";
+    state.cfg = MOCKUPS[type]; state.P = layoutFor(MOCKUPS[type]);
   }
 
   function setPattern(img, code) {
@@ -414,6 +500,7 @@
     g.filter = "none";
     g.fillStyle = `rgb(${solid.join(",")})`; g.fillRect(sx0, sy0, sx1 - sx0 + 1, sy1 - sy0 + 1);
 
+    const P = state.P;
     const L = { right: logo("right", "logo-right"), left: logo("left", "logo-left"), sponsor: logo("sponsor", "sponsor") };
     if (L.right) drawInBox(g, L.right, P.logoRight);
     if (L.left) drawInBox(g, L.left, P.logoLeft);
@@ -426,8 +513,10 @@
     textInBox(g, club, "FIBA", P.club, nameSize, color);
     textInBox(g, num, "NoraNumara", P.number, sizeInBox(g, num, "NoraNumara", P.number), color);
     textInBox(g, player, "FIBA", P.player, nameSize, color);
-    if (isOn("shorts-logo") && L.left) drawInBox(g, L.left, P.shortsLogo);
-    if (isOn("shorts-number") && num) textInBox(g, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
+    // Voleybolda şorta logo ve numara eklenmez
+    const shortsItems = !state.cfg.noShortsItems && sport() !== "voleybol";
+    if (shortsItems && isOn("shorts-logo") && L.left) drawInBox(g, L.left, P.shortsLogo);
+    if (shortsItems && isOn("shorts-number") && num) textInBox(g, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
 
     // Birleştirme: bükülmüş doku × gölge + sıcak parlaklık, ardından canlılık
     const t = g.getImageData(0, 0, W, H).data;
@@ -546,9 +635,12 @@
     if (!f) return;
     try { setPattern(await fileToImage(f), "Özel desen"); showStatus(); schedule(); } catch { say("Desen okunamadı"); }
   });
-  el("collar")?.addEventListener("change", async (e) => {
-    try { await useCollar(e.target.value); showStatus(); schedule(); } catch { say("Önizleme yüklenemedi"); }
-  });
+  const switchModel = async () => {
+    if (!state.ready) return;
+    try { await useCollar(mockupKey()); showStatus(); schedule(); } catch { say("Önizleme yüklenemedi"); }
+  };
+  el("collar")?.addEventListener("change", switchModel);
+  el("sport")?.addEventListener("change", switchModel);
   form.addEventListener("input", (e) => { if (e.target.name === "back-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
     if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|has-name|has-number|text-color|scope)$/.test(e.target.name)) schedule();
@@ -584,7 +676,7 @@
         setPattern(plain, "Beyaz forma");
       } else setPattern(pattern, first.code);
       if (el("pattern-code")) el("pattern-code").value = first.code;
-      await useCollar(val("collar"));
+      await useCollar(mockupKey());
       state.ready = true;
       render(); renderReel(); showStatus();
       stage.classList.add("is-ready");
