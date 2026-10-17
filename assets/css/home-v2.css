@@ -235,5 +235,5 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
 @media (prefers-reduced-motion: reduce) {
   .fk-category-card,
   .fk-production-card img,
-  .fk-social-card { transition: none !important; }
+  .fk-social-tile { transition: none !important; }
 }
