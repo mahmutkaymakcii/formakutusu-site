@@ -538,6 +538,7 @@
   // Çizim
   // ---------------------------------------------------------------------------
   const tex = Object.assign(document.createElement("canvas"), { width: W, height: H });
+  const texBack = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const gar = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const textColor = () => (form.querySelector('input[name="text-color"]:checked')?.value) || "#ffffff";
 
@@ -559,8 +560,13 @@
     const g = tex.getContext("2d", { willReadFrequently: true });
     g.clearRect(0, 0, W, H);
     g.filter = "blur(0.6px)"; // vektör desenin keskin kenarlarını kumaşa yaklaştırır
-    drawCover(g, state.pattern, boxes.front, state.cfg.frontAnchor); drawCover(g, state.pattern, boxes.back);
-    g.filter = "none";
+    // Ön ve arka ayrı katmanlarda: görüntüde ön kol ile arka parçanın kutuları üst üste
+    // bindiğinden tek katmanda arka desen ön kolun üzerine yazılıyordu
+    const gb = texBack.getContext("2d", { willReadFrequently: true });
+    gb.clearRect(0, 0, W, H);
+    gb.filter = "blur(0.6px)";
+    drawCover(g, state.pattern, boxes.front, state.cfg.frontAnchor); drawCover(gb, state.pattern, boxes.back);
+    g.filter = "none"; gb.filter = "none";
     g.fillStyle = `rgb(${solid.join(",")})`; g.fillRect(sx0, sy0, sx1 - sx0 + 1, sy1 - sy0 + 1);
 
     const P = state.P;
@@ -573,9 +579,9 @@
     const player = isOn("has-name") || !el("has-name") ? "OYUNCU" : "";
     const num = isOn("has-number") || !el("has-number") ? "10" : "";
     const nameSize = Math.min(sizeInBox(g, club, "FIBA", P.club), sizeInBox(g, player || club, "FIBA", P.player));
-    textInBox(g, club, "FIBA", P.club, nameSize, color);
-    textInBox(g, num, "NoraNumara", P.number, sizeInBox(g, num, "NoraNumara", P.number), color);
-    textInBox(g, player, "FIBA", P.player, nameSize, color);
+    textInBox(gb, club, "FIBA", P.club, nameSize, color);
+    textInBox(gb, num, "NoraNumara", P.number, sizeInBox(g, num, "NoraNumara", P.number), color);
+    textInBox(gb, player, "FIBA", P.player, nameSize, color);
     // Basketbol ve voleybolda ön yüzde de numara
     if (P.frontNumber && num) textInBox(g, num, "NoraNumara", P.frontNumber, sizeInBox(g, num, "NoraNumara", P.frontNumber), color);
     // Voleybolda şorta logo ve numara eklenmez
@@ -584,7 +590,7 @@
     if (shortsItems && isOn("shorts-number") && num) textInBox(g, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
 
     // Birleştirme: bükülmüş doku × gölge + sıcak parlaklık, ardından canlılık
-    const t = g.getImageData(0, 0, W, H).data;
+    const tf = g.getImageData(0, 0, W, H).data, tb = gb.getImageData(0, 0, W, H).data;
     const out = new ImageData(W, H), o = out.data, b = A.base;
     const GL = [255, 238, 210], SAT = 1.45, LIFT = 1.12;
     for (let y = 0, i = 0; y < H; y++) for (let x = 0; x < W; x++, i++) {
@@ -595,6 +601,7 @@
       if (reg >= 4) [r0, g0, b0] = solid;
       else {
         const sx = Math.min(W - 1, Math.max(0, x + A.dispX[i])), sy = Math.min(H - 1, Math.max(0, y + A.dispY[i]));
+        const t = reg === 2 ? tb : tf; // arka parça arka katmandan, ön ve şort ön katmandan
         const tq = (sy * W + sx) * 4; r0 = t[tq]; g0 = t[tq + 1]; b0 = t[tq + 2];
       }
       const s = A.shade[i], gl = A.gloss[i];
