@@ -1395,26 +1395,10 @@ h3 {
   padding-block: clamp(2.5rem, 6vw, 5rem);
 }
 
+/* Özel tasarım formu tek sütun, başlıkla aynı hizada. */
 .custom-order__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  align-items: start;
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-}
-
-@media (max-width: 52rem) {
-  .custom-order__grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* Mobilde başlık zaten aynı bilgiyi veriyor; form hemen başlasın. */
-  .custom-order__grid > .section-intro {
-    display: none;
-  }
-
-  .custom-order-section {
-    padding-top: 0.5rem;
-  }
+  grid-template-columns: minmax(0, 56rem);
 }
 
 .order-form input:focus-visible,
