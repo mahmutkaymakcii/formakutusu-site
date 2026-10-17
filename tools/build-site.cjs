@@ -274,8 +274,8 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261018b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261018u">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261018c">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261018x">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261018d" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -1297,9 +1297,7 @@ writePage("/teklif/", {
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Fiyatlar", path: "/teklif/" }])}
     <section class="pricing-hero"><div class="container pricing-hero__grid">
-      <div><p class="eyebrow">Şeffaf fiyatlandırma</p><h1>ÖZEL TASARIM FORMA FİYATLARI</h1><p class="lead">Forma Kutusu ve NORA güvencesiyle ürün fiyatlarını incele, siparişini doğrudan WhatsApp üzerinden başlat.</p></div>
-      <div class="pricing-brands" aria-label="Forma Kutusu ve NORA markaları"><img class="pricing-brands__forma" src="/assets/brand/formakutusu-logo.svg" alt="Forma Kutusu" width="338" height="128"><span aria-hidden="true">+</span><img class="pricing-brands__nora" src="/assets/brand/nora-logo.webp" alt="NORA" width="720" height="420"></div>
-    </div></section>
+      <div><p class="eyebrow">Şeffaf fiyatlandırma</p><h1>ÖZEL TASARIM FORMA FİYATLARI</h1><p class="lead">Forma Kutusu ve NORA güvencesiyle ürün fiyatlarını incele, siparişini doğrudan WhatsApp üzerinden başlat.</p></div>    </div></section>
     <section class="pricing-section" id="fiyatlar"><div class="container">
       <div class="pricing-grid" aria-label="Özel tasarım forma fiyatları">
         <article class="price-card"><p>TEK ÜST FORMA</p><strong>300₺</strong></article>
