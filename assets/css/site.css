@@ -3336,7 +3336,9 @@ body.has-consent-banner .mobile-cta {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   }
 
-  .order-studio__stage {
+  /* Daha özgül seçici: aşağıdaki temel kuraldaki position: relative'i ezer
+     (aksi halde top değeri kutuyu formdan aşağı iter) */
+  .order-studio .order-studio__stage {
     position: sticky;
     top: 5.5rem;
   }
