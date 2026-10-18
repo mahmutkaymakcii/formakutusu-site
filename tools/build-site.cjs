@@ -279,7 +279,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019f">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019g">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -1533,6 +1533,16 @@ const guideCards = [
     title: "Takım Listesi Hazırlama",
     copy: "İsim, numara ve beden bilgilerindeki yaygın sipariş hatalarını azalt.",
   },
+  {
+    path: "/rehber/sublimasyon-forma-nedir/",
+    title: "Süblimasyon Forma Nedir?",
+    copy: "Süblimasyon baskının nasıl çalıştığını ve takım formalarında neden tercih edildiğini öğren.",
+  },
+  {
+    path: "/rehber/forma-siparis-takvimi/",
+    title: "Forma Sipariş Takvimi",
+    copy: "Turnuva ve sezon başına yetişmesi için siparişi hedef tarihten geriye doğru planla.",
+  },
 ];
 
 writePage("/rehber/", {
@@ -1557,44 +1567,120 @@ const guideArticles = [
     route: "/rehber/forma-yaptirma-rehberi/",
     title: "Forma Yaptırma Rehberi: Sipariş Kontrol Listesi",
     description: "Forma yaptırırken model, adet, ürün kapsamı, takım listesi, logo, beden ve tasarım onayı adımlarını doğru sırayla planlayın.",
-    heading: "Forma yaptırmadan önce 7 kararı netleştir.",
-    intro: "İyi bir sipariş, yalnızca güzel bir model seçmekle başlamaz. Doğru bilgi akışı; yanlış beden, eksik numara ve son dakika değişikliği riskini azaltır.",
+    heading: "Forma yaptırma rehberi: siparişten önce 7 kararı netleştir.",
+    intro: "İyi bir forma siparişi yalnızca güzel bir model seçmekle başlamaz. Kararları doğru sırayla vermek; yanlış beden, eksik numara ve son dakika değişikliği riskini azaltır. Bu rehber, takım formasını ilk kez yaptıranlar için adım adım bir kontrol listesi sunar.",
     sections: [
-      ["1. Kullanım amacını yaz", "Halı saha, okul, turnuva veya kulüp kullanımı üretim görüşmesinin bağlamını belirler."],
-      ["2. Model kodunu seç", "Hazır bir model kodu iletişimi hızlandırır. Model seçmediysen beğendiğin renk ve tasarım yönünü açıkla."],
-      ["3. Ürün kapsamını belirt", "Yalnızca forma, forma ve şort veya kaleci ürünü dahil seçeneklerini en başta ayır."],
-      ["4. Adet ve beden dağılımını topla", "Her oyuncunun adını, numarasını ve bedenini tek güncel listede tut."],
-      ["5. Logo dosyalarını hazırla", "Takım arması ve sponsor dosyalarını mümkün olan en net hâliyle paylaş."],
-      ["6. Tasarımı satır satır kontrol et", "İsim yazımı, numara, renk, logo ve beden listesini üretim onayından önce karşılaştır."],
-      ["7. Fiyat ve tarihi teyit et", "Yayınlanan fiyatları incele; güncel üretim planını yazılı olarak iste."],
+      ["1. Kullanım amacını belirle", "Formayı nerede ve ne sıklıkla kullanacağınızı en başta konuşun. Haftalık halı saha maçları, okul takımı, şirket turnuvası ya da kulüp ligi farklı ihtiyaçlar doğurur: kadro büyüklüğü, kaleci sayısı, çocuk beden ihtiyacı ve hedef tarih bu bağlamdan çıkar. Sipariş mesajının ilk satırına kullanım amacını yazmak, tasarım ekibinin doğru soruları sormasını sağlar."],
+      ["2. Modeli seç ya da tasarım yönünü anlat", "Hazır bir model kodu iletişimi en çok hızlandıran bilgidir. Model kataloğundan beğendiğiniz desenin kodunu (ör. FK-001) not edin; renkler takımınıza göre yeniden düzenlenebilir. Hazır modellerden birini seçmek istemiyorsanız kendi deseninizi yükleyebilir ya da beğendiğiniz renk ve desen yönünü kısa cümlelerle anlatabilirsiniz. Forma tasarla aracıyla deseni, logoyu ve numarayı formanın üzerinde önceden görmek kararı kolaylaştırır."],
+      ["3. Ürün kapsamını en başta ayır", "Sadece üst forma mı, forma ve şort mu, yoksa çorap da dahil mi? Kapsam fiyatı doğrudan etkiler: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması uzun kollu hazırlandığı için kaleci başına 50₺ fark eklenir. Kapsamı sonradan değiştirmek listeyi ve hesabı yeniden yapmayı gerektirdiğinden bu kararı ilk adımda verin."],
+      ["4. Adet ve beden dağılımını tek listede topla", "Üretim en az 5 adet ile başlar. Her oyuncunun adını, numarasını ve bedenini tek bir güncel listede tutun; farklı mesajlara dağılmış bilgiler hataların en yaygın kaynağıdır. Çocuk ve yetişkin bedenleri aynı siparişte olabilir. Takım listesi şablonunu indirip doldurmak ya da sipariş formundaki listeyi kullanmak bu adımı hızlandırır."],
+      ["5. Logo ve sponsor dosyalarını hazırla", "Takım arması ve sponsor logolarını mümkün olan en net hâliyle hazırlayın. Arka planı saydam PNG ya da vektörel dosyalar en temiz sonucu verir; telefonla çekilmiş bir fotoğraf ön değerlendirme için yeterli olsa da baskıda keskinlik kaybı yaşanabilir. Hangi logonun göğsün hangi tarafına, hangisinin forma önüne geleceğini de not edin."],
+      ["6. Tasarımı satır satır kontrol et", "Tasarım görseli geldiğinde yalnızca genel görünüme değil ayrıntılara bakın: isimlerin yazımı, numaraların doğruluğu, renk tonları, logo yerleşimi ve beden listesi. Tasarım onayı alınmadan üretime geçilmez; bu yüzden onay anı, değişiklik yapmanın en kolay ve en ucuz olduğu andır. Üretim başladıktan sonraki değişiklikler zaman ve maliyet doğurabilir."],
+      ["7. Fiyatı ve tarihi teyit et", "Yayınlanan fiyatları inceleyin ve toplam tutarı sipariş görüşmesinde teyit edin. İmalat, tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir ve kargo ücreti alıcıya aittir. Bir turnuva ya da sezon başlangıcı için forma yaptırıyorsanız hedef tarihi en başta paylaşın ki plan buna göre yapılsın."],
+      ["Sık yapılan hatalar", "Forma siparişlerinde en sık karşılaşılan sorunlar birbirine benzer: listenin birden fazla kişide farklı sürümlerle dolaşması, isimlerin formadaki yazımının netleştirilmemesi, kaleci sayısının unutulması, logonun düşük çözünürlüklü bir ekran görüntüsünden gönderilmesi ve hedef tarihin son anda paylaşılması. Bu hataların hepsi siparişin başında birkaç dakika ayırarak önlenebilir: tek liste, net yazım, ayrı kaleci sütunu, temiz logo dosyası ve ilk mesajda paylaşılan tarih."],
+      ["Kısa özet", "Kullanım amacını yaz, modeli seç, kapsamı belirle, listeyi tek dosyada topla, logoları hazırla, tasarımı dikkatle onayla ve fiyat ile tarihi teyit et. Bu yedi adımı sırayla izleyen bir takım, formalarını hem doğru hem de zamanında alır. Takıldığın bir adım olursa WhatsApp üzerinden sorabilirsin; tasarım desteği ücretsizdir."],
+    ],
+    related: [
+      ["/forma-tasarla/", "Forma tasarla"],
+      ["/modeller/", "Forma modelleri"],
+      ["/teklif/", "Fiyatlar"],
+      ["/beden-tablosu/", "Beden planlama"],
     ],
   },
   {
     route: "/rehber/hali-saha-formasi-secimi/",
     title: "Halı Saha Forması Seçimi: Takım İçin Pratik Rehber",
     description: "Halı saha forması seçerken model, renk kontrastı, isim-numara okunabilirliği, forma-şort kapsamı, beden ve takım listesini planlayın.",
-    heading: "Halı saha forması seçerken görünüm kadar düzeni de düşün.",
-    intro: "Haftalık maç takımları için en iyi model, yalnızca dikkat çekici olan değil; kadro bilgisini doğru taşıyan ve siparişi kolay yöneten modeldir.",
+    heading: "Halı saha forması seçimi: görünüm kadar düzeni de düşün.",
+    intro: "Haftalık maç oynayan takımlar için en iyi halı saha forması, yalnızca dikkat çekici olan değil; kadro bilgisini doğru taşıyan, sahada kolay ayırt edilen ve siparişi kolay yönetilen formadır. Bu rehber, halı saha forması seçerken dikkat edilecek noktaları sıralar.",
     sections: [
-      ["Takım renklerini sınırla", "Bir ana renk, bir yardımcı renk ve kontrollü bir vurgu çoğu takım için yeterlidir."],
-      ["Numara okunabilirliğini kontrol et", "Forma zemini ile isim ve numara arasında belirgin kontrast iste."],
-      ["Forma ve şortu birlikte düşün", "Şort rengi ve varsa şort numarası uygulamasını sipariş kapsamına ekle."],
-      ["Kaleci ihtiyacını ayır", "Kaleci ürününün renk ve kapsamını takım listesinin içinde açıkça belirt."],
-      ["Bedenleri son gün toplamaya bırakma", "Takım yöneticisi tek bir güncel liste tutsun ve üretim onayından önce son kontrolü yapsın."],
+      ["Takım renklerini sınırla", "Bir ana renk, bir yardımcı renk ve kontrollü bir vurgu rengi çoğu takım için yeterlidir. Çok sayıda rengin bir arada kullanıldığı formalar sahada karışık görünebilir ve takım kimliğini zayıflatır. Ana renk zemin, yardımcı renk desen, vurgu rengi ise yaka, kol ağzı ya da şort şeridi için kullanılabilir. Hazır modeller bu üç katmana göre takım renklerinize uyarlanabilir."],
+      ["Rakip takımlarla karışmayı önle", "Halı sahada sık karşılaştığınız takımların renklerini düşünün. Aynı ligde ya da aynı sahada çoğunlukla koyu renkli takımlarla oynuyorsanız açık renkli bir forma, ya da tam tersi, maç sırasında karışıklığı azaltır. Bazı takımlar bu yüzden iki farklı renkte forma tercih eder."],
+      ["İsim ve numaranın okunabilirliğini kontrol et", "Forma zemini ile isim ve numara arasında belirgin bir kontrast olmalı. Desenli zeminlerde numaranın arkası düz bırakılan modeller ya da beyaz/siyah numara seçeneği okunabilirliği artırır. Sipariş formunda yazı ve numara rengini değiştirip önizlemede kontrol edebilirsiniz."],
+      ["Forma ve şortu birlikte düşün", "Forma + şort takımında şort, formayla aynı tasarım dilinde hazırlanır. Şortta logo ve numara olup olmayacağına sipariş sırasında karar verin. Forma + şort 450₺, çorap da eklendiğinde 480₺'dir; çorap ayrıca 30₺'dir."],
+      ["Kaleci ihtiyacını ayrı planla", "Kaleci forması uzun kollu hazırlanır ve kaleci başına 50₺ fark eklenir. Kalecinin formasının takımdan farklı bir renkte olmasını istiyorsanız bunu sipariş notuna yazın. Kaleci sayısı toplam adedin içinde sayılır."],
+      ["Bedenleri son güne bırakma", "Halı saha kadroları sık değişir; bu yüzden takım yöneticisinin tek bir güncel liste tutması ve üretim onayından önce son kontrolü yapması önemlidir. Bedenler, oyuncuların kullandığı benzer bir spor ürünü referans alınarak seçilmelidir. Üretim en az 5 adet ile başlar."],
+      ["Desenli mi, düz mü?", "Düz ya da ton sür ton desenli formalar sade ve kurumsal bir görünüm verir; sponsor logosu bu zeminlerde daha çok öne çıkar. Boya lekesi, fırça darbesi ya da grafiti gibi canlı desenler ise sahada daha dikkat çekicidir ve takıma enerjik bir kimlik kazandırır. Desenli bir model seçiyorsanız numaranın arkasının sade olmasına ya da numara renginin desenle yeterli kontrast oluşturmasına dikkat edin."],
+      ["Bütçeyi planla", "Toplam tutar adet ve kapsama göre hesaplanır. Örneğin 10 kişilik bir halı saha kadrosu için forma + şort 10 × 450₺ = 4.500₺ eder; kadrodan biri kaleciyse 50₺ eklenir. Çorap da isteniyorsa forma + şort + çorap fiyatı 480₺'dir. Kargo ücreti alıcıya aittir. Sipariş formu bu hesabı adet ve seçimlere göre otomatik yapar."],
+      ["Sık yapılan hatalar", "Halı saha siparişlerinde en sık görülen hatalar; rakip takımlarla aynı renk seçmek, desenli zeminde okunmayan numara rengi kullanmak, kaleciyi listeye eklemeyi unutmak ve beden listesini maç günü toplamaya çalışmaktır. Seçim öncesinde birkaç dakikalık bir kontrol bu sorunların çoğunu önler."],
+    ],
+    related: [
+      ["/hali-saha-formasi/", "Halı saha forması"],
+      ["/kaleci-formasi/", "Kaleci forması"],
+      ["/forma-tasarla/", "Forma tasarla"],
+      ["/rehber/takim-listesi-hazirlama/", "Takım listesi hazırlama"],
     ],
   },
   {
     route: "/rehber/takim-listesi-hazirlama/",
     title: "Forma İsim, Numara ve Beden Listesi Nasıl Hazırlanır?",
     description: "Forma siparişi için oyuncu adı, numara, beden, kaleci bilgisi ve notları içeren doğru takım listesini hazırlayın; ücretsiz CSV şablonunu indirin.",
-    heading: "Tek dosya kullan. Her değişikliği aynı listede güncelle.",
-    intro: "Sipariş hatalarının önemli bir bölümü farklı mesajlarda kalan isim, numara ve beden değişikliklerinden doğar. Basit bir tablo bu riski azaltır.",
+    heading: "Takım listesi hazırlama: forma isim, numara ve beden listesi.",
+    intro: "Forma siparişlerindeki hataların önemli bir bölümü farklı mesajlarda kalan isim, numara ve beden değişikliklerinden doğar. Tek bir tablo ve tek bir sorumlu kişi bu riski büyük ölçüde azaltır. Aşağıdaki adımlar, takım listesini sipariş için hazır hâle getirmenize yardım eder.",
     sections: [
-      ["Oyuncu adını yaz", "Formada görünmesi istenen yazımı büyük-küçük harf dâhil son hâliyle gir."],
-      ["Forma numarasını ayrı sütunda tut", "Numarayı metin içinde değil, kendi sütununda sakla."],
-      ["Bedeni ürün kalıbıyla teyit et", "Doğrulanmış güncel beden bilgisini üreticiyle karşılaştır."],
-      ["Kaleciyi işaretle", "Farklı ürün veya renk ihtiyacı varsa kaleci sütununda açıkça belirt."],
-      ["Tek sorumlu belirle", "Son listeyi bir kişi güncellesin ve üretim onayından önce dondursun."],
+      ["Tek dosya, tek sorumlu", "Listeyi tek bir dosyada tutun ve bir kişiyi sorumlu belirleyin. Oyuncular değişiklikleri yalnızca bu kişiye iletsin; o da aynı dosyayı güncellesin. Farklı sürümlerin dolaşması, üretimde yanlış beden ya da eksik oyuncu riskini artırır. Sipariş onayından önce liste bu kişi tarafından son kez kontrol edilip dondurulmalıdır."],
+      ["Oyuncu adını formadaki hâliyle yaz", "Formada görünmesi istenen yazımı son hâliyle girin: soyadı mı, lakap mı, yoksa ad mı yazılacak, Türkçe karakterler kullanılacak mı? Formada genellikle büyük harf kullanıldığı için Türkçe karakterlerin (İ, Ş, Ğ, Ü, Ö, Ç) doğru yazıldığından emin olun. İsim istemeyen oyuncular için hücreyi boş bırakın."],
+      ["Numarayı ayrı sütunda tut", "Numarayı isimle aynı hücreye yazmayın; kendi sütununda yalnızca rakam olarak saklayın. Aynı numaranın iki oyuncuya verilmediğini kontrol edin. Basketbol ve voleybolda numara önde de yer aldığı için okunabilir, kısa numaralar seçmek iyi bir fikirdir."],
+      ["Bedeni doğru seç", "Sipariş formunda 116, 128, 140, 152 ve 164 çocuk bedenleri ile XS'den 4XL'e yetişkin bedenleri bulunur. En güvenli yol, her oyuncunun rahat ettiği benzer bir spor ürününün bedenini referans almaktır. Arada kalan oyuncular için bir üst beden genellikle daha rahat kullanım sağlar; kesin kalıp bilgisini sipariş görüşmesinde sorabilirsiniz."],
+      ["Kaleciyi ve özel durumları işaretle", "Kaleci formaları uzun kollu hazırlanır; kalecileri listede ayrı bir sütunla işaretleyin. Voleybolda libero için de not düşebilirsiniz. Şortta numara istenmeyen ya da farklı uygulama gereken durumları not sütununa yazın."],
+      ["Listeyi sipariş formuna aktar", "Sipariş formundaki takım listesi bölümü adede göre satır açar; isim, numara ve bedeni doğrudan oraya girebilirsiniz. Alternatif olarak CSV şablonunu indirip doldurabilir ve WhatsApp görüşmesine ekleyebilirsiniz. Her iki yolda da tasarım onayından önce listeyi son kez karşılaştırın."],
+      ["Örnek liste düzeni", "Basit bir liste şu sütunlardan oluşabilir: sıra, formada yazacak isim, numara, beden, kaleci (evet/hayır) ve not. Örneğin: 1 – YILMAZ – 10 – L – hayır; 2 – KAYA – 1 – XL – evet; 3 – (isimsiz) – 7 – 152 – hayır. Bu düzen hem sizin hem de tasarım ekibinin listeyi hızla kontrol etmesini sağlar."],
+      ["Sık yapılan hatalar", "Takım listelerinde en sık rastlanan hatalar; aynı numaranın iki oyuncuya verilmesi, Türkçe karakterlerin yanlış yazılması, beden sütununda farklı sistemlerin karışması (ör. hem 'L' hem 'large'), kalecinin işaretlenmemesi ve listenin sonradan mesajlarla değiştirilmesidir. Son kontrolde bu beş noktaya bakmak yeterlidir."],
+      ["Son kontrol listesi", "Onaydan önce şunları kontrol edin: oyuncu sayısı toplam adetle eşleşiyor mu, her satırda beden var mı, numaralar benzersiz mi, isimler formadaki hâliyle mi yazılmış, kaleciler işaretli mi? Bu sorulardan hepsine evet diyebiliyorsanız liste siparişe hazırdır."],
+    ],
+    related: [
+      ["/beden-tablosu/", "Beden planlama"],
+      ["/cocuk-formasi/", "Çocuk forması"],
+      ["/kaleci-formasi/", "Kaleci forması"],
+      ["/nasil-siparis-verilir/", "Nasıl sipariş verilir?"],
+    ],
+  },
+  {
+    route: "/rehber/sublimasyon-forma-nedir/",
+    title: "Süblimasyon Forma Nedir? Baskı Yöntemi ve Avantajları",
+    description: "Süblimasyon baskı nasıl yapılır, süblimasyon forma neden takım formalarında tercih edilir? Desen, renk, isim-numara ve bakım hakkında bilmeniz gerekenler.",
+    heading: "Süblimasyon forma nedir? Baskı yöntemi ve avantajları.",
+    intro: "Takım formalarında en sık duyulan terimlerden biri süblimasyondur. Bu rehber, süblimasyon baskının nasıl çalıştığını, takım formalarında neden tercih edildiğini ve sipariş verirken nelere dikkat edilmesi gerektiğini sade bir dille anlatır.",
+    sections: [
+      ["Süblimasyon baskı nasıl çalışır?", "Süblimasyonda desen önce özel bir kâğıda basılır. Ardından kâğıt kumaşla birlikte ısı ve basınç altında preslenir; mürekkep ısıyla gaz hâline geçerek polyester liflerin içine işler. Sonuçta desen kumaşın üzerine yapışan bir katman olmaz, kumaşın kendisinin bir parçası hâline gelir. Bu yüzden süblimasyon özellikle polyester spor kumaşlarında kullanılır."],
+      ["Takım formalarında neden tercih edilir?", "Süblimasyon, formanın tamamına desen basılmasına izin verir: ön yüz, arka yüz, kollar ve şort aynı desenle kaplanabilir. Renk geçişleri, fırça darbeleri, fotoğrafik dokular gibi karmaşık desenler bu yöntemle uygulanabilir. Desen kumaşa işlendiği için baskı kalınlık yapmaz ve kumaşın nefes alma özelliğini kapatmaz."],
+      ["İsim, numara ve logo", "Süblimasyonda isim, numara, arma ve sponsor logoları da desenle birlikte aynı baskı sürecinde uygulanabilir. Bu sayede her oyuncunun forması kendi ismi ve numarasıyla tek parça olarak hazırlanır. Tasarım aşamasında yazı ve numara renginin zeminle yeterli kontrast oluşturduğunu kontrol etmek önemlidir."],
+      ["Renkler ekranda ve kumaşta", "Ekranda gördüğünüz renkler ile kumaştaki renkler arasında küçük ton farkları olabilir; bu, ekran ayarları ve kumaş yüzeyinden kaynaklanır. Takımınızın belirli bir kurumsal rengi varsa bunu sipariş notunda belirtin. Tasarım onayı aşamasında renk tercihlerinizi açıkça konuşmak sonucu beklentiye yaklaştırır."],
+      ["Bakım önerileri", "Süblimasyon baskılı formaları uzun süre canlı tutmak için genel öneriler: ters çevirerek, düşük ya da orta sıcaklıkta yıkamak, ağartıcı kullanmamak ve doğrudan ütülememek. Kullanılan ürüne özel bakım talimatları sipariş öncesinde doğrulanır."],
+      ["Sipariş verirken", "Süblimasyon formalarda tasarım tamamen size özel hazırlanır; bu yüzden tasarım onayı en önemli adımdır. Forma Kutusu'nda tasarım desteği ücretsizdir, üretim en az 5 adet ile başlar ve imalat tasarım onayından sonra 5–7 iş günü sürer."],
+      ["Süblimasyon ve diğer baskı yöntemleri", "Spor giyimde süblimasyonun yanında transfer (flex) baskı gibi yöntemler de kullanılır. Transfer baskıda yazı ya da logo ayrı bir malzemeden kesilip kumaşın üzerine yapıştırılır; bu yöntem tek renkli isim ve numaralarda yaygındır ancak kumaşın üzerinde ayrı bir katman oluşturur. Süblimasyonda ise desen kumaşın içine işlendiği için tüm formaya çok renkli desen uygulanabilir ve yüzeyde ek bir katman oluşmaz."],
+      ["Hangi desenler süblimasyona uygun?", "Süblimasyon renk sınırı olmayan bir yöntem olduğu için renk geçişleri, fırça darbeleri, boya lekeleri, geometrik desenler, ebru ve çiçek motifleri gibi karmaşık tasarımlar rahatlıkla uygulanabilir. Forma Kutusu model kataloğundaki desenlerin tamamı bu yöntemle uygulanacak şekilde hazırlanmıştır. Kendi deseninizi kullanmak isterseniz takıma özel forma sayfasından yükleyip formanın üzerinde görebilirsiniz."],
+      ["Kısa özet", "Süblimasyon, deseni ısıyla polyester kumaşın içine işleyen bir baskı yöntemidir. Formanın tamamına çok renkli desen, isim, numara ve logo uygulanmasını sağlar; baskı kalınlık yapmaz. Doğru sonuç için tasarım onayında renkleri, yazı kontrastını ve logo yerleşimini dikkatle kontrol etmek gerekir."],
+    ],
+    related: [
+      ["/kumas-ve-uretim/", "Kumaş ve üretim"],
+      ["/forma-tasarla/", "Forma tasarla"],
+      ["/takima-ozel-forma/", "Takıma özel forma"],
+      ["/teklif/", "Fiyatlar"],
+    ],
+  },
+  {
+    route: "/rehber/forma-siparis-takvimi/",
+    title: "Forma Siparişi Ne Zaman Verilmeli? Sezon ve Turnuva Takvimi",
+    description: "Turnuva, sezon başı ya da okul etkinliği için formayı zamanında almak üzere sipariş takvimini planlayın: tasarım, onay, 5–7 iş günü imalat ve kargo.",
+    heading: "Forma siparişi ne zaman verilmeli? Geriye doğru planla.",
+    intro: "Formaların turnuvaya ya da sezon başına yetişmesi, siparişin ne zaman başladığına bağlıdır. Süreç yalnızca imalattan ibaret değildir; tasarım, liste toplama ve onay da zaman alır. Bu rehber, hedef tarihten geriye doğru nasıl plan yapacağınızı gösterir.",
+    sections: [
+      ["Sürecin adımları", "Bir forma siparişi genel olarak beş adımdan oluşur: model ve kapsam seçimi, takım listesinin toplanması, tasarımın hazırlanması ve onaylanması, imalat ve kargo. İmalat, tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir. En çok zaman kaybı genellikle liste toplama ve onay aşamasında yaşanır."],
+      ["Hedef tarihten geriye say", "Formaları elinizde görmek istediğiniz günü belirleyin ve geriye doğru sayın: önce kargo için birkaç gün, sonra 5–7 iş günü imalat, onun öncesinde tasarım ve onay için zaman bırakın. İş günü hesabında hafta sonları ve resmi tatiller sayılmaz. Bu hesap, siparişi en geç hangi gün onaylamanız gerektiğini gösterir."],
+      ["Liste toplamaya erken başla", "Oyunculardan isim, numara ve beden bilgilerini toplamak beklenenden uzun sürebilir. Liste için takım içinde bir son tarih belirleyin ve tek bir kişinin listeyi toplamasını sağlayın. Takım listesi şablonu bu süreci hızlandırır."],
+      ["Onayı geciktirme", "Tasarım görseli geldiğinde hızlı ve dikkatli bir kontrol yapın. Değişiklik isteklerini tek mesajda toplamak, birkaç tur gidip gelmeyi önler. Onay verilmeden imalat başlamadığı için onaydaki her gün teslim tarihine eklenir."],
+      ["Yoğun dönemleri hesaba kat", "Sezon başları, okul turnuvaları ve büyük organizasyon öncesi dönemlerde sipariş ve kargo yoğunluğu artabilir. Bu dönemlerde planınıza biraz pay bırakmak ve hedef tarihi ilk mesajda paylaşmak, güncel üretim uygunluğunun baştan teyit edilmesini sağlar."],
+      ["Ek sipariş planı", "Sezon içinde yeni oyuncu katılabileceğini düşünüyorsanız ilk siparişte bunu not edin. Aynı tasarımla ek sipariş verirken model kodu ve tasarım bilgileri işinizi kolaylaştırır; ek siparişlerin de minimum adet ve imalat süresine tabi olabileceğini göz önünde bulundurun."],
+      ["Örnek plan", "Formaların bir cumartesi günü oynanacak turnuvaya yetişmesi gerektiğini düşünelim. Kargo için birkaç gün pay bırakıp imalatın en geç turnuvadan önceki hafta tamamlanmasını hedefleyin. İmalat 5–7 iş günü sürdüğüne göre tasarım onayının bundan yaklaşık bir buçuk hafta önce verilmiş olması gerekir. Tasarım hazırlığı ve liste toplama için de birkaç gün eklendiğinde, siparişe turnuvadan yaklaşık üç hafta önce başlamak rahat bir plan sunar."],
+      ["Okul ve turnuva takımları için", "Okul takımları ve turnuvalarda kadrolar kalabalık, beden yelpazesi geniştir; liste toplama süreci genellikle daha uzun sürer. Öğretmen ya da organizatör gibi tek bir sorumlu belirlemek ve veliler ya da oyuncular için net bir son tarih koymak süreci hızlandırır. Çocuk ve yetişkin bedenleri aynı siparişte planlanabilir."],
+      ["Kargo süresi", "Siparişler Türkiye geneline kargoyla gönderilir; teslim süresi bulunduğunuz şehre ve kargo firmasının yoğunluğuna göre değişir. Kargo ücreti alıcıya aittir. Paketi teslim alırken kargo görevlisinin yanında kontrol etmeniz önerilir."],
+    ],
+    related: [
+      ["/nasil-siparis-verilir/", "Nasıl sipariş verilir?"],
+      ["/okul-turnuva-formasi/", "Okul ve turnuva forması"],
+      ["/teslimat-ve-iade/", "Teslimat ve iade"],
+      ["/rehber/takim-listesi-hazirlama/", "Takım listesi hazırlama"],
     ],
   },
 ];
@@ -1622,7 +1708,7 @@ for (const article of guideArticles) {
     ],
     body: `
       ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Rehber", path: "/rehber/" }, { name: article.heading, path: article.route }])}
-      <article class="article"><header class="article__header container"><p class="eyebrow">Forma Kutusu Rehber</p><h1>${escapeHtml(article.heading)}</h1><p class="lead">${escapeHtml(article.intro)}</p></header><div class="container article__body">${article.sections.map(([title, copy]) => `<section><h2>${escapeHtml(title)}</h2><p>${escapeHtml(copy)}</p></section>`).join("")}<aside class="download-card"><h2>Takım listesi şablonunu indir</h2><p>Oyuncu adı, forma numarası, beden, kaleci bilgisi ve not sütunları hazır.</p><a class="button" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></aside></div></article>
+      <article class="article"><header class="article__header container"><p class="eyebrow">Forma Kutusu Rehber</p><h1>${escapeHtml(article.heading)}</h1><p class="lead">${escapeHtml(article.intro)}</p></header><div class="container article__body">${article.sections.map(([title, copy]) => `<section><h2>${escapeHtml(title)}</h2><p>${escapeHtml(copy)}</p></section>`).join("")}${article.related ? `<nav class="article__related" aria-label="İlgili sayfalar"><h2>İlgili sayfalar</h2><ul>${article.related.map(([href, label]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join("")}</ul></nav>` : ""}<aside class="download-card"><h2>Takım listesi şablonunu indir</h2><p>Oyuncu adı, forma numarası, beden, kaleci bilgisi ve not sütunları hazır.</p><a class="button" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></aside></div></article>
       ${finalCta()}`,
   });
 }
