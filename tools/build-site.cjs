@@ -200,6 +200,7 @@ function footer() {
         <a href="/basketbol/">Basketbol formalari</a>
         <a href="/voleybol/">Voleybol formalari</a>
         <a href="/modeller/">Tüm modeller</a>
+        <a href="/forma-tasarla/">Forma tasarla</a>
       </div>
       <div>
         <h2>Bilgi</h2>
@@ -224,7 +225,7 @@ function footer() {
       <a href="/iletisim/">İletişim</a>
     </div>
   </footer>
-  <nav class="mobile-cta mobile-cta--pair" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="/forma-sort-takimi/">Tasarla <span aria-hidden="true">→</span></a><a class="mobile-cta__secondary" href="/teklif/">Fiyatları Gör</a></nav>`;
+  <nav class="mobile-cta mobile-cta--pair" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="/forma-tasarla/">Tasarla <span aria-hidden="true">→</span></a><a class="mobile-cta__secondary" href="/teklif/">Fiyatları Gör</a></nav>`;
 }
 
 function pageShell({
@@ -416,7 +417,7 @@ function finalCta(title = "Takımına yakışan formayı birlikte hazırlayalım
   return `<section class="final-cta">
     <div class="container final-cta__inner">
       <div><p class="eyebrow">Bir sonraki adım</p><h2>${escapeHtml(title)}</h2></div>
-      <div class="button-row"><a class="button" href="/forma-sort-takimi/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
+      <div class="button-row"><a class="button" href="/forma-tasarla/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
     </div>
   </section>`;
 }
@@ -1118,6 +1119,35 @@ const servicePages = [
     models,
   },
   {
+    route: "/forma-tasarla/",
+    title: "Forma Tasarla: Online Forma Tasarım Aracı",
+    description: "Takımının formasını online tasarla: deseni seç, branş ve yaka tipini belirle, logo, sponsor, isim ve numarayı forma ve şort üzerinde anında gör.",
+    eyebrow: "Online forma tasarımı",
+    heading: "Forma tasarla: takımının formasını anında gör.",
+    copy: "Deseni seç, branşı ve yaka tipini belirle; logonu, sponsorunu, kulüp ismini ve numaranı forma ve şort üzerinde canlı önizle. Beğendiğin tasarımı aynı sayfada siparişe çevir.",
+    previewForm: true,
+    guide: [
+      ["Forma tasarlamak nasıl çalışır?", "Bu sayfadaki tasarım aracı futbol, basketbol ve voleybol formalarını takımının bilgileriyle anında gösterir. Önce branşı seç; galeri o branşa ait desenleri getirir. Desen kartına tıklayarak ya da ok tuşlarıyla desenler arasında gezebilir, telefonda galeriyi parmağınla kaydırabilirsin. Yaka tipini seçtiğinde forma görseli de değişir."],
+      ["Logo, sponsor, isim ve numara", "Göğüs logoları ve forma önü reklamı için kendi dosyalarını seçebilirsin; dosya yalnızca senin cihazında işlenir ve önizlemeye yerleşir. TR Arma seçeneğiyle Türk bayrağı göğse eklenir. Kulüp ismini yazdığında formanın arkasında, numara ise sırtta ve şortta görünür. Yazı ve numara rengini beyaz ya da siyah olarak değiştirebilirsin."],
+      ["Tasarımdan siparişe", "Tasarım bitince adedi, ürün kapsamını (tek üst forma, forma + şort, çorap) ve oyuncu listesini aynı formda doldur; toplam tutar otomatik hesaplanır. Sipariş özeti WhatsApp sohbetimize gider, ekip tasarımı kontrol edip son görseli onayına sunar. Tasarım desteği ücretsizdir ve onay vermeden üretime geçilmez."],
+      ["Kendi desenini kullanmak istersen", "Hazır desenlerin dışında kendi tasarımın varsa <a href=\"/takima-ozel-forma/\">takıma özel forma</a> sayfasından desen görselini yükleyerek formanın üzerinde görebilirsin. Fiyatlar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına bakabilirsin."],
+    ],
+    image: { src: "/assets/models/fk-007.webp", alt: "Forma tasarla aracıyla hazırlanan forma ve şort", width: 1000, height: 1250 },
+    cards: [
+      ["Deseni seç", "Branşa göre desen galerisinden takımına uygun modeli bul."],
+      ["Takım kimliği", "Logo, sponsor, kulüp ismi ve numarayı formanın üzerinde gör."],
+      ["Adet ve beden", "Oyuncu listesini ve beden dağılımını aynı formda tamamla."],
+      ["Tasarım onayı", "Son görsel onaylanmadan üretime geçilmez."],
+    ],
+    faq: [
+      ["Forma tasarlamak ücretli mi?", "Hayır. Tasarım aracını kullanmak ve tasarım desteği ücretsizdir; ödeme yalnızca sipariş verdiğinde, üretilecek ürünler için yapılır."],
+      ["Önizlemedeki forma birebir böyle mi üretilir?", "Önizleme tasarımın genel görünümünü gösterir. Logo yerleşimi, renk tonları ve ölçüler sipariş sonrasında hazırlanan son görselde netleşir ve senin onayınla üretime geçer."],
+      ["Hangi branşlar için forma tasarlayabilirim?", "Futbol, halı saha, basketbol ve voleybol formaları tasarlanabilir. Voleybolda şorta logo ve numara eklenmez."],
+      ["Minimum kaç adet sipariş verebilirim?", "Üretim en az 5 adet ile başlar."],
+    ],
+    models,
+  },
+  {
     route: "/okul-turnuva-formasi/",
     title: "Okul Takımı ve Turnuva Forması Yaptırma",
     description: "Okul takımı, şirket turnuvası ve organizasyonlar için forma yaptırma sürecini takım listesi, farklı bedenler ve teslim planıyla yönetin.",
@@ -1174,6 +1204,7 @@ for (const service of servicePages) {
         ${modelGrid(items)}
       </div></section>`
       }
+      ${service.guide ? `<section class="content-section"><div class="container prose">${service.guide.map(([h, p]) => `<h2>${escapeHtml(h)}</h2><p>${p}</p>`).join("")}</div></section>` : ""}
       <section class="feature-section"><div class="container">
         ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
         <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>

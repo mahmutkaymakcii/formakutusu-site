@@ -182,7 +182,7 @@ function createIstanbulPage(chrome) {
     </div></section>
     <section class="content-section"><div class="container prose">
       <h2>İstanbul’daki takımlar için forma üretimi</h2>
-      <p>Forma Kutusu, 2017’den beri İstanbul Zeytinburnu’nda takımlara özel forma tasarlayıp üretiyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.</p>
+      <p>İstanbul Zeytinburnu merkezli Forma Kutusu, 2017’den beri takımlara özel forma tasarlıyor; formalar NORA markasıyla üretiliyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.</p>
       <p>Sipariş süreci her takım için aynı: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.</p>
       <h2>İstanbul’da forma fiyatları</h2>
       <p>Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href="/teklif/">Fiyatlar</a> sayfasına, model seçmek için <a href="/modeller/">Modeller</a> sayfasına bakabilirsin.</p>
@@ -199,7 +199,7 @@ function createIstanbulPage(chrome) {
     </div></section>
     <section class="final-cta"><div class="container final-cta__inner">
       <div><p class="eyebrow">Bir sonraki adım</p><h2>Takımına yakışan formayı birlikte hazırlayalım.</h2></div>
-      <div class="button-row"><a class="button" href="/forma-sort-takimi/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
+      <div class="button-row"><a class="button" href="/forma-tasarla/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
     </div></section>
   </main>
   ${chrome.footer}
