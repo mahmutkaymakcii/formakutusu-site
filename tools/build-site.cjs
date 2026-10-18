@@ -1180,14 +1180,14 @@ const servicePages = [
   {
     route: "/cocuk-formasi/",
     title: "Çocuk Forması Yaptırma",
-    description: "Okul, kulüp ve futbol okulu takımları için isimli numaralı çocuk forması yaptırın. 116–164 çocuk bedenleri ve yetişkin bedenleri aynı siparişte.",
+    description: "Okul, kulüp ve futbol okulu takımları için isimli numaralı çocuk forması yaptırın. 116–164 çocuk bedenleri yetişkinle aynı fiyata, aynı siparişte.",
     eyebrow: "Çocuk forması",
     heading: "Çocuk forması yaptırma: isimli, numaralı takım formaları.",
     copy: "Futbol okulları, okul takımları ve kulüplerin alt yaş grupları için çocuk bedenlerinde takıma özel forma. Çocuk ve yetişkin bedenleri aynı siparişte planlanır.",
     guide: [
       ["Çocuk bedenleri", "Sipariş formunda 116, 128, 140, 152 ve 164 çocuk bedenleri ile XS'den 4XL'e yetişkin bedenleri aynı listede seçilebilir. Bu sayede antrenörlerin ve yetişkin oyuncuların formaları da çocuk formalarıyla birlikte hazırlanır. Beden seçerken çocuğun kullandığı benzer bir spor ürününü referans almak en güvenli yoldur; ayrıntılar için <a href=\"/beden-tablosu/\">beden planlama</a> sayfasına bakabilirsin."],
       ["İsim ve numara", "Her oyuncunun adı, numarası ve bedeni takım listesinde tek satırda toplanır. Listeyi sipariş formunda doldurabilir ya da CSV şablonunu indirip hazırlayabilirsin. İsim ve numara, arma ve sponsorla birlikte tasarım aşamasında formaya uygulanır."],
-      ["Fiyat ve minimum adet", "Üretim en az 5 adet ile başlar. Fiyat listesi beden ayrımı yapmaz: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Sipariş formu da tüm bedenleri aynı fiyatla hesaplar; kesin tutar sipariş görüşmesinde teyit edilir."],
+      ["Fiyat ve minimum adet", "Üretim en az 5 adet ile başlar. Çocuk bedenlerinde fiyat farkı yoktur; yetişkin bedenleriyle aynı fiyatlar geçerlidir: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Sipariş formu toplam tutarı otomatik hesaplar."],
       ["Okul ve turnuva takımları", "Kalabalık okul kadroları ve turnuvalar için <a href=\"/okul-turnuva-formasi/\">okul ve turnuva forması</a> sayfasındaki planlama önerilerine göz atabilir, tasarımı <a href=\"/forma-tasarla/\">Forma tasarla</a> sayfasında önizleyebilirsin."],
     ],
     image: { src: "/assets/models/fk-001.webp", alt: "Çocuk takımları için özel forma modeli", width: 640, height: 800 },
@@ -1199,7 +1199,7 @@ const servicePages = [
     ],
     faq: [
       ["Çocuk forması bedenleri nelerdir?", "Sipariş formunda 116, 128, 140, 152 ve 164 çocuk bedenleri bulunur; yetişkin bedenleri de aynı listede seçilebilir."],
-      ["Çocuk forması fiyatı farklı mı?", "Fiyat listesi beden ayrımı yapmaz ve sipariş formu tüm bedenleri aynı fiyatla hesaplar; kesin tutar sipariş görüşmesinde teyit edilir."],
+      ["Çocuk forması fiyatı farklı mı?", "Hayır. Çocuk bedenlerinde fiyat farkı yoktur; yetişkin bedenleriyle aynı fiyatlar geçerlidir."],
       ["Minimum kaç adet çocuk forması sipariş edebilirim?", "Üretim en az 5 adet ile başlar; çocuk ve yetişkin bedenleri bu adede birlikte sayılır."],
       ["Futbol okulu için toplu sipariş verebilir miyim?", "Evet. Oyuncu listesini isim, numara ve bedenle hazırlayıp sipariş formuna ekleyebilir ya da WhatsApp'tan iletebilirsin."],
     ],
