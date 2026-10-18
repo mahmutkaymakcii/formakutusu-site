@@ -9,7 +9,9 @@
     "colors": "turkuaz",
     "pattern": "ton sür ton dalgalı desen",
     "summary": "FK-001, turkuaz zemin üzerinde ton sür ton dalgalı desenle sade ama hareketli bir görünüm sunar. Arka yüz ve şort düz turkuaz olduğu için isim, numara ve sponsor alanları net okunur.",
-    "featured": true
+    "featured": true,
+    "label": "Turkuaz Dalga Desenli",
+    "story": "Desen tek rengin açık ve koyu tonlarıyla çalıştığı için turkuaz yerine takımın kendi ana rengiyle, örneğin lacivert, bordo ya da yeşille kolayca yeniden hazırlanabilir. Sakin zemin sponsor logosunu öne çıkarır; tek renk kimliği olan halı saha ve amatör lig takımları için uygundur."
   },
   {
     "id": "FK-002",
@@ -21,7 +23,9 @@
     "colors": "siyah, gri ve turuncu",
     "pattern": "noktalı gövde ve çapraz şeritler",
     "summary": "FK-002, gri-beyaz noktalı gövdesini kesen çapraz turuncu ve siyah şeritlerle dinamik bir görünüm sunar. Arka yüz siyah, kol ağızları turuncu; siyah şortun yanlarında turuncu şerit var.",
-    "featured": true
+    "featured": true,
+    "label": "Siyah Turuncu Şeritli",
+    "story": "Gövdeyi kesen çapraz şeritler formaya hareket katar; turuncu yerine takımın vurgu rengi kullanılarak şerit ve kol ağızları birlikte değiştirilebilir. Siyah arka yüz, beyaz ya da renkli isim ve numaraya güçlü bir zemin sağlar."
   },
   {
     "id": "FK-005",
@@ -33,7 +37,9 @@
     "colors": "su yeşili ve mor",
     "pattern": "çapraz fırça çizgileri",
     "summary": "FK-005, su yeşili zemin üzerinde göğüsten bele inen mor fırça çizgileriyle hız hissi veren bir model. Arka yüz düz su yeşili; şortun yanlarında mor şerit var.",
-    "featured": true
+    "featured": true,
+    "label": "Su Yeşili Mor Fırça Desenli",
+    "story": "Göğüsten bele inen fırça çizgileri hız hissi verir. İki renkli bir takım kimliği için uygundur: zemin ana renk, fırça çizgileri ikinci renk olarak uyarlanır. Düz arka yüz sayesinde isim ve numara alanı sadedir."
   },
   {
     "id": "FK-007",
@@ -45,7 +51,9 @@
     "colors": "mor, turuncu, sarı ve turkuaz",
     "pattern": "renkli boya lekeleri",
     "summary": "FK-007, mor zemin üzerine dağılan turuncu, sarı, kırmızı ve turkuaz boya lekeleriyle canlı bir model. Arka yüz ve şort düz mor; desen kollarda devam ediyor.",
-    "featured": true
+    "featured": true,
+    "label": "Mor Boya Lekeli",
+    "story": "Dört renkli boya lekeleri sahada en çok dikkat çeken modellerden biridir; lekelerin renkleri takımın renk paletine göre seçilebilir. Desen kollarda da devam ettiği için ön yüz bütünlüklü görünür, arka yüz ve şort ise düz kalır."
   },
   {
     "id": "FK-008",
@@ -57,7 +65,9 @@
     "colors": "mor, sarı ve pembe",
     "pattern": "dalga çizgileri",
     "summary": "FK-008, mor zeminde sarıdan pembeye geçen dalga çizgileriyle sahada dikkat çeken bir model. Arka yüz ve şort düz mor; isim ve numara uzaktan kolayca okunur.",
-    "featured": false
+    "featured": false,
+    "label": "Mor Sarı Pembe Dalgalı",
+    "story": "Sarıdan pembeye geçen dalga çizgileri renk geçişi seven takımlar için canlı bir seçenektir; geçiş renkleri takım renklerine göre değiştirilebilir. Düz arka yüz, isim ve numarayı uzaktan okunur kılar."
   },
   {
     "id": "FK-009",
@@ -69,7 +79,9 @@
     "colors": "koyu ve açık yeşil",
     "pattern": "organik labirent deseni",
     "summary": "FK-009, iki ton yeşilde ön ve arka yüzü kaplayan organik labirent deseniyle bütünlüklü bir görünüm sunar. Şort düz yeşil; beyaz isim ve numara desen üzerinde net okunur.",
-    "featured": false
+    "featured": false,
+    "label": "Yeşil Labirent Desenli",
+    "story": "Ön ve arka yüzü saran labirent deseni formaya bütünlüklü bir görünüm verir. Desen iki tonla çalıştığı için yeşil yerine takımın ana renginin açık ve koyu tonlarıyla uyarlanabilir; beyaz isim ve numara desen üzerinde net okunur."
   },
   {
     "id": "FK-012",
@@ -81,7 +93,9 @@
     "colors": "siyah, beyaz ve kırmızı",
     "pattern": "siyah-beyaz çizim deseni",
     "summary": "FK-012, ön yüzü kaplayan siyah-beyaz çizim deseniyle sıra dışı bir model. Arka yüz ve şort siyah; kırmızı isim, numara ve sponsor alanı güçlü bir kontrast oluşturur.",
-    "featured": false
+    "featured": false,
+    "label": "Siyah Beyaz Çizim Desenli",
+    "story": "Ön yüzü kaplayan çizim deseni sıra dışı bir görünüm isteyen takımlar içindir. Kırmızı isim, numara ve sponsor alanı siyah-beyaz zeminde güçlü bir kontrast oluşturur; vurgu rengi takımın rengine göre değiştirilebilir."
   },
   {
     "id": "FK-019",
@@ -93,7 +107,9 @@
     "colors": "beyaz ve yeşil",
     "pattern": "üçgen ağ deseni ve renk geçişi",
     "summary": "FK-019, beyazdan yeşile geçen gövdesi ve ince yeşil üçgen ağ deseniyle ferah bir model. Arkada siyah isim ve numara yer alıyor; şort düz yeşil.",
-    "featured": false
+    "featured": false,
+    "label": "Beyaz Yeşil Üçgen Desenli",
+    "story": "Beyazdan yeşile geçen gövde ve ince üçgen ağ deseni ferah, açık renkli bir forma isteyen takımlar için uygundur. Geçiş rengi takımın rengine göre değiştirilebilir; arkadaki siyah isim ve numara açık zeminde net okunur."
   },
   {
     "id": "FK-027",
@@ -105,7 +121,9 @@
     "colors": "lacivert, bordo ve beyaz",
     "pattern": "göğüs bandı ve ince yatay çizgiler",
     "summary": "FK-027, lacivert gövdesindeki ince yatay çizgiler ve göğüsteki bordo bantla klasik bir kulüp havası taşır. Omuzlar beyaz noktalı, yaka bordo; şort ve çorap lacivert.",
-    "featured": false
+    "featured": false,
+    "label": "Lacivert Bordo Bantlı",
+    "story": "Göğüs bandı ve ince yatay çizgileriyle klasik kulüp formalarını anımsatan bir model. Bant rengi ve gövde rengi takım renklerine göre değiştirilebilir; şort ve çorapla birlikte geleneksel bir takım görünümü oluşturur."
   },
   {
     "id": "FK-029",
@@ -117,7 +135,9 @@
     "colors": "beyaz ve kırmızı",
     "pattern": "kırmızı noktalı geçiş",
     "summary": "FK-029, beyaz gövdenin yanlarına ve omuzlarına yayılan kırmızı nokta geçişiyle sade ama hareketli bir model. Yaka kırmızı; şort kırmızı.",
-    "featured": false
+    "featured": false,
+    "label": "Beyaz Kırmızı Noktalı",
+    "story": "Beyaz gövdeye yanlardan ve omuzlardan yayılan nokta geçişi sade ama hareketli bir görünüm verir. Kırmızı yerine takımın vurgu rengi kullanılabilir; yaka ve şort aynı renkle eşleşir. Açık renk forma tercih eden takımlar için uygundur."
   },
   {
     "id": "FK-031",
@@ -129,7 +149,9 @@
     "colors": "siyah, mavi ve sarı",
     "pattern": "petek geçiş deseni",
     "summary": "FK-031, siyah gövdeye yukarıdan inen mavi ve sarı petek desenle güçlü bir görünüm sunar. Yaka ve kol ağızları mavi; şort ve çorap siyah.",
-    "featured": true
+    "featured": true,
+    "label": "Siyah Mavi Petek Desenli",
+    "story": "Siyah gövdeye yukarıdan inen petek deseni güçlü ve modern bir görünüm sunar. Mavi ve sarı yerine takımın iki rengi kullanılabilir; siyah şort ve çorapla birlikte koyu tonlu bir takım görünümü oluşturur."
   },
   {
     "id": "FK-B-001",
@@ -141,7 +163,9 @@
     "colors": "siyah, pembe, turkuaz ve mercan",
     "pattern": "grafiti tarzı çizim",
     "summary": "FK-B-001, siyah zemin üzerindeki pembe ve turkuaz grafiti çizimleriyle cesur bir parke görünümü sunar. Mercan rengi şortun yanlarında koyu şeritler var; ön ve arkadaki geniş numara alanı uzaktan okunur.",
-    "featured": true
+    "featured": true,
+    "label": "Siyah Grafiti Desenli",
+    "story": "Pembe ve turkuaz grafiti çizimleri parke üzerinde cesur bir görünüm verir. Grafiti renkleri takım renklerine göre seçilebilir; önde ve arkadaki geniş numara alanı basketbolda uzaktan okunabilirlik sağlar."
   },
   {
     "id": "FK-B-002",
@@ -153,7 +177,9 @@
     "colors": "turkuaz ve lacivert",
     "pattern": "zikzak çizgiler",
     "summary": "FK-B-002, turkuaz ve lacivert zikzak çizgileri ve boya serpintisi dokusuyla enerjik bir parke modeli. Turkuaz şortun yanlarında lacivert şerit var; ön ve arkada geniş numara alanı bulunur.",
-    "featured": false
+    "featured": false,
+    "label": "Turkuaz Lacivert Zikzak",
+    "story": "Zikzak çizgiler ve boya serpintisi dokusu enerjik bir basketbol forması isteyen takımlar içindir. İki renkli yapı takımın ana ve ikinci rengine kolayca uyarlanır; şort yanlarındaki şerit formayla eşleşir."
   },
   {
     "id": "FK-B-003",
@@ -165,7 +191,9 @@
     "colors": "siyah ve turuncu",
     "pattern": "kırık cam (poligon) deseni",
     "summary": "FK-B-003, siyah zemin üzerindeki turuncu poligon parçalarıyla sert ve modern bir görünüm sunar. Yaka ve kol ağızları turuncu; siyah şortun yanlarında turuncu şerit var.",
-    "featured": false
+    "featured": false,
+    "label": "Siyah Turuncu Poligon",
+    "story": "Kırık cam görünümlü poligon parçaları sert ve modern bir parke görünümü verir. Turuncu yerine takımın vurgu rengi kullanılabilir; yaka, kol ağızları ve şort şeridi aynı renkle eşleşir."
   },
   {
     "id": "FK-B-004",
@@ -177,7 +205,9 @@
     "colors": "yeşil ve sarı",
     "pattern": "eskitme leke dokusu",
     "summary": "FK-B-004, yeşil ve sarının iç içe geçtiği eskitme leke dokusuyla dikkat çeken bir model. Sarı şortun yanlarında yeşil şerit var; beyaz numaralar desen üzerinde öne çıkar.",
-    "featured": true
+    "featured": true,
+    "label": "Yeşil Sarı Eskitme",
+    "story": "Eskitme leke dokusu formaya vintage bir karakter verir. Yeşil ve sarı yerine takımın iki rengiyle hazırlanabilir; beyaz numaralar desen üzerinde öne çıkar."
   },
   {
     "id": "FK-B-005",
@@ -189,7 +219,9 @@
     "colors": "turuncu ve beyaz",
     "pattern": "göğüste kare ızgara motifi",
     "summary": "FK-B-005, turuncu gövdesi, beyaz yan panelleri ve göğüsteki kare ızgara motifiyle sade bir parke modeli. Arka yüz düz turuncu; turuncu şortun yanları beyaz.",
-    "featured": false
+    "featured": false,
+    "label": "Turuncu Beyaz Izgara Motifli",
+    "story": "Göğüsteki kare ızgara motifi ve beyaz yan paneller sade, okunaklı bir basketbol forması isteyen takımlar için uygundur. Gövde rengi takımın rengine göre değiştirilebilir; düz arka yüz isim ve numara için temiz bir alan bırakır."
   },
   {
     "id": "FK-B-006",
@@ -201,7 +233,9 @@
     "colors": "beyaz ve mavi",
     "pattern": "göğüste fırça darbeleri",
     "summary": "FK-B-006, beyaz gövdesi ve göğüsteki mavi fırça darbeleriyle temiz, ferah bir model. Yaka ve kenarlar mavi; mavi isim ve numaralar beyaz zeminde net okunur.",
-    "featured": false
+    "featured": false,
+    "label": "Beyaz Mavi Fırça Desenli",
+    "story": "Beyaz gövde ve göğüsteki fırça darbeleri temiz, ferah bir görünüm sunar. Fırça rengi takımın rengine göre değiştirilebilir; beyaz zemin isim ve numaranın net okunmasını sağlar. Açık renk deplasman forması olarak da düşünülebilir."
   },
   {
     "id": "FK-B-007",
@@ -213,7 +247,9 @@
     "colors": "yeşil ve mor",
     "pattern": "çapraz kesik çizgiler",
     "summary": "FK-B-007, yeşil gövdeyi saran çapraz mor kesik çizgilerle sıra dışı bir renk ikilisi sunar. Yaka ve kenarlar mor; mor şortun yanlarında yeşil şerit var.",
-    "featured": false
+    "featured": false,
+    "label": "Yeşil Mor Çizgili",
+    "story": "Gövdeyi saran çapraz kesik çizgiler sıra dışı bir renk ikilisiyle birleşir. Renkler takım renklerine göre değiştirilebilir; yaka, kenarlar ve şort şeridi ikinci renkle eşleşir."
   },
   {
     "id": "FK-B-008",
@@ -225,7 +261,9 @@
     "colors": "lacivert ve sarı",
     "pattern": "sarıdan laciverte geçiş",
     "summary": "FK-B-008, sarı omuzlardan laciverte inen dikey çizgili geçişiyle klasik bir kulüp renk ikilisi sunar. Lacivert şortun yanlarında sarı şerit var.",
-    "featured": false
+    "featured": false,
+    "label": "Lacivert Sarı Geçişli",
+    "story": "Sarı omuzlardan laciverte inen dikey çizgili geçiş, klasik kulüp renklerini modern bir şekilde yorumlar. Geçiş renkleri takımın iki rengine göre uyarlanabilir; şort yanlarındaki şerit formayla eşleşir."
   },
   {
     "id": "FK-B-009",
@@ -237,7 +275,9 @@
     "colors": "siyah, kırmızı ve beyaz",
     "pattern": "şimşek ve noktalı geçiş",
     "summary": "FK-B-009, siyah gövdeyi kesen beyaz şimşek ve kırmızı noktalı geçişlerle güçlü bir görünüm sunar. Yaka ve kenarlar kırmızı; siyah şortun yanlarında kırmızı şerit var.",
-    "featured": false
+    "featured": false,
+    "label": "Siyah Kırmızı Şimşek Desenli",
+    "story": "Siyah gövdeyi kesen şimşek ve noktalı geçişler güçlü bir parke görünümü verir. Kırmızı yerine takımın vurgu rengi kullanılabilir; yaka, kenarlar ve şort şeridi aynı renkle eşleşir."
   },
   {
     "id": "FK-B-010",
@@ -249,7 +289,9 @@
     "colors": "kırmızı, siyah ve beyaz",
     "pattern": "geometrik şerit ve yıldız motifi",
     "summary": "FK-B-010, kırmızı gövdenin üst ve alt kısmındaki siyah-beyaz geometrik şerit ve yıldız motifleriyle hareketli bir model. Kırmızı şortun yanları siyah.",
-    "featured": false
+    "featured": false,
+    "label": "Kırmızı Yıldız Motifli",
+    "story": "Gövdenin üst ve alt kısmındaki geometrik şerit ve yıldız motifleri hareketli bir görünüm sunar. Gövde rengi takımın rengine göre değiştirilebilir; motifler siyah-beyaz kalarak her renkle uyum sağlar."
   },
   {
     "id": "FK-B-011",
@@ -261,7 +303,9 @@
     "colors": "açık gri ve su yeşili",
     "pattern": "süsleme deseni",
     "summary": "FK-B-011, açık gri zemin üzerindeki su yeşili süsleme deseniyle zarif ve farklı bir model. Numaralar su yeşili; gri şortun yanlarında su yeşili şerit var.",
-    "featured": false
+    "featured": false,
+    "label": "Gri Su Yeşili Süslemeli",
+    "story": "Açık gri zemin üzerindeki süsleme deseni zarif ve farklı bir basketbol forması isteyen takımlar içindir. Süsleme ve numara rengi takımın rengine göre değiştirilebilir; gri zemin her renkle uyum sağlar."
   },
   {
     "id": "FK-V-001",
@@ -273,7 +317,9 @@
     "colors": "lacivert, beyaz ve kırmızı",
     "pattern": "yanlarda alev motifi",
     "summary": "FK-V-001, lacivert-beyaz gövdesi ve yanlardaki kırmızı alev motifiyle klasik ama dinamik bir voleybol modeli. Kolsuz kesim ve V yakalı; göğüste, sırtta ve şortta numara alanı var.",
-    "featured": true
+    "featured": true,
+    "label": "Lacivert Beyaz Alev Motifli",
+    "story": "Yanlardaki alev motifi klasik lacivert-beyaz gövdeye dinamizm katar. Kolsuz kesim ve V yaka voleybolda rahat hareket sağlar; alev rengi takımın vurgu rengine göre değiştirilebilir. Göğüs, sırt ve şortta numara alanı bulunur."
   },
   {
     "id": "FK-V-002",
@@ -285,7 +331,9 @@
     "colors": "açık mavi ve turkuaz",
     "pattern": "barok süsleme deseni",
     "summary": "FK-V-002, açık mavi zemini kaplayan turkuaz barok süslemelerle zarif bir voleybol modeli. Kolsuz kesim ve V yakalı; turkuaz şortta numara alanı var.",
-    "featured": true
+    "featured": true,
+    "label": "Açık Mavi Barok Desenli",
+    "story": "Açık mavi zemini kaplayan barok süslemeler zarif bir voleybol forması sunar. Süsleme rengi takımın rengine göre değiştirilebilir; kolsuz kesim ve V yaka ile şortta numara alanı bulunur."
   },
   {
     "id": "FK-V-003",
@@ -297,7 +345,9 @@
     "colors": "kırmızı, turuncu, mavi ve sarı",
     "pattern": "ebru deseni",
     "summary": "FK-V-003, kırmızı, turuncu, mavi ve sarının karıştığı ebru deseniyle sahada kolayca fark edilen bir model. Kolsuz kesim ve V yakalı; kırmızı şortta numara alanı var.",
-    "featured": false
+    "featured": false,
+    "label": "Renkli Ebru Desenli",
+    "story": "Dört rengin karıştığı ebru deseni sahada kolayca fark edilen, renkli bir voleybol forması sunar. Ebru renkleri takımın paletine göre seçilebilir; kolsuz kesim ve V yakalı, şortta numara alanı var."
   },
   {
     "id": "FK-V-004",
@@ -309,7 +359,9 @@
     "colors": "petrol yeşili",
     "pattern": "ton sür ton dalgalı desen",
     "summary": "FK-V-004, petrol yeşili zemin üzerinde ton sür ton dalgalı desenle sade ve şık bir voleybol modeli. Kolsuz kesim ve V yakalı; aynı renk şortta numara alanı var.",
-    "featured": false
+    "featured": false,
+    "label": "Petrol Yeşili Dalga Desenli",
+    "story": "Ton sür ton dalgalı desen sade ve şık bir voleybol forması isteyen takımlar içindir. Desen tek rengin tonlarıyla çalıştığı için takımın ana rengiyle kolayca yeniden hazırlanabilir; kolsuz kesim ve V yakalı."
   },
   {
     "id": "FK-V-005",
@@ -321,7 +373,9 @@
     "colors": "yeşil",
     "pattern": "zebra çizgileri",
     "summary": "FK-V-005, iki ton yeşilde zebra çizgileriyle hareketli bir voleybol modeli. Kolsuz kesim ve V yakalı; yeşil şortta numara alanı var.",
-    "featured": false
+    "featured": false,
+    "label": "Yeşil Zebra Desenli",
+    "story": "İki ton yeşildeki zebra çizgileri hareketli bir görünüm verir. Desen iki tonla çalıştığı için takımın ana renginin açık ve koyu tonlarıyla uyarlanabilir; kolsuz kesim ve V yakalı, şortta numara alanı var."
   },
   {
     "id": "FK-V-006",
@@ -333,6 +387,8 @@
     "colors": "siyah, pembe, yeşil ve kırmızı",
     "pattern": "tropikal çiçek deseni",
     "summary": "FK-V-006, siyah zemin üzerindeki pembe çiçekler ve tropikal yapraklarla dikkat çeken bir model. Göğüste sarı çizgili kırmızı bant var; siyah şortta numara alanı bulunur.",
-    "featured": false
+    "featured": false,
+    "label": "Siyah Tropikal Çiçek Desenli",
+    "story": "Siyah zemin üzerindeki pembe çiçekler ve tropikal yapraklar dikkat çekici bir voleybol forması sunar. Göğüsteki kırmızı bant takımın vurgu rengine göre değiştirilebilir; çiçek renkleri de takımın paletine göre seçilebilir."
   }
 ]
