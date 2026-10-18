@@ -2849,3 +2849,14 @@ body .mobile-cta.mobile-cta--pair {
   .pricing-details { grid-template-columns: 1fr; }
   .pricing-details article { padding: 20px; }
 }
+
+/* Metin içi bağlantılar düz yazıdan ayırt edilsin */
+.prose a {
+  color: var(--volt);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose a:hover {
+  color: var(--cyan);
+}
