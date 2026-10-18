@@ -2860,3 +2860,11 @@ body .mobile-cta.mobile-cta--pair {
 .prose a:hover {
   color: var(--cyan);
 }
+
+/* Model sayfası: desene özel tanıtım */
+.product-detail__story {
+  margin: -0.25rem 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}

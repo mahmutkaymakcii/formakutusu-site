@@ -279,7 +279,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019e">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019f">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -912,9 +912,11 @@ for (const model of models) {
     .filter((candidate) => candidate.sport === model.sport && candidate.id !== model.id)
     .slice(0, 3);
   const description = `${model.id} ${config.singular.toLocaleLowerCase("tr-TR")}: ${model.colors}, ${model.pattern}. Takım renklerine uyarlanır; üst forma ${site.priceFrom}₺, minimum 5 adet.`;
+  // Aranabilir ad: kod + renk/desen + branş (ör. "FK-001 Turkuaz Dalga Desenli Futbol Forması")
+  const heading = `${model.id} ${model.label} ${config.label} Forması`;
 
   writePage(route, {
-    title: `${model.id} ${config.singular}`,
+    title: heading,
     description,
     pageClass: "product-page",
     preloadImage: model.image,
@@ -991,8 +993,9 @@ for (const model of models) {
           </div>
           <div class="product-detail__info">
             <p class="eyebrow">${escapeHtml(model.category)} · ${model.id}</p>
-            <h1>${model.id} ${escapeHtml(config.singular)}</h1>
+            <h1>${escapeHtml(heading)}</h1>
             <p class="lead">${escapeHtml(model.summary)}</p>
+            <p class="product-detail__story">${escapeHtml(model.story)}</p>
             <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Üst forma 300₺</strong><small>Forma + şort 450₺ · Forma + şort + çorap 480₺ · Çorap 30₺</small></div>
             <dl class="product-detail__facts">
               <div><dt>Model kodu</dt><dd>${model.id}</dd></div>
