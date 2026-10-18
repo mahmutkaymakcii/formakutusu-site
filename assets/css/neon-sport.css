@@ -2868,3 +2868,41 @@ body .mobile-cta.mobile-cta--pair {
   font-size: 0.98rem;
   line-height: 1.7;
 }
+
+/* Rehber: ilgili sayfalar */
+.article__related {
+  margin: 8px 0 24px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.article__related h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.article__related ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article__related a {
+  display: inline-flex;
+  padding: 8px 12px;
+  border: 1px solid rgb(45 226 255 / 42%);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.article__related a:hover {
+  border-color: var(--volt);
+  color: var(--volt);
+}
