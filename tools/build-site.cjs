@@ -201,6 +201,8 @@ function footer() {
         <a href="/voleybol/">Voleybol formalari</a>
         <a href="/modeller/">Tüm modeller</a>
         <a href="/forma-tasarla/">Forma tasarla</a>
+        <a href="/kaleci-formasi/">Kaleci forması</a>
+        <a href="/cocuk-formasi/">Çocuk forması</a>
       </div>
       <div>
         <h2>Bilgi</h2>
@@ -277,7 +279,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019d">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019e">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -1146,6 +1148,61 @@ const servicePages = [
       ["Minimum kaç adet sipariş verebilirim?", "Üretim en az 5 adet ile başlar."],
     ],
     models,
+  },
+  {
+    route: "/kaleci-formasi/",
+    title: "Kaleci Forması Yaptırma",
+    description: "Takımınıza özel uzun kollu kaleci forması yaptırın. Kaleci forması, takım siparişine kaleci başına 50₺ farkla eklenir; isim, numara ve logo uygulanır.",
+    eyebrow: "Kaleci forması",
+    heading: "Kaleci forması yaptırma: takımınla aynı siparişte.",
+    copy: "Kaleci formasını takım formalarıyla aynı siparişe ekle. Uzun kollu hazırlanır; isim, numara, arma ve sponsor bilgileri tasarım aşamasında uygulanır.",
+    guide: [
+      ["Kaleci forması nasıl sipariş edilir?", "Kaleci forması ayrı bir sipariş gerektirmez. Sipariş formunda kaleci seçeneğini işaretleyip kaç kaleci olduğunu yazman yeterli; kaleci formaları takımın diğer formalarıyla birlikte hazırlanır. Kaleci sayısı toplam forma adedinin içinde sayılır."],
+      ["Kaleci forması fiyatı", "Kaleci forması uzun kollu hazırlandığı için kaleci başına 50₺ fiyat farkı eklenir. Örneğin 10 forma + şort siparişinde 1 kaleci varsa toplam 4.500₺ + 50₺ = 4.550₺ olur. Güncel fiyatlar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına bakabilirsin."],
+      ["Kaleci formasının tasarımı", "Kaleci formasının renk ve desen tercihini sipariş notuna yazabilirsin; tasarım aşamasında takım formasıyla birlikte netleşir ve son görsel onayına sunulur. İsim, numara, arma ve sponsor kaleci formasına da uygulanır."],
+      ["Hangi takımlar için?", "<a href=\"/futbol/\">Futbol</a> ve <a href=\"/hali-saha-formasi/\">halı saha</a> takımlarının kaleci formaları bu şekilde hazırlanır. Tasarımı önizlemek için <a href=\"/forma-tasarla/\">Forma tasarla</a> sayfasını kullanabilirsin."],
+    ],
+    image: { src: "/assets/models/fk-027.webp", alt: "Takıma özel futbol ve kaleci forması", width: 640, height: 800 },
+    cards: [
+      ["Uzun kol", "Kaleci forması uzun kollu hazırlanır."],
+      ["+50₺ fark", "Kaleci başına 50₺ fiyat farkı eklenir."],
+      ["Aynı sipariş", "Takım formalarıyla birlikte planlanır ve gönderilir."],
+      ["İsim ve numara", "Kaleciye de isim, numara ve logo uygulanır."],
+    ],
+    faq: [
+      ["Kaleci forması fiyatı ne kadar?", "Kaleci forması, seçtiğin ürünün fiyatına kaleci başına 50₺ uzun kol farkı eklenerek hesaplanır."],
+      ["Sadece kaleci forması sipariş edebilir miyim?", "Üretim en az 5 adet ile başlar; kaleci formaları genelde takım siparişine eklenir. Farklı bir ihtiyacın varsa WhatsApp'tan yaz."],
+      ["Kaleci formasının rengi farklı olabilir mi?", "Renk ve desen tercihini sipariş notunda belirtebilirsin; tasarım aşamasında netleşir ve onayına sunulur."],
+      ["Kaleci şortu da hazırlanır mı?", "Forma + şort seçeneğinde kalecinin şortu da takımla birlikte hazırlanır."],
+    ],
+    models: models.filter((model) => model.sport === "futbol").slice(0, 6),
+  },
+  {
+    route: "/cocuk-formasi/",
+    title: "Çocuk Forması Yaptırma",
+    description: "Okul, kulüp ve futbol okulu takımları için isimli numaralı çocuk forması yaptırın. 116–164 çocuk bedenleri ve yetişkin bedenleri aynı siparişte.",
+    eyebrow: "Çocuk forması",
+    heading: "Çocuk forması yaptırma: isimli, numaralı takım formaları.",
+    copy: "Futbol okulları, okul takımları ve kulüplerin alt yaş grupları için çocuk bedenlerinde takıma özel forma. Çocuk ve yetişkin bedenleri aynı siparişte planlanır.",
+    guide: [
+      ["Çocuk bedenleri", "Sipariş formunda 116, 128, 140, 152 ve 164 çocuk bedenleri ile XS'den 4XL'e yetişkin bedenleri aynı listede seçilebilir. Bu sayede antrenörlerin ve yetişkin oyuncuların formaları da çocuk formalarıyla birlikte hazırlanır. Beden seçerken çocuğun kullandığı benzer bir spor ürününü referans almak en güvenli yoldur; ayrıntılar için <a href=\"/beden-tablosu/\">beden planlama</a> sayfasına bakabilirsin."],
+      ["İsim ve numara", "Her oyuncunun adı, numarası ve bedeni takım listesinde tek satırda toplanır. Listeyi sipariş formunda doldurabilir ya da CSV şablonunu indirip hazırlayabilirsin. İsim ve numara, arma ve sponsorla birlikte tasarım aşamasında formaya uygulanır."],
+      ["Fiyat ve minimum adet", "Üretim en az 5 adet ile başlar. Fiyat listesi beden ayrımı yapmaz: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Sipariş formu da tüm bedenleri aynı fiyatla hesaplar; kesin tutar sipariş görüşmesinde teyit edilir."],
+      ["Okul ve turnuva takımları", "Kalabalık okul kadroları ve turnuvalar için <a href=\"/okul-turnuva-formasi/\">okul ve turnuva forması</a> sayfasındaki planlama önerilerine göz atabilir, tasarımı <a href=\"/forma-tasarla/\">Forma tasarla</a> sayfasında önizleyebilirsin."],
+    ],
+    image: { src: "/assets/models/fk-001.webp", alt: "Çocuk takımları için özel forma modeli", width: 640, height: 800 },
+    cards: [
+      ["Çocuk bedenleri", "116, 128, 140, 152 ve 164 bedenleri seçilebilir."],
+      ["Karma liste", "Çocuk ve yetişkin bedenleri aynı siparişte."],
+      ["İsim ve numara", "Her oyuncu için isim, numara ve beden tek listede."],
+      ["Tasarım onayı", "Son görsel onaylanmadan üretime geçilmez."],
+    ],
+    faq: [
+      ["Çocuk forması bedenleri nelerdir?", "Sipariş formunda 116, 128, 140, 152 ve 164 çocuk bedenleri bulunur; yetişkin bedenleri de aynı listede seçilebilir."],
+      ["Çocuk forması fiyatı farklı mı?", "Fiyat listesi beden ayrımı yapmaz ve sipariş formu tüm bedenleri aynı fiyatla hesaplar; kesin tutar sipariş görüşmesinde teyit edilir."],
+      ["Minimum kaç adet çocuk forması sipariş edebilirim?", "Üretim en az 5 adet ile başlar; çocuk ve yetişkin bedenleri bu adede birlikte sayılır."],
+      ["Futbol okulu için toplu sipariş verebilir miyim?", "Evet. Oyuncu listesini isim, numara ve bedenle hazırlayıp sipariş formuna ekleyebilir ya da WhatsApp'tan iletebilirsin."],
+    ],
   },
   {
     route: "/okul-turnuva-formasi/",
