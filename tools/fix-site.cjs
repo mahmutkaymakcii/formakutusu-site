@@ -151,10 +151,10 @@ function createIstanbulPage(chrome) {
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261017c">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019c">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019d">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js?v=20261017" defer></script>
+  <script src="/assets/js/site.js?v=20261019a" defer></script>
 </head>
 <body class="content-page istanbul-page">
   ${chrome.header}
@@ -166,7 +166,7 @@ function createIstanbulPage(chrome) {
       <div class="container inner-hero__grid">
         <div>
           <p class="eyebrow">İstanbul'daki takımlar için</p>
-          <h1>Forma yaptırma sürecini net bilgilerle başlat.</h1>
+          <h1>İstanbul’da forma yaptırma: süreci net bilgilerle başlat.</h1>
           <p class="lead">Futbol, halı saha, basketbol ve voleybol takımları için model, renk, logo, isim, numara ve beden dağılımını sipariş öncesinde planla.</p>
         </div>
       </div>
@@ -179,6 +179,15 @@ function createIstanbulPage(chrome) {
         <article><span>03</span><h3>Adet ve beden</h3><p>Oyuncu listesini kontrol ederek beden dağılımını netleştir.</p></article>
         <article><span>04</span><h3>Tasarım onayı</h3><p>Hazırlanan görsel onaylanmadan üretime geçilmez.</p></article>
       </div>
+    </div></section>
+    <section class="content-section"><div class="container prose">
+      <h2>İstanbul’daki takımlar için forma üretimi</h2>
+      <p>Forma Kutusu, 2017’den beri İstanbul Zeytinburnu’nda takımlara özel forma tasarlayıp üretiyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.</p>
+      <p>Sipariş süreci her takım için aynı: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.</p>
+      <h2>İstanbul’da forma fiyatları</h2>
+      <p>Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href="/teklif/">Fiyatlar</a> sayfasına, model seçmek için <a href="/modeller/">Modeller</a> sayfasına bakabilirsin.</p>
+      <h2>Hangi takımlar için?</h2>
+      <p><a href="/hali-saha-formasi/">Halı saha forması</a>, <a href="/futbol/">futbol forması</a>, <a href="/basketbol/">basketbol forması</a>, <a href="/voleybol/">voleybol forması</a> ve <a href="/okul-turnuva-formasi/">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href="/takima-ozel-forma/">takıma özel forma</a> sayfasından yükleyip formanın üzerinde anında görebilirsin.</p>
     </div></section>
     <section class="content-band"><div class="container content-band__grid">
       <div><p class="eyebrow">Gönderim planı</p><h2>İstanbul ve Türkiye geneli için güncel bilgiyi sipariş görüşmesinde doğrula.</h2></div>
@@ -254,7 +263,7 @@ write("sitemap.xml", sitemap);
 write("sitemap.txt", canonicalUrls.join("\n"));
 write(
   "robots.txt",
-  `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.txt`,
+  `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.txt\nSitemap: ${origin}/sitemap.xml`,
 );
 
 console.log(`Finalized ${canonicalUrls.length} indexable pages.`);

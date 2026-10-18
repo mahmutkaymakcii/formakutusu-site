@@ -276,7 +276,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019c">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019d">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -632,7 +632,7 @@ const categoryConfig = {
     description:
       "Takımınıza özel futbol ve halı saha forması modellerini inceleyin. Fiyatları görün, model koduyla siparişinizi başlatın.",
     eyebrow: "Futbol formaları",
-    heading: "Takımına özel futbol forma modelleri.",
+    heading: "Futbol forması yaptırma: takımına özel modeller.",
     copy: "Halı saha ekipleri, okul takımları, turnuva kadroları ve kulüpler için modelden siparişe uzanan sade bir akış.",
     image: { src: "/assets/models/fk-007.webp", alt: "FK-007 özel futbol forma ve şort modeli", width: 1000, height: 1250 },
     faq: [
@@ -647,7 +647,7 @@ const categoryConfig = {
     description:
       "Takımınıza özel basketbol forma ve şort modellerini inceleyin. Fiyatları görün, model koduyla siparişinizi başlatın.",
     eyebrow: "Basketbol formaları",
-    heading: "Sahaya ve parkeye uygun takım görünümü.",
+    heading: "Basketbol forması yaptırma: parkeye uygun takım modelleri.",
     copy: "Basketbol forma ve şort modellerini kodla seç; takım renklerini, logoyu ve oyuncu listesini sipariş görüşmesine ekle.",
     image: { src: "/assets/models/fk-b-004.webp", alt: "FK-B-004 özel basketbol forma ve şort modeli", width: 640, height: 800 },
     faq: [
@@ -662,7 +662,7 @@ const categoryConfig = {
     description:
       "Takımınıza özel voleybol forma modellerini inceleyin. Fiyatları görün, model koduyla siparişinizi başlatın.",
     eyebrow: "Voleybol formaları",
-    heading: "Takım bütünlüğünü sahaya taşıyan modeller.",
+    heading: "Voleybol forması yaptırma: takımına özel modeller.",
     copy: "Okul, turnuva ve kulüp takımları için voleybol modellerini incele; beden dağılımını ve oyuncu bilgilerini düzenli biçimde paylaş.",
     image: { src: "/assets/models/fk-v-002.webp", alt: "FK-V-002 özel voleybol forma modeli", width: 640, height: 800 },
     faq: [
@@ -1079,7 +1079,7 @@ const servicePages = [
     title: "Takıma Özel Forma Yaptırma",
     description: "Takımınıza özel forma tasarımı için model, renk, logo, sponsor, isim, numara ve beden bilgilerini planlayın; siparişinizi hazırlayın.",
     eyebrow: "Özel tasarım",
-    heading: "Kendi deseninle takımına özel forma.",
+    heading: "Takıma özel forma: kendi deseninle tasarla.",
     copy: "Hazır model seçmek zorunda değilsin. Desenini yükle, formanın üzerinde anında gör; logo ve oyuncu listesiyle birlikte siparişini oluştur.",
     customForm: true,
     image: { src: "/assets/models/fk-019.webp", alt: "FK-019 beyaz ve yeşil özel futbol forma modeli", width: 640, height: 800 },
@@ -1100,7 +1100,7 @@ const servicePages = [
     title: "Forma Şort Takımı Yaptırma",
     description: "Takımınıza özel forma ve şort takımını model, renk, logo, isim, numara, adet ve beden dağılımıyla birlikte planlayın.",
     eyebrow: "Forma + şort",
-    heading: "Üst ve alt parçayı aynı takım diliyle planla.",
+    heading: "Forma şort takımı yaptırma: üst ve alt aynı takım dilinde.",
     copy: "Deseni seç; logonu, kulüp ismini ve yaka tipini anında forma ve şort üzerinde gör, siparişini aynı sayfada oluştur.",
     previewForm: true,
     image: { src: "/assets/models/fk-007.webp", alt: "FK-007 özel forma ve şort takımı", width: 1000, height: 1250 },
@@ -1122,7 +1122,7 @@ const servicePages = [
     title: "Okul Takımı ve Turnuva Forması Yaptırma",
     description: "Okul takımı, şirket turnuvası ve organizasyonlar için forma yaptırma sürecini takım listesi, farklı bedenler ve teslim planıyla yönetin.",
     eyebrow: "Okul ve turnuva",
-    heading: "Kalabalık kadroları düzenli bir siparişe dönüştür.",
+    heading: "Okul takımı ve turnuva forması: kalabalık kadrolar için düzenli sipariş.",
     copy: "Öğrenci, çalışan veya turnuva kadrolarında farklı bedenleri, isimleri ve numaraları tek listede toplayarak hata riskini azalt.",
     image: { src: "/assets/models/fk-001.webp", alt: "FK-001 okul ve turnuva takımları için özel forma modeli", width: 640, height: 800 },
     cards: [
@@ -1196,7 +1196,7 @@ writePage("/nasil-siparis-verilir/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Nasıl Sipariş Verilir?", path: "/nasil-siparis-verilir/" }])}
-    ${innerHero({ eyebrow: "Sipariş rehberi", title: "Karmaşık değil. Sırayla ilerle.", copy: "Model, takım bilgisi, tasarım onayı ve üretim adımlarını tek kontrol listesinde takip et.", image: { src: "/assets/models/fk-009.webp", alt: "FK-009 özel futbol forma modeli", width: 640, height: 800 } })}
+    ${innerHero({ eyebrow: "Sipariş rehberi", title: "Forma siparişi nasıl verilir? Sırayla ilerle.", copy: "Model, takım bilgisi, tasarım onayı ve üretim adımlarını tek kontrol listesinde takip et.", image: { src: "/assets/models/fk-009.webp", alt: "FK-009 özel futbol forma modeli", width: 640, height: 800 } })}
     <section class="timeline-section"><div class="container">
       <ol class="timeline">
         <li><span>01</span><div><h2>Branşı ve modeli seç</h2><p>Futbol, basketbol veya voleybol kataloğundan beğendiğin model kodunu not al. Hazır model seçmek zorunlu değil; tasarım yönünü de anlatabilirsin.</p></div></li>
@@ -1222,7 +1222,7 @@ writePage("/beden-tablosu/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Beden Planlama", path: "/beden-tablosu/" }])}
-    ${innerHero({ eyebrow: "Beden ve kadro", title: "Doğru liste, daha az sipariş hatası.", copy: "Doğrulanmamış ölçü tablosu yayınlamak yerine, güncel ürün kalıbını sipariş öncesinde teyit ediyor ve takım listesini düzenli biçimde topluyoruz.", cta: false })}
+    ${innerHero({ eyebrow: "Beden ve kadro", title: "Forma beden planlama ve takım listesi.", copy: "Doğrulanmamış ölçü tablosu yayınlamak yerine, güncel ürün kalıbını sipariş öncesinde teyit ediyor ve takım listesini düzenli biçimde topluyoruz.", cta: false })}
     <section class="content-section"><div class="container content-columns">
       <article><h2>Bedenleri nasıl planlamalısın?</h2><ol><li>Her oyuncunun kullandığı benzer bir spor ürününü referans al.</li><li>Çocuk ve yetişkin beden ihtiyacını ayrı belirt.</li><li>Kaleci ürününü ve farklı kalıp ihtiyacını not düş.</li><li>Üretim onayından önce son listeyi tek dosyada paylaş.</li></ol></article>
       <aside class="info-card"><p class="eyebrow">Önemli not</p><h2>Ölçüler ürüne göre teyit edilir.</h2><p>Bu sayfada santimetre tablosu vermiyoruz; mevcut arşivde doğrulanmış kalıp ölçüleri bulunmuyor. Güncel ölçü bilgisini sipariş görüşmesinde istemelisin.</p></aside>
@@ -1250,7 +1250,7 @@ writePage("/kumas-ve-uretim/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Kumaş ve Üretim", path: "/kumas-ve-uretim/" }])}
-    ${innerHero({ eyebrow: "Üretim bilgisi", title: "Görünüm kadar süreç de önemli.", copy: "Kumaş, baskı ve dikim kararlarını doğrulanmış güncel üretim bilgisiyle ele al. Teknik ayrıntıları sipariş görüşmesinde açıkça sor.", image: { src: "/assets/references/ref-9.webp", alt: "Siyah forma ve şort üretiminden gerçek ürünler", width: 1000, height: 700 } })}
+    ${innerHero({ eyebrow: "Üretim bilgisi", title: "Süblimasyon forma: kumaş, baskı ve üretim süreci.", copy: "Kumaş, baskı ve dikim kararlarını doğrulanmış güncel üretim bilgisiyle ele al. Teknik ayrıntıları sipariş görüşmesinde açıkça sor.", image: { src: "/assets/references/ref-9.webp", alt: "Siyah forma ve şort üretiminden gerçek ürünler", width: 1000, height: 700 } })}
     <section class="feature-section"><div class="container">
       ${sectionIntro("Kontrol noktaları", "Üretime geçmeden önce dört doğrulama.", "Havalı teknik terimler yerine siparişini doğrudan etkileyen sorulara odaklan.")}
       <div class="feature-grid"><article><span>01</span><h3>Kullanım amacı</h3><p>Branş, maç veya antrenman kullanımı ve oyuncu profili.</p></article><article><span>02</span><h3>Kumaş seçimi</h3><p>Mevcut seçenekler ve uygunluk güncel üretim bilgisiyle teyit edilir.</p></article><article><span>03</span><h3>Tasarım onayı</h3><p>Renk, logo, isim ve numara üretimden önce kontrol edilir.</p></article><article><span>04</span><h3>Son liste</h3><p>Adet, beden ve oyuncu bilgileri tek dosyada kesinleştirilir.</p></article></div>
@@ -1280,10 +1280,18 @@ writePage("/sik-sorulan-sorular/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Sık Sorulan Sorular", path: "/sik-sorulan-sorular/" }])}
-    ${innerHero({ eyebrow: "Sık sorulanlar", title: "Sipariş öncesinde bilmen gerekenler.", copy: "Minimum adet, tasarım, dosya, beden ve teslim planıyla ilgili yanıtları tek yerde topladık.", cta: false })}
+    ${innerHero({ eyebrow: "Sık sorulanlar", title: "Forma yaptırma hakkında sık sorulan sorular.", copy: "Minimum adet, tasarım, dosya, beden ve teslim planıyla ilgili yanıtları tek yerde topladık.", cta: false })}
     <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Yanıtlar", "Kısa ve doğrulanabilir bilgi.", "Kargo ve özel tarih talepleri sipariş görüşmesinde netleştirilir.")}${faqBlock(allFaq)}</div></section>
     ${finalCta()}`,
 });
+
+const pricingFaq = [
+  ["Minimum kaç adet forma sipariş edebilirim?", "Üretim en az 5 adet ile başlar. Tüm fiyatlar adet başınadır; takımın kadrosu kadar sipariş verebilirsin."],
+  ["Kaleci forması fiyatı farklı mı?", "Kaleci forması uzun kollu hazırlanır ve kaleci başına 50₺ fiyat farkı eklenir."],
+  ["Tasarım için ayrıca ücret ödüyor muyum?", "Hayır. Tasarım desteği ücretsizdir; hazırlanan görseli onaylamadan üretime geçilmez."],
+  ["Kargo ücreti fiyata dahil mi?", "Hayır. Sipariş Türkiye geneline kargoyla gönderilir ve kargo ücreti alıcıya aittir."],
+  ["Sipariş ne kadar sürede hazır olur?", "İmalat, tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir."],
+];
 
 writePage("/teklif/", {
   title: "Özel Tasarım Forma Fiyatları",
@@ -1294,11 +1302,12 @@ writePage("/teklif/", {
       { name: "Ana Sayfa", path: "/" },
       { name: "Fiyatlar", path: "/teklif/" },
     ]),
+    faqSchema(pricingFaq),
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Fiyatlar", path: "/teklif/" }])}
     <section class="pricing-hero"><div class="container pricing-hero__grid">
-      <div><p class="eyebrow">Şeffaf fiyatlandırma</p><h1>ÖZEL TASARIM FORMA FİYATLARI</h1><p class="lead">Forma Kutusu ve NORA güvencesiyle ürün fiyatlarını incele, siparişini doğrudan WhatsApp üzerinden başlat.</p></div>    </div></section>
+      <div><p class="eyebrow">Şeffaf fiyatlandırma</p><h1>Özel tasarım forma fiyatları</h1><p class="lead">Futbol, halı saha, basketbol ve voleybol takımları için özel tasarım forma fiyatları. Forma Kutusu ve NORA güvencesiyle fiyatları incele, siparişini doğrudan WhatsApp üzerinden başlat.</p></div>    </div></section>
     <section class="pricing-section" id="fiyatlar"><div class="container">
       <div class="pricing-grid" aria-label="Özel tasarım forma fiyatları">
         <article class="price-card"><p>TEK ÜST FORMA</p><strong>300₺</strong></article>
@@ -1307,7 +1316,15 @@ writePage("/teklif/", {
         <article class="price-card"><p>ÇORAP</p><strong>30₺</strong></article>
       </div>
       <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>Tasarım onayından sonra 5–7 iş günü imalat; kargo süresi ayrıca eklenir.</p><p>Kargo ücreti alıcıya aittir. <a href="/teslimat-ve-iade/">Teslimat ve iade koşulları</a></p></div>
+      <div class="pricing-details">
+        <article><h2>Forma fiyatına neler dahil?</h2><p>Fiyatlar adet başınadır ve takımına özel hazırlanan süblimasyon baskılı forma içindir. Tasarım desteği ücretsizdir: seçtiğin modelin renkleri takımına göre düzenlenir; arma, sponsor, isim ve numara tasarım aşamasında formaya yerleştirilir. Üretim, hazırlanan görseli onaylamandan sonra başlar.</p><p>Futbol, halı saha, basketbol ve voleybol formalarında aynı fiyatlar geçerlidir. Forma + şort takımında şort, formayla aynı tasarım dilinde hazırlanır.</p></article>
+        <article><h2>Takım için örnek hesap</h2><p>Toplam tutar adet, ürün kapsamı ve kaleci sayısına göre hesaplanır:</p><ul class="check-list"><li>10 forma + şort: 10 × 450₺ = 4.500₺</li><li>10 forma + şort + çorap: 10 × 480₺ = 4.800₺</li><li>10 forma + şort, 1’i kaleci: 4.500₺ + 50₺ = 4.550₺</li><li>5 tek üst forma: 5 × 300₺ = 1.500₺</li></ul><p>Sipariş formunda adedi ve kapsamı seçtiğinde toplam tutar otomatik hesaplanır; kesin tutar sipariş görüşmesinde teyit edilir.</p></article>
+      </div>
       <div class="pricing-order"><div><p class="eyebrow">Sipariş</p><h2>Modelini seç, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve varsa oyuncu listesini mesajına ekleyebilirsin.</p></div><a class="button" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sipariş Ver</a></div>
+    </div></section>
+    <section class="faq-section"><div class="container faq-section__grid">
+      <div class="section-intro"><p class="eyebrow">Fiyat soruları</p><h2>Forma fiyatları hakkında sık sorulanlar</h2><p>Burada olmayan sorular için WhatsApp’tan yazabilirsin.</p></div>
+      <div class="faq-list">${pricingFaq.map(([q, a], i) => `<details${i === 0 ? " open" : ""}><summary>${escapeHtml(q)}</summary><div><p>${escapeHtml(a)}</p></div></details>`).join("")}</div>
     </div></section>`,
 });
 
@@ -1323,7 +1340,7 @@ writePage("/hakkimizda/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Hakkımızda", path: "/hakkimizda/" }])}
-    ${innerHero({ eyebrow: "Forma Kutusu", title: "Takım kimliğini üretime hazırlayan sade yaklaşım.", copy: "Model seçimini, takım detaylarını, tasarım onayını ve üretim iletişimini tek anlaşılır süreçte birleştiriyoruz.", image: { src: "/assets/references/ref-15.webp", alt: "Forma Kutusu üretiminden tamamlanan siyah ve mavi takım formaları", width: 1000, height: 700 } })}
+    ${innerHero({ eyebrow: "Forma Kutusu", title: "Forma Kutusu: 2017’den beri takımlara özel forma üretimi.", copy: "Model seçimini, takım detaylarını, tasarım onayını ve üretim iletişimini tek anlaşılır süreçte birleştiriyoruz.", image: { src: "/assets/references/ref-15.webp", alt: "Forma Kutusu üretiminden tamamlanan siyah ve mavi takım formaları", width: 1000, height: 700 } })}
     <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Hikâyemiz</p><h2>Nisan 2017'den bu yana takımlarla.</h2></div><p>Forma Kutusu, Nisan 2017'de İstanbul Zeytinburnu'nda kuruldu. O günden bu yana takımlara özel forma tasarlıyoruz. Formalarımız kendi markamız NORA ile hazırlanıyor; model seçiminden tasarım onayına kadar her adımda takımınla birlikte çalışıyoruz.</p></div></section>
     <section class="feature-section"><div class="container">
       ${sectionIntro("Nasıl çalışıyoruz", "Her siparişte aynı dört ilke.", "Modelden teslimata kadar her adımı seninle birlikte netleştiriyoruz.")}
@@ -1346,13 +1363,13 @@ writePage("/iletisim/", {
   ],
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "İletişim", path: "/iletisim/" }])}
-    ${innerHero({ eyebrow: "İletişim", title: "Takımın için konuşmaya başlayalım.", copy: "En hızlı başlangıç için model kodunu, forma adedini ve takım renklerini mesajına ekle.", cta: false })}
+    ${innerHero({ eyebrow: "İletişim", title: "Forma Kutusu iletişim: takımın için konuşmaya başlayalım.", copy: "En hızlı başlangıç için model kodunu, forma adedini ve takım renklerini mesajına ekle.", cta: false })}
     <section class="contact-section"><div class="container">
       <div class="contact-social" aria-label="Sosyal medya hesapları">
-        <a class="social-tile" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-instagram.png" alt="Instagram'da takip et: @formakutusu" width="560" height="571" loading="lazy"></a>
-        <a class="social-tile" href="${site.facebook}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-facebook.png" alt="Facebook'ta takip et: @formakutusu" width="560" height="571" loading="lazy"></a>
-        <a class="social-tile" href="${site.tiktok}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-tiktok.png" alt="TikTok'ta takip et: @formakutusunora" width="560" height="571" loading="lazy"></a>
-        <a class="social-tile" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=${encodeURIComponent(site.email)}&amp;su=Forma%20sipari%C5%9Fi" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-gmail.png" alt="E-posta: ${site.email}" width="560" height="571" loading="lazy"></a>
+        <a class="social-tile" href="${site.instagram}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-instagram.webp" alt="Instagram'da takip et: @formakutusu" width="480" height="489" loading="lazy"></a>
+        <a class="social-tile" href="${site.facebook}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-facebook.webp" alt="Facebook'ta takip et: @formakutusu" width="480" height="489" loading="lazy"></a>
+        <a class="social-tile" href="${site.tiktok}" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-tiktok.webp" alt="TikTok'ta takip et: @formakutusunora" width="480" height="489" loading="lazy"></a>
+        <a class="social-tile" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=${encodeURIComponent(site.email)}&amp;su=Forma%20sipari%C5%9Fi" target="_blank" rel="noopener noreferrer"><img src="/assets/home/sosyal-gmail.webp" alt="E-posta: ${site.email}" width="480" height="489" loading="lazy"></a>
       </div>
       <div class="contact-info">
         <a class="contact-info__card contact-info__card--whatsapp" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.2-2.2l.8-1-1-2z"/></svg></span><span class="contact-info__text"><small>WhatsApp</small><strong>Mesaj gönder</strong><span>Sipariş ve model soruları için doğrudan yaz.</span></span><b aria-hidden="true">→</b></a>
@@ -1568,7 +1585,7 @@ fs.writeFileSync(path.join(root, "sitemap.txt"), `${sitemapUrls.join("\n")}\n`, 
 
 fs.writeFileSync(
   path.join(root, "robots.txt"),
-  `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.txt\n`,
+  `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.txt\nSitemap: ${site.origin}/sitemap.xml\n`,
   "utf8",
 );
 
