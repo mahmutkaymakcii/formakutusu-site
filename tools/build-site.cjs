@@ -279,7 +279,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261023b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019g">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024a">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261023b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}

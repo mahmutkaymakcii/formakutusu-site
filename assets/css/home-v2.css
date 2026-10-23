@@ -199,6 +199,7 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
   .fk-hero__lead { font-size: 15px; }
   .fk-hero .button-row { display: grid; grid-template-columns: 1fr 1fr; }
   .fk-hero .button { padding-inline: 10px; font-size: 11px; }
+  .fk-hero .button-row .fk-hero__design { grid-column: 1 / -1; }
   .fk-hero__stage { min-height: 440px; margin: 12px 0 22px; }
   .fk-hero__model--front { left: 5%; bottom: 5%; width: 78%; height: 68%; }
   .fk-hero__model--back { right: 4%; top: 5%; width: 54%; height: 54%; }
