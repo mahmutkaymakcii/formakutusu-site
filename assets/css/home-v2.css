@@ -48,6 +48,9 @@ body.home-v2 .skip-link { background: var(--fk-lime); color: var(--fk-navy); }
 .fk-hero h1 { max-width: none; margin: 0 0 20px; font-size: clamp(54px, 5.35vw, 82px); font-style: italic; white-space: nowrap; overflow-wrap: normal; word-break: normal; }
 .fk-hero h1 em { color: var(--fk-lime-2); font-style: inherit; }
 .fk-hero__lead { max-width: 430px; margin: 0 0 22px; color: #344054; font-size: clamp(14px, 1.15vw, 18px); line-height: 1.5; }
+/* Hero butonları: üstte iki buton, altta Formanı Tasarla ikisinin genişliğinde */
+.fk-hero .button-row { display: inline-grid; grid-template-columns: repeat(2, auto); }
+.fk-hero .button-row .fk-hero__design { grid-column: 1 / -1; }
 .fk-primary-button { min-height: 52px; gap: 16px; border-color: var(--fk-navy); background: var(--fk-navy); color: #fff !important; box-shadow: 0 10px 24px rgb(7 18 38 / 18%); text-transform: uppercase; }
 .fk-primary-button:hover { border-color: var(--fk-lime); background: var(--fk-lime); color: var(--fk-navy) !important; }
 .fk-secondary-button { min-height: 52px; border-color: #cfd5dc; background: #fff; color: var(--fk-navy) !important; text-transform: uppercase; }
