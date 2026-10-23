@@ -666,7 +666,8 @@
   const showStatus = () => say(`${state.patternCode} · ${state.collar}`);
 
   // ---------------------------------------------------------------------------
-  // Desen Seç: elastik makara galerisi (8 sabit kare, oklarla sayfa değişir)
+  // Desen Seç: branşın tüm desenleri tek şeritte; parmakla ya da fareyle sürükleyerek
+  // kesintisiz kayar. Oklar şeridi bir ekran kaydırır; seçim şeridi yeniden çizmez.
   // ---------------------------------------------------------------------------
   const reel = form.querySelector("[data-pattern-reel]");
   // Galeri seçilen branşın desenlerini gösterir (branş seçilmemişse futbol)
@@ -675,84 +676,114 @@
     const list = allPatterns.filter((p) => p.sport === sport());
     return list.length ? list : allPatterns;
   };
-  const PER_PAGE = 8;
-  let page = 0;
+  const track = reel?.querySelector("[data-reel-track]");
+  let reelSport = null;
   const patternImage = (p) => (p.load ||= loadImage(p.src).then((img) => (p.img = img)).catch((e) => { delete p.load; throw e; }));
-  async function choosePattern(p) {
+  // Şeridi kendi animasyonumuzla kaydır (tarayıcının "smooth" kaydırması her cihazda çalışmıyor)
+  let glide = 0;
+  const scrollTrackTo = (to) => {
+    cancelAnimationFrame(glide);
+    const from = track.scrollLeft, d = Math.max(0, Math.min(to, track.scrollWidth - track.clientWidth)) - from, start = performance.now();
+    const step = (now) => {
+      const k = Math.min(1, (now - start) / 380);
+      track.scrollLeft = from + d * (1 - (1 - k) ** 3);
+      if (k < 1) glide = requestAnimationFrame(step);
+    };
+    glide = requestAnimationFrame(step);
+  };
+  const revealSelected = () => {
+    const b = track?.querySelector('[aria-selected="true"]');
+    if (!b) return;
+    const tr = track.getBoundingClientRect(), br = b.getBoundingClientRect();
+    scrollTrackTo(track.scrollLeft + (br.left - tr.left) - (tr.width - br.width) / 2);
+  };
+  async function choosePattern(p, reveal = false) {
     if (!p.img) say("Desen yükleniyor…");
     setPattern(await patternImage(p), p.code);
     el("pattern-code").value = p.code;
     renderReel(); showStatus(); schedule();
+    if (reveal) revealSelected();
   }
   function renderReel() {
     if (!reel) return;
-    const track = reel.querySelector("[data-reel-track]");
     const patterns = sportPatterns();
-    const pages = Math.max(1, Math.ceil(patterns.length / PER_PAGE));
-    page = (page + pages) % pages;
-    track.replaceChildren(...Array.from({ length: PER_PAGE }, (_, n) => {
-      const p = patterns[page * PER_PAGE + n];
-      const btn = document.createElement("button");
-      btn.type = "button";
-      if (!p) { btn.className = "reel__item reel__item--empty"; btn.disabled = true; btn.setAttribute("aria-hidden", "true"); return btn; }
-      btn.className = "reel__item";
-      btn.setAttribute("role", "option");
-      btn.setAttribute("aria-selected", String(p.code === state.patternCode));
-      btn.setAttribute("aria-label", p.code);
-      btn.title = p.code;
-      const img = new Image(); img.src = p.thumb; img.alt = ""; img.loading = "lazy";
-      btn.append(img);
-      btn.addEventListener("click", () => choosePattern(p).catch(() => say("Desen yüklenemedi")));
-      return btn;
-    }));
-    reel.querySelector("[data-reel-name]").textContent = state.patternCode || patterns[0]?.code || "";
-    const pager = reel.querySelector("[data-reel-page]");
-    pager.textContent = `${page + 1} / ${pages}`;
-    reel.querySelectorAll("[data-reel-prev], [data-reel-next]").forEach((b) => { b.disabled = pages < 2; });
+    // Şerit yalnızca branş değişince yeniden kurulur; böylece kaydırma konumu korunur
+    if (reelSport !== sport()) {
+      reelSport = sport();
+      track.replaceChildren(...patterns.map((p) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "reel__item";
+        btn.dataset.code = p.code;
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-label", p.code);
+        btn.title = p.code;
+        const img = new Image(); img.src = p.thumb; img.alt = ""; img.loading = "lazy"; img.draggable = false;
+        btn.append(img);
+        btn.addEventListener("click", () => choosePattern(p).catch(() => say("Desen yüklenemedi")));
+        return btn;
+      }));
+      track.scrollLeft = 0;
+    }
+    track.querySelectorAll(".reel__item").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.code === state.patternCode)));
+    const i = patterns.findIndex((p) => p.code === state.patternCode);
+    reel.querySelector("[data-reel-name]").textContent = i >= 0 ? state.patternCode : patterns[0]?.code || "";
+    reel.querySelector("[data-reel-page]").textContent = `${i >= 0 ? i + 1 : 1} / ${patterns.length} desen`;
   }
-  reel?.querySelector("[data-reel-prev]").addEventListener("click", () => { page--; renderReel(); });
-  reel?.querySelector("[data-reel-next]").addEventListener("click", () => { page++; renderReel(); });
+  const slide = (dir) => track && scrollTrackTo(track.scrollLeft + dir * track.clientWidth * 0.8);
+  reel?.querySelector("[data-reel-prev]").addEventListener("click", () => slide(-1));
+  reel?.querySelector("[data-reel-next]").addEventListener("click", () => slide(1));
 
-  // Galeriye tıklandıktan sonra klavye okları desenler arasında gezer (sayfa gerekirse değişir)
+  // Galeriye tıklandıktan sonra klavye okları desenler arasında gezer
   let reelActive = false;
   document.addEventListener("pointerdown", (e) => { reelActive = Boolean(reel?.contains(e.target)); });
   reel?.addEventListener("focusin", () => { reelActive = true; });
   document.addEventListener("keydown", (e) => {
-    if (!reelActive || !state.ready || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+    if (!reelActive || !state.ready || mode() !== "gallery" || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
     if (e.target.closest?.("input, select, textarea")) return;
     const list = sportPatterns();
     if (!list.length) return;
     e.preventDefault();
     const i = (Math.max(0, list.findIndex((p) => p.code === state.patternCode)) + (e.key === "ArrowRight" ? 1 : -1) + list.length) % list.length;
-    page = Math.floor(i / PER_PAGE);
-    choosePattern(list[i]).then(() => reel.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true })).catch(() => say("Desen yüklenemedi"));
+    choosePattern(list[i], true).then(() => track.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true })).catch(() => say("Desen yüklenemedi"));
   });
 
-  // Basılı tutup sürükleyince (dokunmatik ve fare) önceki/sonraki sayfaya geçer
-  const track = reel?.querySelector("[data-reel-track]");
+  // Fareyle basılı tutup sürükleme; bırakınca hızına göre bir süre kaymaya devam eder.
+  // Dokunmatikte tarayıcının kendi kaydırması kullanılır (doğal ve akıcı).
   let drag = null;
   track?.addEventListener("pointerdown", (e) => {
-    if (e.pointerType === "mouse" && e.button !== 0) return;
-    drag = { id: e.pointerId, x: e.clientX, dx: 0, moved: false };
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    cancelAnimationFrame(glide);
+    drag = { id: e.pointerId, x: e.clientX, left: track.scrollLeft, lx: e.clientX, t: e.timeStamp, v: 0, moved: false };
   });
   track?.addEventListener("pointermove", (e) => {
     if (!drag || e.pointerId !== drag.id) return;
-    drag.dx = e.clientX - drag.x;
-    if (!drag.moved && Math.abs(drag.dx) > 8) { drag.moved = true; try { track.setPointerCapture(e.pointerId); } catch {} track.classList.add("is-dragging"); }
-    if (drag.moved) track.style.transform = `translateX(${drag.dx * 0.6}px)`;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 6) { drag.moved = true; try { track.setPointerCapture(e.pointerId); } catch {} track.classList.add("is-dragging"); }
+    if (!drag.moved) return;
+    track.scrollLeft = drag.left - dx;
+    const dt = Math.max(1, e.timeStamp - drag.t);
+    drag.v = (e.clientX - drag.lx) / dt;
+    drag.lx = e.clientX; drag.t = e.timeStamp;
   });
   const endDrag = (e) => {
     if (!drag || e.pointerId !== drag.id) return;
-    const { dx, moved } = drag;
+    const { moved, v } = drag;
     drag = null;
     track.classList.remove("is-dragging");
-    track.style.transform = "";
     if (!moved) return;
     // Sürükleme sonrası bırakılan karede tıklama desen seçmesin
     const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); };
     track.addEventListener("click", swallow, true);
     setTimeout(() => track.removeEventListener("click", swallow, true), 0);
-    if (Math.abs(dx) > 40) { page += dx < 0 ? 1 : -1; renderReel(); }
+    let speed = -v * 16;
+    const step = () => {
+      if (Math.abs(speed) < 0.5) return;
+      track.scrollLeft += speed;
+      speed *= 0.94;
+      glide = requestAnimationFrame(step);
+    };
+    glide = requestAnimationFrame(step);
   };
   track?.addEventListener("pointerup", endDrag);
   track?.addEventListener("pointercancel", endDrag);
@@ -842,7 +873,6 @@
   el("sport")?.addEventListener("change", async () => {
     // Galeri o branşın desenlerine geçer; seçili desen bu branşta yoksa ilk desen seçilir.
     // Desen ve mockup birlikte hazırlanır, önizleme tek seferde çizilir.
-    page = 0;
     if (!state.ready) { renderReel(); return; }
     const s = sport(), list = reel ? sportPatterns() : [];
     const p = mode() === "gallery" && list.length && !list.some((q) => q.code === state.patternCode) ? list[0] : null;
