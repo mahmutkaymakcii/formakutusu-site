@@ -659,16 +659,19 @@
     drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
   }
 
-  // "Çorap var" seçiliyse arka formanın altında, zemine oturan küçük çorap görseli
-  // (şimdilik tek renk örnek görsel)
-  const ensureSocks = () => {
-    state.socksLoad ||= loadImage(ASSETS + "corap.png").then((img) => { state.socks = img; schedule(); }).catch(() => { state.socksLoad = null; });
+  // Çorap seçiliyse arka formanın altında, zemine oturan küçük çorap görseli (seçilen renkte)
+  const SOCK_COLORS = ["siyah", "beyaz", "mavi", "kirmizi", "yesil"];
+  state.socks = {};
+  const ensureSocks = (color) => {
+    state.socksLoad ||= {};
+    state.socksLoad[color] ||= loadImage(ASSETS + `corap-${color}.png`).then((img) => { state.socks[color] = img; schedule(); }).catch(() => { state.socksLoad[color] = null; });
   };
   function drawSocks(cx, backBottom) {
-    if (val("socks") !== "var") return;
-    if (!state.socks) { ensureSocks(); return; }
+    const color = val("socks");
+    if (!SOCK_COLORS.includes(color)) return;
+    if (!state.socks[color]) { ensureSocks(color); return; }
     // Arka formanın eteğinin altındaki zemine sığacak boyda
-    const s = state.socks, bottom = H * 0.975, h = Math.max(H * 0.12, Math.min(H * 0.2, bottom - backBottom - H * 0.015)), w = (h * s.naturalWidth) / s.naturalHeight;
+    const s = state.socks[color], bottom = H * 0.975, h = Math.max(H * 0.12, Math.min(H * 0.2, bottom - backBottom - H * 0.015)), w = (h * s.naturalWidth) / s.naturalHeight;
     const sh = ctx.createRadialGradient(cx, bottom, 0, cx, bottom, w * 0.75);
     sh.addColorStop(0, "rgba(0,0,0,.55)"); sh.addColorStop(1, "rgba(0,0,0,0)");
     ctx.save();
@@ -952,7 +955,7 @@
   // indirilir; branş mockup'ları önceden analiz edilir (branş değişimi beklemesiz olsun diye)
   function warmUp() {
     const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300));
-    ensureSocks();
+    SOCK_COLORS.forEach(ensureSocks);
     if (el("logo-left-alt")) loadImage(ASSETS + "tr-bayrak.png").then((img) => { state.flag = img; if (isOn("logo-left-alt")) schedule(); }).catch(() => {});
     for (const type of Object.keys(MOCKUPS)) mockupImage(type).catch(() => {});
     for (const s of ["futbol", "basketbol", "voleybol"]) { const p = allPatterns.find((q) => q.sport === s); if (p) patternImage(p).catch(() => {}); }

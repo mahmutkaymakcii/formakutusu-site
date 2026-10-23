@@ -154,7 +154,7 @@ function createIstanbulPage(chrome) {
   <link rel="stylesheet" href="/assets/css/site.css?v=20261023b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js?v=20261023b" defer></script>
+  <script src="/assets/js/site.js?v=20261024c" defer></script>
 </head>
 <body class="content-page istanbul-page">
   ${chrome.header}
