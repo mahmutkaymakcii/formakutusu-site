@@ -239,7 +239,7 @@
       const qty = quantity();
       const scope = checked("scope") === "ust" ? "ust" : "takim";
       const base = PRICES[scope];
-      const socks = checked("socks") === "var" ? PRICES.socks : 0;
+      const socks = (checked("socks") || "yok") !== "yok" ? PRICES.socks : 0;
       const keepers = Math.min(extraCount("goalkeeper"), qty);
       const total = qty * (base + socks) + keepers * PRICES.goalkeeper;
       const parts = [`${qty} × ${scope === "ust" ? "tek üst forma" : "forma + şort"} (${formatTL(base)})`];
@@ -453,7 +453,7 @@
         "",
         `Adet: ${qty}`,
         `Ürün: ${scope === "ust" ? "Tek üst forma" : "Forma + şort"}`,
-        `Çorap: ${checked("socks") === "var" ? "Var" : "Yok"}`,
+        `Çorap: ${form.elements.socks?.selectedOptions[0]?.textContent.replace(/ çorap$/, "") || "Yok"}`,
         `Yaka: ${checked("collar")}`,
         "",
         "FORMA ÖNÜ",

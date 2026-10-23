@@ -281,7 +281,7 @@ function pageShell({
   <link rel="stylesheet" href="/assets/css/site.css?v=20261023b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261023b" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261024c" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -873,7 +873,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 <div class="order-selects">
                   ${orderSelect("scope", "Ürün", [["takim", "Forma + şort"], ["ust", "Tek üst forma"]])}
                   ${orderSelect("collar", "Yaka tipi", collars.map((collar) => [collar, collar]), "Seçin")}
-                  ${orderSelect("socks", "Çorap", [["yok", "Çorap yok"], ["var", "Çorap var"]])}
+                  ${orderSelect("socks", "Çorap", [["yok", "Çorap yok"], ["siyah", "Siyah çorap"], ["beyaz", "Beyaz çorap"], ["mavi", "Mavi çorap"], ["kirmizi", "Kırmızı çorap"], ["yesil", "Yeşil çorap"]])}
                 </div>${preview ? `
                 <p class="order-form__hint">${pickSport ? "Futbolda önizleme seçtiğiniz yaka tipiyle, basketbol ve voleybolda V yaka ile gösterilir." : "Yaka tipini seçtiğinizde önizleme o yakayla gösterilir."}</p>` : ""}
               </fieldset>
@@ -1261,7 +1261,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024b"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024c"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
