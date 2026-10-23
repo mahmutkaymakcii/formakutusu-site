@@ -2906,17 +2906,3 @@ body .mobile-cta.mobile-cta--pair {
   border-color: var(--volt);
   color: var(--volt);
 }
-/* Ana sayfa hero: Formanı Tasarla butonu geçişli kenarlıkla öne çıkar */
-body.home-v2 .fk-hero__design {
-  gap: 8px;
-  border: 1px solid transparent;
-  background:
-    linear-gradient(var(--surface), var(--surface)) padding-box,
-    var(--signal-gradient) border-box;
-}
-
-body.home-v2 .fk-hero__design:hover {
-  background:
-    linear-gradient(var(--surface-2), var(--surface-2)) padding-box,
-    var(--signal-gradient) border-box;
-}
