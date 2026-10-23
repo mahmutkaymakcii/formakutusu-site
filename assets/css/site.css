@@ -3583,3 +3583,43 @@ body.has-consent-banner .mobile-cta {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
+/* Tasarım stüdyosu: Hazır desenler / Kendi desenim sekmeleri */
+.pattern-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+}
+
+.pattern-tabs button {
+  min-height: 2.6rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.pattern-tabs button[aria-selected="true"] {
+  background: var(--volt, #c7ff2f);
+  color: #080a0e;
+}
+
+.pattern-tabs button:focus-visible {
+  outline: 2px solid var(--cyan, #2de2ff);
+  outline-offset: 2px;
+}
+
+[data-mode-panel] {
+  display: grid;
+  gap: 0.6rem;
+}
+
+[data-mode-panel][hidden] {
+  display: none;
+}

@@ -278,10 +278,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261023a">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019g">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261023a" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261023b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -778,7 +778,14 @@ function previewStage() {
             </div>`;
 }
 
-function orderForm({ id, sport = "", label, custom = false, preview = "", sportPick = false }) {
+// studio: "gallery" ya da "upload" verilirse form, Desen bölümünde "Hazır desenler" ve "Kendi desenim"
+// sekmeleriyle tek tasarım alanı olur; verilen değer açılıştaki sekmedir.
+function orderForm({ id, sport = "", label, custom = false, preview = "", sportPick = false, studio = "" }) {
+  if (studio) {
+    preview = studio;
+    sportPick = true;
+    custom = studio === "upload";
+  }
   // Basketbolda polo yaka yok; kaleci yalnızca futbolda, libero yalnızca voleybolda.
   // Özel tasarım ve Forma + şort formlarında branş müşteri tarafından seçilir; ilgili bölümleri JS gösterir.
   const pickSport = custom || sportPick;
@@ -801,7 +808,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 <p class="order-form__hint" data-libero-note hidden>Libero formaları için fiyat farkı yoktur.</p>
               </fieldset>`
       : "";
-  const design = custom
+  const design = custom && !studio
     ? `<fieldset class="order-form__section">
                 <legend>Kendi tasarımını yükle</legend>
                 <label class="order-field"><span>Branş</span><select name="sport" required data-order-sport><option value="">Seçin</option><option value="futbol">Futbol</option><option value="basketbol">Basketbol</option><option value="voleybol">Voleybol</option></select></label>
@@ -812,11 +819,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 </div>
               </fieldset>`
     : "";
-  const patternPick =
-    preview === "gallery"
-      ? `<fieldset class="order-form__section">
-                <legend>Desen</legend>
-                <div class="reel" data-pattern-reel data-patterns="${escapeHtml(JSON.stringify(previewPatterns))}">
+  const reel = `<div class="reel" data-pattern-reel data-patterns="${escapeHtml(JSON.stringify(previewPatterns))}">
                   <span class="reel__label">Desen Seç</span>
                   <div class="reel__row">
                     <button type="button" class="reel__nav" data-reel-prev aria-label="Önceki desenler">‹</button>
@@ -825,7 +828,30 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                   </div>
                   <p class="reel__meta"><strong data-reel-name>${escapeHtml(previewPatterns[0].code)}</strong><span data-reel-page></span></p>
                 </div>
-                <input type="hidden" name="pattern-code" value="${escapeHtml(previewPatterns[0].code)}">
+                <input type="hidden" name="pattern-code" value="${escapeHtml(previewPatterns[0].code)}">`;
+  const studioPick = studio
+    ? `<fieldset class="order-form__section">
+                <legend>Desen</legend>
+                <div class="pattern-tabs" role="tablist" aria-label="Desen kaynağı">
+                  <button type="button" role="tab" data-pattern-mode="gallery" aria-selected="${studio === "gallery"}">Hazır desenler</button>
+                  <button type="button" role="tab" data-pattern-mode="upload" aria-selected="${studio === "upload"}">Kendi desenim</button>
+                </div>
+                <input type="hidden" name="pattern-mode" value="${studio}">
+                <div data-mode-panel="gallery"${studio === "gallery" ? "" : " hidden"}>
+                ${reel}
+                </div>
+                <div class="order-upload" data-mode-panel="upload"${studio === "upload" ? "" : " hidden"}>
+                  <label class="order-upload__field"><span>Desen veya tasarım görselleri <small>(en fazla 5 dosya)</small></span><input type="file" name="design" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-design-input></label>
+                  <ul class="order-design-list" data-design-preview hidden></ul>
+                  <p class="order-form__hint">İlk görsel önizlemede formaya uygulanır. Desen yükleyene kadar forma beyaz görünür.</p>
+                </div>
+              </fieldset>`
+    : "";
+  const patternPick =
+    preview === "gallery" && !studio
+      ? `<fieldset class="order-form__section">
+                <legend>Desen</legend>
+                ${reel}
               </fieldset>`
       : "";
   const textColor = preview
@@ -838,7 +864,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 </div>`
     : "";
   return `<form class="order-form" data-order-form data-model="${escapeHtml(id)}" data-sport-label="${escapeHtml(label)}"${sport ? ` data-sport="${escapeHtml(sport)}"` : ""}${custom ? " data-custom" : ""}${preview ? ` data-preview="${preview}"` : ""} novalidate>
-              <h2 class="order-form__title">${custom ? "Özel tasarım siparişini oluştur" : "Siparişini oluştur"}</h2>
+              <h2 class="order-form__title">${custom && !studio ? "Özel tasarım siparişini oluştur" : "Siparişini oluştur"}</h2>
               ${design}
               <fieldset class="order-form__section">
                 <legend>Sipariş bilgileri</legend>
@@ -851,7 +877,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 </div>${preview ? `
                 <p class="order-form__hint">${pickSport ? "Futbolda önizleme seçtiğiniz yaka tipiyle, basketbol ve voleybolda V yaka ile gösterilir." : "Yaka tipini seçtiğinizde önizleme o yakayla gösterilir."}</p>` : ""}
               </fieldset>
-              ${patternPick}
+              ${patternPick}${studioPick}
               <fieldset class="order-form__section">
                 <legend>Forma önünü tasarla</legend>
                 ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
@@ -895,7 +921,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 </div>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
-                <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom ? "Tasarım görsellerini ve logoları" : "Logoları"} mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>
+                <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom || studio ? "Tasarım görsellerini ve logoları" : "Logoları"} mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>
                 <a class="order-form__prices" href="/teklif/#fiyatlar">Fiyatları ve teslimat koşullarını gör</a>
               </div>
             </form>`;
@@ -1235,7 +1261,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261023a"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261023b"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
@@ -1253,12 +1279,12 @@ for (const service of servicePages) {
         service.customForm
           ? `<section class="custom-order-section"><div class="container order-studio">
         ${previewStage()}
-        ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", custom: true, preview: "upload" })}
+        ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", studio: "upload" })}
       </div></section>`
           : service.previewForm
           ? `<section class="custom-order-section"><div class="container order-studio">
         ${previewStage()}
-        ${orderForm({ id: "Forma + şort", label: "Forma + şort", preview: "gallery", sportPick: true })}
+        ${orderForm({ id: "Forma + şort", label: "Forma + şort", studio: "gallery" })}
       </div></section>`
           : `<section class="models-section"><div class="container">
         ${modelGrid(items)}

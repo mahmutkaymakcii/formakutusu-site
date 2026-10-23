@@ -441,7 +441,8 @@
           ]
         : [];
       // Önizlemeli formlarda: galeriden seçilen desen kodu, kulüp ismi etiketi, yazı rengi
-      const patternCode = form.elements["pattern-code"]?.value || "";
+      // "Kendi desenim" sekmesinde galeri kodu değil "Özel tasarım" yazılır
+      const patternCode = form.hasAttribute("data-custom") ? "Özel tasarım" : form.elements["pattern-code"]?.value || "";
       const backLabel = form.querySelector('[name="back-text"]')?.closest("label")?.querySelector("span")?.textContent || "Sırt yazısı";
       const textColor = form.querySelector('input[name="text-color"]:checked')?.dataset.label || "";
       const lines = [
@@ -507,6 +508,21 @@
     EXTRAS.forEach(({ name }) => form.elements[`${name}-count`]?.addEventListener("input", updateTotal));
     sportSelect?.addEventListener("change", syncSport);
     designInput?.addEventListener("change", showDesignPreview);
+
+    // Tasarım stüdyosu: "Hazır desenler" / "Kendi desenim" sekmeleri. Seçilen sekme formun
+    // özel tasarım kurallarını (desen dosyası zorunlu, mesajda ÖZEL TASARIM) açar ya da kapatır;
+    // önizleme "pattern-mode" olayıyla desen kaynağını değiştirir.
+    const modeTabs = [...form.querySelectorAll("[data-pattern-mode]")];
+    const setPatternMode = (mode) => {
+      modeTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.patternMode === mode)));
+      form.querySelectorAll("[data-mode-panel]").forEach((panel) => (panel.hidden = panel.dataset.modePanel !== mode));
+      form.elements["pattern-mode"].value = mode;
+      form.toggleAttribute("data-custom", mode === "upload");
+      form.dataset.preview = mode;
+      errorBox.hidden = true;
+      form.dispatchEvent(new CustomEvent("pattern-mode", { detail: mode }));
+    };
+    modeTabs.forEach((tab) => tab.addEventListener("click", () => setPatternMode(tab.dataset.patternMode)));
 
     roster.addEventListener("input", (event) => {
       if (event.target.matches('[data-roster-field="number"]')) {

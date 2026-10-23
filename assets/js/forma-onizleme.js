@@ -12,7 +12,9 @@
   const form = document.querySelector("[data-order-form][data-preview]");
   if (!stage || !form) return;
 
-  const MODE = form.dataset.preview;
+  // Desen kaynağı: "gallery" (hazır desenler) ya da "upload" (müşterinin deseni). Tasarım
+  // stüdyosunda sekmeyle değişir, bu yüzden her seferinde formdan okunur.
+  const mode = () => form.dataset.preview;
   const ASSETS = "/assets/onizleme/";
   const view = stage.querySelector("canvas");
   const ctx = view.getContext("2d");
@@ -476,7 +478,7 @@
   const state = {
     analysis: null, collar: "", wantCollar: "",
     pattern: null, patternCode: "", mainColor: [0, 143, 135],
-    samples: { left: null, right: null, sponsor: null }, uploads: {}, flag: null,
+    samples: { left: null, right: null, sponsor: null }, uploads: {}, flag: null, custom: null,
     scene: null, sceneCanvas: null, sceneKey: "", ready: false,
   };
   const analyses = {}, mockupImages = {};
@@ -804,10 +806,33 @@
     const pg = plain.getContext("2d"); pg.fillStyle = "#f2f2f0"; pg.fillRect(0, 0, 16, 22);
     setPattern(plain, "Beyaz forma");
   };
+  // Yüklenen desen saklanır; sekmeler arasında gidip gelince kaybolmaz
+  const customPattern = () => {
+    if (state.custom) setPattern(state.custom, "Özel desen");
+    else plainPattern();
+  };
   form.querySelector("[data-design-input]")?.addEventListener("change", async (e) => {
     const f = [...(e.target.files || [])].find((file) => file.type.startsWith("image/") && file.type !== "image/svg+xml");
-    if (!f) { if (state.ready && MODE === "upload") { plainPattern(); showStatus(); schedule(); } return; }
-    try { setPattern(await fileToImage(f), "Özel desen"); showStatus(); schedule(); } catch { say("Desen okunamadı"); }
+    try { state.custom = f ? await fileToImage(f) : null; } catch { state.custom = null; say("Desen okunamadı"); }
+    if (state.ready && mode() === "upload") { customPattern(); showStatus(); schedule(); }
+  });
+  // Sekme değişimi: hazır desende galerideki seçili desen, kendi deseninde yüklenen desen (yoksa beyaz).
+  // Yazı rengi zemine göre: beyaz formada siyah, hazır desenlerde beyaz.
+  form.addEventListener("pattern-mode", async (e) => {
+    const upload = e.detail === "upload";
+    const color = form.querySelector(`input[name="text-color"][value="${upload && !state.custom ? "#111111" : "#ffffff"}"]`);
+    if (color) color.checked = true;
+    if (!state.ready) return;
+    if (upload) customPattern();
+    else {
+      const list = sportPatterns();
+      const p = list.find((q) => q.code === el("pattern-code")?.value) || list[0];
+      if (p) {
+        try { setPattern(await patternImage(p), p.code); el("pattern-code").value = p.code; } catch { say("Desen yüklenemedi"); }
+      }
+      renderReel();
+    }
+    showStatus(); schedule();
   });
   const switchModel = async () => {
     if (!state.ready) return;
@@ -820,7 +845,7 @@
     page = 0;
     if (!state.ready) { renderReel(); return; }
     const s = sport(), list = reel ? sportPatterns() : [];
-    const p = list.length && !list.some((q) => q.code === state.patternCode) ? list[0] : null;
+    const p = mode() === "gallery" && list.length && !list.some((q) => q.code === state.patternCode) ? list[0] : null;
     try {
       const [, img] = await Promise.all([useCollar(mockupKey()), p && patternImage(p)]);
       if (sport() !== s) return;
@@ -857,7 +882,7 @@
       state.scene = scene;
       state.samples = { left, right, sponsor };
       // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
-      if (MODE === "upload") plainPattern();
+      if (mode() === "upload") customPattern();
       else setPattern(pattern, first.code);
       if (el("pattern-code")) el("pattern-code").value = first.code;
       await useCollar(mockupKey());
