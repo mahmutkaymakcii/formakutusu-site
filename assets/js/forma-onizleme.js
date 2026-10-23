@@ -556,23 +556,33 @@
     gs.fillStyle = `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
 
     const P = state.P;
-    // Kutular giyene göre adlandırılmış (logoLeft = giyenin solu = görselde sağda, arma yeri).
-    // Formdaki sağ/sol ise görsele bakana göre: "Sağ göğüs" yüklemesi armanın yerine (şorttaki
-    // logo da odur), "Sol göğüs" yüklemesi Nora'nın yerine geçer.
-    const L = { right: logo("right", "logo-left"), left: logo("left", "logo-right"), sponsor: logo("sponsor", "sponsor") };
+    // Sol/sağ giyen kişiye göredir (forma üretimindeki gibi): sol göğüs = görselde sağ, arma yeri
+    // (logoLeft kutusu); sağ göğüs = görselde sol, Nora yeri (logoRight kutusu). Sağ göğse logo
+    // yüklenirse armayla aynı boyda oraya gelir, Nora iki logonun ortasına geçer.
+    const at = (box, cx, cy) => ({ ...box, x: cx - box.w / 2, y: cy - box.h / 2 });
+    const cR = [P.logoRight.x + P.logoRight.w / 2, P.logoRight.y + P.logoRight.h / 2];
+    const cL = [P.logoLeft.x + P.logoLeft.w / 2, P.logoLeft.y + P.logoLeft.h / 2];
+    const rightChest = at(P.logoLeft, ...cR);
+    const middle = at(P.logoRight, (cR[0] + cL[0]) / 2, (cR[1] + cL[1]) / 2);
+    const crest = logo("left", "logo-left");
+    const rightOff = isOn("logo-right-none");
+    const rightUpload = rightOff ? null : state.uploads["logo-right"];
+    const nora = rightOff ? null : state.samples.right;
+    const sponsor = logo("sponsor", "sponsor");
     if (trOn()) {
-      // TR Arma: bayrak sol göğüste, kulüp logosu sağ göğse geçer, sağdaki logo (Nora) ikisinin ortasına
-      const at = (box, cx, cy) => ({ ...box, x: cx - box.w / 2, y: cy - box.h / 2 });
-      const cR = [P.logoRight.x + P.logoRight.w / 2, P.logoRight.y + P.logoRight.h / 2];
-      const cL = [P.logoLeft.x + P.logoLeft.w / 2, P.logoLeft.y + P.logoLeft.h / 2];
+      // TR Arma: bayrak sol göğüste; kulüp logosu (ya da sağ göğüs yüklemesi) sağ göğüste, Nora ortada
       drawInBox(g, state.flag, P.logoLeft);
-      if (L.left) drawInBox(g, L.left, at(P.logoLeft, ...cR));
-      if (L.right) drawInBox(g, L.right, at(P.logoRight, (cR[0] + cL[0]) / 2, (cR[1] + cL[1]) / 2));
+      const right = rightOff ? null : rightUpload || crest;
+      if (right) drawInBox(g, right, rightChest);
+      if (nora) drawInBox(g, nora, middle);
     } else {
-      if (L.right) drawInBox(g, L.right, P.logoRight);
-      if (L.left) drawInBox(g, L.left, P.logoLeft);
+      if (crest) drawInBox(g, crest, P.logoLeft);
+      if (rightUpload) {
+        drawInBox(g, rightUpload, rightChest);
+        if (nora) drawInBox(g, nora, middle);
+      } else if (nora) drawInBox(g, nora, P.logoRight);
     }
-    if (L.sponsor) drawInBox(g, L.sponsor, P.sponsor);
+    if (sponsor) drawInBox(g, sponsor, P.sponsor);
     const color = textColor();
     const club = (val("back-text").trim() || "KULÜP İSMİ").toLocaleUpperCase("tr-TR");
     const player = isOn("has-name") || !el("has-name") ? "OYUNCU" : "";
@@ -585,8 +595,13 @@
     if (P.frontNumber && num) textInBox(g, num, "NoraNumara", P.frontNumber, sizeInBox(g, num, "NoraNumara", P.frontNumber), color);
     // Voleybolda şorta logo ve numara eklenmez
     const shortsItems = !state.cfg.noShortsItems && sport() !== "voleybol";
-    if (shortsItems && isOn("shorts-logo") && L.left) drawInBox(gs, L.left, P.shortsLogo);
+    if (shortsItems && isOn("shorts-logo") && crest) drawInBox(gs, crest, P.shortsLogo);
     if (shortsItems && isOn("shorts-number") && num) textInBox(gs, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
+    // Şortta numaranın üstünde, göğüsteki Nora ile aynı boyda Nora logosu
+    if (shortsItems && state.samples.right) {
+      const n = P.shortsNumber;
+      drawInBox(gs, state.samples.right, at(P.logoRight, n.x + n.w / 2, n.y - n.h * 0.1 - P.logoRight.h / 2));
+    }
 
     // Birleştirme: bükülmüş doku × gölge + sıcak parlaklık, ardından canlılık
     const tf = g.getImageData(0, 0, W, H).data, tb = gb.getImageData(0, 0, W, H).data, ts = gs.getImageData(0, 0, W, H).data;
