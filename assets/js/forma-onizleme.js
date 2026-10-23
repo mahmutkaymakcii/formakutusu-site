@@ -571,12 +571,16 @@
     const rightUpload = rightOff ? null : state.uploads["logo-right"];
     const nora = rightOff ? null : state.samples.right;
     const sponsor = logo("sponsor", "sponsor");
+    // Şort paçasındaki logo takımın logosudur: TR Arma yokken sol göğüsteki logo,
+    // TR Arma varken sağ göğse geçen logo (sağ göğse yüklenen logo ya da kulüp logosu)
+    let shortsLogo = crest;
     if (trOn()) {
       // TR Arma: bayrak sol göğüste; kulüp logosu (ya da sağ göğüs yüklemesi) sağ göğüste, Nora ortada
       drawInBox(g, state.flag, P.logoLeft);
       const right = rightOff ? null : rightUpload || crest;
       if (right) drawInBox(g, right, rightChest);
       if (nora) drawInBox(g, nora, middle);
+      shortsLogo = right || crest;
     } else {
       if (crest) drawInBox(g, crest, P.logoLeft);
       if (rightUpload) {
@@ -597,7 +601,7 @@
     if (P.frontNumber && num) textInBox(g, num, "NoraNumara", P.frontNumber, sizeInBox(g, num, "NoraNumara", P.frontNumber), color);
     // Voleybolda şorta logo ve numara eklenmez
     const shortsItems = !state.cfg.noShortsItems && sport() !== "voleybol";
-    if (shortsItems && isOn("shorts-logo") && crest) drawInBox(gs, crest, P.shortsLogo);
+    if (shortsItems && isOn("shorts-logo") && shortsLogo) drawInBox(gs, shortsLogo, P.shortsLogo);
     if (shortsItems && isOn("shorts-number") && num) textInBox(gs, num, "NoraNumara", P.shortsNumber, sizeInBox(g, num, "NoraNumara", P.shortsNumber), color);
     // Şortta numaranın üstünde, göğüsteki Nora ile aynı boyda Nora logosu
     if (shortsItems && state.samples.right) {
