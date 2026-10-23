@@ -1261,7 +1261,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024a"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024b"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },

@@ -656,6 +656,26 @@
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(state.sceneCanvas, 0, 0);
     ctx.drawImage(gar, ox, oy, W * scale, H * scale);
+    drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
+  }
+
+  // "Çorap var" seçiliyse arka formanın altında, zemine oturan küçük çorap görseli
+  // (şimdilik tek renk örnek görsel)
+  const ensureSocks = () => {
+    state.socksLoad ||= loadImage(ASSETS + "corap.png").then((img) => { state.socks = img; schedule(); }).catch(() => { state.socksLoad = null; });
+  };
+  function drawSocks(cx, backBottom) {
+    if (val("socks") !== "var") return;
+    if (!state.socks) { ensureSocks(); return; }
+    // Arka formanın eteğinin altındaki zemine sığacak boyda
+    const s = state.socks, bottom = H * 0.975, h = Math.max(H * 0.12, Math.min(H * 0.2, bottom - backBottom - H * 0.015)), w = (h * s.naturalWidth) / s.naturalHeight;
+    const sh = ctx.createRadialGradient(cx, bottom, 0, cx, bottom, w * 0.75);
+    sh.addColorStop(0, "rgba(0,0,0,.55)"); sh.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.save();
+    ctx.translate(cx, bottom); ctx.scale(1, 0.16); ctx.translate(-cx, -bottom);
+    ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(cx, bottom, w * 0.75, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    ctx.drawImage(s, cx - w / 2, bottom - h, w, h);
   }
 
   let queued = false;
@@ -889,7 +909,7 @@
   });
   form.addEventListener("input", (e) => { if (e.target.name === "back-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
-    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|has-name|has-number|text-color|scope)$/.test(e.target.name)) schedule();
+    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|has-name|has-number|text-color|scope|socks)$/.test(e.target.name)) schedule();
   });
 
   // Sipariş gönderiminde paylaşıma eklenecek önizleme görseli
@@ -932,6 +952,7 @@
   // indirilir; branş mockup'ları önceden analiz edilir (branş değişimi beklemesiz olsun diye)
   function warmUp() {
     const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300));
+    ensureSocks();
     if (el("logo-left-alt")) loadImage(ASSETS + "tr-bayrak.png").then((img) => { state.flag = img; if (isOn("logo-left-alt")) schedule(); }).catch(() => {});
     for (const type of Object.keys(MOCKUPS)) mockupImage(type).catch(() => {});
     for (const s of ["futbol", "basketbol", "voleybol"]) { const p = allPatterns.find((q) => q.sport === s); if (p) patternImage(p).catch(() => {}); }
