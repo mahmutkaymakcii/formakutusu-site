@@ -328,7 +328,7 @@
       const preview = upload.querySelector("[data-upload-preview]");
 
       // "Yok" dosya yüklemeyi pasif yapar; TR Arma ile "Yok" birbirini dışlar. TR Arma seçiliyken
-      // yüklenen logo göğsün ortasına geçer, bu yüzden yükleme açık kalır.
+      // yüklenen logo sağ göğse geçer, bu yüzden yükleme açık kalır.
       const sync = () => {
         const blocked = none.checked;
         if (blocked) input.value = "";
@@ -457,8 +457,10 @@
         "",
         "FORMA ÖNÜ",
         ...uploadState().map(({ label, file, alt }) => {
-          if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo göğsün ortasına geçer, dosya: ${file.name})` : ""}`;
-          return `${label}: ${file ? `Var (dosya: ${file.name})` : "Yok"}`;
+          if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo sağ göğse geçer, dosya: ${file.name})` : ""}`;
+          // Sağ göğse logo yüklenince NORA iki logonun ortasına geçer
+          const nora = /^Sağ göğüs/.test(label) ? ", NORA logosu iki logonun ortasında" : "";
+          return `${label}: ${file ? `Var (dosya: ${file.name})${nora}` : "Yok"}`;
         }),
         "",
         "FORMA ARKASI",

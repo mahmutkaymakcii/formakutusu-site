@@ -281,7 +281,7 @@ function pageShell({
   <link rel="stylesheet" href="/assets/css/site.css?v=20261019a">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261019g">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261019a" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261023a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -1235,7 +1235,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261019a"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261023a"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
