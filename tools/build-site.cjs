@@ -771,6 +771,9 @@ const previewPatterns = JSON.parse(fs.readFileSync(path.join(root, "assets", "da
     return { sport, code, src: `${file}.jpg`, thumb: `${file}-k.jpg` };
   });
 
+// Beyaz ve siyaha ek yazı/numara renkleri (önizleme ve sipariş mesajı)
+const textColors = [["#d4af37", "Gold"], ["#c8102e", "Kırmızı"], ["#14254f", "Lacivert"], ["#ffd400", "Sarı"]];
+
 function previewStage() {
   return `<div class="order-studio__stage" data-preview-stage>
               <canvas class="order-studio__canvas" width="1848" height="1888" role="img" aria-label="Seçimlerinize göre forma ve şort önizlemesi"></canvas>
@@ -861,6 +864,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                   <div class="order-colors">
                     <label class="order-color"><input type="radio" name="text-color" value="#ffffff" data-label="Beyaz"${preview === "upload" ? "" : " checked"}><i style="background:#ffffff"></i> Beyaz</label>
                     <label class="order-color"><input type="radio" name="text-color" value="#111111" data-label="Siyah"${preview === "upload" ? " checked" : ""}><i style="background:#111111"></i> Siyah</label>
+                    ${textColors.map(([value, name]) => `<label class="order-color"><input type="radio" name="text-color" value="${value}" data-label="${name}"><i style="background:${value}"></i> ${name}</label>`).join("")}
                   </div>
                 </div>`
     : "";
@@ -919,7 +923,13 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                   <span class="order-total__label">Toplam tutar</span>
                   <strong class="order-total__value" data-order-total></strong>
                   <span class="order-total__detail" data-order-total-detail></span>
+                  <span class="order-total__fabric">Kumaş: <strong>Poly Mesh</strong></span>
                 </div>
+                <ul class="order-trust">
+                  <li>Ücretsiz tasarım desteği</li>
+                  <li>Onayın olmadan üretime geçilmez</li>
+                  <li>Onaydan sonra 5–7 iş günü üretim</li>
+                </ul>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
                 <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom || studio ? "Tasarım görsellerini ve logoları" : "Logoları"} mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>

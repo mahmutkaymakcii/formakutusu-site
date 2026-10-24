@@ -528,11 +528,20 @@
   const gar = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const textColor = () => (form.querySelector('input[name="text-color"]:checked')?.value) || "#ffffff";
 
+  // Stüdyo zemini: açık gri tonlarında geçiş; ortada yumuşak ışık, altta hafif koyulaşan zemin
   function drawScene(c, shadows) {
-    if (state.scene) drawCover(c, state.scene, [0, 0, W, H]); else { c.fillStyle = "#0b0b0d"; c.fillRect(0, 0, W, H); }
+    const bg = c.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, "#f3f4f6"); bg.addColorStop(0.62, "#e2e4e8"); bg.addColorStop(0.8, "#d3d6db"); bg.addColorStop(1, "#c4c8ce");
+    c.fillStyle = bg; c.fillRect(0, 0, W, H);
+    const spot = c.createRadialGradient(W / 2, H * 0.42, 0, W / 2, H * 0.42, W * 0.62);
+    spot.addColorStop(0, "rgba(255,255,255,.75)"); spot.addColorStop(1, "rgba(255,255,255,0)");
+    c.fillStyle = spot; c.fillRect(0, 0, W, H);
+    const edge = c.createRadialGradient(W / 2, H / 2, W * 0.45, W / 2, H / 2, W * 0.8);
+    edge.addColorStop(0, "rgba(90,96,106,0)"); edge.addColorStop(1, "rgba(90,96,106,.22)");
+    c.fillStyle = edge; c.fillRect(0, 0, W, H);
     for (const [x, y, rx, s] of shadows) {
       const gr = c.createRadialGradient(x, y, 0, x, y, rx);
-      gr.addColorStop(0, `rgba(0,0,0,${0.75 * s})`); gr.addColorStop(1, "rgba(0,0,0,0)");
+      gr.addColorStop(0, `rgba(30,34,40,${0.5 * s})`); gr.addColorStop(1, "rgba(30,34,40,0)");
       c.save(); c.translate(x, y); c.scale(1, 0.14); c.translate(-x, -y);
       c.fillStyle = gr; c.beginPath(); c.arc(x, y, rx, 0, Math.PI * 2); c.fill(); c.restore();
     }
@@ -674,7 +683,7 @@
     // Arka formanın eteğinin altındaki zemine sığacak boyda
     const s = state.socks[color], bottom = H * 0.975, h = Math.max(H * 0.12, Math.min(H * 0.2, bottom - backBottom - H * 0.015)), w = (h * s.naturalWidth) / s.naturalHeight;
     const sh = ctx.createRadialGradient(cx, bottom, 0, cx, bottom, w * 0.75);
-    sh.addColorStop(0, "rgba(0,0,0,.55)"); sh.addColorStop(1, "rgba(0,0,0,0)");
+    sh.addColorStop(0, "rgba(30,34,40,.4)"); sh.addColorStop(1, "rgba(30,34,40,0)");
     ctx.save();
     ctx.translate(cx, bottom); ctx.scale(1, 0.16); ctx.translate(-cx, -bottom);
     ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(cx, bottom, w * 0.75, 0, Math.PI * 2); ctx.fill();
@@ -957,7 +966,7 @@
   document.body.append(mini);
   mini.addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
   const seen = { stage: true, form: false };
-  const syncMini = () => { mini.hidden = !(state.ready && stacked.matches && !seen.stage && seen.form); };
+  const syncMini = () => { mini.hidden = !(state.ready && stacked.matches && !seen.stage && seen.form && !seen.summary); };
   function updateMini() {
     miniCanvas.getContext("2d").drawImage(view, 0, 0, miniCanvas.width, miniCanvas.height);
     syncMini();
@@ -974,6 +983,22 @@
   }
   stacked.addEventListener?.("change", syncMini);
 
+  // Mobil alt çubuk: bu sayfada "Tasarla" yine aynı sayfaya gidiyordu; sipariş özetine götürür
+  const ctaPrimary = document.querySelector(".mobile-cta__primary");
+  const summary = form.querySelector(".order-form__summary");
+  if (ctaPrimary && summary) {
+    ctaPrimary.innerHTML = 'Siparişi tamamla <span aria-hidden="true">→</span>';
+    ctaPrimary.href = "#siparis-ozeti";
+    summary.id ||= "siparis-ozeti";
+    ctaPrimary.addEventListener("click", (e) => { e.preventDefault(); summary.scrollIntoView({ behavior: "smooth", block: "center" }); });
+    // Özet ekrandayken çubuk gönder düğmesinin üstünü kapatmasın; mini önizleme de gizlenir
+    const bar = ctaPrimary.closest(".mobile-cta");
+    if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => {
+      bar?.classList.toggle("is-off", en.isIntersecting);
+      seen.summary = en.isIntersecting; syncMini();
+    }).observe(summary);
+  }
+
   // ---------------------------------------------------------------------------
   // Başlatma: önizleme ekrana yaklaşınca (sayfa yükünü geciktirmemek için)
   // ---------------------------------------------------------------------------
@@ -982,13 +1007,12 @@
     try {
       say("Önizleme hazırlanıyor…");
       const first = sportPatterns()[0] || { code: "FK-001", src: ASSETS + "desen/fk-001.jpg" };
-      const [pattern, scene, left, right, sponsor] = await Promise.all([
-        loadImage(first.src), loadImage(ASSETS + "sahne.webp"),
+      const [pattern, left, right, sponsor] = await Promise.all([
+        loadImage(first.src),
         loadImage(ASSETS + "ornek-arma.png"), loadImage(ASSETS + "ornek-nora.png"), loadImage(ASSETS + "ornek-reklam.png"),
         loadFont("FIBA", ASSETS + "fiba.ttf"), loadFont("NoraNumara", ASSETS + "nora-numara.ttf"),
       ]);
       first.img = pattern; first.load = Promise.resolve(pattern);
-      state.scene = scene;
       state.samples = { left, right, sponsor };
       // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
       if (mode() === "upload") customPattern();
