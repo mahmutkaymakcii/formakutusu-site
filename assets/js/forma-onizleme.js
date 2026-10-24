@@ -983,6 +983,47 @@
   }
   stacked.addEventListener?.("change", syncMini);
 
+  // ---------------------------------------------------------------------------
+  // Adım göstergesi: uzun formu Bilgiler → Desen → Ön → Arka → Liste → Sipariş adımlarına böler;
+  // ekrandaki bölüm vurgulanır, dokununca o bölüme gidilir
+  // ---------------------------------------------------------------------------
+  const legendOf = (text) => [...form.querySelectorAll(".order-form__section > legend")].find((l) => l.textContent.trim().startsWith(text))?.parentElement;
+  const stepTargets = [
+    ["Bilgiler", legendOf("Sipariş bilgileri")], ["Desen", legendOf("Desen")], ["Ön", legendOf("Forma önü")],
+    ["Arka", legendOf("Forma arkası")], ["Liste", legendOf("İsim, numara")], ["Sipariş", form.querySelector(".order-form__summary")],
+  ].filter(([, target]) => target);
+  if (stepTargets.length > 2) {
+    const nav = Object.assign(document.createElement("nav"), { className: "order-steps" });
+    nav.setAttribute("aria-label", "Tasarım adımları");
+    const header = document.querySelector(".site-header");
+    const place = () => { nav.style.top = `${header ? header.getBoundingClientRect().height : 0}px`; };
+    place(); window.addEventListener("resize", place, { passive: true });
+    const buttons = stepTargets.map(([label, target], i) => {
+      const b = Object.assign(document.createElement("button"), { type: "button", className: "order-steps__item" });
+      b.innerHTML = `<span>${i + 1}</span>${label}`;
+      b.addEventListener("click", () => {
+        const y = target.getBoundingClientRect().top + window.scrollY - nav.getBoundingClientRect().bottom - 8;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      });
+      nav.append(b);
+      return b;
+    });
+    form.querySelector(".order-form__title")?.after(nav);
+    let current = -1;
+    const mark = () => {
+      const line = Math.max(nav.getBoundingClientRect().bottom + 24, window.innerHeight * 0.35);
+      let idx = 0;
+      stepTargets.forEach(([, t], i) => { if (t.getBoundingClientRect().top <= line) idx = i; });
+      if (idx === current) return;
+      current = idx;
+      buttons.forEach((b, i) => { b.toggleAttribute("aria-current", i === idx); b.classList.toggle("is-done", i < idx); });
+      const b = buttons[idx]; nav.scrollLeft = b.offsetLeft - (nav.clientWidth - b.offsetWidth) / 2;
+    };
+    let ticking = false;
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; mark(); }); } }, { passive: true });
+    mark();
+  }
+
   // Mobil alt çubuk: bu sayfada "Tasarla" yine aynı sayfaya gidiyordu; sipariş özetine götürür
   const ctaPrimary = document.querySelector(".mobile-cta__primary");
   const summary = form.querySelector(".order-form__summary");

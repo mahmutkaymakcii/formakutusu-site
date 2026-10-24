@@ -1483,6 +1483,69 @@ h3 {
   color: var(--text);
 }
 
+/* Adım göstergesi: formun üstünde yapışkan, yatay kaydırılabilir */
+.order-steps {
+  position: sticky;
+  z-index: 5;
+  display: flex;
+  gap: 0.35rem;
+  margin: 0 calc(clamp(1rem, 2.5vw, 1.5rem) * -1);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  padding: 0.6rem clamp(1rem, 2.5vw, 1.5rem);
+  scrollbar-width: none;
+}
+
+.order-steps::-webkit-scrollbar {
+  display: none;
+}
+
+.order-steps__item {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0 0.8rem 0 0.35rem;
+}
+
+.order-steps__item span {
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 8%);
+  font-size: 0.7rem;
+}
+
+.order-steps__item.is-done {
+  color: var(--text);
+}
+
+.order-steps__item.is-done span {
+  background: rgb(255 255 255 / 18%);
+}
+
+.order-steps__item[aria-current] {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.order-steps__item[aria-current] span {
+  background: var(--gold);
+  color: #080a0e;
+}
+
 /* Gönder düğmesi öncesi güven bilgileri */
 .order-trust {
   display: grid;
