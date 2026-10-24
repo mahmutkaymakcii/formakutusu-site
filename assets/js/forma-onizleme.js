@@ -657,6 +657,7 @@
     ctx.drawImage(state.sceneCanvas, 0, 0);
     ctx.drawImage(gar, ox, oy, W * scale, H * scale);
     drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
+    updateMini();
   }
 
   // Çorap seçiliyse arka formanın altında, zemine oturan küçük çorap görseli (seçilen renkte)
@@ -923,6 +924,57 @@
   });
 
   // ---------------------------------------------------------------------------
+  // Görseli kaydet: telefonda paylaşım menüsü açılır (WhatsApp'a doğrudan gönderilebilir),
+  // paylaşım desteklenmiyorsa görsel indirilir
+  // ---------------------------------------------------------------------------
+  const saveButton = stage.querySelector("[data-preview-save]");
+  saveButton?.addEventListener("click", async () => {
+    const file = await form.formaPreview().catch(() => null);
+    if (!file) return;
+    const shareable = window.matchMedia("(pointer: coarse)").matches && navigator.canShare?.({ files: [file] });
+    if (shareable) {
+      try {
+        await navigator.share({ files: [file], title: "Forma Kutusu tasarımım" });
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") return;
+      }
+    }
+    const url = URL.createObjectURL(file);
+    Object.assign(document.createElement("a"), { href: url, download: file.name }).click();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  });
+
+  // ---------------------------------------------------------------------------
+  // Mobil mini önizleme: alt alta düzende form doldurulurken önizleme ekrandan çıkar;
+  // köşedeki küçük kopya değişiklikleri gösterir, dokununca büyük önizlemeye döner
+  // ---------------------------------------------------------------------------
+  const stacked = window.matchMedia("(max-width: 63.99rem)");
+  const mini = Object.assign(document.createElement("button"), { type: "button", className: "order-studio__mini", hidden: true });
+  mini.setAttribute("aria-label", "Büyük önizlemeye dön");
+  const miniCanvas = Object.assign(document.createElement("canvas"), { width: 240, height: Math.round((240 * FH) / FW) });
+  mini.append(miniCanvas, Object.assign(document.createElement("span"), { textContent: "Önizleme" }));
+  document.body.append(mini);
+  mini.addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
+  const seen = { stage: true, form: false };
+  const syncMini = () => { mini.hidden = !(state.ready && stacked.matches && !seen.stage && seen.form); };
+  function updateMini() {
+    miniCanvas.getContext("2d").drawImage(view, 0, 0, miniCanvas.width, miniCanvas.height);
+    syncMini();
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      for (const en of entries) seen[en.target === stage ? "stage" : "form"] = en.isIntersecting;
+      syncMini();
+    }, { rootMargin: "-25% 0px 0px 0px" }).observe(stage);
+    new IntersectionObserver((entries) => {
+      for (const en of entries) seen.form = en.isIntersecting;
+      syncMini();
+    }).observe(form);
+  }
+  stacked.addEventListener?.("change", syncMini);
+
+  // ---------------------------------------------------------------------------
   // Başlatma: önizleme ekrana yaklaşınca (sayfa yükünü geciktirmemek için)
   // ---------------------------------------------------------------------------
   view.width = W; view.height = H;
@@ -946,6 +998,7 @@
       state.ready = true;
       render(); renderReel(); showStatus();
       stage.classList.add("is-ready");
+      if (saveButton) saveButton.hidden = false;
       warmUp();
     } catch {
       say("Önizleme bu tarayıcıda yüklenemedi; siparişinizi yine de gönderebilirsiniz.");
