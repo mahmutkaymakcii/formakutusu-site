@@ -333,6 +333,8 @@
         const blocked = none.checked;
         if (blocked) input.value = "";
         input.disabled = blocked;
+        const text = upload.querySelector("[data-upload-text]");
+        if (text) text.disabled = blocked;
         upload.classList.toggle("is-none", blocked);
         showPreview();
       };
@@ -378,6 +380,7 @@
           file: input.files?.[0] || null,
           none: upload.querySelector("[data-upload-none]").checked,
           alt: alt?.checked ? alt.dataset.uploadAlt : "",
+          text: upload.querySelector("[data-upload-text]")?.value.trim() || "",
         };
       });
 
@@ -457,7 +460,8 @@
         `Yaka: ${checked("collar")}`,
         "",
         "FORMA ÖNÜ",
-        ...uploadState().map(({ label, file, alt }) => {
+        ...uploadState().map(({ label, file, alt, text, none }) => {
+          if (!file && !none && text) return `${label}: Yazı – ${text.toLocaleUpperCase("tr-TR")}`;
           if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo sağ göğse geçer, dosya: ${file.name})` : ""}`;
           // Sağ göğse logo yüklenince NORA iki logonun ortasına geçer
           const nora = /^Sağ göğüs/.test(label) ? ", NORA logosu iki logonun ortasında" : "";
@@ -472,7 +476,8 @@
       ];
 
       if (scope !== "ust" && currentSport() !== "voleybol") {
-        lines.push("", "ŞORT", `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
+        const shortsColor = form.querySelector('input[name="shorts-color"]:checked')?.dataset.label;
+        lines.push("", "ŞORT", ...(shortsColor ? [`Şort rengi: ${shortsColor}`] : []), `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
       }
 
       EXTRAS.forEach(({ name, title, label, price, note }) => {

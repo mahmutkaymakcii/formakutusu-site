@@ -564,7 +564,7 @@
     g.filter = "none"; gb.filter = "none";
     // Şort ayrı katmanda düz renk: kavisli etekte şort dikdörtgeni formanın alt kısmını kesiyordu
     const gs = texShorts.getContext("2d", { willReadFrequently: true });
-    gs.fillStyle = `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
+    gs.fillStyle = form.querySelector('input[name="shorts-color"]:checked')?.value || `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
 
     const P = state.P;
     // Sol/sağ giyen kişiye göredir (forma üretimindeki gibi): sol göğüs = görselde sağ, arma yeri
@@ -597,7 +597,12 @@
         if (nora) drawInBox(g, nora, middle);
       } else if (nora) drawInBox(g, nora, P.logoRight);
     }
-    if (sponsor) drawInBox(g, sponsor, P.sponsor);
+    // Reklam: yüklenen logo > yazılan reklam metni > örnek reklam
+    const sponsorText = isOn("sponsor-none") || state.uploads.sponsor ? "" : (val("sponsor-text") || "").trim().toLocaleUpperCase("tr-TR");
+    if (sponsorText) {
+      const box = { ...P.sponsor, y: P.sponsor.y + P.sponsor.h * 0.2, h: P.sponsor.h * 0.6 };
+      textInBox(g, sponsorText, "FIBA", box, sizeInBox(g, sponsorText, "FIBA", box), textColor());
+    } else if (sponsor) drawInBox(g, sponsor, P.sponsor);
     const color = textColor();
     const club = (val("back-text").trim() || "KULÜP İSMİ").toLocaleUpperCase("tr-TR");
     const player = isOn("has-name") || !el("has-name") ? "OYUNCU" : "";
@@ -647,12 +652,21 @@
     gar.getContext("2d").putImageData(out, 0, 0);
 
     // Sahne (gölgeler önbellekte); ürünler biraz küçültülüp zemine oturtulur
-    const scale = 0.84, ox = (W - W * scale) / 2, oy = H * 0.035;
-    const key = `${state.collar}|${noShorts}`;
+    // Çorap seçiliyse takım tam görünsün: forma + şort biraz küçülür, çorap şortun altına gelir
+    const sockImg = state.socks[val("socks")];
+    const kit = Boolean(sockImg) && !noShorts;
+    const scale = kit ? 0.76 : 0.84, ox = (W - W * scale) / 2, oy = H * (kit ? 0.005 : 0.035);
+    const map = (x, y) => [ox + x * scale, oy + y * scale];
+    const sockBox = kit ? (() => {
+      const [cx, top] = map((sx0 + sx1) / 2, sy1);
+      const h = Math.min(H * 0.24, H * 0.965 - top - H * 0.012), w = (h * sockImg.naturalWidth) / sockImg.naturalHeight;
+      return { x: cx - w / 2, y: top + H * 0.012, w, h };
+    })() : null;
+    const key = `${state.collar}|${noShorts}|${kit}`;
     if (state.sceneKey !== key) {
       const [bx0, , bx1, by1] = boxes.back;
-      const map = (x, y) => [ox + x * scale, oy + y * scale];
-      const [shX, shY] = map((sx0 + sx1) / 2, noShorts ? boxes.front[3] : sy1);
+      const [shX, shY0] = map((sx0 + sx1) / 2, noShorts ? boxes.front[3] : sy1);
+      const shY = sockBox ? sockBox.y + sockBox.h : shY0;
       const [bkX, bkY] = map((bx0 + bx1) / 2, by1);
       const sc = state.sceneCanvas ||= Object.assign(document.createElement("canvas"), { width: W, height: H });
       const c = sc.getContext("2d");
@@ -665,7 +679,8 @@
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(state.sceneCanvas, 0, 0);
     ctx.drawImage(gar, ox, oy, W * scale, H * scale);
-    drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
+    if (sockBox) ctx.drawImage(sockImg, sockBox.x, sockBox.y, sockBox.w, sockBox.h);
+    else drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
     updateMini();
   }
 
@@ -920,9 +935,9 @@
       renderReel(); showStatus(); schedule();
     } catch { say("Önizleme yüklenemedi"); }
   });
-  form.addEventListener("input", (e) => { if (e.target.name === "back-text") scheduleSoon(); });
+  form.addEventListener("input", (e) => { if (e.target.name === "back-text" || e.target.name === "sponsor-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
-    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|has-name|has-number|text-color|scope|socks)$/.test(e.target.name)) schedule();
+    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|shorts-color|has-name|has-number|text-color|scope|socks)$/.test(e.target.name)) schedule();
   });
 
   // Sipariş gönderiminde paylaşıma eklenecek önizleme görseli
