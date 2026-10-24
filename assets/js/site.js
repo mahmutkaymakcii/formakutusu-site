@@ -410,8 +410,8 @@
         else if (count > qty) errors.push(`${label} adedi toplam adetten fazla olamaz.`);
       });
 
-      uploadState().forEach(({ label, file, none, alt }) => {
-        if (!file && !none && !alt) errors.push(`${label}: dosya yükle ya da bir seçenek işaretle.`);
+      uploadState().forEach(({ label, file, none, alt, text }) => {
+        if (!file && !none && !alt && !text) errors.push(`${label}: dosya yükle ya da bir seçenek işaretle.`);
         const allowed = file && (FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name));
         if (file && !allowed) errors.push(`${label}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
         if (file && file.size > MAX_FILE) errors.push(`${label}: dosya 10 MB'tan küçük olmalı.`);
