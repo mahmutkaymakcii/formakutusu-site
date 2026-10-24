@@ -159,13 +159,17 @@
     const MAX_FILE = 10 * 1024 * 1024;
     const FILE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "application/pdf"];
 
+    // Forma tasarla sihirbazı: oyuncu listesi satır satır (kaleci, şort, çorap oyuncu bazında),
+    // adet satır sayısıdır; branş ve yaka kartlarla seçilir
+    const wizard = form.hasAttribute("data-wizard");
     const quantityInput = form.querySelector("[data-order-quantity]");
     const roster = form.querySelector("[data-order-roster]");
     const shorts = form.querySelector("[data-order-shorts]");
     const totalLabel = form.querySelector("[data-order-total]");
     const totalDetail = form.querySelector("[data-order-total-detail]");
-    const sportSelect = form.querySelector("[data-order-sport]");
+    const sportSelect = wizard ? null : form.querySelector("[data-order-sport]");
     const collarSelect = form.elements.collar;
+    const PART_PRICES = { shirt: 300, shorts: 150 };
     const designInput = form.querySelector("[data-design-input]");
     const designPreview = form.querySelector("[data-design-preview]");
     const MAX_DESIGN_FILES = 5;
@@ -183,9 +187,10 @@
     const status = form.querySelector("[data-order-status]");
     const uploads = [...form.querySelectorAll("[data-upload]")];
     const formatTL = (value) => `${value.toLocaleString("tr-TR")}₺`;
-    const currentSport = () => (sportSelect ? sportSelect.value : form.dataset.sport || "");
+    const currentSport = () => (wizard ? form.elements.sport?.value || "futbol" : sportSelect ? sportSelect.value : form.dataset.sport || "");
 
     const quantity = () => {
+      if (wizard) return roster.querySelectorAll("[data-roster-row]").length;
       const value = Number.parseInt(quantityInput.value, 10);
       return Number.isFinite(value) ? value : 0;
     };
@@ -194,7 +199,46 @@
 
     const sizeOptions = SIZES.map((size) => `<option value="${size}">${size}</option>`).join("");
 
+    // Sihirbaz satırı: # · isim · numara · kaleci · beden · şort · çorap · sil
+    const keeperLabel = () => (currentSport() === "voleybol" ? "Libero" : "Kaleci");
+    const addRow = () => {
+      const row = document.createElement("div");
+      row.className = "order-roster__row wizard-row";
+      row.dataset.rosterRow = "";
+      const shortsOn = checked("scope") !== "ust";
+      const socksOn = (checked("socks") || "yok") !== "yok";
+      row.innerHTML = `
+          <span class="order-roster__index"></span>
+          <label class="wizard-row__name"><span class="sr-only">Oyuncu ismi</span><input type="text" name="player-name" maxlength="20" autocomplete="off" placeholder="İSİM" data-uppercase data-roster-field="name"></label>
+          <label class="wizard-row__number"><span class="sr-only">Oyuncu numarası</span><input type="text" name="player-number" maxlength="3" inputmode="numeric" autocomplete="off" placeholder="NO" data-roster-field="number"></label>
+          <label class="wizard-tog" data-keeper-cell><input type="checkbox" data-roster-field="keeper"><span data-keeper-label>${keeperLabel()}</span></label>
+          <label class="wizard-row__size"><span class="sr-only">Beden</span><select name="player-size" data-roster-field="size"><option value="">BEDEN</option>${sizeOptions}</select></label>
+          <label class="wizard-tog"><input type="checkbox" data-roster-field="shorts"${shortsOn ? " checked" : ""}><span>Şort</span></label>
+          <label class="wizard-tog"><input type="checkbox" data-roster-field="socks"${socksOn ? " checked" : ""}><span>Çorap</span></label>
+          <button type="button" class="wizard-row__del" data-roster-del>Sil</button>`;
+      roster.append(row);
+      return row;
+    };
+    const renumber = () => {
+      const rows = [...roster.querySelectorAll("[data-roster-row]")];
+      rows.forEach((row, index) => {
+        row.querySelector(".order-roster__index").textContent = index + 1;
+        row.querySelector("[data-roster-del]").setAttribute("aria-label", `${index + 1}. oyuncuyu sil`);
+        row.querySelector("[data-roster-del]").disabled = rows.length === 1;
+      });
+      quantityInput.value = rows.length;
+    };
+
     const buildRoster = () => {
+      if (wizard) {
+        if (!roster.querySelector(".wizard-roster__head")) {
+          roster.insertAdjacentHTML("afterbegin", `<div class="wizard-roster__head" aria-hidden="true"><span>#</span><span>Sırt ismi</span><span>Sırt no</span><span data-keeper-label>${keeperLabel()}</span><span>Beden</span><span>Şort</span><span>Çorap</span><span></span></div>`);
+        }
+        while (quantity() < MIN_QTY) addRow();
+        renumber();
+        syncRosterFields();
+        return;
+      }
       const count = Math.min(Math.max(quantity(), 0), MAX_QTY);
       const rows = [...roster.querySelectorAll("[data-roster-row]")];
 
@@ -221,7 +265,24 @@
       roster.classList.toggle("is-no-number", !hasNumber);
       roster.querySelectorAll('[data-roster-field="name"]').forEach((input) => (input.disabled = !hasName));
       roster.querySelectorAll('[data-roster-field="number"]').forEach((input) => (input.disabled = !hasNumber));
+      if (wizard) {
+        // Kaleci futbolda, libero voleybolda; basketbolda bu sütun yok
+        roster.classList.toggle("is-no-keeper", currentSport() === "basketbol");
+        roster.querySelectorAll("[data-keeper-label]").forEach((el) => (el.textContent = keeperLabel()));
+      }
     };
+    const rowData = () =>
+      [...roster.querySelectorAll("[data-roster-row]")].map((row) => {
+        const field = (name) => row.querySelector(`[data-roster-field="${name}"]`);
+        return {
+          name: isOn("has-name") ? field("name").value.trim() : "",
+          number: isOn("has-number") ? field("number").value.trim() : "",
+          size: field("size").value,
+          keeper: currentSport() !== "basketbol" && field("keeper").checked,
+          shorts: field("shorts").checked,
+          socks: field("socks").checked,
+        };
+      });
 
     // Seçeneğin bölümü branşa göre gizliyse (özel tasarım formu) hesaba katılmaz.
     const extraActive = (name) => {
@@ -235,7 +296,25 @@
       return Number.isFinite(value) && value > 0 ? value : 0;
     };
 
+    const calculateWizard = () => {
+      const rows = rowData();
+      const futbol = currentSport() === "futbol";
+      const kit = rows.filter((r) => r.shorts).length;
+      const single = rows.length - kit;
+      const socks = rows.filter((r) => r.socks).length;
+      const keepers = futbol ? rows.filter((r) => r.keeper).length : 0;
+      const kitPrice = PART_PRICES.shirt + PART_PRICES.shorts;
+      const total = kit * kitPrice + single * PART_PRICES.shirt + socks * PRICES.socks + keepers * PRICES.goalkeeper;
+      const parts = [];
+      if (kit) parts.push(`${kit} × forma + şort (${formatTL(kitPrice)})`);
+      if (single) parts.push(`${single} × tek üst forma (${formatTL(PART_PRICES.shirt)})`);
+      if (socks) parts.push(`${socks} × çorap (${formatTL(PRICES.socks)})`);
+      if (keepers) parts.push(`${keepers} × kaleci uzun kol farkı (${formatTL(PRICES.goalkeeper)})`);
+      return { qty: rows.length, total, parts, rows, kit, single, socks, keepers };
+    };
+
     const calculate = () => {
+      if (wizard) return calculateWizard();
       const qty = quantity();
       const scope = checked("scope") === "ust" ? "ust" : "takim";
       const base = PRICES[scope];
@@ -249,6 +328,20 @@
     };
 
     const syncSport = () => {
+      if (wizard) {
+        // Basketbolda polo yaka yok: kart gizlenir, seçiliyse sıfır yakaya dönülür
+        const polo = form.querySelector('[data-collar-card="Polo yaka"]');
+        const noPolo = currentSport() === "basketbol";
+        if (polo) polo.hidden = noPolo;
+        if (noPolo && checked("collar") === "Polo yaka") {
+          const zero = form.querySelector('input[name="collar"][value="Sıfır yaka"]');
+          zero.checked = true;
+          zero.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        form.querySelectorAll("[data-sport-only]").forEach((section) => (section.hidden = section.dataset.sportOnly !== currentSport()));
+        syncRosterFields();
+        return;
+      }
       if (!sportSelect) return;
       const sport = sportSelect.value;
       form.querySelectorAll("[data-sport-only]").forEach((section) => (section.hidden = section.dataset.sportOnly !== sport));
@@ -311,7 +404,9 @@
         form.querySelectorAll(`[data-${name}-count], [data-${name}-note]`).forEach((el) => (el.hidden = !on));
       });
 
-      const { qty, total, parts } = calculate();
+      const { qty, total, parts, keepers } = calculate();
+      const counter = form.querySelector("[data-roster-count]");
+      if (counter) counter.textContent = `Toplam oyuncu: ${qty}${currentSport() === "futbol" ? ` · Kaleci: ${keepers}` : ""}`;
       if (qty < MIN_QTY) {
         totalLabel.textContent = "—";
         totalDetail.textContent = `En az ${MIN_QTY} adet sipariş verilebilir.`;
@@ -387,7 +482,7 @@
     const validate = () => {
       const errors = [];
       const qty = quantity();
-      if (qty < MIN_QTY) errors.push(`Adet en az ${MIN_QTY} olmalı.`);
+      if (qty < MIN_QTY) errors.push(wizard ? `En az ${MIN_QTY} oyuncu eklemelisin (şu an ${qty}).` : `Adet en az ${MIN_QTY} olmalı.`);
       if (qty > MAX_QTY) errors.push(`${MAX_QTY} adetten fazla siparişler için lütfen WhatsApp'tan yaz.`);
       if (sportSelect && !sportSelect.value) errors.push("Branşı seç.");
       if (!checked("collar")) errors.push("Yaka tipini seç.");
@@ -435,7 +530,9 @@
       const { qty, total, parts } = calculate();
       const scope = checked("scope");
       const yesNo = (value) => (value ? "Var" : "Yok");
-      const sportLabel = sportSelect ? sportSelect.selectedOptions[0]?.textContent || "" : form.dataset.sportLabel;
+      const sportLabel = wizard
+        ? form.querySelector('input[name="sport"]:checked')?.dataset.label || ""
+        : sportSelect ? sportSelect.selectedOptions[0]?.textContent || "" : form.dataset.sportLabel;
       const designLines = form.hasAttribute("data-custom")
         ? [
             "",
@@ -445,7 +542,14 @@
         : [];
       // Önizlemeli formlarda: galeriden seçilen desen kodu, kulüp ismi etiketi, yazı rengi
       // "Kendi desenim" sekmesinde galeri kodu değil "Özel tasarım" yazılır
-      const patternCode = form.hasAttribute("data-custom") ? "Özel tasarım" : form.elements["pattern-code"]?.value || "";
+      let patternCode = form.hasAttribute("data-custom") ? "Özel tasarım" : form.elements["pattern-code"]?.value || "";
+      const colorModel = wizard && checked("pattern-mode") === "color";
+      if (colorModel) {
+        const model = window.FormaModeller?.MODELS.find((m) => m.code === patternCode);
+        if (model) patternCode = `${model.code} ${model.name}`;
+      }
+      const label = (name) => form.elements[name]?.dataset?.label || "";
+      const calc = calculate();
       const backLabel = form.querySelector('[name="back-text"]')?.closest("label")?.querySelector("span")?.textContent || "Sırt yazısı";
       const textColor = form.querySelector('input[name="text-color"]:checked')?.dataset.label || "";
       const lines = [
@@ -454,10 +558,19 @@
         `Model: ${patternCode || form.dataset.model} (${sportLabel})`,
         ...designLines,
         "",
+        ...(colorModel ? [`Ana renk: ${label("main-color")}`, `Desen rengi: ${label("accent-color")}`, ""] : []),
         `Adet: ${qty}`,
-        `Ürün: ${scope === "ust" ? "Tek üst forma" : "Forma + şort"}`,
-        `Çorap: ${form.elements.socks?.selectedOptions[0]?.textContent.replace(/ çorap$/, "") || "Yok"}`,
+        ...(wizard
+          ? [
+              `Ürün: ${[calc.kit && `${calc.kit} forma + şort`, calc.single && `${calc.single} tek üst forma`].filter(Boolean).join(", ")}`,
+              `Çorap: ${calc.socks ? `${calc.socks} çift (${form.querySelector('input[name="socks"]:checked')?.dataset.label || ""})` : "Yok"}`,
+            ]
+          : [
+              `Ürün: ${scope === "ust" ? "Tek üst forma" : "Forma + şort"}`,
+              `Çorap: ${form.elements.socks?.selectedOptions[0]?.textContent.replace(/ çorap$/, "") || "Yok"}`,
+            ]),
         `Yaka: ${checked("collar")}`,
+        ...(wizard ? ["Kumaş: Poly Mesh"] : []),
         "",
         "FORMA ÖNÜ",
         ...uploadState().map(({ label, file, alt, text, none }) => {
@@ -475,7 +588,7 @@
         ...(textColor ? [`Yazı ve numara rengi: ${textColor}`] : []),
       ];
 
-      if (scope !== "ust" && currentSport() !== "voleybol") {
+      if ((wizard ? calc.kit > 0 : scope !== "ust") && currentSport() !== "voleybol") {
         const shortsColor = form.querySelector('input[name="shorts-color"]:checked')?.dataset.label;
         lines.push("", "ŞORT", ...(shortsColor ? [`Şort rengi: ${shortsColor}`] : []), `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
       }
@@ -489,6 +602,21 @@
 
       const note = form.elements["order-note"]?.value.trim();
       if (form.elements["order-note"]) lines.push("", "SİPARİŞ NOTU", note || "Yok");
+
+      if (wizard && calc.keepers) {
+        lines.push("", "KALECİ", `Kaleci forması: ${calc.keepers} adet (uzun kol, +${formatTL(PRICES.goalkeeper)})`, `Kaleci forması rengi: ${form.querySelector('input[name="keeper-color"]:checked')?.dataset.label || "-"}`);
+      }
+
+      if (wizard) {
+        const keeper = currentSport() === "voleybol" ? "Libero" : "Kaleci";
+        lines.push("", "LİSTE (İSİM - NUMARA - BEDEN)");
+        calc.rows.forEach((r, index) => {
+          const extras = [r.keeper && keeper, r.shorts ? "Şort" : "Şortsuz", r.socks && "Çorap"].filter(Boolean).join(", ");
+          lines.push(`${index + 1}. ${[r.name || "-", r.number || "-", r.size].join(" - ")} (${extras})`);
+        });
+        lines.push("", `TOPLAM TUTAR: ${formatTL(total)} (${parts.join(" + ")})`);
+        return lines.join("\n");
+      }
 
       lines.push("", "LİSTE (İSİM - NUMARA - BEDEN)");
       roster.querySelectorAll("[data-roster-row]").forEach((row, index) => {
@@ -508,8 +636,34 @@
     });
     form.addEventListener("change", (event) => {
       if (event.target.matches("[data-roster-toggle]")) syncRosterFields();
+      if (wizard) {
+        // Şort ve çorap seçimi tüm oyunculara uygulanır; oyuncu bazında listede değiştirilebilir
+        const name = event.target.name;
+        if (name === "scope") roster.querySelectorAll('[data-roster-field="shorts"]').forEach((box) => (box.checked = checked("scope") !== "ust"));
+        if (name === "socks") roster.querySelectorAll('[data-roster-field="socks"]').forEach((box) => (box.checked = checked("socks") !== "yok"));
+        if (name === "sport") syncSport();
+      }
       updateTotal();
     });
+    if (wizard) {
+      form.querySelector("[data-roster-add]")?.addEventListener("click", () => {
+        if (quantity() >= MAX_QTY) return;
+        const row = addRow();
+        renumber();
+        syncRosterFields();
+        updateTotal();
+        row.querySelector("input:not(:disabled)")?.focus();
+      });
+      roster.addEventListener("click", (event) => {
+        const del = event.target.closest("[data-roster-del]");
+        if (!del || quantity() <= 1) return;
+        del.closest("[data-roster-row]").remove();
+        renumber();
+        updateTotal();
+      });
+      // Sihirbaz adımları için: adım kontrolü ve sipariş özeti aynı hesapla yapılır
+      form.orderApi = { validate: () => validate(), calculate: () => calculate(), keeperLabel };
+    }
     EXTRAS.forEach(({ name }) => form.elements[`${name}-count`]?.addEventListener("input", updateTotal));
     sportSelect?.addEventListener("change", syncSport);
     designInput?.addEventListener("change", showDesignPreview);
