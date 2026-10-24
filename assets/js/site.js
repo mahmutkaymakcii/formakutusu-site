@@ -333,6 +333,8 @@
         const blocked = none.checked;
         if (blocked) input.value = "";
         input.disabled = blocked;
+        const text = upload.querySelector("[data-upload-text]");
+        if (text) text.disabled = blocked;
         upload.classList.toggle("is-none", blocked);
         showPreview();
       };
@@ -378,6 +380,7 @@
           file: input.files?.[0] || null,
           none: upload.querySelector("[data-upload-none]").checked,
           alt: alt?.checked ? alt.dataset.uploadAlt : "",
+          text: upload.querySelector("[data-upload-text]")?.value.trim() || "",
         };
       });
 
@@ -407,8 +410,8 @@
         else if (count > qty) errors.push(`${label} adedi toplam adetten fazla olamaz.`);
       });
 
-      uploadState().forEach(({ label, file, none, alt }) => {
-        if (!file && !none && !alt) errors.push(`${label}: dosya yükle ya da bir seçenek işaretle.`);
+      uploadState().forEach(({ label, file, none, alt, text }) => {
+        if (!file && !none && !alt && !text) errors.push(`${label}: dosya yükle ya da bir seçenek işaretle.`);
         const allowed = file && (FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name));
         if (file && !allowed) errors.push(`${label}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
         if (file && file.size > MAX_FILE) errors.push(`${label}: dosya 10 MB'tan küçük olmalı.`);
@@ -457,7 +460,8 @@
         `Yaka: ${checked("collar")}`,
         "",
         "FORMA ÖNÜ",
-        ...uploadState().map(({ label, file, alt }) => {
+        ...uploadState().map(({ label, file, alt, text, none }) => {
+          if (!file && !none && text) return `${label}: Yazı – ${text.toLocaleUpperCase("tr-TR")}`;
           if (alt) return `${label}: ${alt}${file ? ` (yüklenen logo sağ göğse geçer, dosya: ${file.name})` : ""}`;
           // Sağ göğse logo yüklenince NORA iki logonun ortasına geçer
           const nora = /^Sağ göğüs/.test(label) ? ", NORA logosu iki logonun ortasında" : "";
@@ -472,7 +476,8 @@
       ];
 
       if (scope !== "ust" && currentSport() !== "voleybol") {
-        lines.push("", "ŞORT", `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
+        const shortsColor = form.querySelector('input[name="shorts-color"]:checked')?.dataset.label;
+        lines.push("", "ŞORT", ...(shortsColor ? [`Şort rengi: ${shortsColor}`] : []), `Sağ paça logo: ${isOn("shorts-logo") ? "Evet" : "Hayır"}`, `Sol paça numara: ${isOn("shorts-number") ? "Evet" : "Hayır"}`);
       }
 
       EXTRAS.forEach(({ name, title, label, price, note }) => {

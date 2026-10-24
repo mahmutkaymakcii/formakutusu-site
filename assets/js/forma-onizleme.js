@@ -528,11 +528,20 @@
   const gar = Object.assign(document.createElement("canvas"), { width: W, height: H });
   const textColor = () => (form.querySelector('input[name="text-color"]:checked')?.value) || "#ffffff";
 
+  // Stüdyo zemini: açık gri tonlarında geçiş; ortada yumuşak ışık, altta hafif koyulaşan zemin
   function drawScene(c, shadows) {
-    if (state.scene) drawCover(c, state.scene, [0, 0, W, H]); else { c.fillStyle = "#0b0b0d"; c.fillRect(0, 0, W, H); }
+    const bg = c.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, "#f3f4f6"); bg.addColorStop(0.62, "#e2e4e8"); bg.addColorStop(0.8, "#d3d6db"); bg.addColorStop(1, "#c4c8ce");
+    c.fillStyle = bg; c.fillRect(0, 0, W, H);
+    const spot = c.createRadialGradient(W / 2, H * 0.42, 0, W / 2, H * 0.42, W * 0.62);
+    spot.addColorStop(0, "rgba(255,255,255,.75)"); spot.addColorStop(1, "rgba(255,255,255,0)");
+    c.fillStyle = spot; c.fillRect(0, 0, W, H);
+    const edge = c.createRadialGradient(W / 2, H / 2, W * 0.45, W / 2, H / 2, W * 0.8);
+    edge.addColorStop(0, "rgba(90,96,106,0)"); edge.addColorStop(1, "rgba(90,96,106,.22)");
+    c.fillStyle = edge; c.fillRect(0, 0, W, H);
     for (const [x, y, rx, s] of shadows) {
       const gr = c.createRadialGradient(x, y, 0, x, y, rx);
-      gr.addColorStop(0, `rgba(0,0,0,${0.75 * s})`); gr.addColorStop(1, "rgba(0,0,0,0)");
+      gr.addColorStop(0, `rgba(30,34,40,${0.5 * s})`); gr.addColorStop(1, "rgba(30,34,40,0)");
       c.save(); c.translate(x, y); c.scale(1, 0.14); c.translate(-x, -y);
       c.fillStyle = gr; c.beginPath(); c.arc(x, y, rx, 0, Math.PI * 2); c.fill(); c.restore();
     }
@@ -555,7 +564,7 @@
     g.filter = "none"; gb.filter = "none";
     // Şort ayrı katmanda düz renk: kavisli etekte şort dikdörtgeni formanın alt kısmını kesiyordu
     const gs = texShorts.getContext("2d", { willReadFrequently: true });
-    gs.fillStyle = `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
+    gs.fillStyle = form.querySelector('input[name="shorts-color"]:checked')?.value || `rgb(${solid.join(",")})`; gs.fillRect(0, 0, W, H);
 
     const P = state.P;
     // Sol/sağ giyen kişiye göredir (forma üretimindeki gibi): sol göğüs = görselde sağ, arma yeri
@@ -588,7 +597,12 @@
         if (nora) drawInBox(g, nora, middle);
       } else if (nora) drawInBox(g, nora, P.logoRight);
     }
-    if (sponsor) drawInBox(g, sponsor, P.sponsor);
+    // Reklam: yüklenen logo > yazılan reklam metni > örnek reklam
+    const sponsorText = isOn("sponsor-none") || state.uploads.sponsor ? "" : (val("sponsor-text") || "").trim().toLocaleUpperCase("tr-TR");
+    if (sponsorText) {
+      const box = { ...P.sponsor, y: P.sponsor.y + P.sponsor.h * 0.2, h: P.sponsor.h * 0.6 };
+      textInBox(g, sponsorText, "FIBA", box, sizeInBox(g, sponsorText, "FIBA", box), textColor());
+    } else if (sponsor) drawInBox(g, sponsor, P.sponsor);
     const color = textColor();
     const club = (val("back-text").trim() || "KULÜP İSMİ").toLocaleUpperCase("tr-TR");
     const player = isOn("has-name") || !el("has-name") ? "OYUNCU" : "";
@@ -638,12 +652,21 @@
     gar.getContext("2d").putImageData(out, 0, 0);
 
     // Sahne (gölgeler önbellekte); ürünler biraz küçültülüp zemine oturtulur
-    const scale = 0.84, ox = (W - W * scale) / 2, oy = H * 0.035;
-    const key = `${state.collar}|${noShorts}`;
+    // Çorap seçiliyse takım tam görünsün: forma + şort biraz küçülür, çorap şortun altına gelir
+    const sockImg = state.socks[val("socks")];
+    const kit = Boolean(sockImg) && !noShorts;
+    const scale = kit ? 0.76 : 0.84, ox = (W - W * scale) / 2, oy = H * (kit ? 0.005 : 0.035);
+    const map = (x, y) => [ox + x * scale, oy + y * scale];
+    const sockBox = kit ? (() => {
+      const [cx, top] = map((sx0 + sx1) / 2, sy1);
+      const h = Math.min(H * 0.24, H * 0.965 - top - H * 0.012), w = (h * sockImg.naturalWidth) / sockImg.naturalHeight;
+      return { x: cx - w / 2, y: top + H * 0.012, w, h };
+    })() : null;
+    const key = `${state.collar}|${noShorts}|${kit}`;
     if (state.sceneKey !== key) {
       const [bx0, , bx1, by1] = boxes.back;
-      const map = (x, y) => [ox + x * scale, oy + y * scale];
-      const [shX, shY] = map((sx0 + sx1) / 2, noShorts ? boxes.front[3] : sy1);
+      const [shX, shY0] = map((sx0 + sx1) / 2, noShorts ? boxes.front[3] : sy1);
+      const shY = sockBox ? sockBox.y + sockBox.h : shY0;
       const [bkX, bkY] = map((bx0 + bx1) / 2, by1);
       const sc = state.sceneCanvas ||= Object.assign(document.createElement("canvas"), { width: W, height: H });
       const c = sc.getContext("2d");
@@ -656,7 +679,8 @@
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(state.sceneCanvas, 0, 0);
     ctx.drawImage(gar, ox, oy, W * scale, H * scale);
-    drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
+    if (sockBox) ctx.drawImage(sockImg, sockBox.x, sockBox.y, sockBox.w, sockBox.h);
+    else drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
     updateMini();
   }
 
@@ -674,7 +698,7 @@
     // Arka formanın eteğinin altındaki zemine sığacak boyda
     const s = state.socks[color], bottom = H * 0.975, h = Math.max(H * 0.12, Math.min(H * 0.2, bottom - backBottom - H * 0.015)), w = (h * s.naturalWidth) / s.naturalHeight;
     const sh = ctx.createRadialGradient(cx, bottom, 0, cx, bottom, w * 0.75);
-    sh.addColorStop(0, "rgba(0,0,0,.55)"); sh.addColorStop(1, "rgba(0,0,0,0)");
+    sh.addColorStop(0, "rgba(30,34,40,.4)"); sh.addColorStop(1, "rgba(30,34,40,0)");
     ctx.save();
     ctx.translate(cx, bottom); ctx.scale(1, 0.16); ctx.translate(-cx, -bottom);
     ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(cx, bottom, w * 0.75, 0, Math.PI * 2); ctx.fill();
@@ -911,9 +935,9 @@
       renderReel(); showStatus(); schedule();
     } catch { say("Önizleme yüklenemedi"); }
   });
-  form.addEventListener("input", (e) => { if (e.target.name === "back-text") scheduleSoon(); });
+  form.addEventListener("input", (e) => { if (e.target.name === "back-text" || e.target.name === "sponsor-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
-    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|has-name|has-number|text-color|scope|socks)$/.test(e.target.name)) schedule();
+    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|shorts-color|has-name|has-number|text-color|scope|socks)$/.test(e.target.name)) schedule();
   });
 
   // Sipariş gönderiminde paylaşıma eklenecek önizleme görseli
@@ -957,7 +981,7 @@
   document.body.append(mini);
   mini.addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
   const seen = { stage: true, form: false };
-  const syncMini = () => { mini.hidden = !(state.ready && stacked.matches && !seen.stage && seen.form); };
+  const syncMini = () => { mini.hidden = !(state.ready && stacked.matches && !seen.stage && seen.form && !seen.summary); };
   function updateMini() {
     miniCanvas.getContext("2d").drawImage(view, 0, 0, miniCanvas.width, miniCanvas.height);
     syncMini();
@@ -975,6 +999,63 @@
   stacked.addEventListener?.("change", syncMini);
 
   // ---------------------------------------------------------------------------
+  // Adım göstergesi: uzun formu Bilgiler → Desen → Ön → Arka → Liste → Sipariş adımlarına böler;
+  // ekrandaki bölüm vurgulanır, dokununca o bölüme gidilir
+  // ---------------------------------------------------------------------------
+  const legendOf = (text) => [...form.querySelectorAll(".order-form__section > legend")].find((l) => l.textContent.trim().startsWith(text))?.parentElement;
+  const stepTargets = [
+    ["Bilgiler", legendOf("Sipariş bilgileri")], ["Desen", legendOf("Desen")], ["Ön", legendOf("Forma önü")],
+    ["Arka", legendOf("Forma arkası")], ["Liste", legendOf("İsim, numara")], ["Sipariş", form.querySelector(".order-form__summary")],
+  ].filter(([, target]) => target);
+  if (stepTargets.length > 2) {
+    const nav = Object.assign(document.createElement("nav"), { className: "order-steps" });
+    nav.setAttribute("aria-label", "Tasarım adımları");
+    const header = document.querySelector(".site-header");
+    const place = () => { nav.style.top = `${header ? header.getBoundingClientRect().height : 0}px`; };
+    place(); window.addEventListener("resize", place, { passive: true });
+    const buttons = stepTargets.map(([label, target], i) => {
+      const b = Object.assign(document.createElement("button"), { type: "button", className: "order-steps__item" });
+      b.innerHTML = `<span>${i + 1}</span>${label}`;
+      b.addEventListener("click", () => {
+        const y = target.getBoundingClientRect().top + window.scrollY - nav.getBoundingClientRect().bottom - 8;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      });
+      nav.append(b);
+      return b;
+    });
+    form.querySelector(".order-form__title")?.after(nav);
+    let current = -1;
+    const mark = () => {
+      const line = Math.max(nav.getBoundingClientRect().bottom + 24, window.innerHeight * 0.35);
+      let idx = 0;
+      stepTargets.forEach(([, t], i) => { if (t.getBoundingClientRect().top <= line) idx = i; });
+      if (idx === current) return;
+      current = idx;
+      buttons.forEach((b, i) => { b.toggleAttribute("aria-current", i === idx); b.classList.toggle("is-done", i < idx); });
+      const b = buttons[idx]; nav.scrollLeft = b.offsetLeft - (nav.clientWidth - b.offsetWidth) / 2;
+    };
+    let ticking = false;
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; mark(); }); } }, { passive: true });
+    mark();
+  }
+
+  // Mobil alt çubuk: bu sayfada "Tasarla" yine aynı sayfaya gidiyordu; sipariş özetine götürür
+  const ctaPrimary = document.querySelector(".mobile-cta__primary");
+  const summary = form.querySelector(".order-form__summary");
+  if (ctaPrimary && summary) {
+    ctaPrimary.innerHTML = 'Siparişi tamamla <span aria-hidden="true">→</span>';
+    ctaPrimary.href = "#siparis-ozeti";
+    summary.id ||= "siparis-ozeti";
+    ctaPrimary.addEventListener("click", (e) => { e.preventDefault(); summary.scrollIntoView({ behavior: "smooth", block: "center" }); });
+    // Özet ekrandayken çubuk gönder düğmesinin üstünü kapatmasın; mini önizleme de gizlenir
+    const bar = ctaPrimary.closest(".mobile-cta");
+    if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => {
+      bar?.classList.toggle("is-off", en.isIntersecting);
+      seen.summary = en.isIntersecting; syncMini();
+    }).observe(summary);
+  }
+
+  // ---------------------------------------------------------------------------
   // Başlatma: önizleme ekrana yaklaşınca (sayfa yükünü geciktirmemek için)
   // ---------------------------------------------------------------------------
   view.width = W; view.height = H;
@@ -982,13 +1063,12 @@
     try {
       say("Önizleme hazırlanıyor…");
       const first = sportPatterns()[0] || { code: "FK-001", src: ASSETS + "desen/fk-001.jpg" };
-      const [pattern, scene, left, right, sponsor] = await Promise.all([
-        loadImage(first.src), loadImage(ASSETS + "sahne.webp"),
+      const [pattern, left, right, sponsor] = await Promise.all([
+        loadImage(first.src),
         loadImage(ASSETS + "ornek-arma.png"), loadImage(ASSETS + "ornek-nora.png"), loadImage(ASSETS + "ornek-reklam.png"),
         loadFont("FIBA", ASSETS + "fiba.ttf"), loadFont("NoraNumara", ASSETS + "nora-numara.ttf"),
       ]);
       first.img = pattern; first.load = Promise.resolve(pattern);
-      state.scene = scene;
       state.samples = { left, right, sponsor };
       // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
       if (mode() === "upload") customPattern();

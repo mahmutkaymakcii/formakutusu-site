@@ -278,10 +278,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261023b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261024e">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261024c" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261024e" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -743,13 +743,14 @@ const productDetailConfig = {
   },
 };
 
-function orderUpload(name, label, noneLabel, altLabel = "") {
+function orderUpload(name, label, noneLabel, altLabel = "", textLabel = "") {
   const alt = altLabel
     ? `<label class="order-check"><input type="checkbox" name="${name}-alt" data-upload-alt="${altLabel}"> ${altLabel}</label>`
     : "";
   return `<div class="order-upload" data-upload>
                     <label class="order-upload__field"><span>${label}</span><input type="file" name="${name}" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-upload-input></label>
-                    <p class="order-upload__preview" data-upload-preview hidden></p>
+                    <p class="order-upload__preview" data-upload-preview hidden></p>${textLabel ? `
+                    <label class="order-field"><span>${textLabel} <small>(logo dosyan yoksa)</small></span><input type="text" name="${name}-text" maxlength="20" autocomplete="off" placeholder="ÖRN. FİRMA ADI" data-uppercase data-upload-text></label>` : ""}
                     <div class="order-checks">${alt}<label class="order-check"><input type="checkbox" name="${name}-none" data-upload-none> ${noneLabel}</label></div>
                   </div>`;
 }
@@ -770,6 +771,11 @@ const previewPatterns = JSON.parse(fs.readFileSync(path.join(root, "assets", "da
     const file = `/assets/onizleme/desen/${code.toLowerCase()}`;
     return { sport, code, src: `${file}.jpg`, thumb: `${file}-k.jpg` };
   });
+
+// Beyaz ve siyaha ek yazı/numara renkleri (önizleme ve sipariş mesajı)
+const textColors = [["#d4af37", "Gold"], ["#c8102e", "Kırmızı"], ["#14254f", "Lacivert"], ["#ffd400", "Sarı"]];
+
+const shortsColors = [["#111111", "Siyah"], ["#ffffff", "Beyaz"], ["#14254f", "Lacivert"], ["#c8102e", "Kırmızı"]];
 
 function previewStage() {
   return `<div class="order-studio__stage" data-preview-stage>
@@ -861,6 +867,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                   <div class="order-colors">
                     <label class="order-color"><input type="radio" name="text-color" value="#ffffff" data-label="Beyaz"${preview === "upload" ? "" : " checked"}><i style="background:#ffffff"></i> Beyaz</label>
                     <label class="order-color"><input type="radio" name="text-color" value="#111111" data-label="Siyah"${preview === "upload" ? " checked" : ""}><i style="background:#111111"></i> Siyah</label>
+                    ${textColors.map(([value, name]) => `<label class="order-color"><input type="radio" name="text-color" value="${value}" data-label="${name}"><i style="background:${value}"></i> ${name}</label>`).join("")}
                   </div>
                 </div>`
     : "";
@@ -883,7 +890,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 <legend>Forma önünü tasarla</legend>
                 ${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
                 ${orderUpload("logo-right", "Sağ göğüs logosu", "Sağ göğüste logo yok")}
-                ${orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok")}
+                ${orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok", "", "Ya da reklam yazısı")}
               </fieldset>
               <fieldset class="order-form__section">
                 <legend>Forma arkasını tasarla</legend>
@@ -902,7 +909,14 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 <noscript><p class="order-form__hint">Listeyi oluşturmak için tarayıcında JavaScript açık olmalı; dilersen listeyi WhatsApp'tan gönderebilirsin.</p></noscript>
               </fieldset>
               <fieldset class="order-form__section" data-order-shorts>
-                <legend>Şort</legend>
+                <legend>Şort</legend>${preview ? `
+                <div class="order-field" role="radiogroup" aria-label="Şort rengi">
+                  <span>Şort rengi</span>
+                  <div class="order-colors">
+                    <label class="order-color"><input type="radio" name="shorts-color" value="" data-label="Desenle uyumlu" checked><i class="order-color__auto"></i> Desenle uyumlu</label>
+                    ${shortsColors.map(([value, name]) => `<label class="order-color"><input type="radio" name="shorts-color" value="${value}" data-label="${name}"><i style="background:${value}"></i> ${name}</label>`).join("")}
+                  </div>
+                </div>` : ""}
                 <div class="order-checks">
                   <label class="order-check"><input type="checkbox" name="shorts-logo"${preview ? " checked" : ""}> Sağ paçaya logo ekle</label>
                   <label class="order-check"><input type="checkbox" name="shorts-number"${preview ? " checked" : ""}> Sol paçaya numara ekle</label>
@@ -919,7 +933,13 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                   <span class="order-total__label">Toplam tutar</span>
                   <strong class="order-total__value" data-order-total></strong>
                   <span class="order-total__detail" data-order-total-detail></span>
+                  <span class="order-total__fabric">Kumaş: <strong>Poly Mesh</strong></span>
                 </div>
+                <ul class="order-trust">
+                  <li>Ücretsiz tasarım desteği</li>
+                  <li>Onayın olmadan üretime geçilmez</li>
+                  <li>Onaydan sonra 5–7 iş günü üretim</li>
+                </ul>
                 <p class="order-form__errors" data-order-errors role="alert" hidden></p>
                 <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'a gönder</button>
                 <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. ${custom || studio ? "Tasarım görsellerini ve logoları" : "Logoları"} mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>
@@ -1262,7 +1282,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024d"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024e"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
