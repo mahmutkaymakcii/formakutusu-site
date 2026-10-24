@@ -775,6 +775,7 @@ function previewStage() {
   return `<div class="order-studio__stage" data-preview-stage>
               <canvas class="order-studio__canvas" width="1848" height="1888" role="img" aria-label="Seçimlerinize göre forma ve şort önizlemesi"></canvas>
               <span class="order-studio__status" data-preview-status aria-live="polite">Önizleme yükleniyor…</span>
+              <button type="button" class="order-studio__save" data-preview-save hidden><span aria-hidden="true">↓</span> Görseli kaydet</button>
             </div>`;
 }
 
@@ -1261,7 +1262,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024c"] : [],
+    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024d"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },

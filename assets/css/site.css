@@ -3401,6 +3401,118 @@ body.has-consent-banner .mobile-cta {
   padding: 0.35rem 0.7rem;
 }
 
+/* Görseli kaydet: önizlemenin sağ üst köşesi */
+.order-studio__save {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 999px;
+  background: rgb(0 0 0 / 70%);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.4rem 0.9rem;
+  backdrop-filter: blur(6px);
+}
+
+.order-studio__save:hover,
+.order-studio__save:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.order-studio__save[hidden] {
+  display: none;
+}
+
+/* Mobil mini önizleme: form doldurulurken köşede kalır, dokununca önizlemeye döner */
+.order-studio__mini {
+  position: fixed;
+  z-index: 89;
+  right: 0.75rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  display: grid;
+  width: 7rem;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: #0b0b0d;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 55%);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  animation: order-mini-in 0.2s ease-out;
+}
+
+.order-studio__mini[hidden] {
+  display: none;
+}
+
+.order-studio__mini canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.order-studio__mini span {
+  padding: 0.3rem;
+  background: rgb(0 0 0 / 75%);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+@keyframes order-mini-in {
+  from { opacity: 0; transform: translateY(0.5rem); }
+}
+
+@media (max-width: 52rem) {
+  /* Alttaki Tasarla / Fiyatlar çubuğunun üstünde */
+  .order-studio__mini {
+    bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  body.has-consent-banner .order-studio__mini {
+    display: none;
+  }
+}
+
+@media (min-width: 64rem) {
+  .order-studio__mini {
+    display: none;
+  }
+}
+
+.order-studio__stage {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Dosya seçme düğmesi koyu temaya uyumlu */
+.order-upload__field input::file-selector-button {
+  margin-right: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  padding: 0.45rem 0.9rem;
+}
+
+.order-upload__field input::file-selector-button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
 /* Desen Seç: elastik makara – 8 sabit dilim, üzerine gelinen dilim genişler */
 .reel {
   display: grid;
