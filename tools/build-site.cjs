@@ -278,10 +278,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261024e">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261025a">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261024e" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261025a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -948,6 +948,185 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
             </form>`;
 }
 
+// Forma tasarla sihirbazı: Yaka → Model → Forma düzenleme → Oyuncu bilgileri → Sipariş.
+// Alan adları sipariş formuyla aynıdır; site.js (liste, tutar, WhatsApp) ve forma-onizleme.js
+// (önizleme) aynı formu okur. forma-sihirbaz.js adımları, model kartlarını ve renk paletlerini yönetir.
+function designWizard() {
+  const steps = ["Yaka Seçimi", "Model Seçimi", "Forma Düzenleme", "Oyuncu Bilgileri", "Sipariş"];
+  const card = (name, value, title, sub, checked, extra = "") =>
+    `<label class="wizard-card"${extra}><input type="radio" name="${name}" value="${value}" data-label="${escapeHtml(title)}"${checked ? " checked" : ""}><span class="wizard-card__icon" aria-hidden="true">${collarIcon(value)}</span><strong>${escapeHtml(title)}</strong>${sub ? `<small>${escapeHtml(sub)}</small>` : ""}</label>`;
+  const nav = (n) => `<div class="wizard__nav">${n > 1 ? `<button type="button" class="button button--ghost wizard__back" data-wizard-back>← Geri</button>` : "<span></span>"}${n < 5 ? `<button type="button" class="button wizard__next" data-wizard-next>Devam Et →</button>` : ""}</div>`;
+  const section = (title, body, attrs = "") => `<details class="wizard-acc"${attrs}><summary>${title}</summary><div class="wizard-acc__body">${body}</div></details>`;
+  const swatchGroup = (name, label, list, first) => `<div class="order-colors" role="radiogroup" aria-label="${label}">${list.map(([value, text], i) => `<label class="order-color"><input type="radio" name="${name}" value="${value}" data-label="${text}"${(first === undefined ? i === 0 : value === first) ? " checked" : ""}><i style="background:${value}"></i> ${text}</label>`).join("")}</div>`;
+  const keeperColors = [["#1f8a4c", "Yeşil"], ["#111111", "Siyah"], ["#5b2a86", "Mor"], ["#ff7a00", "Turuncu"], ["#ffd400", "Sarı"], ["#00a6a6", "Turkuaz"], ["#c8102e", "Kırmızı"], ["#ff4f9a", "Pembe"]];
+  return `<form class="order-form wizard" data-order-form data-wizard data-model="Forma tasarla" data-sport-label="Forma tasarla" data-preview="color" novalidate>
+          <nav class="wizard__tabs" aria-label="Tasarım adımları">${steps.map((s, i) => `<button type="button" class="wizard__tab" data-wizard-go="${i + 1}"${i === 0 ? ' aria-current="step"' : ""}><span>${i + 1}.</span> ${s}</button>`).join("")}</nav>
+          <input type="hidden" name="quantity" value="5" data-order-quantity>
+
+          <section class="wizard__step" data-step="1" aria-label="Yaka seçimi">
+            <h2 class="wizard__title">Branşını ve yakanı seç</h2>
+            <p class="wizard__lead">Önce branşı, sonra yaka tipini seç. Önizleme bu seçime göre hazırlanır.</p>
+            <div class="wizard-cards wizard-cards--sport" role="radiogroup" aria-label="Branş">
+              ${[["futbol", "Futbol", "Halı saha dahil"], ["basketbol", "Basketbol", "Atlet forma"], ["voleybol", "Voleybol", "Kısa kollu forma"]].map(([v, t, sub], i) => `<label class="wizard-card wizard-card--sport"><input type="radio" name="sport" value="${v}" data-label="${t}" data-order-sport${i === 0 ? " checked" : ""}><strong>${t}</strong><small>${sub}</small></label>`).join("")}
+            </div>
+            <h3 class="wizard__sub">Yaka tipi</h3>
+            <div class="wizard-cards" role="radiogroup" aria-label="Yaka tipi">
+              ${card("collar", "Sıfır yaka", "Sıfır yaka", "Bisiklet yaka", true)}
+              ${card("collar", "V yaka", "V yaka", "", false)}
+              ${card("collar", "Polo yaka", "Polo yaka", "Düğmeli yaka", false, ' data-collar-card="Polo yaka"')}
+            </div>
+            <p class="order-form__hint">Basketbol ve voleybolda önizleme V yaka ile gösterilir; basketbolda polo yaka yoktur.</p>
+            ${nav(1)}
+          </section>
+
+          <section class="wizard__step" data-step="2" aria-label="Model seçimi" hidden>
+            <h2 class="wizard__title">Modelini seç</h2>
+            <p class="wizard__lead">Fiyat 300₺'den başlar · En az 5 adet · Kumaş: Poly Mesh</p>
+            <div class="pattern-tabs" role="tablist" aria-label="Model türü">
+              <button type="button" role="tab" data-pattern-mode="color" aria-selected="true">Renkli modeller</button>
+              <button type="button" role="tab" data-pattern-mode="gallery" aria-selected="false">Hazır desenler</button>
+              <button type="button" role="tab" data-pattern-mode="upload" aria-selected="false">Kendi desenim</button>
+            </div>
+            <input type="hidden" name="pattern-mode" value="color">
+            <input type="hidden" name="main-color" value="#14254f" data-label="Lacivert">
+            <input type="hidden" name="accent-color" value="#d4af37" data-label="Gold">
+            <div data-mode-panel="color">
+              <p class="order-form__hint">Renkli modellerde ana rengi ve desen rengini bir sonraki adımda istediğin gibi değiştirebilirsin.</p>
+              <div class="wizard-models" data-color-models role="radiogroup" aria-label="Renkli modeller"></div>
+            </div>
+            <div data-mode-panel="gallery" hidden>
+              <p class="order-form__hint">Hazır desenler tasarımcılarımızın hazırladığı sabit renkli desenlerdir.</p>
+              <div class="reel" data-pattern-reel data-patterns="${escapeHtml(JSON.stringify(previewPatterns))}">
+                <span class="reel__label">Hazır desenler</span>
+                <div class="reel__row">
+                  <button type="button" class="reel__nav" data-reel-prev aria-label="Önceki desenler">‹</button>
+                  <div class="reel__track" data-reel-track role="listbox" aria-label="Desenler"></div>
+                  <button type="button" class="reel__nav" data-reel-next aria-label="Sonraki desenler">›</button>
+                </div>
+                <p class="reel__meta"><strong data-reel-name>${escapeHtml(previewPatterns[0].code)}</strong><span data-reel-page></span></p>
+              </div>
+            </div>
+            <input type="hidden" name="pattern-code" value="FK-R-01">
+            <div class="order-upload" data-mode-panel="upload" hidden>
+              <label class="order-upload__field"><span>Desen veya tasarım görselleri <small>(en fazla 5 dosya)</small></span><input type="file" name="design" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-design-input></label>
+              <ul class="order-design-list" data-design-preview hidden></ul>
+              <p class="order-form__hint">İlk görsel önizlemede formaya uygulanır. Desen yükleyene kadar forma beyaz görünür.</p>
+            </div>
+            <p class="order-form__errors" data-step-errors role="alert" hidden></p>
+            ${nav(2)}
+          </section>
+
+          <section class="wizard__step wizard__edit" data-step="3" aria-label="Forma düzenleme" hidden>
+            <div class="wizard__preview">
+              ${previewStage()}
+              <div class="wizard__views" role="tablist" aria-label="Görünüm">
+                <button type="button" role="tab" data-view="takim" aria-selected="true">Takım</button>
+                <button type="button" role="tab" data-view="on" aria-selected="false">Ön</button>
+                <button type="button" role="tab" data-view="arka" aria-selected="false">Arka</button>
+              </div>
+            </div>
+            <div class="wizard__panel">
+              <h2 class="wizard__title">Formanı düzenle</h2>
+              ${section("Ana renk", `<div data-palette="main-color"></div>`, ' data-color-only data-focus="takim" open')}
+              ${section("Desen rengi", `<div data-palette="accent-color"></div>`, ' data-color-only data-focus="takim"')}
+              <p class="order-form__hint wizard__fixed-note" data-gallery-note hidden>Hazır desenlerin renkleri sabittir. Renkleri değiştirmek için 2. adımda <strong>Renkli modeller</strong>den seç.</p>
+              ${section("Şort", `${orderSelect("scope", "Ürün", [["takim", "Forma + şort"], ["ust", "Tek üst forma"]])}
+                <div data-order-shorts>
+                  <div class="order-field" role="radiogroup" aria-label="Şort rengi">
+                    <span>Şort rengi</span>
+                    <div class="order-colors">
+                      <label class="order-color"><input type="radio" name="shorts-color" value="" data-label="Formayla uyumlu" checked><i class="order-color__auto"></i> Formayla uyumlu</label>
+                      ${shortsColors.map(([value, name]) => `<label class="order-color"><input type="radio" name="shorts-color" value="${value}" data-label="${name}"><i style="background:${value}"></i> ${name}</label>`).join("")}
+                    </div>
+                  </div>
+                  <div class="order-checks">
+                    <label class="order-check"><input type="checkbox" name="shorts-logo" checked> Sağ paçaya logo ekle</label>
+                    <label class="order-check"><input type="checkbox" name="shorts-number" checked> Sol paçaya numara ekle</label>
+                  </div>
+                </div>`, ' data-focus="on"')}
+              ${section("Çorap", `<label class="order-check wizard-switch"><input type="checkbox" name="socks-on" data-socks-toggle> Çorap istiyorum <small>(+30₺)</small></label>
+                <div data-socks-colors hidden><div class="order-colors" role="radiogroup" aria-label="Çorap rengi">${[["yok", "Yok", "transparent"], ["siyah", "Siyah", "#111111"], ["beyaz", "Beyaz", "#ffffff"], ["mavi", "Mavi", "#1f4fbf"], ["kirmizi", "Kırmızı", "#c8102e"], ["yesil", "Yeşil", "#1f8a4c"]].map(([v, t, c]) => `<label class="order-color"><input type="radio" name="socks" value="${v}" data-label="${t}"${v === "yok" ? " checked" : ""}><i style="background:${c}"></i> ${t}</label>`).join("")}</div></div>`, ' data-focus="takim"')}
+              ${section("Kumaş", `<div class="wizard-fabric"><strong>Poly Mesh</strong><p>Tüm formalarımız piyasadaki en kaliteli forma kumaşlarından Poly Mesh ile üretilir. Nefes alır, hafiftir ve süblimasyon baskıda renkler canlı kalır. Fiyat farkı yoktur.</p></div>`)}
+              ${section("Göğüs logoları", `${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
+                ${orderUpload("logo-right", "Sağ göğüs logosu", "Sağ göğüste logo yok")}`, ' data-focus="on"')}
+              ${section("Sponsor", orderUpload("sponsor", "Forma önü reklam", "Forma önünde reklam yok", "", "Ya da reklam yazısı"), ' data-focus="on"')}
+              ${section("Sırt yazısı ve numara", `<label class="order-field"><span>Kulüp ismi</span><input type="text" name="back-text" maxlength="24" autocomplete="off" placeholder="ÖRN. KULÜP İSMİ" data-uppercase></label>
+                <div class="order-checks">
+                  <label class="order-check"><input type="checkbox" name="has-number" checked data-roster-toggle="number"> Numara var</label>
+                  <label class="order-check"><input type="checkbox" name="has-name" checked data-roster-toggle="name"> İsim var</label>
+                </div>
+                <div class="order-field" role="radiogroup" aria-label="Yazı ve numara rengi">
+                  <span>Yazı ve numara rengi</span>
+                  ${swatchGroup("text-color", "Yazı ve numara rengi", [["#ffffff", "Beyaz"], ["#111111", "Siyah"], ...textColors])}
+                </div>
+                <p class="order-form__hint">Önizlemede “10” ve “OYUNCU” örnek olarak gösterilir; her formaya oyuncu listesindeki isim ve numara yazılır.</p>`, ' data-focus="arka"')}
+              ${section("Kaleci forması", `<p class="order-form__hint">Kaleciyi 4. adımda oyuncu listesinde işaretle. Kaleci forması uzun kollu hazırlanır, kaleci başına +50₺.</p>
+                <div class="order-field"><span>Kaleci forması rengi</span>${swatchGroup("keeper-color", "Kaleci forması rengi", keeperColors)}</div>`, ' data-sport-only="futbol" data-focus="takim"')}
+              <p class="order-form__errors" data-step-errors role="alert" hidden></p>
+              ${nav(3)}
+            </div>
+          </section>
+
+          <section class="wizard__step" data-step="4" aria-label="Oyuncu bilgileri" hidden>
+            <div class="wizard__players">
+              <div>
+                <h2 class="wizard__title">Oyuncu bilgileri</h2>
+                <p class="wizard__lead">Her oyuncu için isim, numara ve beden gir. Kaleci, şort ve çorap oyuncu bazında seçilir.</p>
+                <div class="order-roster wizard-roster" data-order-roster></div>
+                <div class="wizard-roster__foot">
+                  <p class="wizard-roster__count" data-roster-count></p>
+                  <button type="button" class="button wizard-roster__add" data-roster-add>+ Oyuncu ekle</button>
+                </div>
+              </div>
+              <aside class="wizard-side">
+                <h3>Sipariş özeti</h3>
+                <div class="order-total" aria-live="polite">
+                  <span class="order-total__label">Toplam tutar</span>
+                  <strong class="order-total__value" data-order-total></strong>
+                  <span class="order-total__detail" data-order-total-detail></span>
+                  <span class="order-total__fabric">Kumaş: <strong>Poly Mesh</strong></span>
+                </div>
+                <p class="order-form__errors" data-step-errors role="alert" hidden></p>
+                <button type="button" class="button wizard__next" data-wizard-next>Siparişi tamamla →</button>
+              </aside>
+            </div>
+            ${nav(4)}
+          </section>
+
+          <section class="wizard__step" data-step="5" aria-label="Sipariş" hidden>
+            <h2 class="wizard__title">Sipariş özeti</h2>
+            <p class="wizard__lead">Siparişi gönderdiğinde detaylı özet WhatsApp sohbetimize gelir. Tasarım görselini indirip sohbete ekleyebilirsin.</p>
+            <div class="wizard-review" data-wizard-review></div>
+            <label class="order-field"><span>Sipariş notu <small>(isteğe bağlı)</small></span><textarea name="order-note" rows="3" maxlength="500" placeholder="Teslim tarihi, özel istekler…"></textarea></label>
+            <div class="order-form__summary">
+              <ul class="order-trust">
+                <li>Ücretsiz tasarım desteği</li>
+                <li>Onayın olmadan üretime geçilmez</li>
+                <li>Onaydan sonra 5–7 iş günü üretim</li>
+              </ul>
+              <p class="order-form__errors" data-order-errors role="alert" hidden></p>
+              <div class="wizard__actions">
+                <button type="button" class="button button--ghost" data-wizard-download><span aria-hidden="true">↓</span> Tasarımı indir</button>
+                <button class="button order-form__submit" type="submit"><span aria-hidden="true">◉</span> Siparişi WhatsApp'tan gönder</button>
+              </div>
+              <p class="order-form__hint" data-order-status aria-live="polite">Sipariş mesajı doğrudan WhatsApp sohbetimize gelir. Logoları ve tasarım görselini mesajı gönderdikten sonra sohbete eklemen yeterli. Dosyalar bu siteye yüklenmez.</p>
+              <a class="order-form__prices" href="/teklif/#fiyatlar">Fiyatları ve teslimat koşullarını gör</a>
+            </div>
+            ${nav(5)}
+          </section>
+        </form>`;
+}
+
+// Yaka kartı ikonları (sade çizgi)
+function collarIcon(value) {
+  const neck = {
+    "Sıfır yaka": '<path d="M24 10c3 5 13 5 16 0"/>',
+    "V yaka": '<path d="M24 10l8 10 8-10"/>',
+    "Polo yaka": '<path d="M24 10l8 8 8-8M24 10l-3 7 7 3M40 10l3 7-7 3M32 18v10"/>',
+  }[value] || "";
+  return `<svg viewBox="0 0 64 56" width="64" height="56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M24 10L12 14 4 26l8 5 4-5v26h32V26l4 5 8-5-8-12-12-4"/>${neck}</svg>`;
+}
+
 for (const model of models) {
   const config = productDetailConfig[model.sport];
   const route = modelUrl(model);
@@ -1178,6 +1357,7 @@ const servicePages = [
     heading: "Forma tasarla: takımının formasını anında gör.",
     copy: "Deseni seç, branşı ve yaka tipini belirle; logonu, sponsorunu, kulüp ismini ve numaranı forma ve şort üzerinde canlı önizle. Beğendiğin tasarımı aynı sayfada siparişe çevir.",
     previewForm: true,
+    wizard: true,
     guide: [
       ["Forma tasarlamak nasıl çalışır?", "Bu sayfadaki tasarım aracı futbol, basketbol ve voleybol formalarını takımının bilgileriyle anında gösterir. Önce branşı seç; galeri o branşa ait desenleri getirir. Desen kartına tıklayarak ya da ok tuşlarıyla desenler arasında gezebilir, telefonda galeriyi parmağınla kaydırabilirsin. Yaka tipini seçtiğinde forma görseli de değişir."],
       ["Logo, sponsor, isim ve numara", "Göğüs logoları ve forma önü reklamı için kendi dosyalarını seçebilirsin; dosya yalnızca senin cihazında işlenir ve önizlemeye yerleşir. TR Arma seçeneğiyle Türk bayrağı göğse eklenir. Kulüp ismini yazdığında formanın arkasında, numara ise sırtta ve şortta görünür. Yazı ve numara rengini beyaz ya da siyah olarak değiştirebilirsin."],
@@ -1282,7 +1462,9 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
-    scripts: service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261024e"] : [],
+    scripts: service.wizard
+      ? ["/assets/js/forma-modeller.js?v=20261025a", "/assets/js/forma-onizleme.js?v=20261025a", "/assets/js/forma-sihirbaz.js?v=20261025a"]
+      : service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261025a"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
@@ -1301,6 +1483,10 @@ for (const service of servicePages) {
           ? `<section class="custom-order-section"><div class="container order-studio">
         ${previewStage()}
         ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", studio: "upload" })}
+      </div></section>`
+          : service.wizard
+          ? `<section class="custom-order-section"><div class="container">
+        ${designWizard()}
       </div></section>`
           : service.previewForm
           ? `<section class="custom-order-section"><div class="container order-studio">

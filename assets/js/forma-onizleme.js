@@ -15,6 +15,9 @@
   // Desen kaynağı: "gallery" (hazır desenler) ya da "upload" (müşterinin deseni). Tasarım
   // stüdyosunda sekmeyle değişir, bu yüzden her seferinde formdan okunur.
   const mode = () => form.dataset.preview;
+  // Forma tasarla sihirbazı: "color" modunda desen, renkleri değiştirilebilen bir modelden çizilir
+  const wizard = form.hasAttribute("data-wizard");
+  const FM = window.FormaModeller;
   const ASSETS = "/assets/onizleme/";
   const view = stage.querySelector("canvas");
   const ctx = view.getContext("2d");
@@ -518,6 +521,15 @@
     state.pattern = img; state.patternCode = code;
     state.mainColor = mainColorOf(img);
   }
+  // Renkli model: panel seçili ana renk ve desen rengiyle yeniden çizilir; yaka ve şort ana renkte
+  const modelCanvas = document.createElement("canvas");
+  function applyColorModel() {
+    if (!FM) return;
+    const code = FM.isModel(val("pattern-code")) ? val("pattern-code") : FM.MODELS[0].code;
+    const main = val("main-color") || "#14254f";
+    setPattern(FM.draw(code, main, val("accent-color") || "#d4af37", 620, 826, modelCanvas), code);
+    state.mainColor = FM.hexToRgb(main);
+  }
 
   // ---------------------------------------------------------------------------
   // Çizim
@@ -681,8 +693,27 @@
     ctx.drawImage(gar, ox, oy, W * scale, H * scale);
     if (sockBox) ctx.drawImage(sockImg, sockBox.x, sockBox.y, sockBox.w, sockBox.h);
     else drawSocks(ox + ((boxes.back[0] + boxes.back[2]) / 2) * scale, oy + boxes.back[3] * scale);
+    // Ön / Arka görünüm çerçeveleri (0–1 arası): ön = forma + şort (+ çorap), arka = arka forma
+    const [fx0, fy0] = map(Math.min(boxes.front[0], noShorts ? Infinity : sx0), boxes.front[1]);
+    const [fx1, fy1] = map(Math.max(boxes.front[2], noShorts ? -Infinity : sx1), noShorts ? boxes.front[3] : Math.max(boxes.front[3], sy1));
+    const [bx0, by0] = map(boxes.back[0], boxes.back[1]), [bx1, by1] = map(boxes.back[2], boxes.back[3]);
+    state.frames = { on: [fx0 / W, fy0 / H, fx1 / W, (sockBox ? Math.max(fy1, sockBox.y + sockBox.h) : fy1) / H], arka: [bx0 / W, by0 / H, bx1 / W, by1 / H] };
+    applyView();
     updateMini();
   }
+
+  // Görünüm: kanvas CSS ile seçilen parçaya yakınlaştırılır (kaydedilen görsel her zaman tam takımdır)
+  function applyView() {
+    const f = state.frames?.[stage.dataset.view];
+    if (!f) { view.style.transform = ""; return; }
+    const pad = 0.035, [x0, y0, x1, y1] = f;
+    const s = Math.min(2.4, 1 / Math.max(x1 - x0 + pad * 2, y1 - y0 + pad * 2));
+    const tx = Math.min(0, Math.max(1 - s, 0.5 - s * ((x0 + x1) / 2)));
+    const ty = Math.min(0, Math.max(1 - s, 0.5 - s * ((y0 + y1) / 2)));
+    view.style.transformOrigin = "0 0";
+    view.style.transform = `translate(${(tx * 100).toFixed(2)}%, ${(ty * 100).toFixed(2)}%) scale(${s.toFixed(3)})`;
+  }
+  form.formaView = (name) => { stage.dataset.view = name; applyView(); };
 
   // Çorap seçiliyse arka formanın altında, zemine oturan küçük çorap görseli (seçilen renkte)
   const SOCK_COLORS = ["siyah", "beyaz", "mavi", "kirmizi", "yesil"];
@@ -906,7 +937,8 @@
     const color = form.querySelector(`input[name="text-color"][value="${upload && !state.custom ? "#111111" : "#ffffff"}"]`);
     if (color) color.checked = true;
     if (!state.ready) return;
-    if (upload) customPattern();
+    if (e.detail === "color") applyColorModel();
+    else if (upload) customPattern();
     else {
       const list = sportPatterns();
       const p = list.find((q) => q.code === el("pattern-code")?.value) || list[0];
@@ -921,8 +953,13 @@
     if (!state.ready) return;
     try { await useCollar(mockupKey()); showStatus(); schedule(); } catch { say("Önizleme yüklenemedi"); }
   };
-  el("collar")?.addEventListener("change", switchModel);
-  el("sport")?.addEventListener("change", async () => {
+  // Sihirbazda model kartı ya da renk değişince
+  form.addEventListener("model-change", () => {
+    if (!state.ready || mode() !== "color") return;
+    applyColorModel(); showStatus(); schedule();
+  });
+  // Yaka ve branş: seçim kutusu ya da (sihirbazda) kart; ikisi de formda "change" olayı verir
+  const switchSport = async () => {
     // Galeri o branşın desenlerine geçer; seçili desen bu branşta yoksa ilk desen seçilir.
     // Desen ve mockup birlikte hazırlanır, önizleme tek seferde çizilir.
     if (!state.ready) { renderReel(); return; }
@@ -934,6 +971,10 @@
       if (p) { setPattern(img, p.code); el("pattern-code").value = p.code; }
       renderReel(); showStatus(); schedule();
     } catch { say("Önizleme yüklenemedi"); }
+  };
+  form.addEventListener("change", (e) => {
+    if (e.target.name === "collar") switchModel();
+    else if (e.target.name === "sport") switchSport();
   });
   form.addEventListener("input", (e) => { if (e.target.name === "back-text" || e.target.name === "sponsor-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
@@ -981,7 +1022,7 @@
   document.body.append(mini);
   mini.addEventListener("click", () => stage.scrollIntoView({ behavior: "smooth", block: "start" }));
   const seen = { stage: true, form: false };
-  const syncMini = () => { mini.hidden = !(state.ready && stacked.matches && !seen.stage && seen.form && !seen.summary); };
+  const syncMini = () => { mini.hidden = wizard || !(state.ready && stacked.matches && !seen.stage && seen.form && !seen.summary); };
   function updateMini() {
     miniCanvas.getContext("2d").drawImage(view, 0, 0, miniCanvas.width, miniCanvas.height);
     syncMini();
@@ -1007,7 +1048,7 @@
     ["Bilgiler", legendOf("Sipariş bilgileri")], ["Desen", legendOf("Desen")], ["Ön", legendOf("Forma önü")],
     ["Arka", legendOf("Forma arkası")], ["Liste", legendOf("İsim, numara")], ["Sipariş", form.querySelector(".order-form__summary")],
   ].filter(([, target]) => target);
-  if (stepTargets.length > 2) {
+  if (!wizard && stepTargets.length > 2) {
     const nav = Object.assign(document.createElement("nav"), { className: "order-steps" });
     nav.setAttribute("aria-label", "Tasarım adımları");
     const header = document.querySelector(".site-header");
@@ -1042,7 +1083,9 @@
   // Mobil alt çubuk: bu sayfada "Tasarla" yine aynı sayfaya gidiyordu; sipariş özetine götürür
   const ctaPrimary = document.querySelector(".mobile-cta__primary");
   const summary = form.querySelector(".order-form__summary");
-  if (ctaPrimary && summary) {
+  // Sihirbazın kendi Geri / Devam düğmeleri var; mobil alt çubuk gizlenir
+  if (wizard) document.querySelector(".mobile-cta")?.classList.add("is-off");
+  else if (ctaPrimary && summary) {
     ctaPrimary.innerHTML = 'Siparişi tamamla <span aria-hidden="true">→</span>';
     ctaPrimary.href = "#siparis-ozeti";
     summary.id ||= "siparis-ozeti";
@@ -1072,8 +1115,9 @@
       state.samples = { left, right, sponsor };
       // Özel üretimde desen yüklenene kadar forma ve şort desensiz beyaz görünür
       if (mode() === "upload") customPattern();
+      else if (mode() === "color") applyColorModel();
       else setPattern(pattern, first.code);
-      if (el("pattern-code")) el("pattern-code").value = first.code;
+      if (el("pattern-code") && mode() !== "color") el("pattern-code").value = first.code;
       await useCollar(mockupKey());
       state.ready = true;
       render(); renderReel(); showStatus();
@@ -1102,6 +1146,8 @@
   let started = false;
   const start = () => { if (!started) { started = true; boot(); } };
   form.addEventListener("focusin", start, { once: true }); // formla etkileşimde de başlar
+  // Sihirbazda önizleme 3. adımda görünür; ilk adımlarda arka planda hazırlanır
+  if (wizard) (window.requestIdleCallback || ((f) => setTimeout(f, 200)))(start);
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
       if (entries.some((en) => en.isIntersecting)) { io.disconnect(); start(); }

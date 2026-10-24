@@ -3843,3 +3843,844 @@ body .mobile-cta.is-off {
 [data-mode-panel][hidden] {
   display: none;
 }
+
+/* ---- Forma tasarla sihirbazı: Yaka → Model → Düzenleme → Oyuncu → Sipariş ---- */
+.wizard {
+  gap: 1.25rem;
+}
+
+.wizard [hidden] {
+  display: none !important;
+}
+
+.wizard__tabs {
+  position: sticky;
+  top: var(--wizard-top, 4.5rem);
+  z-index: 6;
+  display: grid;
+  grid-auto-columns: minmax(7.5rem, 1fr);
+  grid-auto-flow: column;
+  margin: calc(-1 * clamp(1rem, 2.5vw, 1.5rem)) calc(-1 * clamp(1rem, 2.5vw, 1.5rem)) 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--surface-2);
+  scrollbar-width: none;
+}
+
+.wizard__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.wizard__tab {
+  min-height: 3.1rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0 0.8rem;
+  white-space: nowrap;
+}
+
+.wizard__tab span {
+  color: inherit;
+}
+
+.wizard__tab.is-done {
+  color: var(--muted-strong);
+}
+
+.wizard__tab[aria-current] {
+  border-bottom-color: var(--gold);
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+.wizard__step {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  animation: wizard-in 0.28s ease;
+}
+
+@keyframes wizard-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.wizard__title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+}
+
+.wizard__sub {
+  margin: 0.4rem 0 0;
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wizard__lead {
+  margin: -0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.wizard__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.wizard__nav .button {
+  min-width: 9rem;
+  justify-content: center;
+}
+
+/* Branş ve yaka kartları */
+.wizard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.75rem;
+}
+
+.wizard-card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  cursor: pointer;
+  padding: 1rem 0.75rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.wizard-card:hover {
+  transform: translateY(-2px);
+}
+
+.wizard-card input,
+.wizard-model input,
+.wizard-swatch input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.wizard-card__icon {
+  color: var(--muted-strong);
+}
+
+.wizard-card small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.wizard-card:has(input:checked) {
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+.wizard-card:has(input:checked) .wizard-card__icon {
+  color: var(--gold);
+}
+
+.wizard-card:has(input:focus-visible),
+.wizard-model:has(input:focus-visible),
+.wizard-swatch:has(input:focus-visible) {
+  outline: 2px solid var(--cyan, #2de2ff);
+  outline-offset: 2px;
+}
+
+.wizard-cards--sport .wizard-card {
+  padding: 1.1rem 0.75rem;
+}
+
+.wizard-cards--sport strong {
+  font-size: 1.05rem;
+}
+
+.wizard .pattern-tabs {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Model kartları */
+.wizard-models {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 0.75rem;
+}
+
+.wizard-model {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(#f3f4f6, #d3d6db);
+  color: #14161a;
+  cursor: pointer;
+  padding: 0.6rem 0.5rem 0.75rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.wizard-model:hover {
+  transform: translateY(-2px);
+}
+
+.wizard-model canvas {
+  width: 100%;
+  max-width: 9rem;
+  height: auto;
+}
+
+.wizard-model strong {
+  font-size: 0.88rem;
+}
+
+.wizard-model small {
+  color: #5a606b;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.wizard-model span {
+  color: #3a3f47;
+  font-size: 0.68rem;
+}
+
+.wizard-model:has(input:checked) {
+  box-shadow: 0 0 0 3px var(--gold);
+}
+
+/* Hazır desenler sihirbazda ızgara */
+.wizard .reel__row {
+  display: block;
+}
+
+.wizard .reel__nav {
+  display: none;
+}
+
+.wizard .reel__track {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.4rem, 1fr));
+  max-height: 30rem;
+  overflow: auto;
+  cursor: default;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.wizard .reel__item {
+  width: auto;
+}
+
+/* 3. adım: önizleme + düzenleme paneli */
+.wizard__edit {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.wizard__preview {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.wizard__preview .order-studio__stage {
+  width: 100%;
+}
+
+.wizard__preview .order-studio__canvas {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wizard__views {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  padding: 0.25rem;
+}
+
+.wizard__views button {
+  min-height: 2.4rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.wizard__views button[aria-selected="true"] {
+  background: var(--gold);
+  color: #080a0e;
+}
+
+.wizard__panel {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.wizard-acc {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.wizard-acc > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
+  list-style: none;
+  padding: 0 1rem;
+}
+
+.wizard-acc > summary::-webkit-details-marker {
+  display: none;
+}
+
+.wizard-acc > summary::after {
+  content: "+";
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+.wizard-acc[open] > summary {
+  border-bottom: 1px solid var(--line);
+  color: var(--gold);
+}
+
+.wizard-acc[open] > summary::after {
+  content: "–";
+}
+
+.wizard-acc__body {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+}
+
+.wizard__fixed-note {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+}
+
+/* Renk paleti */
+.wizard-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.6rem, 1fr));
+  gap: 0.45rem;
+}
+
+.wizard-swatch {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+.wizard-swatch i {
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 2px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  transition: transform 0.15s;
+}
+
+.wizard-swatch span {
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.wizard-swatch:has(input:checked) i {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold);
+  transform: scale(1.05);
+}
+
+.wizard-swatch:has(input:checked) span {
+  color: var(--text);
+}
+
+.wizard-swatch--custom input[type="color"] {
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 2px dashed var(--muted);
+  border-radius: 50%;
+  background: conic-gradient(#c8102e, #ffd400, #1f8a4c, #1f4fbf, #5b2a86, #c8102e);
+  cursor: pointer;
+  padding: 0;
+}
+
+.wizard-swatch--custom input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 3px;
+}
+
+.wizard-swatch--custom input[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: 50%;
+}
+
+.wizard-switch small {
+  color: var(--muted);
+}
+
+.wizard-fabric {
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+}
+
+.wizard-fabric strong {
+  color: var(--gold);
+}
+
+.wizard-fabric p {
+  margin: 0.35rem 0 0;
+  color: var(--muted-strong);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* 4. adım: oyuncu tablosu + sipariş özeti */
+.wizard__players {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.wizard-roster {
+  gap: 0.4rem;
+}
+
+.wizard__players > div {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.wizard-roster__head,
+.wizard-row {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr) 4.4rem 4.6rem 5.6rem 3.6rem 3.6rem 3.4rem;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.wizard-roster__head {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0 0 0.2rem;
+}
+
+.wizard-roster.is-no-keeper .wizard-roster__head,
+.wizard-roster.is-no-keeper .wizard-row {
+  grid-template-columns: 1.6rem minmax(0, 1fr) 4.4rem 5.6rem 3.6rem 3.6rem 3.4rem;
+}
+
+.wizard-roster.is-no-keeper [data-keeper-cell],
+.wizard-roster.is-no-keeper .wizard-roster__head [data-keeper-label] {
+  display: none;
+}
+
+.wizard-row {
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: 0.4rem 0.45rem;
+}
+
+.wizard-row input,
+.wizard-row select {
+  width: 100%;
+}
+
+/* Kaleci / şort / çorap anahtarı */
+.wizard-tog {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  cursor: pointer;
+}
+
+.wizard-tog input {
+  appearance: none;
+  width: 2.5rem;
+  height: 1.4rem;
+  min-height: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-3);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.wizard-tog input::before {
+  content: "";
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin: 0.15rem;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.wizard-tog input:checked {
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+.wizard-tog input:checked::before {
+  background: #080a0e;
+  transform: translateX(1.1rem);
+}
+
+.wizard-tog input:focus-visible {
+  outline: 2px solid var(--cyan, #2de2ff);
+  outline-offset: 2px;
+}
+
+.wizard-tog span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.wizard-row__del {
+  min-height: 2.2rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: rgb(255 102 142 / 16%);
+  color: var(--danger);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.wizard-row__del:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.wizard-roster__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.wizard-roster__count {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.wizard-side {
+  display: grid;
+  gap: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 1rem;
+}
+
+.wizard-side h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.wizard-side .button {
+  justify-content: center;
+}
+
+/* 5. adım: özet tablosu */
+.wizard-review {
+  display: grid;
+  gap: 1rem;
+}
+
+.wizard-review h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.wizard-table {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.wizard-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.wizard-table th,
+.wizard-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.wizard-table th {
+  background: var(--surface-2);
+  color: var(--gold);
+  font-size: 0.72rem;
+}
+
+.wizard-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.wizard-details {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: 1rem;
+}
+
+.wizard-details dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+}
+
+.wizard-details dl div {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.wizard-details dt {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.wizard-details dt::after {
+  content: ":";
+}
+
+.wizard-details dd {
+  margin: 0;
+}
+
+.wizard-details__parts {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.wizard__actions {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.wizard__actions .button {
+  justify-content: center;
+  min-height: 3.4rem;
+}
+
+@media (min-width: 40rem) {
+  .wizard__actions {
+    grid-template-columns: 1fr 1.6fr;
+  }
+}
+
+@media (min-width: 64rem) {
+  .wizard__edit {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .wizard__preview {
+    position: sticky;
+    top: calc(var(--wizard-top, 4.5rem) + 3.6rem);
+  }
+
+  .wizard__players {
+    grid-template-columns: minmax(0, 1fr) 17rem;
+  }
+
+  .wizard-side {
+    position: sticky;
+    top: calc(var(--wizard-top, 4.5rem) + 3.6rem);
+  }
+}
+
+/* Telefon ve tablet: önizleme üstte yapışık, düzenleme paneli altında kayar */
+@media (max-width: 63.99rem) {
+  .wizard__preview {
+    position: sticky;
+    top: calc(var(--wizard-top, 4rem) + 3.1rem);
+    z-index: 4;
+    margin: 0 calc(-1 * clamp(1rem, 2.5vw, 1.5rem));
+    background: var(--surface);
+    padding: 0 clamp(1rem, 2.5vw, 1.5rem) 0.5rem;
+  }
+
+  .wizard__preview .order-studio__stage {
+    width: auto;
+    height: min(42vh, 26rem);
+    margin: 0 auto;
+  }
+
+  .wizard__views button {
+    min-height: 2.1rem;
+  }
+
+  /* Klavye ya da hata bildirimi bir alana kaydırdığında alan yapışık önizlemenin altında kalmasın */
+  .wizard__panel :is(input, select, textarea, summary, label) {
+    scroll-margin-top: calc(var(--wizard-top, 4rem) + 3.1rem + min(42vh, 26rem) + 3.5rem);
+  }
+}
+
+@media (max-width: 40rem) {
+  .wizard-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .wizard-card {
+    padding: 0.75rem 0.4rem;
+  }
+
+  .wizard-cards--sport .wizard-card {
+    padding: 0.85rem 0.4rem;
+  }
+
+  .wizard-cards--sport strong {
+    font-size: 0.92rem;
+  }
+
+  .wizard-card small {
+    font-size: 0.66rem;
+  }
+
+  .wizard-card__icon svg {
+    width: 48px;
+    height: 42px;
+  }
+
+  .wizard-card strong {
+    font-size: 0.85rem;
+  }
+}
+
+/* Telefonda oyuncu satırı üç sıra: isim + numara / beden + sil / anahtarlar */
+@media (max-width: 40rem) {
+  .wizard-roster__head {
+    display: none;
+  }
+
+  .wizard-row,
+  .wizard-roster.is-no-keeper .wizard-row {
+    grid-template-columns: 1.3rem repeat(6, minmax(0, 1fr));
+    row-gap: 0.45rem;
+  }
+
+  .wizard-row .order-roster__index {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    align-self: start;
+    padding-top: 0.7rem;
+  }
+
+  .wizard-row__name {
+    grid-column: 2 / 6;
+    grid-row: 1;
+  }
+
+  .wizard-row__number {
+    grid-column: 6 / 8;
+    grid-row: 1;
+  }
+
+  .wizard-row__size {
+    grid-column: 2 / 6;
+    grid-row: 2;
+  }
+
+  .wizard-row__del {
+    grid-column: 6 / 8;
+    grid-row: 2;
+  }
+
+  .wizard-row .wizard-tog {
+    grid-row: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    justify-self: start;
+  }
+
+  .wizard-row [data-keeper-cell] {
+    grid-column: 2 / 4;
+  }
+
+  .wizard-row .wizard-tog:has([data-roster-field="shorts"]) {
+    grid-column: 4 / 6;
+  }
+
+  .wizard-row .wizard-tog:has([data-roster-field="socks"]) {
+    grid-column: 6 / 8;
+  }
+
+  .wizard-tog span {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    color: var(--muted-strong);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .wizard__nav .button {
+    min-width: 0;
+    flex: 1;
+  }
+}
