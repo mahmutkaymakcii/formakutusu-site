@@ -721,7 +721,7 @@
 
       // WhatsApp bağlantısıyla dosya gönderilemez: yüklenen dosyalar sohbete elle eklenir,
       // önizleme görseli de indirilebilir
-      const files = [...designFiles(), ...uploadState().map(({ file }) => file)].filter(Boolean);
+      const files = [...(form.hasAttribute("data-custom") ? designFiles() : []), ...uploadState().map(({ file }) => file)].filter(Boolean);
       status.replaceChildren(
         files.length
           ? `WhatsApp sohbeti açıldı. Mesajı gönderdikten sonra dosyalarını (${files.map((file) => file.name).join(", ")}) sohbete ekle.`
