@@ -479,6 +479,19 @@
         };
       });
 
+    const validateDesign = () => {
+      if (!form.hasAttribute("data-custom")) return [];
+      const files = designFiles(), errors = [];
+      if (!files.length) errors.push("Desen veya tasarım görseli yükle.");
+      if (files.length > MAX_DESIGN_FILES) errors.push(`En fazla ${MAX_DESIGN_FILES} tasarım görseli yükleyebilirsin.`);
+      files.forEach((file) => {
+        const allowed = FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name);
+        if (!allowed) errors.push(`${file.name}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
+        if (file.size > MAX_FILE) errors.push(`${file.name}: dosya 10 MB'tan küçük olmalı.`);
+      });
+      return errors;
+    };
+
     const validate = () => {
       const errors = [];
       const qty = quantity();
@@ -487,16 +500,7 @@
       if (sportSelect && !sportSelect.value) errors.push("Branşı seç.");
       if (!checked("collar")) errors.push("Yaka tipini seç.");
 
-      if (form.hasAttribute("data-custom")) {
-        const files = designFiles();
-        if (!files.length) errors.push("Desen veya tasarım görseli yükle.");
-        if (files.length > MAX_DESIGN_FILES) errors.push(`En fazla ${MAX_DESIGN_FILES} tasarım görseli yükleyebilirsin.`);
-        files.forEach((file) => {
-          const allowed = FILE_TYPES.includes(file.type) || /\.(png|jpe?g|webp|svg|pdf)$/i.test(file.name);
-          if (!allowed) errors.push(`${file.name}: PNG, JPG, WEBP, SVG veya PDF yükle.`);
-          if (file.size > MAX_FILE) errors.push(`${file.name}: dosya 10 MB'tan küçük olmalı.`);
-        });
-      }
+      errors.push(...validateDesign());
 
       EXTRAS.forEach(({ name, label }) => {
         if (!extraActive(name)) return;
@@ -642,6 +646,12 @@
         if (name === "scope") roster.querySelectorAll('[data-roster-field="shorts"]').forEach((box) => (box.checked = checked("scope") !== "ust"));
         if (name === "socks") roster.querySelectorAll('[data-roster-field="socks"]').forEach((box) => (box.checked = checked("socks") !== "yok"));
         if (name === "sport") syncSport();
+        // Oyuncuya özel çorap seçimi, genel seçim kapalı olsa da bir renk gerektirir.
+        if (event.target.matches('[data-roster-field="socks"]') && event.target.checked && checked("socks") === "yok") {
+          form.querySelector('input[name="socks"][value="siyah"]').checked = true;
+          form.querySelector("[data-socks-toggle]").checked = true;
+          form.querySelector("[data-socks-colors]").hidden = false;
+        }
       }
       updateTotal();
     });
@@ -662,7 +672,7 @@
         updateTotal();
       });
       // Sihirbaz adımları için: adım kontrolü ve sipariş özeti aynı hesapla yapılır
-      form.orderApi = { validate: () => validate(), calculate: () => calculate(), keeperLabel };
+      form.orderApi = { validate, validateDesign, calculate, keeperLabel };
     }
     EXTRAS.forEach(({ name }) => form.elements[`${name}-count`]?.addEventListener("input", updateTotal));
     sportSelect?.addEventListener("change", syncSport);
@@ -691,6 +701,10 @@
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (wizard && form.dataset.current !== "5") {
+        form.dispatchEvent(new Event("wizard-advance"));
+        return;
+      }
       const errors = validate();
       errorBox.hidden = errors.length === 0;
       errorBox.replaceChildren(...errors.map((error) => Object.assign(document.createElement("span"), { textContent: error })));

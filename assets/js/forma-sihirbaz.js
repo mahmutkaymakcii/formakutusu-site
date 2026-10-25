@@ -73,6 +73,7 @@
     const list = document.createElement("div");
     list.className = "wizard-palette";
     list.setAttribute("role", "radiogroup");
+    list.setAttribute("aria-label", holder.dataset.palette === "main-color" ? "Ana renk" : "Desen rengi");
     list.innerHTML = FM.PALETTE.map(([value, label]) => `<label class="wizard-swatch" title="${label}"><input type="radio" name="${name}" value="${value}" data-label="${label}"${value === target.value ? " checked" : ""}><i style="background:${value}"></i><span>${label}</span></label>`).join("")
       + `<label class="wizard-swatch wizard-swatch--custom" title="Özel renk"><input type="color" value="${target.value}" aria-label="Özel renk seç"><span>Özel renk</span></label>`;
     holder.append(list);
@@ -100,7 +101,7 @@
   const syncMode = () => {
     const mode = el("pattern-mode").value;
     form.querySelectorAll("[data-color-only]").forEach((item) => (item.hidden = mode !== "color"));
-    form.querySelector("[data-gallery-note]").hidden = mode === "color";
+    form.querySelector("[data-gallery-note]").hidden = mode !== "gallery";
   };
   form.addEventListener("pattern-mode", syncMode);
 
@@ -138,7 +139,7 @@
   const UPLOAD_LABELS = ["Sol göğüs logosu", "Sağ göğüs logosu", "Forma önü reklam"];
   function stepErrors(n) {
     const all = form.orderApi?.validate() || [];
-    if (n === 2) return el("pattern-mode").value === "upload" && !el("design").files.length ? ["Kendi desenini yükle ya da bir model seç."] : [];
+    if (n === 2) return form.orderApi?.validateDesign() || [];
     if (n === 3) return all.filter((error) => UPLOAD_LABELS.some((label) => error.startsWith(label)));
     if (n === 4) return all.filter((error) => /oyuncu|satırda/.test(error));
     return [];
@@ -147,12 +148,14 @@
     const box = steps[n - 1].querySelector("[data-step-errors]");
     if (!box) return;
     box.hidden = errors.length === 0;
+    box.tabIndex = -1;
     box.replaceChildren(...errors.map((error) => Object.assign(document.createElement("span"), { textContent: error })));
   }
   function check(n) {
     const errors = stepErrors(n);
     showErrors(n, errors);
     if (!errors.length) return true;
+    steps[n - 1].querySelector("[data-step-errors]")?.focus({ preventScroll: true });
     if (n === 3) {
       // Eksik yükleme bölümünü aç
       const label = UPLOAD_LABELS.find((l) => errors[0].startsWith(l));
@@ -184,6 +187,18 @@
       ["Kumaş", "Poly Mesh"],
       ["Kulüp ismi", el("back-text").value.trim() || "Yok"],
       ["Yazı / numara rengi", checked("text-color")?.dataset.label],
+      ["Sırt ismi", el("has-name").checked ? "Var" : "Yok"],
+      ["Sırt numarası", el("has-number").checked ? "Var" : "Yok"],
+      ...[...form.querySelectorAll("[data-upload]")].map((upload) => {
+        const input = upload.querySelector("[data-upload-input]");
+        const alt = upload.querySelector("[data-upload-alt]");
+        const none = upload.querySelector("[data-upload-none]").checked;
+        const text = upload.querySelector("[data-upload-text]")?.value.trim();
+        const value = none ? "Yok" : alt?.checked ? `TR Arma${input.files[0] ? ` · Sağ göğüs: ${input.files[0].name}` : ""}` : input.files[0]?.name || text || "Yok";
+        return [upload.querySelector(".order-upload__field > span").textContent, value];
+      }),
+      ...(mode === "upload" ? [["Tasarım dosyaları", [...el("design").files].map((f) => f.name).join(", ")]] : []),
+      ...(calc.kit ? [["Şort rengi", checked("shorts-color")?.dataset.label], ...(sport !== "voleybol" ? [["Şort logosu", el("shorts-logo").checked ? "Var" : "Yok"], ["Şort numarası", el("shorts-number").checked ? "Var" : "Yok"]] : [])] : []),
       ...(calc.socks ? [["Çorap rengi", checked("socks")?.dataset.label]] : []),
       ...(calc.keepers ? [["Kaleci forması rengi", checked("keeper-color")?.dataset.label]] : []),
       ["Toplam forma", `${calc.qty} adet`],
@@ -221,10 +236,14 @@
     if (n === 3) setView(viewTabs.find((t) => t.getAttribute("aria-selected") === "true")?.dataset.view || "takim");
     if (push) history.pushState({ wizardStep: n }, "", `#adim-${n}`);
     if (!scroll) return;
+    const title = steps[n - 1].querySelector(".wizard__title");
+    title.tabIndex = -1;
+    title.focus({ preventScroll: true });
     const top = form.getBoundingClientRect().top + window.scrollY - (header?.getBoundingClientRect().height || 0) - 12;
     if (window.scrollY > top || form.getBoundingClientRect().top > window.innerHeight * 0.5) window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }
   function go(n) {
+    if (n < 1 || n > steps.length) return;
     if (n === current) return;
     if (n < current) { show(n); return; }
     for (let i = current; i < n; i++) {
@@ -232,6 +251,7 @@
     }
     show(n);
   }
+  form.addEventListener("wizard-advance", () => go(current + 1));
   form.addEventListener("click", (e) => {
     if (e.target.closest("[data-wizard-next]")) go(current + 1);
     else if (e.target.closest("[data-wizard-back]")) go(current - 1);

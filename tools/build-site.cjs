@@ -278,10 +278,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261025a">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261025a" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261025b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -850,7 +850,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
                 <div class="order-upload" data-mode-panel="upload"${studio === "upload" ? "" : " hidden"}>
                   <label class="order-upload__field"><span>Desen veya tasarım görselleri <small>(en fazla 5 dosya)</small></span><input type="file" name="design" multiple accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf" data-design-input></label>
                   <ul class="order-design-list" data-design-preview hidden></ul>
-                  <p class="order-form__hint">İlk görsel önizlemede formaya uygulanır. Desen yükleyene kadar forma beyaz görünür.</p>
+                  <p class="order-form__hint">İlk PNG, JPG veya WEBP görseli önizlemeye uygulanır. SVG ve PDF dosyalarını sipariş görüşmesinde paylaşabilirsin; önizlemede gösterilmez. Her dosya en fazla 10 MB olabilir.</p>
                 </div>
               </fieldset>`
     : "";
@@ -1359,10 +1359,10 @@ const servicePages = [
     previewForm: true,
     wizard: true,
     guide: [
-      ["Forma tasarlamak nasıl çalışır?", "Bu sayfadaki tasarım aracı futbol, basketbol ve voleybol formalarını takımının bilgileriyle anında gösterir. Önce branşı seç; galeri o branşa ait desenleri getirir. Desen kartına tıklayarak ya da ok tuşlarıyla desenler arasında gezebilir, telefonda galeriyi parmağınla kaydırabilirsin. Yaka tipini seçtiğinde forma görseli de değişir."],
-      ["Logo, sponsor, isim ve numara", "Göğüs logoları ve forma önü reklamı için kendi dosyalarını seçebilirsin; dosya yalnızca senin cihazında işlenir ve önizlemeye yerleşir. TR Arma seçeneğiyle Türk bayrağı göğse eklenir. Kulüp ismini yazdığında formanın arkasında, numara ise sırtta ve şortta görünür. Yazı ve numara rengini beyaz ya da siyah olarak değiştirebilirsin."],
+      ["Forma tasarlamak nasıl çalışır?", "Bu sayfadaki tasarım aracı futbol, basketbol ve voleybol formalarını takımının bilgileriyle anında gösterir. Önce branşı seç; renkli modellerin renklerini değiştirebilir veya branşına ait hazır desenlerden seçebilirsin. Desen kartına tıklayarak ya da ok tuşlarıyla desenler arasında gezebilir, telefonda galeriyi parmağınla kaydırabilirsin. Futbolda yaka tipini seçtiğinde forma görseli de değişir. Basketbol ve voleybol önizlemesi V yaka gösterilir; üretilecek yaka tipi sipariş özetinde ayrıca belirtilir."],
+      ["Logo, sponsor, isim ve numara", "Göğüs logoları ve forma önü reklamı için kendi dosyalarını seçebilirsin; dosya yalnızca senin cihazında işlenir ve önizlemeye yerleşir. TR Arma seçeneğiyle Türk bayrağı göğse eklenir. Kulüp ismini yazdığında formanın arkasında, numara ise sırtta ve şortta görünür. Yazı ve numara rengini sunulan renkler arasından seçebilirsin."],
       ["Tasarımdan siparişe", "Tasarım bitince adedi, ürün kapsamını (tek üst forma, forma + şort, çorap) ve oyuncu listesini aynı formda doldur; toplam tutar otomatik hesaplanır. Sipariş özeti WhatsApp sohbetimize gider, ekip tasarımı kontrol edip son görseli onayına sunar. Tasarım desteği ücretsizdir ve onay vermeden üretime geçilmez."],
-      ["Kendi desenini kullanmak istersen", "Hazır desenlerin dışında kendi tasarımın varsa <a href=\"/takima-ozel-forma/\">takıma özel forma</a> sayfasından desen görselini yükleyerek formanın üzerinde görebilirsin. Fiyatlar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına bakabilirsin."],
+      ["Kendi desenini kullanmak istersen", "Hazır desenlerin dışında kendi tasarımın varsa 2. adımda <strong>Kendi desenim</strong> sekmesinden desen görselini ekleyebilirsin. Fiyatlar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına bakabilirsin."],
     ],
     image: { src: "/assets/models/fk-007.webp", alt: "Forma tasarla aracıyla hazırlanan forma ve şort", width: 1000, height: 1250 },
     cards: [
@@ -1463,8 +1463,8 @@ for (const service of servicePages) {
     description: service.description,
     pageClass: "service-page",
     scripts: service.wizard
-      ? ["/assets/js/forma-modeller.js?v=20261025a", "/assets/js/forma-onizleme.js?v=20261025a", "/assets/js/forma-sihirbaz.js?v=20261025a"]
-      : service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261025a"] : [],
+      ? ["/assets/js/forma-modeller.js?v=20261025b", "/assets/js/forma-onizleme.js?v=20261025b", "/assets/js/forma-sihirbaz.js?v=20261025b"]
+      : service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261025b"] : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
