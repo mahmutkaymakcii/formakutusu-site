@@ -239,6 +239,7 @@ function pageShell({
   pageClass = "",
   preloadImage = "",
   scripts = [],
+  styles = [],
 }) {
   const canonical = `${site.origin}${routePath}`;
   const fullTitle = title.includes("Forma Kutusu")
@@ -279,7 +280,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">${styles.map((src) => `\n  <link rel="stylesheet" href="${src}">`).join("")}
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261025b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -954,7 +955,7 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
 function designWizard() {
   const steps = ["Yaka Seçimi", "Model Seçimi", "Forma Düzenleme", "Oyuncu Bilgileri", "Sipariş"];
   const card = (name, value, title, sub, checked, extra = "") =>
-    `<label class="wizard-card"${extra}><input type="radio" name="${name}" value="${value}" data-label="${escapeHtml(title)}"${checked ? " checked" : ""}><span class="wizard-card__icon" aria-hidden="true">${collarIcon(value)}</span><strong>${escapeHtml(title)}</strong>${sub ? `<small>${escapeHtml(sub)}</small>` : ""}</label>`;
+    `<label class="wizard-card wizard-card--collar"${extra}><input type="radio" name="${name}" value="${value}" data-label="${escapeHtml(title)}"${checked ? " checked" : ""}><span class="wizard-card__check" aria-hidden="true">${selectionIcon("check")}</span><span class="wizard-card__photo" aria-hidden="true"><img src="/assets/onizleme/mockup-${({"Sıfır yaka":"sifir","V yaka":"v","Polo yaka":"polo"})[value]}.webp" alt="" width="1848" height="1888"></span><span class="wizard-card__caption"><span class="wizard-card__icon" aria-hidden="true">${collarIcon(value)}</span><span><strong>${escapeHtml(title)}</strong><small>${escapeHtml(sub)}</small></span></span></label>`;
   const nav = (n) => `<div class="wizard__nav">${n > 1 ? `<button type="button" class="button button--ghost wizard__back" data-wizard-back>← Geri</button>` : "<span></span>"}${n < 5 ? `<button type="button" class="button wizard__next" data-wizard-next>Devam Et →</button>` : ""}</div>`;
   const section = (title, body, attrs = "") => `<details class="wizard-acc"${attrs}><summary>${title}</summary><div class="wizard-acc__body">${body}</div></details>`;
   const swatchGroup = (name, label, list, first) => `<div class="order-colors" role="radiogroup" aria-label="${label}">${list.map(([value, text], i) => `<label class="order-color"><input type="radio" name="${name}" value="${value}" data-label="${text}"${(first === undefined ? i === 0 : value === first) ? " checked" : ""}><i style="background:${value}"></i> ${text}</label>`).join("")}</div>`;
@@ -965,17 +966,18 @@ function designWizard() {
 
           <section class="wizard__step" data-step="1" aria-label="Yaka seçimi">
             <h2 class="wizard__title">Branşını ve yakanı seç</h2>
-            <p class="wizard__lead">Önce branşı, sonra yaka tipini seç. Önizleme bu seçime göre hazırlanır.</p>
+            <p class="wizard__lead">Takımının branşını belirle, ardından sana uygun yaka tipini seç.</p>
+            <h3 class="wizard-selection__heading"><span>01</span> Branşını seç</h3>
             <div class="wizard-cards wizard-cards--sport" role="radiogroup" aria-label="Branş">
-              ${[["futbol", "Futbol", "Halı saha dahil"], ["basketbol", "Basketbol", "Atlet forma"], ["voleybol", "Voleybol", "Kısa kollu forma"]].map(([v, t, sub], i) => `<label class="wizard-card wizard-card--sport"><input type="radio" name="sport" value="${v}" data-label="${t}" data-order-sport${i === 0 ? " checked" : ""}><strong>${t}</strong><small>${sub}</small></label>`).join("")}
+              ${[["futbol", "Futbol", "Halı saha dahil"], ["basketbol", "Basketbol", "Basketbol forması"], ["voleybol", "Voleybol", "Voleybol forması"]].map(([v, t, sub], i) => `<label class="wizard-card wizard-card--sport" data-sport-card="${v}"><input type="radio" name="sport" value="${v}" data-label="${t}" data-order-sport${i === 0 ? " checked" : ""}><span class="wizard-card__check" aria-hidden="true">${selectionIcon("check")}</span><span class="wizard-card__sport-icon" aria-hidden="true">${selectionIcon(v)}</span><strong>${t}</strong><small>${sub}</small></label>`).join("")}
             </div>
-            <h3 class="wizard__sub">Yaka tipi</h3>
+            <h3 class="wizard-selection__heading"><span>02</span> Yaka tipini seç</h3>
             <div class="wizard-cards" role="radiogroup" aria-label="Yaka tipi">
               ${card("collar", "Sıfır yaka", "Sıfır yaka", "Bisiklet yaka", true)}
-              ${card("collar", "V yaka", "V yaka", "", false)}
+              ${card("collar", "V yaka", "V yaka", "V kesim yaka", false)}
               ${card("collar", "Polo yaka", "Polo yaka", "Düğmeli yaka", false, ' data-collar-card="Polo yaka"')}
             </div>
-            <p class="order-form__hint">Basketbol ve voleybolda önizleme V yaka ile gösterilir; basketbolda polo yaka yoktur.</p>
+            <p class="wizard-selection__note"><span aria-hidden="true">${selectionIcon("info")}</span><span>Yaka görselleri futbol forması üzerinden gösterilir. Basketbol ve voleybol önizlemesi V yakadır; seçtiğin yaka sipariş özetine eklenir. Basketbolda polo yaka seçilmez.</span></p>
             ${nav(1)}
           </section>
 
@@ -1118,6 +1120,17 @@ function designWizard() {
 }
 
 // Yaka kartı ikonları (sade çizgi)
+function selectionIcon(name) {
+  const paths = {
+    check: '<path d="m6 12 4 4 8-8"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.01"/>',
+    futbol: '<circle cx="12" cy="12" r="9"/><path d="m12 7 4.8 3.5-1.8 5.5H9l-1.8-5.5L12 7Zm0-4v4m8.6 2.2-3.8 1.3m.5 8.8L15 16m-8.3 3.3L9 16M3.4 9.2l3.8 1.3"/>',
+    basketbol: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6c7.1 0 12.8 5.7 12.8 12.8M18.4 5.6C11.3 5.6 5.6 11.3 5.6 18.4"/>',
+    voleybol: '<circle cx="12" cy="12" r="9"/><path d="m12 12 8.7-2.3M12 12 9.7 3.3M12 12l-6.4 6.4M7 4.5c-.3 4.7 1.4 8.5 5 11.5m8.5-9c-4.7-.3-8.5 1.4-11.5 5m8 8.5c-2.1-4.1-5.4-6.6-10-7.5"/>',
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.info}</svg>`;
+}
+
 function collarIcon(value) {
   const neck = {
     "Sıfır yaka": '<path d="M24 10c3 5 13 5 16 0"/>',
@@ -1462,6 +1475,7 @@ for (const service of servicePages) {
     title: service.title,
     description: service.description,
     pageClass: "service-page",
+    styles: service.wizard ? ["/assets/css/designer-selection.css?v=20261025a"] : [],
     scripts: service.wizard
       ? ["/assets/js/forma-modeller.js?v=20261025b", "/assets/js/forma-onizleme.js?v=20261025b", "/assets/js/forma-sihirbaz.js?v=20261025b"]
       : service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261025b"] : [],
