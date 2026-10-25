@@ -37,7 +37,11 @@
     img.onerror = () => reject(new Error("Görsel yüklenemedi"));
     img.src = src;
   });
-  const fileToImage = (file) => loadImage(URL.createObjectURL(file));
+  const fileToImage = async (file) => {
+    const url = URL.createObjectURL(file);
+    try { return await loadImage(url); }
+    finally { URL.revokeObjectURL(url); }
+  };
   async function loadFont(name, url) {
     const face = new FontFace(name, `url(${url})`);
     await face.load();
@@ -780,9 +784,15 @@
     const tr = track.getBoundingClientRect(), br = b.getBoundingClientRect();
     scrollTrackTo(track.scrollLeft + (br.left - tr.left) - (tr.width - br.width) / 2);
   };
+  let patternRequest = 0;
   async function choosePattern(p, reveal = false) {
+    const request = ++patternRequest;
     if (!p.img) say("Desen yükleniyor…");
-    setPattern(await patternImage(p), p.code);
+    let img;
+    try { img = await patternImage(p); }
+    catch { if (request === patternRequest) say("Desen yüklenemedi. Tekrar seçebilirsin."); return; }
+    if (request !== patternRequest || mode() !== "gallery" || p.sport !== sport()) return;
+    setPattern(img, p.code);
     el("pattern-code").value = p.code;
     renderReel(); showStatus(); schedule();
     if (reveal) revealSelected();
@@ -907,10 +917,16 @@
   }
 
   for (const name of ["logo-left", "logo-right", "sponsor"]) {
+    let request = 0;
     el(name)?.addEventListener("change", async (e) => {
+      const token = ++request;
       const f = e.target.files?.[0];
       if (!f || !f.type.startsWith("image/")) { delete state.uploads[name]; schedule(); return; }
-      try { state.uploads[name] = trimImage(await fileToImage(f)); } catch { delete state.uploads[name]; }
+      try {
+        const img = await fileToImage(f);
+        if (token !== request || el(name).files?.[0] !== f) return;
+        state.uploads[name] = trimImage(img);
+      } catch { if (token === request) delete state.uploads[name]; }
       schedule();
     });
   }
@@ -925,14 +941,20 @@
     if (state.custom) setPattern(state.custom, "Özel desen");
     else plainPattern();
   };
+  let designRequest = 0;
   form.querySelector("[data-design-input]")?.addEventListener("change", async (e) => {
+    const request = ++designRequest;
     const f = [...(e.target.files || [])].find((file) => file.type.startsWith("image/") && file.type !== "image/svg+xml");
-    try { state.custom = f ? await fileToImage(f) : null; } catch { state.custom = null; say("Desen okunamadı"); }
+    let img = null;
+    try { img = f ? await fileToImage(f) : null; } catch { say("Desen okunamadı"); }
+    if (request !== designRequest) return;
+    state.custom = img;
     if (state.ready && mode() === "upload") { customPattern(); showStatus(); schedule(); }
   });
   // Sekme değişimi: hazır desende galerideki seçili desen, kendi deseninde yüklenen desen (yoksa beyaz).
   // Yazı rengi zemine göre: beyaz formada siyah, hazır desenlerde beyaz.
   form.addEventListener("pattern-mode", async (e) => {
+    const request = ++patternRequest;
     const upload = e.detail === "upload";
     const color = form.querySelector(`input[name="text-color"][value="${upload && !state.custom ? "#111111" : "#ffffff"}"]`);
     if (color) color.checked = true;
@@ -943,7 +965,11 @@
       const list = sportPatterns();
       const p = list.find((q) => q.code === el("pattern-code")?.value) || list[0];
       if (p) {
-        try { setPattern(await patternImage(p), p.code); el("pattern-code").value = p.code; } catch { say("Desen yüklenemedi"); }
+        try {
+          const img = await patternImage(p);
+          if (request !== patternRequest || mode() !== "gallery") return;
+          setPattern(img, p.code); el("pattern-code").value = p.code;
+        } catch { say("Desen yüklenemedi"); }
       }
       renderReel();
     }
@@ -963,11 +989,13 @@
     // Galeri o branşın desenlerine geçer; seçili desen bu branşta yoksa ilk desen seçilir.
     // Desen ve mockup birlikte hazırlanır, önizleme tek seferde çizilir.
     if (!state.ready) { renderReel(); return; }
+    const request = ++patternRequest;
+    const selectedMode = mode();
     const s = sport(), list = reel ? sportPatterns() : [];
     const p = mode() === "gallery" && list.length && !list.some((q) => q.code === state.patternCode) ? list[0] : null;
     try {
       const [, img] = await Promise.all([useCollar(mockupKey()), p && patternImage(p)]);
-      if (sport() !== s) return;
+      if (sport() !== s || request !== patternRequest || mode() !== selectedMode) return;
       if (p) { setPattern(img, p.code); el("pattern-code").value = p.code; }
       renderReel(); showStatus(); schedule();
     } catch { say("Önizleme yüklenemedi"); }
@@ -978,7 +1006,7 @@
   });
   form.addEventListener("input", (e) => { if (e.target.name === "back-text" || e.target.name === "sponsor-text") scheduleSoon(); });
   form.addEventListener("change", (e) => {
-    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|shorts-color|has-name|has-number|text-color|scope|socks)$/.test(e.target.name)) schedule();
+    if (/^(logo-left|logo-right|sponsor)-(none|alt)$|^(shorts-logo|shorts-number|shorts-color|has-name|has-number|text-color|scope|socks)$/.test(e.target.name) || e.target.matches('[data-roster-field="socks"]')) schedule();
   });
 
   // Sipariş gönderiminde paylaşıma eklenecek önizleme görseli
