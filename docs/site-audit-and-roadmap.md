@@ -360,8 +360,8 @@ Premium etki ağır animasyon, parlak glow veya sahte 3D yerine tipografik ölç
 | Favori ve favori filtresi | Başarılı | Saklama ve paylaşılabilir sorgu |
 | Teklif asistanı | Başarılı | Boş adım, minimum adet, geçerli ilerleme |
 | Dosya doğrulama | Başarılı | Desteklenmeyen tür engellendi; dosya adları mesaja eklendi |
-| WhatsApp | Başarılı | `905348578836` ve dolu mesaj parametresi |
-| Telefon | Başarılı | `tel:+905348578836` |
+| WhatsApp | Başarılı | `905432321853` ve dolu mesaj parametresi |
+| Telefon | Başarılı | `tel:+905432321853` |
 | Sitemap URL'leri | Başarılı | 21/21 erişilebilir |
 | İç bağlantı/CSV | Başarılı | Bozuk iç bağlantı yok |
 | Benzersiz SEO title | Başarılı | Yinelenen title yok |

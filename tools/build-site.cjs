@@ -9,11 +9,9 @@ const models = JSON.parse(
 const site = {
   name: "Forma Kutusu",
   origin: "https://formakutusu.com",
-  phoneDisplay: "0534 857 88 36",
-  phoneHref: "+905348578836",
-  phone2Display: "0543 232 18 53",
-  phone2Href: "+905432321853",
-  whatsapp: "905348578836",
+  phoneDisplay: "0543 232 18 53",
+  phoneHref: "+905432321853",
+  whatsapp: "905432321853",
   instagram: "https://www.instagram.com/formakutusu/",
   tiktok: "https://www.tiktok.com/@formakutusunora",
   facebook: "https://www.facebook.com/share/198st7XEzE/",
@@ -83,7 +81,7 @@ function organizationSchema() {
       addressCountry: "TR",
     },
     areaServed: { "@type": "Country", name: "Türkiye" },
-    contactPoint: [site.phoneHref, site.phone2Href].map((telephone) => ({
+    contactPoint: [site.phoneHref].map((telephone) => ({
       "@type": "ContactPoint",
       telephone,
       email: site.email,
@@ -1697,7 +1695,7 @@ writePage("/iletisim/", {
       </div>
       <div class="contact-info">
         <a class="contact-info__card contact-info__card--whatsapp" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.2-2.2l.8-1-1-2z"/></svg></span><span class="contact-info__text"><small>WhatsApp</small><strong>Mesaj gönder</strong><span>Sipariş ve model soruları için doğrudan yaz.</span></span><b aria-hidden="true">→</b></a>
-        <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></span><span class="contact-info__text"><small>Telefon</small><strong><a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&nbsp;")}</a></strong><strong><a href="tel:${site.phone2Href}">${site.phone2Display.split(" ").join("&nbsp;")}</a></strong></span></div>
+        <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></span><span class="contact-info__text"><small>Telefon</small><strong><a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&nbsp;")}</a></strong></span></div>
         <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="contact-info__text"><small>Saatler ve konum</small><strong>${site.hoursDisplay}</strong><span>${site.locality}, ${site.region}</span></span></div>
       </div>
     </div></section>
