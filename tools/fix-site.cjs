@@ -130,8 +130,8 @@ function createIstanbulPage(chrome) {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#080a0e">
   <meta name="color-scheme" content="dark">
-  <title>Forma Yaptırma İstanbul | Forma Kutusu</title>
-  <meta name="description" content="İstanbul'daki futbol, halı saha, basketbol ve voleybol takımları için özel forma modellerini ve fiyatlarını inceleyin.">
+  <title>Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu</title>
+  <meta name="description" content="İstanbul'da takımına özel forma yaptır: ücretsiz tasarım, isim-numara baskısı, 5 adetten üretim. Forma 300₺'den başlar, onaydan sonra 5–7 iş günü imalat.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -139,15 +139,15 @@ function createIstanbulPage(chrome) {
   <meta property="og:locale" content="tr_TR">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Forma Kutusu">
-  <meta property="og:title" content="Forma Yaptırma İstanbul | Forma Kutusu">
-  <meta property="og:description" content="İstanbul'daki takımlar için model, renk, logo, isim, numara ve beden bilgileriyle forma siparişini hazırlayın.">
+  <meta property="og:title" content="Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu">
+  <meta property="og:description" content="İstanbul'da takımına özel forma yaptır: ücretsiz tasarım, isim-numara baskısı, 5 adetten üretim. Forma 300₺'den başlar, onaydan sonra 5–7 iş günü imalat.">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Forma Yaptırma İstanbul | Forma Kutusu">
-  <meta name="twitter:description" content="İstanbul'daki takımlar için özel forma fiyatlarını inceleyin ve siparişinizi hazırlayın.">
+  <meta name="twitter:title" content="Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu">
+  <meta name="twitter:description" content="İstanbul'da takımına özel forma yaptır: ücretsiz tasarım, isim-numara baskısı, 5 adetten üretim. Forma 300₺'den başlar, onaydan sonra 5–7 iş günü imalat.">
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
