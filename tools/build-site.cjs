@@ -1383,12 +1383,6 @@ const servicePages = [
     copy: "Deseni seç, branşı ve yaka tipini belirle; logonu, sponsorunu, kulüp ismini ve numaranı forma ve şort üzerinde canlı önizle. Beğendiğin tasarımı aynı sayfada siparişe çevir.",
     previewForm: true,
     wizard: true,
-    guide: [
-      ["Forma tasarlamak nasıl çalışır?", "Bu sayfadaki tasarım aracı futbol, basketbol ve voleybol formalarını takımının bilgileriyle anında gösterir. Önce branşı seç; renkli modellerin renklerini değiştirebilir veya branşına ait hazır desenlerden seçebilirsin. Desen kartına tıklayarak ya da ok tuşlarıyla desenler arasında gezebilir, telefonda galeriyi parmağınla kaydırabilirsin. Futbolda yaka tipini seçtiğinde forma görseli de değişir. Basketbol ve voleybol önizlemesi V yaka gösterilir; üretilecek yaka tipi sipariş özetinde ayrıca belirtilir."],
-      ["Logo, sponsor, isim ve numara", "Göğüs logoları ve forma önü reklamı için kendi dosyalarını seçebilirsin; dosya yalnızca senin cihazında işlenir ve önizlemeye yerleşir. TR Arma seçeneğiyle Türk bayrağı göğse eklenir. Kulüp ismini yazdığında formanın arkasında, numara ise sırtta ve şortta görünür. Yazı ve numara rengini sunulan renkler arasından seçebilirsin."],
-      ["Tasarımdan siparişe", "Tasarım bitince adedi, ürün kapsamını (tek üst forma, forma + şort, çorap) ve oyuncu listesini aynı formda doldur; toplam tutar otomatik hesaplanır. Sipariş özeti WhatsApp sohbetimize gider, ekip tasarımı kontrol edip son görseli onayına sunar. Tasarım desteği ücretsizdir ve onay vermeden üretime geçilmez."],
-      ["Kendi desenini kullanmak istersen", "Hazır desenlerin dışında kendi tasarımın varsa 2. adımda <strong>Kendi desenim</strong> sekmesinden desen görselini ekleyebilirsin. Fiyatlar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına bakabilirsin."],
-    ],
     image: { src: "/assets/models/fk-007.webp", alt: "Forma tasarla aracıyla hazırlanan forma ve şort", width: 1000, height: 1250 },
     cards: [
       ["Deseni seç", "Branşa göre desen galerisinden takımına uygun modeli bul."],
@@ -1554,11 +1548,11 @@ for (const service of servicePages) {
       </div></section>`
       }
       ${service.guide ? `<section class="content-section"><div class="container prose">${service.guide.map(([h, p]) => `<h2>${escapeHtml(h)}</h2><p>${p}</p>`).join("")}</div></section>` : ""}
-      <section class="feature-section"><div class="container">
+      ${service.wizard ? "" : `<section class="feature-section"><div class="container">
         ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
         <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
       </div></section>
-      <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>
+      <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>`}
       ${service.guideFaq ? guideFaqSection(service.guideFaq) : `<section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>`}
       ${finalCta()}`,
   });
