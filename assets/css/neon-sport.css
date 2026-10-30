@@ -2906,3 +2906,76 @@ body .mobile-cta.mobile-cta--pair {
   border-color: var(--volt);
   color: var(--volt);
 }
+/* ---- Telefon: masaüstüyle tutarlı görünüm (2026-10-30) ----
+   Katalog telefonda tek sütundu, her model bir ekranı kaplıyordu; masaüstündeki
+   ızgara düzeni 2 sütun olarak korunur. Başlıklar kelime ortasından bölünmez. */
+@media (max-width: 35rem) {
+  .model-grid {
+    gap: 0.6rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .models-page .model-card__media,
+  .catalog-page .model-card__media {
+    margin: 0.25rem;
+    border-radius: 0.8rem;
+  }
+
+  .model-card__badges {
+    gap: 0.25rem;
+  }
+
+  .model-card__badge {
+    padding: 0.22rem 0.45rem;
+    font-size: 0.58rem;
+  }
+
+  .model-card__badge:not(.model-card__badge--signal) {
+    display: none;
+  }
+
+  .model-card__body {
+    padding: 0.6rem 0.6rem 0.75rem;
+  }
+
+  .model-card__heading > span,
+  .model-card__summary,
+  .model-card__features {
+    display: none;
+  }
+
+  .model-card__heading p {
+    font-size: 0.6rem;
+  }
+
+  .model-card__body h3 {
+    font-size: 1.05rem;
+  }
+
+  .model-card__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+
+  .model-card__actions a {
+    min-height: 2.5rem;
+    padding-inline: 0.4rem;
+    font-size: 0.66rem;
+  }
+
+  body.home-v2 .fk-section-row .fk-section-heading h2,
+  body.home-v2 .fk-final-cta h2 {
+    overflow-wrap: normal;
+    word-break: normal;
+    font-size: clamp(26px, 8.4vw, 36px);
+  }
+
+  body.home-v2 .fk-final-cta h2 {
+    font-size: clamp(22px, 7.4vw, 32px);
+  }
+
+  body.home-v2 .fk-promo h2 {
+    font-size: clamp(15px, 4.8vw, 20px);
+  }
+}

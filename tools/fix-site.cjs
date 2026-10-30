@@ -152,7 +152,7 @@ function createIstanbulPage(chrome) {
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030a">
   ${schemas.map(schemaTag).join("\n  ")}
   <script src="/assets/js/site.js?v=20261025b" defer></script>
 </head>
