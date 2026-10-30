@@ -131,7 +131,7 @@ function createIstanbulPage(chrome) {
   <meta name="theme-color" content="#080a0e">
   <meta name="color-scheme" content="dark">
   <title>Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu</title>
-  <meta name="description" content="İstanbul'da takımına özel forma yaptır: ücretsiz tasarım, isim-numara baskısı, 5 adetten üretim. Tasarım onayından sonra 5–7 iş günü imalat.">
+  <meta name="description" content="İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -140,14 +140,14 @@ function createIstanbulPage(chrome) {
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Forma Kutusu">
   <meta property="og:title" content="Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu">
-  <meta property="og:description" content="İstanbul'da takımına özel forma yaptır: ücretsiz tasarım, isim-numara baskısı, 5 adetten üretim. Tasarım onayından sonra 5–7 iş günü imalat.">
+  <meta property="og:description" content="İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu">
-  <meta name="twitter:description" content="İstanbul'da takımına özel forma yaptır: ücretsiz tasarım, isim-numara baskısı, 5 adetten üretim. Tasarım onayından sonra 5–7 iş günü imalat.">
+  <meta name="twitter:description" content="İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.">
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
