@@ -154,10 +154,10 @@ function createIstanbulPage(chrome) {
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030a">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030c">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js?v=20261025b" defer></script>
+  <script src="/assets/js/site.js?v=20261030b" defer></script>
 </head>
 <body class="content-page istanbul-page">
   ${chrome.header}
@@ -190,7 +190,7 @@ function createIstanbulPage(chrome) {
       <h2>İstanbul’da forma fiyatları</h2>
       <p>Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href="/teklif/">Fiyatlar</a> sayfasına, model seçmek için <a href="/modeller/">Modeller</a> sayfasına bakabilirsin.</p>
       <h2>Hangi takımlar için?</h2>
-      <p><a href="/hali-saha-formasi/">Halı saha forması</a>, <a href="/futbol/">futbol forması</a>, <a href="/basketbol/">basketbol forması</a>, <a href="/voleybol/">voleybol forması</a> ve <a href="/okul-turnuva-formasi/">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href="/takima-ozel-forma/">takıma özel forma</a> sayfasından yükleyip formanın üzerinde anında görebilirsin.</p>
+      <p><a href="/hali-saha-formasi/">Halı saha forması</a>, <a href="/futbol/">futbol forması</a>, <a href="/basketbol/">basketbol forması</a>, <a href="/voleybol/">voleybol forması</a> ve <a href="/okul-turnuva-formasi/">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href="/forma-tasarla/?desen=kendi">Formanı Tasarla</a> aracında yükleyip formanın üzerinde anında görebilirsin; ayrıntılar <a href="/takima-ozel-forma/">takıma özel forma</a> sayfasında.</p>
     </div></section>
     <section class="content-band"><div class="container content-band__grid">
       <div><p class="eyebrow">Gönderim planı</p><h2>İstanbul ve Türkiye geneli için güncel bilgiyi sipariş görüşmesinde doğrula.</h2></div>
