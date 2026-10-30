@@ -110,6 +110,7 @@ function schemaTags(schemas = []) {
 }
 
 const headerLinks = [
+  { name: "Anasayfa", path: "/" },
   {
     name: "Formalar",
     path: "/modeller/",
@@ -280,7 +281,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030c">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261030b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -388,6 +389,22 @@ function modelGrid(items, eagerFirst = false) {
   return `<div class="model-grid" data-model-grid>${items
     .map((model, index) => modelCard(model, eagerFirst && index === 0))
     .join("")}</div>`;
+}
+
+// HTML cevabı yapısal veri için düz metne çevirir
+function plainText(html) {
+  return html.replace(/<li>/g, " ").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+}
+
+// Anasayfadaki "Kısa Sorulara Net Cevaplar" düzeni: solda başlık, sağda açılır sorular
+function guideFaqSection({ title, accent, items }) {
+  return `<section class="guide-faq"><div class="container guide-faq__grid">
+        <div class="guide-faq__heading">
+          <h2>${escapeHtml(title)}<br><em>${escapeHtml(accent)}</em></h2>
+          <span>Burada olmayan ayrıntıları WhatsApp üzerinden iletebilirsin.</span>
+        </div>
+        <div class="guide-faq__list">${items.map(([question, answer], index) => `<details${index === 0 ? " open" : ""}><summary><b>${index + 1}.</b> ${escapeHtml(question)}</summary><div>${answer}</div></details>`).join("")}</div>
+      </div></section>`;
 }
 
 function faqBlock(items) {
@@ -1379,12 +1396,51 @@ const servicePages = [
       ["Adet ve beden", "Oyuncu listesini ve beden dağılımını aynı formda tamamla."],
       ["Tasarım onayı", "Son görsel onaylanmadan üretime geçilmez."],
     ],
-    faq: [
-      ["Forma tasarlamak ücretli mi?", "Hayır. Tasarım aracını kullanmak ve tasarım desteği ücretsizdir; ödeme yalnızca sipariş verdiğinde, üretilecek ürünler için yapılır."],
-      ["Önizlemedeki forma birebir böyle mi üretilir?", "Önizleme tasarımın genel görünümünü gösterir. Logo yerleşimi, renk tonları ve ölçüler sipariş sonrasında hazırlanan son görselde netleşir ve senin onayınla üretime geçer."],
-      ["Hangi branşlar için forma tasarlayabilirim?", "Futbol, halı saha, basketbol ve voleybol formaları tasarlanabilir. Voleybolda şorta logo ve numara eklenmez."],
-      ["Minimum kaç adet sipariş verebilirim?", "Üretim en az 5 adet ile başlar."],
-    ],
+    // Tasarım rehberi: cevaplar HTML'dir (liste içerir); yapısal veriye düz metin olarak girer
+    guideFaq: {
+      title: "Kısa Sorulara",
+      accent: "Formanı Nasıl Tasarlarsın?",
+      items: [
+        ["Tasarım bölümü nasıl çalışır?", `<p>Forma Kutusu’nun online tasarım alanında forma oluşturma işlemi 5 kolay adımda tamamlanır.</p><ul>
+          <li><strong>Branş ve Yaka Seçimi:</strong> Spor branşı ve forma yaka tipi belirlenir.</li>
+          <li><strong>Takımını Yansıtan Forma Modeli:</strong> Sizin için hazırladığımız hazır modeller, renklerini ve desenlerini özelleştirebileceğiniz şablonlar veya takımınıza özel oluşturduğunuz kendi tasarımlarınız arasından seçim yapılır.</li>
+          <li><strong>Forma Kişiselleştirme:</strong> Formanın renkleri, desenleri, takım logosu, sponsor alanları ve diğer detayları tercihlere göre özelleştirilir.</li>
+          <li><strong>Oyuncu Bilgileri:</strong> Oyuncu isimleri, forma numaraları, bedenleri ve diğer tercihler belirlenir.</li>
+          <li><strong>Sipariş Özeti:</strong> Tasarım ve oyuncu bilgileri kontrol edilerek sipariş detayları WhatsApp üzerinden iletilebilir.</li></ul>`],
+        ["Formanı nasıl tasarlarsın?", `<p>Öncelikle spor branşı ve yaka tipi seçilir. Ardından forma modeli belirlenerek tasarım kişiselleştirilebilir.</p>`],
+        ["Model seçimindeki seçenekler ne anlama gelir?", `<ul>
+          <li><strong>Renkli Modeller:</strong> Düz zeminli, sade ve geometrik desenlerden oluşan, renkleri kişiselleştirilebilen forma modelleridir.</li>
+          <li><strong>Hazır Desenler:</strong> Daha hareketli, detaylı ve tasarım odaklı hazır desen seçenekleridir.</li>
+          <li><strong>Kendi Desenim:</strong> Takıma özel hazırlanan desen veya tasarım görsellerinin yüklenebildiği alandır. En fazla 5 dosya yüklenebilir.</li></ul>`],
+        ["Forma nasıl düzenlenir?", `<p>Forma düzenleme bölümünde seçilen model, takımın tercihlerine göre kişiselleştirilir. Tasarım alanında aşağıdaki düzenlemeler yapılabilir:</p><ul>
+          <li><strong>Ana Renk:</strong> Formanın temel rengi belirlenir.</li>
+          <li><strong>Desen Rengi:</strong> Model üzerindeki desenlerin renkleri değiştirilir.</li>
+          <li><strong>Şort:</strong> Şort tasarımı ve renkleri düzenlenir.</li>
+          <li><strong>Çorap:</strong> Formaya uygun çorap seçimi yapılır.</li>
+          <li><strong>Kumaş:</strong> Kumaş seçenekleri görüntülenir.</li>
+          <li><strong>Göğüs Logoları:</strong> Takım arması ve diğer göğüs logoları yüklenir.</li>
+          <li><strong>Sponsor:</strong> Sponsor görselleri eklenir.</li>
+          <li><strong>Sırt Yazısı ve Numara:</strong> Sırt yazısı ve numara detayları özelleştirilir.</li>
+          <li><strong>Kaleci Forması:</strong> Kaleci forması seçenekleri düzenlenir.</li></ul>
+          <p>Yapılan değişiklikler Takım, Ön ve Arka görünümlerinden kontrol edilebilir. Tasarım görseli ayrıca indirilebilir.</p>`],
+        ["Oyuncu bilgileri nasıl eklenir?", `<p>Oyuncu bilgileri bölümünde, takımdaki her oyuncunun forma detayları ayrı ayrı belirlenir. Bu alanda aşağıdaki işlemler yapılabilir:</p><ul>
+          <li><strong>Sırt İsmi:</strong> Oyuncunun formasında yer alacak isim girilir.</li>
+          <li><strong>Sırt Numarası:</strong> Oyuncuya özel forma numarası belirlenir.</li>
+          <li><strong>Kaleci:</strong> Kaleci olan oyuncular işaretlenir.</li>
+          <li><strong>Beden:</strong> Her oyuncunun forma bedeni seçilir.</li>
+          <li><strong>Şort:</strong> Oyuncu bazında şort tercihi belirlenir.</li>
+          <li><strong>Çorap:</strong> Oyuncu bazında çorap tercihi yapılır.</li></ul>
+          <p>Oyuncu Ekle seçeneğiyle listeye yeni oyuncular eklenebilir, Sil seçeneğiyle oyuncular listeden çıkarılabilir. Girilen bilgiler doğrultusunda toplam oyuncu ve kaleci sayısı görüntülenir. Sipariş özeti alanında ise toplam tutar takip edilebilir.</p>`],
+        ["Sipariş nasıl tamamlanır?", `<p>Sipariş bölümünde hazırlanan forma tasarımı, oyuncu bilgileri ve sipariş detayları son kez kontrol edilir. Bu alanda aşağıdaki işlemler yapılabilir:</p><ul>
+          <li><strong>Oyuncu Listesi:</strong> Oyuncu isimleri, sırt numaraları, bedenleri, kaleci, şort ve çorap tercihleri görüntülenir.</li>
+          <li><strong>Sipariş Detayları:</strong> Seçilen branş, model, yaka tipi, kumaş, logo, sponsor ve diğer tasarım özellikleri özetlenir.</li>
+          <li><strong>Toplam Tutar:</strong> Forma adedi ve seçilen ürünlere göre hesaplanan toplam tutar görüntülenir.</li>
+          <li><strong>Sipariş Notu:</strong> Teslim tarihi talepleri ve özel istekler belirtilebilir.</li>
+          <li><strong>Tasarımı İndir:</strong> Hazırlanan forma tasarımının görseli indirilebilir.</li>
+          <li><strong>Siparişi WhatsApp'tan Gönder:</strong> Sipariş bilgileri WhatsApp üzerinden Forma Kutusu ekibine iletilir.</li></ul>
+          <p>Sipariş gönderildiğinde tasarım görseli otomatik olarak eklenmez. İndirilen görsel WhatsApp görüşmesine ayrıca eklenebilir. Sipariş detayları ekip tarafından değerlendirilerek süreç devam ettirilir.</p>`],
+      ],
+    },
     models,
   },
   {
@@ -1478,7 +1534,7 @@ for (const service of servicePages) {
         { name: "Ana Sayfa", path: "/" },
         { name: service.title, path: service.route },
       ]),
-      faqSchema(service.faq),
+      faqSchema(service.guideFaq ? service.guideFaq.items.map(([q, a]) => [q, plainText(a)]) : service.faq),
     ],
     body: `
       ${breadcrumbs([
@@ -1503,7 +1559,7 @@ for (const service of servicePages) {
         <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
       </div></section>
       <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>
-      <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>
+      ${service.guideFaq ? guideFaqSection(service.guideFaq) : `<section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>`}
       ${finalCta()}`,
   });
 }

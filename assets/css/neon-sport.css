@@ -3014,3 +3014,103 @@ body .mobile-cta.mobile-cta--pair {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Forma tasarla: anasayfadaki "Kısa Sorulara Net Cevaplar" düzeninde tasarım rehberi */
+.guide-faq {
+  padding: 66px 0;
+}
+
+.guide-faq__grid {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.guide-faq__heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Unbounded", "Arial Black", ui-sans-serif, sans-serif;
+  font-size: clamp(28px, 2.7vw, 42px);
+  font-style: italic;
+}
+
+.guide-faq__heading h2 em {
+  background: var(--signal-gradient);
+  background-clip: text;
+  color: transparent;
+  font-style: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.guide-faq__heading > span {
+  display: block;
+  max-width: 470px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.guide-faq__list {
+  display: grid;
+  gap: 10px;
+}
+
+.guide-faq__list details {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.guide-faq__list details[open] {
+  border-color: var(--cyan);
+  background: var(--surface-2);
+}
+
+.guide-faq__list summary {
+  padding: 20px 22px;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.guide-faq__list summary b {
+  color: var(--volt);
+}
+
+.guide-faq__list details > div {
+  padding: 0 22px 20px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.guide-faq__list details > div p {
+  margin: 0 0 10px;
+}
+
+.guide-faq__list ul {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 10px;
+  padding-left: 1.1rem;
+}
+
+.guide-faq__list li strong {
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .guide-faq {
+    padding: 48px 0;
+  }
+
+  .guide-faq__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
