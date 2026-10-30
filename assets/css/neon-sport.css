@@ -2979,3 +2979,38 @@ body .mobile-cta.mobile-cta--pair {
     font-size: clamp(15px, 4.8vw, 20px);
   }
 }
+
+/* Model sayfası: sipariş formu yerine tek tasarım aracına giden buton */
+.product-detail__design {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.product-detail__design .button {
+  width: 100%;
+  min-height: 3.4rem;
+  justify-content: center;
+}
+
+.product-detail__design p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+/* Hizmet sayfası: tasarım aracına giden bant */
+.design-cta .download-band__inner {
+  grid-template-columns: minmax(0, 1.6fr) minmax(14rem, 1fr);
+  align-items: center;
+}
+
+.design-cta h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+}
+
+@media (max-width: 720px) {
+  .design-cta .download-band__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

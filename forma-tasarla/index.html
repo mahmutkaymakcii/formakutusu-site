@@ -39,14 +39,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:image" content="https://formakutusu.com/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030a">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030b">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://formakutusu.com/"},{"@type":"ListItem","position":2,"name":"Forma Tasarla: Online Forma Tasarım Aracı","item":"https://formakutusu.com/forma-tasarla/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Forma tasarlamak ücretli mi?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Tasarım aracını kullanmak ve tasarım desteği ücretsizdir; ödeme yalnızca sipariş verdiğinde, üretilecek ürünler için yapılır."}},{"@type":"Question","name":"Önizlemedeki forma birebir böyle mi üretilir?","acceptedAnswer":{"@type":"Answer","text":"Önizleme tasarımın genel görünümünü gösterir. Logo yerleşimi, renk tonları ve ölçüler sipariş sonrasında hazırlanan son görselde netleşir ve senin onayınla üretime geçer."}},{"@type":"Question","name":"Hangi branşlar için forma tasarlayabilirim?","acceptedAnswer":{"@type":"Answer","text":"Futbol, halı saha, basketbol ve voleybol formaları tasarlanabilir. Voleybolda şorta logo ve numara eklenmez."}},{"@type":"Question","name":"Minimum kaç adet sipariş verebilirim?","acceptedAnswer":{"@type":"Answer","text":"Üretim en az 5 adet ile başlar."}}]}</script>
-  <script src="/assets/js/site.js?v=20261025b" defer></script>
-  <script src="/assets/js/forma-modeller.js?v=20261025b" defer></script>
-  <script src="/assets/js/forma-onizleme.js?v=20261025b" defer></script>
-  <script src="/assets/js/forma-sihirbaz.js?v=20261025b" defer></script>
+  <script src="/assets/js/site.js?v=20261030b" defer></script>
+  <script src="/assets/js/forma-modeller.js?v=20261030b" defer></script>
+  <script src="/assets/js/forma-onizleme.js?v=20261030b" defer></script>
+  <script src="/assets/js/forma-sihirbaz.js?v=20261030b" defer></script>
 </head>
 <body class="service-page">
 <!-- Google Tag Manager (noscript) -->
@@ -70,8 +70,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Ana menü" data-site-nav>
         <div class="site-nav__group" data-nav-group><a href="/modeller/">Formalar</a><button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sports" aria-label="Formalar alt menüsünü aç"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="site-nav__submenu" id="nav-sports"><a href="/futbol/">Futbol</a><a href="/basketbol/">Basketbol</a><a href="/voleybol/">Voleybol</a><a href="/hali-saha-formasi/">Halı Saha</a><a href="/modeller/">Tüm Modeller</a></div></div>
-        <a href="/forma-sort-takimi/">Forma + Şort</a>
-        <a href="/takima-ozel-forma/">Özel Üretim</a>
+        <a href="/forma-tasarla/" aria-current="page">Formanı Tasarla</a>
         <a href="/nasil-siparis-verilir/">Nasıl Sipariş Verilir?</a>
         <a href="/hakkimizda/">Hakkımızda</a>
         <a href="/iletisim/">İletişim</a>
@@ -115,6 +114,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <form class="order-form wizard" data-order-form data-wizard data-model="Forma tasarla" data-sport-label="Forma tasarla" data-preview="color" novalidate>
           <nav class="wizard__tabs" aria-label="Tasarım adımları"><button type="button" class="wizard__tab" data-wizard-go="1" aria-current="step"><span>1.</span> Yaka Seçimi</button><button type="button" class="wizard__tab" data-wizard-go="2"><span>2.</span> Model Seçimi</button><button type="button" class="wizard__tab" data-wizard-go="3"><span>3.</span> Forma Düzenleme</button><button type="button" class="wizard__tab" data-wizard-go="4"><span>4.</span> Oyuncu Bilgileri</button><button type="button" class="wizard__tab" data-wizard-go="5"><span>5.</span> Sipariş</button></nav>
           <input type="hidden" name="quantity" value="5" data-order-quantity>
+          <input type="hidden" name="ref-model" value="">
 
           <section class="wizard__step" data-step="1" aria-label="Yaka seçimi">
             <h2 class="wizard__title">Branşını ve yakanı seç</h2>
@@ -135,6 +135,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <section class="wizard__step" data-step="2" aria-label="Model seçimi" hidden>
             <h2 class="wizard__title">Modelini seç</h2>
             <p class="wizard__lead">Fiyat 300₺'den başlar · En az 5 adet · Kumaş: Poly Mesh</p>
+            <p class="order-form__hint" data-ref-note hidden></p>
             <div class="pattern-tabs" role="tablist" aria-label="Model türü">
               <button type="button" role="tab" data-pattern-mode="color" aria-selected="true">Renkli modeller</button>
               <button type="button" role="tab" data-pattern-mode="gallery" aria-selected="false">Hazır desenler</button>
@@ -337,6 +338,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="/voleybol/">Voleybol formaları</a>
         <a href="/modeller/">Tüm modeller</a>
         <a href="/forma-tasarla/">Forma tasarla</a>
+        <a href="/forma-sort-takimi/">Forma şort takımı</a>
+        <a href="/takima-ozel-forma/">Takıma özel forma</a>
         <a href="/kaleci-formasi/">Kaleci forması</a>
         <a href="/cocuk-formasi/">Çocuk forması</a>
       </div>
