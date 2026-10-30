@@ -103,6 +103,7 @@ const contextual = [
   {
     path: "rehber/forma-yaptirma-rehberi/index.html",
     links: [
+      { href: "/", label: "Forma yaptırma" },
       { href: "/takima-ozel-forma/", label: "Takıma özel forma" },
       { href: "/teklif/", label: "Forma fiyatları" },
       { href: "/forma-yaptirma-istanbul/", label: "İstanbul’da forma yaptırma" },
