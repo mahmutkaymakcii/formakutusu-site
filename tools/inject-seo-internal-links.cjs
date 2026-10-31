@@ -62,8 +62,7 @@ function addGuideHubCommercialLinks(html) {
     <section class="guide-section" data-seo-related="guide-commercial"><div class="container">
       <div class="section-intro"><p class="eyebrow">İlgili hizmetler</p><h2>Rehberden sipariş sayfalarına geç.</h2><p>İhtiyacına göre doğrudan ilgili forma üretim ve planlama sayfasını aç.</p></div>
       <div class="guide-grid">
-        <a class="guide-card" href="/forma-yaptirma-istanbul/"><span>04</span><h2>İstanbul’da Forma Yaptırma</h2><p>İstanbul’daki takımlar için model, adet, beden ve sipariş adımlarını incele.</p><strong>Sayfayı aç →</strong></a>
-        <a class="guide-card" href="/okul-turnuva-formasi/"><span>05</span><h2>Okul ve Turnuva Forması</h2><p>Kalabalık kadrolar ve farklı bedenler için sipariş hazırlığını planla.</p><strong>Sayfayı aç →</strong></a>
+        <a class="guide-card" href="/okul-turnuva-formasi/"><span>04</span><h2>Okul ve Turnuva Forması</h2><p>Kalabalık kadrolar ve farklı bedenler için sipariş hazırlığını planla.</p><strong>Sayfayı aç →</strong></a>
       </div>
     </div></section>
     <section class="final-cta">`;
@@ -106,7 +105,6 @@ const contextual = [
       { href: "/", label: "Forma yaptırma" },
       { href: "/takima-ozel-forma/", label: "Takıma özel forma" },
       { href: "/teklif/", label: "Forma fiyatları" },
-      { href: "/forma-yaptirma-istanbul/", label: "İstanbul’da forma yaptırma" },
     ],
   },
   {
