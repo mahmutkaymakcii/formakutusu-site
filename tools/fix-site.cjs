@@ -85,7 +85,7 @@ function createIstanbulPage(chrome) {
       logo: `${origin}/assets/brand/formakutusu.webp`,
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+905348578836",
+        telephone: "+905432321853",
         contactType: "sales",
         availableLanguage: "Turkish",
       },

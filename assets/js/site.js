@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const WHATSAPP_NUMBER = "905348578836";
+  const WHATSAPP_NUMBER = "905432321853";
   const FAVORITES_KEY = "forma-kutusu-favorites-v1";
   const CONSENT_KEY = "forma-kutusu-consent-v1";
   const MOBILE_NAV_QUERY = "(max-width: 1179px)";
