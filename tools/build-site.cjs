@@ -185,7 +185,8 @@ function header(routePath) {
 
 function mobileCtaBar(type) {
   if (type === "whatsapp") {
-    return `<nav class="mobile-cta mobile-cta--pair mobile-cta--wa" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="${whatsappUrl("Merhaba, takımımız için forma teklifi almak istiyorum.")}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.5 8.5c.3 2.9 2.1 5 5 6.3l1.3-1.3 2 1-.5 1.6c-4.2.2-8.3-3.9-8-8.1l1.6-.5 1 2-1.4 1"/></svg> WhatsApp’tan Teklif Al</a><a class="mobile-cta__secondary" href="#modeller">Modeller</a></nav>`;
+    // Satış sayfaları: biri tasarıma, biri WhatsApp'a. Üstteki butonlar görünürken gizlenir (site.js initSalesCta).
+    return `<nav class="mobile-cta mobile-cta--pair mobile-cta--wa" aria-label="Hızlı işlemler" data-sales-cta><a class="mobile-cta__primary" href="/forma-tasarla/">Formanı Tasarla <span aria-hidden="true">✎</span></a><a class="mobile-cta__secondary" href="${whatsappUrl("Merhaba, takımımız için forma teklifi almak istiyorum.")}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.5 8.5c.3 2.9 2.1 5 5 6.3l1.3-1.3 2 1-.5 1.6c-4.2.2-8.3-3.9-8-8.1l1.6-.5 1 2-1.4 1"/></svg> WhatsApp</a></nav>`;
   }
   return `<nav class="mobile-cta mobile-cta--pair" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="/forma-tasarla/">Tasarla <span aria-hidden="true">→</span></a><a class="mobile-cta__secondary" href="/teklif/">Fiyatları Gör</a></nav>`;
 }
@@ -290,9 +291,9 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261031a">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261031b">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261030b" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261031a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -492,7 +493,7 @@ function salesLandingBody({ crumbs, eyebrow, h1, lead, heroModels, gridModels, w
             <h1>${escapeHtml(h1)}</h1>
             <p class="lead">${escapeHtml(lead)}</p>
             <ul class="sales-hero__facts" aria-label="Öne çıkanlar"><li>Ücretsiz tasarım</li><li>5–7 iş günü üretim</li><li>Min. 5 adet</li></ul>
-            <div class="button-row">
+            <div class="button-row" data-sales-hero-actions>
               <a class="button sales-hero__wa" href="${wa}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Teklif Al</a>
               <a class="button button--ghost" href="#modeller">Modelleri Gör</a>
             </div>

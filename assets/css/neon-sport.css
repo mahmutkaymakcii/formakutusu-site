@@ -3349,8 +3349,11 @@ body .mobile-cta.mobile-cta--pair {
 
 /* Mobil sabit WhatsApp çubuğu */
 .mobile-cta--wa .mobile-cta__primary {
-  flex: 1.6;
-  font-size: 13px;
+  flex: 1.4;
+}
+
+.mobile-cta--wa .mobile-cta__secondary {
+  border-color: rgb(37 211 102 / 55%);
 }
 
 .mobile-cta--wa svg {

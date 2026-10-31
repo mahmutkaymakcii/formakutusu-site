@@ -984,4 +984,18 @@
   initCatalog();
   initGallery();
   initProductGallery();
+  initSalesCta();
+
+  // Satış sayfaları: sayfa başındaki butonlar ekrandayken alttaki sabit çubuk gizlenir (çakışma ve tekrar olmasın).
+  function initSalesCta() {
+    const bar = document.querySelector("[data-sales-cta]");
+    const actions = document.querySelector("[data-sales-hero-actions]");
+    if (!bar || !actions || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        bar.classList.toggle("is-off", entry.isIntersecting || entry.boundingClientRect.top > 0);
+      });
+    });
+    observer.observe(actions);
+  }
 })();
