@@ -3114,3 +3114,306 @@ body .mobile-cta.mobile-cta--pair {
     gap: 32px;
   }
 }
+
+/* ---- SEO satış sayfaları (ortak blok: .sales-page) ----
+   Üst satış alanı → fiyat kartları → popüler modeller → teslim edilen takımlar
+   → "Devamını oku" SEO metni (details.seo-fold) → SSS. */
+.sales-hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.25rem, 3vw, 2.5rem) 0 clamp(2rem, 4vw, 3.5rem);
+}
+
+.sales-hero__grid {
+  display: grid;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+}
+
+.sales-page .sales-hero h1 {
+  max-width: 18ch;
+  margin: 0 0 0.85rem;
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+}
+
+.sales-page .section-intro h2 {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.sales-hero .lead {
+  max-width: 52ch;
+  margin: 0;
+}
+
+.sales-hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sales-hero__facts li {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgb(199 255 47 / 30%);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.sales-hero .button-row {
+  margin-top: 1.5rem;
+}
+
+.sales-hero__gallery {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sales-hero__shot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--surface-2);
+  aspect-ratio: 4 / 5;
+}
+
+.sales-hero__shot:nth-child(even) {
+  transform: translateY(1.25rem);
+}
+
+.sales-hero__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.sales-hero__shot:hover img {
+  transform: scale(1.04);
+}
+
+.sales-hero__shot span {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  background: rgb(8 10 14 / 78%);
+  color: var(--text);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.sales-prices,
+.sales-delivered,
+.seo-fold-section {
+  padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.sales-prices .pricing-grid.sales-prices__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sales-prices .price-card {
+  min-height: 0;
+  gap: 0.75rem;
+}
+
+.sales-prices .price-card strong {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+}
+
+.sales-prices .price-card small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.sales-prices__note {
+  margin: 1rem 0 0;
+  color: var(--muted-strong);
+  font-size: 0.9rem;
+}
+
+.sales-prices__note a,
+.sales-delivered__more a {
+  color: var(--volt);
+  font-weight: 800;
+}
+
+.sales-delivered__grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sales-delivered__item {
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--surface-2);
+  cursor: zoom-in;
+  aspect-ratio: 10 / 7;
+}
+
+.sales-delivered__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.sales-delivered__item:hover img {
+  transform: scale(1.04);
+}
+
+.sales-delivered__more {
+  margin: 1rem 0 0;
+}
+
+/* "Devamını oku" katlanır SEO metni: SSS'nin hemen üstünde, 14–15px */
+.seo-fold {
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--surface);
+}
+
+.seo-fold summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.seo-fold summary::-webkit-details-marker {
+  display: none;
+}
+
+.seo-fold summary b {
+  flex: none;
+  color: var(--volt);
+  font-size: 0.85rem;
+}
+
+.seo-fold summary b::after {
+  content: " ↓";
+}
+
+.seo-fold[open] summary b {
+  font-size: 0;
+}
+
+.seo-fold[open] summary b::after {
+  content: "Kapat ↑";
+  font-size: 0.85rem;
+}
+
+.seo-fold__body {
+  max-width: none;
+  padding: 0 1.25rem 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.seo-fold__body p,
+.seo-fold__body li {
+  font-size: 0.9375rem;
+}
+
+.seo-fold__body h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+}
+
+.seo-fold__body ul {
+  padding-left: 1.1rem;
+  color: var(--muted-strong);
+}
+
+.sales-page .seo-fold-section + .faq-section {
+  padding-top: clamp(1rem, 3vw, 2rem);
+}
+
+/* Mobil sabit WhatsApp çubuğu */
+.mobile-cta--wa .mobile-cta__primary {
+  flex: 1.6;
+  font-size: 13px;
+}
+
+.mobile-cta--wa svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 52rem) {
+  .sales-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sales-hero__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sales-hero__shot:nth-child(even) {
+    transform: none;
+  }
+
+  .sales-delivered__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 35rem) {
+  .sales-page .sales-hero h1 {
+    font-size: clamp(1.75rem, 8vw, 2.2rem);
+  }
+
+  .sales-hero .button-row {
+    display: grid;
+    width: 100%;
+  }
+
+  .sales-hero .button {
+    width: 100%;
+  }
+
+  .sales-prices .pricing-grid.sales-prices__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  .sales-prices .price-card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 1rem 1.15rem;
+    border-radius: 1rem;
+  }
+
+  .sales-prices .price-card strong {
+    font-size: 2rem;
+  }
+
+  .sales-prices .price-card small {
+    width: 100%;
+  }
+}

@@ -183,7 +183,14 @@ function header(routePath) {
   </header>`;
 }
 
-function footer() {
+function mobileCtaBar(type) {
+  if (type === "whatsapp") {
+    return `<nav class="mobile-cta mobile-cta--pair mobile-cta--wa" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="${whatsappUrl("Merhaba, takımımız için forma teklifi almak istiyorum.")}" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.5 8.5c.3 2.9 2.1 5 5 6.3l1.3-1.3 2 1-.5 1.6c-4.2.2-8.3-3.9-8-8.1l1.6-.5 1 2-1.4 1"/></svg> WhatsApp’tan Teklif Al</a><a class="mobile-cta__secondary" href="#modeller">Modeller</a></nav>`;
+  }
+  return `<nav class="mobile-cta mobile-cta--pair" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="/forma-tasarla/">Tasarla <span aria-hidden="true">→</span></a><a class="mobile-cta__secondary" href="/teklif/">Fiyatları Gör</a></nav>`;
+}
+
+function footer(mobileCta) {
   return `
   <footer class="site-footer">
     <div class="container site-footer__grid">
@@ -227,7 +234,7 @@ function footer() {
       <a href="/iletisim/">İletişim</a>
     </div>
   </footer>
-  <nav class="mobile-cta mobile-cta--pair" aria-label="Hızlı işlemler"><a class="mobile-cta__primary" href="/forma-tasarla/">Tasarla <span aria-hidden="true">→</span></a><a class="mobile-cta__secondary" href="/teklif/">Fiyatları Gör</a></nav>`;
+  ${mobileCtaBar(mobileCta)}`;
 }
 
 function pageShell({
@@ -239,6 +246,7 @@ function pageShell({
   pageClass = "",
   preloadImage = "",
   scripts = [],
+  mobileCta = "",
 }) {
   const canonical = `${site.origin}${routePath}`;
   const fullTitle = title.includes("Forma Kutusu")
@@ -282,7 +290,7 @@ function pageShell({
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030c">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261031a">
   ${schemaTags(schemas)}
   <script src="/assets/js/site.js?v=20261030b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
@@ -292,7 +300,7 @@ function pageShell({
   <main id="main-content">
     ${body}
   </main>
-  ${footer()}
+  ${footer(mobileCta)}
 </body>
 </html>
 `;
@@ -441,6 +449,90 @@ function finalCta(title = "Takımına yakışan formayı birlikte hazırlayalım
       <div class="button-row"><a class="button" href="/forma-tasarla/">Tasarla →</a><a class="button button--ghost" href="/teklif/">Fiyatları Gör</a></div>
     </div>
   </section>`;
+}
+
+// ---- SEO satış sayfası ortak bloğu ----
+// Sıra: satış girişi (H1 + 4 forma görseli + butonlar) → fiyat kartları → popüler modeller
+// → teslim edilen takımlar → [ekstra] → "Devamını oku" SEO metni → SSS → son çağrı.
+// Mobilde sabit WhatsApp çubuğu pageShell({ mobileCta: "whatsapp" }) ile gelir.
+const salesPrices = [
+  ["Forma", "300₺", "Tek üst forma"],
+  ["Forma + Şort", "450₺", "En çok tercih edilen"],
+  ["Forma + Şort + Çorap", "480₺", "Komple takım"],
+];
+
+const salesDeliveredItems = [
+  ["/assets/references/ref-1.webp", "Forma Kutusu tarafından üretilen takım formaları"],
+  ["/assets/references/ref-4.webp", "Kırmızı takım formaları gerçek üretim örneği"],
+  ["/assets/references/ref-9.webp", "Siyah forma ve şort gerçek üretim örneği"],
+  ["/assets/references/ref-15.webp", "Siyah ve mavi takım formaları gerçek üretim örneği"],
+  ["/assets/references/ref-22.webp", "Teslim edilen takım formaları gerçek üretim örneği"],
+  ["/assets/references/ref-24.webp", "Teslim edilen forma ve şort takımı gerçek üretim örneği"],
+];
+
+function modelsById(ids) {
+  return ids.map((id) => models.find((model) => model.id === id)).filter(Boolean);
+}
+
+function salesLandingBody({ crumbs, eyebrow, h1, lead, heroModels, gridModels, whatsappMessage, afterModels = "", seoTitle, seoHtml, faqHtml }) {
+  const wa = whatsappUrl(whatsappMessage);
+  const heroImages = heroModels
+    .map((model, index) => {
+      const image = modelImageAttributes(model, "(max-width: 52rem) 46vw, 22vw");
+      const loading = index === 0 ? 'loading="eager" fetchpriority="high"' : index < 2 ? 'loading="eager"' : 'loading="lazy"';
+      return `<a class="sales-hero__shot" href="${modelUrl(model)}" aria-label="${model.id} modelini incele"><img src="${model.image}"${image.responsive} alt="${escapeHtml(model.alt)}" width="${image.width}" height="${image.height}" ${loading}><span>${model.id}</span></a>`;
+    })
+    .join("");
+  return `
+      ${breadcrumbs(crumbs)}
+      <section class="sales-hero">
+        <div class="container sales-hero__grid">
+          <div class="sales-hero__content">
+            <p class="eyebrow">${escapeHtml(eyebrow)}</p>
+            <h1>${escapeHtml(h1)}</h1>
+            <p class="lead">${escapeHtml(lead)}</p>
+            <ul class="sales-hero__facts" aria-label="Öne çıkanlar"><li>Ücretsiz tasarım</li><li>5–7 iş günü üretim</li><li>Min. 5 adet</li></ul>
+            <div class="button-row">
+              <a class="button sales-hero__wa" href="${wa}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Teklif Al</a>
+              <a class="button button--ghost" href="#modeller">Modelleri Gör</a>
+            </div>
+          </div>
+          <div class="sales-hero__gallery" aria-label="Örnek forma modelleri">${heroImages}</div>
+        </div>
+      </section>
+      <section class="sales-prices" aria-labelledby="sales-prices-title"><div class="container">
+        <div class="section-intro"><p class="eyebrow">Fiyatlar</p><h2 id="sales-prices-title">Adet başı net fiyat.</h2></div>
+        <div class="pricing-grid sales-prices__grid">${salesPrices
+          .map(([label, price, note]) => `<article class="price-card"><p>${escapeHtml(label.toLocaleUpperCase("tr-TR"))}</p><strong>${price}</strong><small>${escapeHtml(note)}</small></article>`)
+          .join("")}</div>
+        <p class="sales-prices__note">Minimum 5 adet · Tasarım onayından sonra 5–7 iş günü üretim · Kaleci forması +50₺ · <a href="/teklif/">Tüm fiyat detayları</a></p>
+      </div></section>
+      <section class="models-section sales-models" id="modeller"><div class="container">
+        ${sectionIntro("Popüler modeller", "Takımların en çok seçtiği modeller.", "Renkleri, logo, isim ve numarayı takımına göre uyarlıyoruz.")}
+        ${modelGrid(gridModels)}
+        <div class="section-action"><a class="button button--ghost" href="/modeller/">Tüm Modeller</a></div>
+      </div></section>
+      <section class="sales-delivered" aria-labelledby="sales-delivered-title"><div class="container">
+        <div class="section-intro"><p class="eyebrow">Teslim edilen takımlar</p><h2 id="sales-delivered-title">Tasarımdan sahaya.</h2><p>Forma Kutusu ile hazırlanıp teslim edilen gerçek takım formaları.</p></div>
+        <div class="sales-delivered__grid">${salesDeliveredItems
+          .map(([src, alt]) => `<button class="sales-delivered__item" type="button" data-gallery-item="${src}" data-gallery-alt="${escapeHtml(alt)}"><img src="${src}" alt="${escapeHtml(alt)}" width="1000" height="700" loading="lazy"></button>`)
+          .join("")}</div>
+        <p class="sales-delivered__more"><a href="${site.instagram}" target="_blank" rel="noopener noreferrer">Daha fazlası Instagram’da →</a></p>
+      </div></section>
+      <dialog class="gallery-dialog" data-gallery-dialog aria-label="Üretim görseli">
+        <button type="button" class="dialog-close" data-dialog-close aria-label="Görseli kapat">×</button>
+        <img src="/assets/references/ref-1.webp" alt="" width="1000" height="700" data-gallery-image>
+        <p data-gallery-caption></p>
+      </dialog>
+      ${afterModels}
+      <section class="seo-fold-section"><div class="container">
+        <details class="seo-fold">
+          <summary><span>${escapeHtml(seoTitle)}</span><b>Devamını oku</b></summary>
+          <div class="seo-fold__body prose">${seoHtml}</div>
+        </details>
+      </div></section>
+      ${faqHtml}
+      ${finalCta()}`;
 }
 
 function writePage(routePath, options) {
@@ -1310,6 +1402,10 @@ for (const model of models) {
   });
 }
 
+const salesFootballModels = modelsById(["FK-031", "FK-007", "FK-001", "FK-002", "FK-005", "FK-027", "FK-019", "FK-009"]);
+const salesMixedModels = modelsById(["FK-031", "FK-007", "FK-001", "FK-002", "FK-005", "FK-B-001", "FK-B-004", "FK-V-001"]);
+const salesHeroModels = modelsById(["FK-031", "FK-007", "FK-027", "FK-019"]);
+
 const servicePages = [
   {
     route: "/hali-saha-formasi/",
@@ -1334,6 +1430,10 @@ const servicePages = [
   },
   {
     route: "/takima-ozel-forma/",
+    seoIntro: [
+      "Takıma özel formada hazır modele bağlı kalmazsın: kendi desenini yükleyebilir, katalogdaki bir modeli takım renklerine göre yeniden düzenletebilir ya da aklındaki fikri anlatıp sıfırdan tasarlatabilirsin. Tasarım desteği ücretsizdir ve onay vermeden üretime geçilmez.",
+      "Tasarım onaylandıktan sonra imalat 5–7 iş günü sürer; formalar Türkiye geneline kargoyla gönderilir. Arma, sponsor, isim ve numara tasarım aşamasında formaya yerleştirilir.",
+    ],
     title: "Takıma Özel Forma Yaptırma",
     description: "Takımınıza özel forma tasarımı için model, renk, logo, sponsor, isim, numara ve beden bilgilerini planlayın; siparişinizi hazırlayın.",
     eyebrow: "Özel tasarım",
@@ -1355,6 +1455,10 @@ const servicePages = [
   },
   {
     route: "/forma-sort-takimi/",
+    seoIntro: [
+      "Forma şort takımında üst ve alt aynı tasarım dilinde hazırlanır: şort rengi, paça logosu ve numarası formanla uyumlu olacak şekilde serbestçe düzenlenir. Hazır modelden başlayabilir ya da kendi desenini kullanabilirsin.",
+      "Forma + şort takımı adet başına 450₺, çorapla birlikte 480₺’dir. Tasarım onayından sonra imalat 5–7 iş günü sürer.",
+    ],
     title: "Forma Şort Takımı Yaptırma",
     description: "Takımınıza özel forma ve şort takımını model, renk, logo, isim, numara, adet ve beden dağılımıyla birlikte planlayın.",
     eyebrow: "Forma + şort",
@@ -1440,6 +1544,10 @@ const servicePages = [
   },
   {
     route: "/kaleci-formasi/",
+    gridModels: salesFootballModels,
+    seoIntro: [
+      "Kaleci formasını takımınla aynı siparişte, istediğin renk ve desenle hazırlıyoruz. Takım formasıyla uyumlu ya da tamamen ayrı bir tasarım seçebilirsin; tasarım desteği ücretsizdir.",
+    ],
     title: "Kaleci Forması Yaptırma",
     description: "Takımınıza özel uzun kollu kaleci forması yaptırın. Kaleci forması, takım siparişine kaleci başına 50₺ farkla eklenir; isim, numara ve logo uygulanır.",
     eyebrow: "Kaleci forması",
@@ -1468,6 +1576,9 @@ const servicePages = [
   },
   {
     route: "/cocuk-formasi/",
+    seoIntro: [
+      "Çocuk formalarında da tasarım tamamen size kalır: okulun ya da kulübün renkleri, arması, isim ve numaralar istediğiniz gibi uygulanır. Tasarım onayından sonra imalat 5–7 iş günü sürer.",
+    ],
     title: "Çocuk Forması Yaptırma",
     description: "Okul, kulüp ve futbol okulu takımları için isimli numaralı çocuk forması yaptırın. 116–164 çocuk bedenleri yetişkinle aynı fiyata, aynı siparişte.",
     eyebrow: "Çocuk forması",
@@ -1495,6 +1606,10 @@ const servicePages = [
   },
   {
     route: "/okul-turnuva-formasi/",
+    seoIntro: [
+      "Okul takımları, şirket turnuvaları ve organizasyonlar için forma tasarımını kurumun renklerine, logosuna ve sponsorlarına göre serbestçe hazırlıyoruz. Tasarım desteği ücretsizdir.",
+      "Turnuva tarihi yaklaşan ekipler için hızlı teslim önemlidir: tasarım onayından sonra imalat 5–7 iş günü sürer. Hedef tarihini ilk mesajda paylaşman planlamayı kolaylaştırır.",
+    ],
     title: "Okul Takımı ve Turnuva Forması Yaptırma",
     description: "Okul takımı, şirket turnuvası ve organizasyonlar için forma yaptırma sürecini takım listesi, farklı bedenler ve teslim planıyla yönetin.",
     eyebrow: "Okul ve turnuva",
@@ -1513,49 +1628,101 @@ const servicePages = [
       ["CSV şablonu var mı?", "Evet. Beden planlama sayfasından takım listesi şablonunu indirebilirsin."],
     ],
   },
+  {
+    route: "/forma-yaptirma-istanbul/",
+    title: "Forma Yaptırma İstanbul",
+    metaTitle: "Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu",
+    h1: "İstanbul’da Forma Yaptırma",
+    description: "İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.",
+    eyebrow: "İstanbul'daki takımlar için",
+    copy: "Futbol, halı saha, basketbol ve voleybol takımlarına özel forma. Renk, logo, isim ve numara tamamen sana kalsın; onaydan sonra 5–7 iş gününde üretim.",
+    organization: true,
+    waTopic: "İstanbul’da forma yaptırmak",
+    seoTitle: "İstanbul’da forma yaptırma hakkında",
+    faqTitle: "İstanbul forma siparişi hakkında",
+    seoIntro: [
+      "İstanbul Zeytinburnu merkezli Forma Kutusu, 2017’den beri takımlara özel forma tasarlıyor; formalar NORA markasıyla üretiliyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.",
+      "<a href=\"/\">Forma yaptırma</a> sürecinde tasarım tamamen sana kalır: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.",
+    ],
+    guide: [
+      ["İstanbul’da forma fiyatları", "Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına, model seçmek için <a href=\"/modeller/\">Modeller</a> sayfasına bakabilirsin."],
+      ["Hangi takımlar için?", "<a href=\"/hali-saha-formasi/\">Halı saha forması</a>, <a href=\"/futbol/\">futbol forması</a>, <a href=\"/basketbol/\">basketbol forması</a>, <a href=\"/voleybol/\">voleybol forması</a> ve <a href=\"/okul-turnuva-formasi/\">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href=\"/forma-tasarla/?desen=kendi\">Formanı Tasarla</a> aracında yükleyip formanın üzerinde anında görebilirsin; ayrıntılar <a href=\"/takima-ozel-forma/\">takıma özel forma</a> sayfasında."],
+    ],
+    cards: [
+      ["Model ve branş", "Futbol, basketbol veya voleybol model kodunu seç."],
+      ["Takım kimliği", "Renk, arma, sponsor, isim ve numara bilgilerini hazırla."],
+      ["Adet ve beden", "Oyuncu listesini kontrol ederek beden dağılımını netleştir."],
+      ["Tasarım onayı", "Hazırlanan görsel onaylanmadan üretime geçilmez."],
+    ],
+    faq: [
+      ["İstanbul için minimum forma siparişi kaç adettir?", "Takım üretimi en az 5 adet ile başlar. Ürün fiyatlarını Fiyatlar sayfasında inceleyebilirsin."],
+      ["İstanbul dışındaki takımlar da sipariş verebilir mi?", "Evet. Siparişler Türkiye genelinde planlanabilir. İmalat tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir."],
+      ["Tasarımı üretimden önce görebilir miyim?", "Evet. Renk, logo, sponsor, isim ve numara detayları kontrol edilip tasarım onayı alınmadan üretime geçilmez."],
+    ],
+  },
 ];
 
+
+function serviceSeoHtml(service) {
+  const intro = (service.seoIntro || []).map((paragraph) => `<p>${paragraph}</p>`).join("");
+  const guide = (service.guide || []).map(([h, p]) => `<h2>${escapeHtml(h)}</h2><p>${p}</p>`).join("");
+  const cards = service.cards
+    ? `<h2>Siparişten önce netleştirilecekler</h2><ul>${service.cards.map(([title, copy]) => `<li><strong>${escapeHtml(title)}:</strong> ${escapeHtml(copy)}</li>`).join("")}</ul>`
+    : "";
+  const list = `<p>Oyuncu adı, numara ve bedenleri hazırlamak için <a href="/assets/templates/takim-listesi.csv" download>takım listesi şablonunu (CSV)</a> indirebilirsin.</p>`;
+  return `${intro}${guide}${cards}${list}`;
+}
+
 for (const service of servicePages) {
-  const items = service.models || featuredModels.slice(0, 4);
-  writePage(service.route, {
-    title: service.title,
-    description: service.description,
-    pageClass: "service-page",
-    scripts: service.wizard
-      ? ["/assets/js/forma-modeller.js?v=20261030b", "/assets/js/forma-onizleme.js?v=20261030b", "/assets/js/forma-sihirbaz.js?v=20261030b"]
-      : [],
-    schemas: [
-      breadcrumbSchema([
-        { name: "Ana Sayfa", path: "/" },
-        { name: service.title, path: service.route },
-      ]),
-      faqSchema(service.guideFaq ? service.guideFaq.items.map(([q, a]) => [q, plainText(a)]) : service.faq),
-    ],
-    body: `
-      ${breadcrumbs([
-        { name: "Ana Sayfa", path: "/" },
-        { name: service.title, path: service.route },
-      ])}
+  const crumbs = [
+    { name: "Ana Sayfa", path: "/" },
+    { name: service.title, path: service.route },
+  ];
+  const schemas = [
+    ...(service.organization ? [organizationSchema()] : []),
+    breadcrumbSchema(crumbs),
+    faqSchema(service.guideFaq ? service.guideFaq.items.map(([q, a]) => [q, plainText(a)]) : service.faq),
+  ];
+
+  if (service.wizard) {
+    writePage(service.route, {
+      title: service.title,
+      description: service.description,
+      pageClass: "service-page",
+      scripts: ["/assets/js/forma-modeller.js?v=20261030b", "/assets/js/forma-onizleme.js?v=20261030b", "/assets/js/forma-sihirbaz.js?v=20261030b"],
+      schemas,
+      body: `
+      ${breadcrumbs(crumbs)}
       ${innerHero({ eyebrow: service.eyebrow, title: service.heading, copy: service.copy })}
-      ${
-        service.wizard
-          ? `<section class="custom-order-section"><div class="container">
+      <section class="custom-order-section"><div class="container">
         ${designWizard()}
-      </div></section>`
-          : service.designLink
-          ? designCta(service.designLink)
-          : `<section class="models-section"><div class="container">
-        ${modelGrid(items)}
-      </div></section>`
-      }
-      ${service.guide ? `<section class="content-section"><div class="container prose">${service.guide.map(([h, p]) => `<h2>${escapeHtml(h)}</h2><p>${p}</p>`).join("")}</div></section>` : ""}
-      ${service.wizard ? "" : `<section class="feature-section"><div class="container">
-        ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
-        <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
       </div></section>
-      <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>`}
-      ${service.guideFaq ? guideFaqSection(service.guideFaq) : `<section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>`}
+      ${guideFaqSection(service.guideFaq)}
       ${finalCta()}`,
+    });
+    continue;
+  }
+
+  writePage(service.route, {
+    title: service.metaTitle || service.title,
+    description: service.description,
+    pageClass: `service-page sales-page${service.pageClass ? ` ${service.pageClass}` : ""}`,
+    preloadImage: (service.heroModels || salesHeroModels)[0].image,
+    mobileCta: "whatsapp",
+    schemas,
+    body: salesLandingBody({
+      crumbs,
+      eyebrow: service.eyebrow,
+      h1: service.h1 || service.title,
+      lead: service.copy,
+      heroModels: service.heroModels || salesHeroModels,
+      gridModels: service.gridModels || salesMixedModels,
+      whatsappMessage: `Merhaba, ${service.waTopic || service.title.toLocaleLowerCase("tr-TR")} için teklif almak istiyorum.`,
+      afterModels: service.designLink ? designCta(service.designLink) : "",
+      seoTitle: service.seoTitle || `${service.title} hakkında`,
+      seoHtml: serviceSeoHtml(service),
+      faqHtml: `<section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.faqTitle || service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>`,
+    }),
   });
 }
 
