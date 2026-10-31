@@ -560,6 +560,7 @@
         "Merhaba, sipariş vermek istiyorum.",
         "",
         `Model: ${patternCode || form.dataset.model} (${sportLabel})`,
+        ...(form.elements["ref-model"]?.value ? [`Referans model: ${form.elements["ref-model"].value}`] : []),
         ...designLines,
         "",
         ...(colorModel ? [`Ana renk: ${label("main-color")}`, `Desen rengi: ${label("accent-color")}`, ""] : []),

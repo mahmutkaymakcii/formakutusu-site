@@ -2906,3 +2906,211 @@ body .mobile-cta.mobile-cta--pair {
   border-color: var(--volt);
   color: var(--volt);
 }
+/* ---- Telefon: masaüstüyle tutarlı görünüm (2026-10-30) ----
+   Katalog telefonda tek sütundu, her model bir ekranı kaplıyordu; masaüstündeki
+   ızgara düzeni 2 sütun olarak korunur. Başlıklar kelime ortasından bölünmez. */
+@media (max-width: 35rem) {
+  .model-grid {
+    gap: 0.6rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .models-page .model-card__media,
+  .catalog-page .model-card__media {
+    margin: 0.25rem;
+    border-radius: 0.8rem;
+  }
+
+  .model-card__badges {
+    gap: 0.25rem;
+  }
+
+  .model-card__badge {
+    padding: 0.22rem 0.45rem;
+    font-size: 0.58rem;
+  }
+
+  .model-card__badge:not(.model-card__badge--signal) {
+    display: none;
+  }
+
+  .model-card__body {
+    padding: 0.6rem 0.6rem 0.75rem;
+  }
+
+  .model-card__heading > span,
+  .model-card__summary,
+  .model-card__features {
+    display: none;
+  }
+
+  .model-card__heading p {
+    font-size: 0.6rem;
+  }
+
+  .model-card__body h3 {
+    font-size: 1.05rem;
+  }
+
+  .model-card__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+
+  .model-card__actions a {
+    min-height: 2.5rem;
+    padding-inline: 0.4rem;
+    font-size: 0.66rem;
+  }
+
+  body.home-v2 .fk-section-row .fk-section-heading h2,
+  body.home-v2 .fk-final-cta h2 {
+    overflow-wrap: normal;
+    word-break: normal;
+    font-size: clamp(26px, 8.4vw, 36px);
+  }
+
+  body.home-v2 .fk-final-cta h2 {
+    font-size: clamp(22px, 7.4vw, 32px);
+  }
+
+  body.home-v2 .fk-promo h2 {
+    font-size: clamp(15px, 4.8vw, 20px);
+  }
+}
+
+/* Model sayfası: sipariş formu yerine tek tasarım aracına giden buton */
+.product-detail__design {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.product-detail__design .button {
+  width: 100%;
+  min-height: 3.4rem;
+  justify-content: center;
+}
+
+.product-detail__design p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+/* Hizmet sayfası: tasarım aracına giden bant */
+.design-cta .download-band__inner {
+  grid-template-columns: minmax(0, 1.6fr) minmax(14rem, 1fr);
+  align-items: center;
+}
+
+.design-cta h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+}
+
+@media (max-width: 720px) {
+  .design-cta .download-band__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Forma tasarla: anasayfadaki "Kısa Sorulara Net Cevaplar" düzeninde tasarım rehberi */
+.guide-faq {
+  padding: 66px 0;
+}
+
+.guide-faq__grid {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.guide-faq__heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Unbounded", "Arial Black", ui-sans-serif, sans-serif;
+  font-size: clamp(28px, 2.7vw, 42px);
+  font-style: italic;
+}
+
+.guide-faq__heading h2 em {
+  background: var(--signal-gradient);
+  background-clip: text;
+  color: transparent;
+  font-style: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.guide-faq__heading > span {
+  display: block;
+  max-width: 470px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.guide-faq__list {
+  display: grid;
+  gap: 10px;
+}
+
+.guide-faq__list details {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.guide-faq__list details[open] {
+  border-color: var(--cyan);
+  background: var(--surface-2);
+}
+
+.guide-faq__list summary {
+  padding: 20px 22px;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.guide-faq__list summary b {
+  color: var(--volt);
+}
+
+.guide-faq__list details > div {
+  padding: 0 22px 20px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.guide-faq__list details > div p {
+  margin: 0 0 10px;
+}
+
+.guide-faq__list ul {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 10px;
+  padding-left: 1.1rem;
+}
+
+.guide-faq__list li strong {
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .guide-faq {
+    padding: 48px 0;
+  }
+
+  .guide-faq__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

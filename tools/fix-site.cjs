@@ -130,31 +130,34 @@ function createIstanbulPage(chrome) {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#080a0e">
   <meta name="color-scheme" content="dark">
-  <title>Forma Yaptırma İstanbul | Forma Kutusu</title>
-  <meta name="description" content="İstanbul'daki futbol, halı saha, basketbol ve voleybol takımları için özel forma modellerini ve fiyatlarını inceleyin.">
+  <title>Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu</title>
+  <meta name="description" content="İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${canonical}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta property="og:locale" content="tr_TR">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Forma Kutusu">
-  <meta property="og:title" content="Forma Yaptırma İstanbul | Forma Kutusu">
-  <meta property="og:description" content="İstanbul'daki takımlar için model, renk, logo, isim, numara ve beden bilgileriyle forma siparişini hazırlayın.">
+  <meta property="og:title" content="Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu">
+  <meta property="og:description" content="İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Forma Yaptırma İstanbul | Forma Kutusu">
-  <meta name="twitter:description" content="İstanbul'daki takımlar için özel forma fiyatlarını inceleyin ve siparişinizi hazırlayın.">
+  <meta name="twitter:title" content="Forma Yaptırma İstanbul | Ücretsiz Tasarım – Forma Kutusu">
+  <meta name="twitter:description" content="İstanbul'da forma yaptır: kendi desenini yükle ya da modelini seç; renk, logo, isim ve numara tamamen sana kalsın. Ücretsiz tasarım, 5–7 iş günde üretim.">
   <meta name="twitter:image" content="${origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030c">
   ${schemas.map(schemaTag).join("\n  ")}
-  <script src="/assets/js/site.js?v=20261025b" defer></script>
+  <script src="/assets/js/site.js?v=20261030b" defer></script>
 </head>
 <body class="content-page istanbul-page">
   ${chrome.header}
@@ -183,11 +186,11 @@ function createIstanbulPage(chrome) {
     <section class="content-section"><div class="container prose">
       <h2>İstanbul’daki takımlar için forma üretimi</h2>
       <p>İstanbul Zeytinburnu merkezli Forma Kutusu, 2017’den beri takımlara özel forma tasarlıyor; formalar NORA markasıyla üretiliyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.</p>
-      <p>Sipariş süreci her takım için aynı: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.</p>
+      <p><a href="/">Forma yaptırma</a> süreci her takım için aynı: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.</p>
       <h2>İstanbul’da forma fiyatları</h2>
       <p>Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href="/teklif/">Fiyatlar</a> sayfasına, model seçmek için <a href="/modeller/">Modeller</a> sayfasına bakabilirsin.</p>
       <h2>Hangi takımlar için?</h2>
-      <p><a href="/hali-saha-formasi/">Halı saha forması</a>, <a href="/futbol/">futbol forması</a>, <a href="/basketbol/">basketbol forması</a>, <a href="/voleybol/">voleybol forması</a> ve <a href="/okul-turnuva-formasi/">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href="/takima-ozel-forma/">takıma özel forma</a> sayfasından yükleyip formanın üzerinde anında görebilirsin.</p>
+      <p><a href="/hali-saha-formasi/">Halı saha forması</a>, <a href="/futbol/">futbol forması</a>, <a href="/basketbol/">basketbol forması</a>, <a href="/voleybol/">voleybol forması</a> ve <a href="/okul-turnuva-formasi/">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href="/forma-tasarla/?desen=kendi">Formanı Tasarla</a> aracında yükleyip formanın üzerinde anında görebilirsin; ayrıntılar <a href="/takima-ozel-forma/">takıma özel forma</a> sayfasında.</p>
     </div></section>
     <section class="content-band"><div class="container content-band__grid">
       <div><p class="eyebrow">Gönderim planı</p><h2>İstanbul ve Türkiye geneli için güncel bilgiyi sipariş görüşmesinde doğrula.</h2></div>

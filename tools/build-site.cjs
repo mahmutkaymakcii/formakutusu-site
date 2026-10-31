@@ -108,6 +108,7 @@ function schemaTags(schemas = []) {
 }
 
 const headerLinks = [
+  { name: "Anasayfa", path: "/" },
   {
     name: "Formalar",
     path: "/modeller/",
@@ -121,8 +122,7 @@ const headerLinks = [
       { name: "Tüm Modeller", path: "/modeller/" },
     ],
   },
-  { name: "Forma + Şort", path: "/forma-sort-takimi/" },
-  { name: "Özel Üretim", path: "/takima-ozel-forma/" },
+  { name: "Formanı Tasarla", path: "/forma-tasarla/" },
   { name: "Nasıl Sipariş Verilir?", path: "/nasil-siparis-verilir/" },
   { name: "Hakkımızda", path: "/hakkimizda/" },
   { name: "İletişim", path: "/iletisim/" },
@@ -199,6 +199,8 @@ function footer() {
         <a href="/voleybol/">Voleybol formalari</a>
         <a href="/modeller/">Tüm modeller</a>
         <a href="/forma-tasarla/">Forma tasarla</a>
+        <a href="/forma-sort-takimi/">Forma şort takımı</a>
+        <a href="/takima-ozel-forma/">Takıma özel forma</a>
         <a href="/kaleci-formasi/">Kaleci forması</a>
         <a href="/cocuk-formasi/">Çocuk forması</a>
       </div>
@@ -258,7 +260,10 @@ function pageShell({
   <meta name="description" content="${escapeHtml(description)}">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${canonical}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   ${preload}
   <meta property="og:locale" content="tr_TR">
@@ -276,10 +281,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261025b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261024b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261030c">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261025b" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261030b" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -385,6 +390,22 @@ function modelGrid(items, eagerFirst = false) {
   return `<div class="model-grid" data-model-grid>${items
     .map((model, index) => modelCard(model, eagerFirst && index === 0))
     .join("")}</div>`;
+}
+
+// HTML cevabı yapısal veri için düz metne çevirir
+function plainText(html) {
+  return html.replace(/<li>/g, " ").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+}
+
+// Anasayfadaki "Kısa Sorulara Net Cevaplar" düzeni: solda başlık, sağda açılır sorular
+function guideFaqSection({ title, accent, items }) {
+  return `<section class="guide-faq"><div class="container guide-faq__grid">
+        <div class="guide-faq__heading">
+          <h2>${escapeHtml(title)}<br><em>${escapeHtml(accent)}</em></h2>
+          <span>Burada olmayan ayrıntıları WhatsApp üzerinden iletebilirsin.</span>
+        </div>
+        <div class="guide-faq__list">${items.map(([question, answer], index) => `<details${index === 0 ? " open" : ""}><summary><b>${index + 1}.</b> ${escapeHtml(question)}</summary><div>${answer}</div></details>`).join("")}</div>
+      </div></section>`;
 }
 
 function faqBlock(items) {
@@ -949,6 +970,11 @@ function orderForm({ id, sport = "", label, custom = false, preview = "", sportP
 // Forma tasarla sihirbazı: Yaka → Model → Forma düzenleme → Oyuncu bilgileri → Sipariş.
 // Alan adları sipariş formuyla aynıdır; site.js (liste, tutar, WhatsApp) ve forma-onizleme.js
 // (önizleme) aynı formu okur. forma-sihirbaz.js adımları, model kartlarını ve renk paletlerini yönetir.
+// Tasarım aracına yönlendiren bant: hizmet sayfalarında ayrı form yerine tek tasarım alanına gider
+function designCta({ href, title, copy }) {
+  return `<section class="download-band design-cta"><div class="container download-band__inner"><div><p class="eyebrow">Online forma tasarımı</p><h2>${escapeHtml(title)}</h2><p>${escapeHtml(copy)}</p></div><a class="button" href="${href}">Formanı Tasarla →</a></div></section>`;
+}
+
 function designWizard() {
   const steps = ["Yaka Seçimi", "Model Seçimi", "Forma Düzenleme", "Oyuncu Bilgileri", "Sipariş"];
   const card = (name, value, title, sub, checked, extra = "") =>
@@ -960,6 +986,7 @@ function designWizard() {
   return `<form class="order-form wizard" data-order-form data-wizard data-model="Forma tasarla" data-sport-label="Forma tasarla" data-preview="color" novalidate>
           <nav class="wizard__tabs" aria-label="Tasarım adımları">${steps.map((s, i) => `<button type="button" class="wizard__tab" data-wizard-go="${i + 1}"${i === 0 ? ' aria-current="step"' : ""}><span>${i + 1}.</span> ${s}</button>`).join("")}</nav>
           <input type="hidden" name="quantity" value="5" data-order-quantity>
+          <input type="hidden" name="ref-model" value="">
 
           <section class="wizard__step" data-step="1" aria-label="Yaka seçimi">
             <h2 class="wizard__title">Branşını ve yakanı seç</h2>
@@ -980,6 +1007,7 @@ function designWizard() {
           <section class="wizard__step" data-step="2" aria-label="Model seçimi" hidden>
             <h2 class="wizard__title">Modelini seç</h2>
             <p class="wizard__lead">Fiyat 300₺'den başlar · En az 5 adet · Kumaş: Poly Mesh</p>
+            <p class="order-form__hint" data-ref-note hidden></p>
             <div class="pattern-tabs" role="tablist" aria-label="Model türü">
               <button type="button" role="tab" data-pattern-mode="color" aria-selected="true">Renkli modeller</button>
               <button type="button" role="tab" data-pattern-mode="gallery" aria-selected="false">Hazır desenler</button>
@@ -1227,7 +1255,7 @@ for (const model of models) {
               <div><dt>Minimum sipariş</dt><dd>5 adet</dd></div>
               <div><dt>Ürün kapsamı</dt><dd>${escapeHtml(config.scope)}</dd></div>
             </dl>
-            ${orderForm({ id: model.id, sport: model.sport, label: config.label })}
+            <div class="product-detail__design"><a class="button" href="/forma-tasarla/?model=${model.id}&brans=${model.sport}">Bu modelle formanı tasarla →</a><p>Renkleri, logonu, isim-numarayı ve oyuncu listesini tasarım aracında 5 adımda tamamla. Model kodu siparişine eklenir.</p></div>
             <p class="product-detail__note">Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta. İmalat süresi tasarım onayından sonra 5–7 iş günüdür.</p>
             <div class="product-detail__accordions">
               <details open><summary>Model ve ürün bilgileri</summary><div><ul><li>Model kodu: ${model.id}</li><li>Branş: ${escapeHtml(config.label)}</li><li>Ürün kapsamı: ${escapeHtml(config.scope)}</li><li>Minimum üretim: 5 adet</li></ul></div></details>
@@ -1310,8 +1338,8 @@ const servicePages = [
     description: "Takımınıza özel forma tasarımı için model, renk, logo, sponsor, isim, numara ve beden bilgilerini planlayın; siparişinizi hazırlayın.",
     eyebrow: "Özel tasarım",
     heading: "Takıma özel forma: kendi deseninle tasarla.",
-    copy: "Hazır model seçmek zorunda değilsin. Desenini yükle, formanın üzerinde anında gör; logo ve oyuncu listesiyle birlikte siparişini oluştur.",
-    customForm: true,
+    copy: "Hazır model seçmek zorunda değilsin. Forma tasarla aracında desenini yükle, formanın üzerinde anında gör; logo ve oyuncu listesiyle birlikte siparişini oluştur.",
+    designLink: { href: "/forma-tasarla/?desen=kendi", title: "Kendi desenini formanın üzerinde gör.", copy: "Forma tasarla aracı \"Kendi desenim\" sekmesiyle açılır. Desenini yükle; logo, sponsor, isim, numara ve oyuncu listesini 5 adımda tamamla." },
     image: { src: "/assets/models/fk-019.webp", alt: "FK-019 beyaz ve yeşil özel futbol forma modeli", width: 640, height: 800 },
     cards: [
       ["Takım renkleri", "Ana ve yardımcı renkleri görünür bir hiyerarşiyle belirle."],
@@ -1320,7 +1348,7 @@ const servicePages = [
       ["Onaylı üretim", "Son görseli kontrol etmeden üretime geçme."],
     ],
     faq: [
-      ["Sıfırdan tasarım isteyebilir miyim?", "Evet. Bu sayfadaki formdan kendi desenini veya görselini yükleyebilirsin; tasarım onaylanmadan üretime geçilmez."],
+      ["Sıfırdan tasarım isteyebilir miyim?", "Evet. Forma tasarla aracındaki \"Kendi desenim\" sekmesinden kendi desenini veya görselini yükleyebilirsin; tasarım onaylanmadan üretime geçilmez."],
       ["Renkleri tamamen değiştirebilir miyim?", "Modelin uygulanabilirliği korunarak takım renklerine göre düzenleme yapılabilir."],
       ["Tasarım revizesi yapılır mı?", "Gerekli düzenlemeler tasarım onayı aşamasında konuşulur."],
     ],
@@ -1331,8 +1359,8 @@ const servicePages = [
     description: "Takımınıza özel forma ve şort takımını model, renk, logo, isim, numara, adet ve beden dağılımıyla birlikte planlayın.",
     eyebrow: "Forma + şort",
     heading: "Forma şort takımı yaptırma: üst ve alt aynı takım dilinde.",
-    copy: "Deseni seç; logonu, kulüp ismini ve yaka tipini anında forma ve şort üzerinde gör, siparişini aynı sayfada oluştur.",
-    previewForm: true,
+    copy: "Deseni seç; logonu, kulüp ismini ve yaka tipini forma tasarla aracında forma ve şort üzerinde anında gör, siparişini oluştur.",
+    designLink: { href: "/forma-tasarla/", title: "Forma ve şortu birlikte tasarla.", copy: "Desenini seç, şort rengini ve paça logo-numarasını belirle; forma ve şortu aynı önizlemede gör, siparişini 5 adımda tamamla." },
     image: { src: "/assets/models/fk-007.webp", alt: "FK-007 özel forma ve şort takımı", width: 1000, height: 1250 },
     cards: [
       ["Tek tasarım dili", "Forma ve şort renklerini birbiriyle uyumlu ele al."],
@@ -1356,12 +1384,6 @@ const servicePages = [
     copy: "Deseni seç, branşı ve yaka tipini belirle; logonu, sponsorunu, kulüp ismini ve numaranı forma ve şort üzerinde canlı önizle. Beğendiğin tasarımı aynı sayfada siparişe çevir.",
     previewForm: true,
     wizard: true,
-    guide: [
-      ["Forma tasarlamak nasıl çalışır?", "Bu sayfadaki tasarım aracı futbol, basketbol ve voleybol formalarını takımının bilgileriyle anında gösterir. Önce branşı seç; renkli modellerin renklerini değiştirebilir veya branşına ait hazır desenlerden seçebilirsin. Desen kartına tıklayarak ya da ok tuşlarıyla desenler arasında gezebilir, telefonda galeriyi parmağınla kaydırabilirsin. Futbolda yaka tipini seçtiğinde forma görseli de değişir. Basketbol ve voleybol önizlemesi V yaka gösterilir; üretilecek yaka tipi sipariş özetinde ayrıca belirtilir."],
-      ["Logo, sponsor, isim ve numara", "Göğüs logoları ve forma önü reklamı için kendi dosyalarını seçebilirsin; dosya yalnızca senin cihazında işlenir ve önizlemeye yerleşir. TR Arma seçeneğiyle Türk bayrağı göğse eklenir. Kulüp ismini yazdığında formanın arkasında, numara ise sırtta ve şortta görünür. Yazı ve numara rengini sunulan renkler arasından seçebilirsin."],
-      ["Tasarımdan siparişe", "Tasarım bitince adedi, ürün kapsamını (tek üst forma, forma + şort, çorap) ve oyuncu listesini aynı formda doldur; toplam tutar otomatik hesaplanır. Sipariş özeti WhatsApp sohbetimize gider, ekip tasarımı kontrol edip son görseli onayına sunar. Tasarım desteği ücretsizdir ve onay vermeden üretime geçilmez."],
-      ["Kendi desenini kullanmak istersen", "Hazır desenlerin dışında kendi tasarımın varsa 2. adımda <strong>Kendi desenim</strong> sekmesinden desen görselini ekleyebilirsin. Fiyatlar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına bakabilirsin."],
-    ],
     image: { src: "/assets/models/fk-007.webp", alt: "Forma tasarla aracıyla hazırlanan forma ve şort", width: 1000, height: 1250 },
     cards: [
       ["Deseni seç", "Branşa göre desen galerisinden takımına uygun modeli bul."],
@@ -1369,12 +1391,51 @@ const servicePages = [
       ["Adet ve beden", "Oyuncu listesini ve beden dağılımını aynı formda tamamla."],
       ["Tasarım onayı", "Son görsel onaylanmadan üretime geçilmez."],
     ],
-    faq: [
-      ["Forma tasarlamak ücretli mi?", "Hayır. Tasarım aracını kullanmak ve tasarım desteği ücretsizdir; ödeme yalnızca sipariş verdiğinde, üretilecek ürünler için yapılır."],
-      ["Önizlemedeki forma birebir böyle mi üretilir?", "Önizleme tasarımın genel görünümünü gösterir. Logo yerleşimi, renk tonları ve ölçüler sipariş sonrasında hazırlanan son görselde netleşir ve senin onayınla üretime geçer."],
-      ["Hangi branşlar için forma tasarlayabilirim?", "Futbol, halı saha, basketbol ve voleybol formaları tasarlanabilir. Voleybolda şorta logo ve numara eklenmez."],
-      ["Minimum kaç adet sipariş verebilirim?", "Üretim en az 5 adet ile başlar."],
-    ],
+    // Tasarım rehberi: cevaplar HTML'dir (liste içerir); yapısal veriye düz metin olarak girer
+    guideFaq: {
+      title: "Kısa Sorulara",
+      accent: "Formanı Nasıl Tasarlarsın?",
+      items: [
+        ["Tasarım bölümü nasıl çalışır?", `<p>Forma Kutusu’nun online tasarım alanında forma oluşturma işlemi 5 kolay adımda tamamlanır.</p><ul>
+          <li><strong>Branş ve Yaka Seçimi:</strong> Spor branşı ve forma yaka tipi belirlenir.</li>
+          <li><strong>Takımını Yansıtan Forma Modeli:</strong> Sizin için hazırladığımız hazır modeller, renklerini ve desenlerini özelleştirebileceğiniz şablonlar veya takımınıza özel oluşturduğunuz kendi tasarımlarınız arasından seçim yapılır.</li>
+          <li><strong>Forma Kişiselleştirme:</strong> Formanın renkleri, desenleri, takım logosu, sponsor alanları ve diğer detayları tercihlere göre özelleştirilir.</li>
+          <li><strong>Oyuncu Bilgileri:</strong> Oyuncu isimleri, forma numaraları, bedenleri ve diğer tercihler belirlenir.</li>
+          <li><strong>Sipariş Özeti:</strong> Tasarım ve oyuncu bilgileri kontrol edilerek sipariş detayları WhatsApp üzerinden iletilebilir.</li></ul>`],
+        ["Formanı nasıl tasarlarsın?", `<p>Öncelikle spor branşı ve yaka tipi seçilir. Ardından forma modeli belirlenerek tasarım kişiselleştirilebilir.</p>`],
+        ["Model seçimindeki seçenekler ne anlama gelir?", `<ul>
+          <li><strong>Renkli Modeller:</strong> Düz zeminli, sade ve geometrik desenlerden oluşan, renkleri kişiselleştirilebilen forma modelleridir.</li>
+          <li><strong>Hazır Desenler:</strong> Daha hareketli, detaylı ve tasarım odaklı hazır desen seçenekleridir.</li>
+          <li><strong>Kendi Desenim:</strong> Takıma özel hazırlanan desen veya tasarım görsellerinin yüklenebildiği alandır. En fazla 5 dosya yüklenebilir.</li></ul>`],
+        ["Forma nasıl düzenlenir?", `<p>Forma düzenleme bölümünde seçilen model, takımın tercihlerine göre kişiselleştirilir. Tasarım alanında aşağıdaki düzenlemeler yapılabilir:</p><ul>
+          <li><strong>Ana Renk:</strong> Formanın temel rengi belirlenir.</li>
+          <li><strong>Desen Rengi:</strong> Model üzerindeki desenlerin renkleri değiştirilir.</li>
+          <li><strong>Şort:</strong> Şort tasarımı ve renkleri düzenlenir.</li>
+          <li><strong>Çorap:</strong> Formaya uygun çorap seçimi yapılır.</li>
+          <li><strong>Kumaş:</strong> Kumaş seçenekleri görüntülenir.</li>
+          <li><strong>Göğüs Logoları:</strong> Takım arması ve diğer göğüs logoları yüklenir.</li>
+          <li><strong>Sponsor:</strong> Sponsor görselleri eklenir.</li>
+          <li><strong>Sırt Yazısı ve Numara:</strong> Sırt yazısı ve numara detayları özelleştirilir.</li>
+          <li><strong>Kaleci Forması:</strong> Kaleci forması seçenekleri düzenlenir.</li></ul>
+          <p>Yapılan değişiklikler Takım, Ön ve Arka görünümlerinden kontrol edilebilir. Tasarım görseli ayrıca indirilebilir.</p>`],
+        ["Oyuncu bilgileri nasıl eklenir?", `<p>Oyuncu bilgileri bölümünde, takımdaki her oyuncunun forma detayları ayrı ayrı belirlenir. Bu alanda aşağıdaki işlemler yapılabilir:</p><ul>
+          <li><strong>Sırt İsmi:</strong> Oyuncunun formasında yer alacak isim girilir.</li>
+          <li><strong>Sırt Numarası:</strong> Oyuncuya özel forma numarası belirlenir.</li>
+          <li><strong>Kaleci:</strong> Kaleci olan oyuncular işaretlenir.</li>
+          <li><strong>Beden:</strong> Her oyuncunun forma bedeni seçilir.</li>
+          <li><strong>Şort:</strong> Oyuncu bazında şort tercihi belirlenir.</li>
+          <li><strong>Çorap:</strong> Oyuncu bazında çorap tercihi yapılır.</li></ul>
+          <p>Oyuncu Ekle seçeneğiyle listeye yeni oyuncular eklenebilir, Sil seçeneğiyle oyuncular listeden çıkarılabilir. Girilen bilgiler doğrultusunda toplam oyuncu ve kaleci sayısı görüntülenir. Sipariş özeti alanında ise toplam tutar takip edilebilir.</p>`],
+        ["Sipariş nasıl tamamlanır?", `<p>Sipariş bölümünde hazırlanan forma tasarımı, oyuncu bilgileri ve sipariş detayları son kez kontrol edilir. Bu alanda aşağıdaki işlemler yapılabilir:</p><ul>
+          <li><strong>Oyuncu Listesi:</strong> Oyuncu isimleri, sırt numaraları, bedenleri, kaleci, şort ve çorap tercihleri görüntülenir.</li>
+          <li><strong>Sipariş Detayları:</strong> Seçilen branş, model, yaka tipi, kumaş, logo, sponsor ve diğer tasarım özellikleri özetlenir.</li>
+          <li><strong>Toplam Tutar:</strong> Forma adedi ve seçilen ürünlere göre hesaplanan toplam tutar görüntülenir.</li>
+          <li><strong>Sipariş Notu:</strong> Teslim tarihi talepleri ve özel istekler belirtilebilir.</li>
+          <li><strong>Tasarımı İndir:</strong> Hazırlanan forma tasarımının görseli indirilebilir.</li>
+          <li><strong>Siparişi WhatsApp'tan Gönder:</strong> Sipariş bilgileri WhatsApp üzerinden Forma Kutusu ekibine iletilir.</li></ul>
+          <p>Sipariş gönderildiğinde tasarım görseli otomatik olarak eklenmez. İndirilen görsel WhatsApp görüşmesine ayrıca eklenebilir. Sipariş detayları ekip tarafından değerlendirilerek süreç devam ettirilir.</p>`],
+      ],
+    },
     models,
   },
   {
@@ -1461,14 +1522,14 @@ for (const service of servicePages) {
     description: service.description,
     pageClass: "service-page",
     scripts: service.wizard
-      ? ["/assets/js/forma-modeller.js?v=20261025b", "/assets/js/forma-onizleme.js?v=20261025b", "/assets/js/forma-sihirbaz.js?v=20261025b"]
-      : service.customForm || service.previewForm ? ["/assets/js/forma-onizleme.js?v=20261025b"] : [],
+      ? ["/assets/js/forma-modeller.js?v=20261030b", "/assets/js/forma-onizleme.js?v=20261030b", "/assets/js/forma-sihirbaz.js?v=20261030b"]
+      : [],
     schemas: [
       breadcrumbSchema([
         { name: "Ana Sayfa", path: "/" },
         { name: service.title, path: service.route },
       ]),
-      faqSchema(service.faq),
+      faqSchema(service.guideFaq ? service.guideFaq.items.map(([q, a]) => [q, plainText(a)]) : service.faq),
     ],
     body: `
       ${breadcrumbs([
@@ -1477,31 +1538,23 @@ for (const service of servicePages) {
       ])}
       ${innerHero({ eyebrow: service.eyebrow, title: service.heading, copy: service.copy })}
       ${
-        service.customForm
-          ? `<section class="custom-order-section"><div class="container order-studio">
-        ${previewStage()}
-        ${orderForm({ id: "Özel tasarım", label: "Özel tasarım", studio: "upload" })}
-      </div></section>`
-          : service.wizard
+        service.wizard
           ? `<section class="custom-order-section"><div class="container">
         ${designWizard()}
       </div></section>`
-          : service.previewForm
-          ? `<section class="custom-order-section"><div class="container order-studio">
-        ${previewStage()}
-        ${orderForm({ id: "Forma + şort", label: "Forma + şort", studio: "gallery" })}
-      </div></section>`
+          : service.designLink
+          ? designCta(service.designLink)
           : `<section class="models-section"><div class="container">
         ${modelGrid(items)}
       </div></section>`
       }
       ${service.guide ? `<section class="content-section"><div class="container prose">${service.guide.map(([h, p]) => `<h2>${escapeHtml(h)}</h2><p>${p}</p>`).join("")}</div></section>` : ""}
-      <section class="feature-section"><div class="container">
+      ${service.wizard ? "" : `<section class="feature-section"><div class="container">
         ${sectionIntro("Planlama", "Siparişten önce netleştirilecekler.", "Eksik veya dağınık bilgi yerine kısa, kontrol edilebilir bir sipariş özeti oluştur.")}
         <div class="feature-grid">${service.cards.map(([title, copy], index) => `<article><span>0${index + 1}</span><h3>${escapeHtml(title)}</h3><p>${escapeHtml(copy)}</p></article>`).join("")}</div>
       </div></section>
-      <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>
-      <section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>
+      <section class="download-band"><div class="container download-band__inner"><div><p class="eyebrow">Takım listesi</p><h2>İsim, numara ve bedenleri tek dosyada topla.</h2><p>Boş şablonu indir, kendi cihazında doldur ve WhatsApp görüşmesine ekle.</p></div><a class="button button--ghost" href="/assets/templates/takim-listesi.csv" download>CSV Şablonunu İndir</a></div></section>`}
+      ${service.guideFaq ? guideFaqSection(service.guideFaq) : `<section class="faq-section"><div class="container faq-section__grid">${sectionIntro("Sık sorulanlar", service.title, "Sipariş öncesinde en çok ihtiyaç duyulan bilgiler.")}${faqBlock(service.faq)}</div></section>`}
       ${finalCta()}`,
   });
 }

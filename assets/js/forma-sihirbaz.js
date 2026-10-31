@@ -183,6 +183,7 @@
     const details = [
       ["Branş", checked("sport")?.dataset.label],
       ["Model", model],
+      ...(el("ref-model").value ? [["Referans model", el("ref-model").value]] : []),
       ["Yaka", el("collar").value],
       ["Kumaş", "Poly Mesh"],
       ["Kulüp ismi", el("back-text").value.trim() || "Yok"],
@@ -268,6 +269,30 @@
 
   // Tasarımı indir: önizlemedeki "Görseli kaydet" ile aynı (telefonda paylaşım menüsü)
   form.querySelector("[data-wizard-download]")?.addEventListener("click", () => form.querySelector("[data-preview-save]")?.click());
+
+  // Başka sayfadan gelinince: ?desen=kendi "Kendi desenim" sekmesini açar. ?model=KOD hazır desenlerde
+  // varsa o desen ve branşı seçilir; yoksa (katalog modeli) kod siparişe referans model olarak eklenir.
+  const params = new URLSearchParams(location.search);
+  const refCode = (params.get("model") || "").toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 16);
+  const reel = form.querySelector("[data-pattern-reel]");
+  const galleryPick = refCode && JSON.parse(reel?.dataset.patterns || "[]").find((p) => p.code === refCode);
+  const pickSport = (value) => {
+    const input = form.querySelector(`input[name="sport"][value="${value}"]`);
+    if (input && !input.checked) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); }
+  };
+  if (galleryPick) {
+    pickSport(galleryPick.sport);
+    el("pattern-code").value = galleryPick.code;
+    form.querySelector('[data-pattern-mode="gallery"]')?.click();
+  } else if (refCode) {
+    pickSport(params.get("brans"));
+    el("ref-model").value = refCode;
+    const note = form.querySelector("[data-ref-note]");
+    note.textContent = `Seçtiğin katalog modeli: ${refCode}. Bu kod siparişine eklenir; aşağıdan ona yakın bir model veya kendi desenini seçebilirsin.`;
+    note.hidden = false;
+  } else if (params.get("desen") === "kendi") {
+    form.querySelector('[data-pattern-mode="upload"]')?.click();
+  }
 
   buildModels();
   form.querySelectorAll("[data-palette]").forEach(buildPalette);

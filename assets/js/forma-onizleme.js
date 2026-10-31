@@ -1133,7 +1133,8 @@
   async function boot() {
     try {
       say("Önizleme hazırlanıyor…");
-      const first = sportPatterns()[0] || { code: "FK-001", src: ASSETS + "desen/fk-001.jpg" };
+      // Bağlantıyla seçilmiş bir desen varsa (ör. /forma-tasarla/?model=FK-B-006) açılışta o yüklenir
+      const first = sportPatterns().find((p) => p.code === el("pattern-code")?.value) || sportPatterns()[0] || { code: "FK-001", src: ASSETS + "desen/fk-001.jpg" };
       const [pattern, left, right, sponsor] = await Promise.all([
         loadImage(first.src),
         loadImage(ASSETS + "ornek-arma.png"), loadImage(ASSETS + "ornek-nora.png"), loadImage(ASSETS + "ornek-reklam.png"),
