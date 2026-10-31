@@ -5,7 +5,7 @@ Forma Kutusu'nun bağımlılıksız, statik ve mobil öncelikli web sitesi.
 ## Yapı
 
 - `tools/build-site.cjs`: ortak şablonlardan standart HTML sayfalarını üretir; küratörlü `index.html` ve `hali-saha-formasi/index.html` dosyalarına yazmaz.
-- `tools/fix-site.cjs`: üretimi tamamlar, özel sayfaları korur, İstanbul sayfasını ortak tasarıma taşır, metin hatalarını düzeltir ve sitemap dosyalarını yeniden oluşturur.
+- `tools/fix-site.cjs`: üretimi tamamlar, özel sayfaları korur, metin hatalarını düzeltir ve sitemap dosyalarını yeniden oluşturur.
 - `tools/audit-site.cjs`: production HTML, CSS, JavaScript, iç bağlantılar, görsel yolları, SEO, JSON-LD, manifest, robots ve sitemap kontrollerini yapar; `preview/` kapsam dışıdır.
 - `assets/data/models.json`: futbol, basketbol ve voleybol model kataloğunun tek veri kaynağıdır.
 - `assets/css/site.css`: ortak tasarım sistemi ve responsive bileşenler.
