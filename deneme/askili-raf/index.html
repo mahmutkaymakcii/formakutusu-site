@@ -4,122 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Askılı Raf Deneme | Forma Kutusu</title>
+  <meta name="description" content="Forma desenlerini askılı raf vitrininde inceleyin, beden seçip WhatsApp üzerinden teklif alın.">
+  <link rel="canonical" href="https://formakutusu.com/deneme/askili-raf/">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#080a0e">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <style>
-    @font-face { font-family: "Manrope"; font-weight: 400 800; font-display: swap; src: url("/assets/fonts/manrope-variable.woff2") format("woff2"); }
-    @font-face { font-family: "Unbounded"; font-weight: 500 900; font-display: swap; src: url("/assets/fonts/unbounded-variable.woff2") format("woff2"); }
-    :root {
-      --bg: #080a0e; --surface: #11151c; --text: #f7f8f2; --muted: #adb4c0; --line: rgb(247 248 242 / 11%);
-      --accent: #c7ff2f; /* sitenin vurgu rengi; gold için #c9a45c yapılabilir */
-      --pole: linear-gradient(180deg, #e9edf2 0%, #8e96a3 45%, #3b414b 100%);
-      --ease: cubic-bezier(.22, .8, .24, 1);
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; background: var(--bg); color: var(--text); }
-    body { font-family: "Manrope", system-ui, sans-serif; min-height: 100svh; overflow-x: hidden; }
-    a { color: inherit; }
-    button { font: inherit; color: inherit; }
-
-    .top { display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(16px, 4vw, 48px); }
-    .top img { height: 30px; width: auto; display: block; }
-    .badge { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 6px 10px; border-radius: 99px; }
-
-    .intro { text-align: center; padding: clamp(18px, 4vw, 40px) 16px 0; }
-    .kicker { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
-    h1 { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: clamp(26px, 5vw, 52px); line-height: 1.08; margin: 0; letter-spacing: -.01em; }
-    h1 span { color: var(--muted); font-weight: 500; }
-    .tabs { display: inline-flex; gap: 4px; margin-top: 26px; padding: 4px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); }
-    .tab { border: 0; background: none; padding: 9px 18px; border-radius: 99px; cursor: pointer; font-weight: 700; font-size: 14px; color: var(--muted); }
-    .tab[aria-selected="true"] { background: var(--text); color: var(--bg); }
-
-    /* ---------- Raf ---------- */
-    .stage { position: relative; margin-top: clamp(26px, 5vw, 56px); }
-    main, .top { transition: filter .45s var(--ease), opacity .45s var(--ease); }
-    .stage::before { /* spot ışığı */
-      content: ""; position: absolute; inset: -40px 0 auto; height: 520px; pointer-events: none;
-      background: radial-gradient(60% 60% at 50% 0%, rgb(255 255 255 / 9%), transparent 70%);
-    }
-    body.focus-open main, body.focus-open .top { filter: blur(10px); opacity: .35; }
-    .rail { position: relative; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; scrollbar-width: none; padding: 0 clamp(16px, 6vw, 80px) 40px; cursor: grab; }
-    .rail::-webkit-scrollbar { display: none; }
-    .rail.dragging { cursor: grabbing; scroll-snap-type: none; }
-    .track { position: relative; display: flex; gap: clamp(6px, 1.4vw, 18px); width: max-content; padding-top: 22px; }
-    .track::before { /* askı borusu */
-      content: ""; position: absolute; left: -40px; right: -40px; top: 14px; height: 8px; border-radius: 8px; background: var(--pole);
-      box-shadow: 0 6px 18px rgb(0 0 0 / 55%);
-    }
-    .hanger { position: relative; flex: 0 0 auto; width: clamp(150px, 17vw, 230px); border: 0; padding: 0; background: none; cursor: pointer; scroll-snap-align: center;
-      opacity: 0; transform: translateY(-24px); animation: drop .7s var(--ease) forwards; animation-delay: calc(var(--i) * 55ms); }
-    .swing { transform-origin: 50% 0; display: block; }
-    .hook { display: block; width: 46px; height: 44px; margin: -14px auto -6px; position: relative; z-index: 1; }
-    .hanger img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 6.4; object-fit: contain; filter: drop-shadow(0 18px 22px rgb(0 0 0 / 55%)); transition: transform .35s var(--ease), filter .35s; user-select: none; -webkit-user-drag: none; pointer-events: none; }
-    .tag { position: absolute; top: 34px; right: 14%; font-size: 10px; font-weight: 800; letter-spacing: .06em; background: var(--text); color: var(--bg); padding: 3px 6px; border-radius: 3px; transform: rotate(6deg); transform-origin: top center; box-shadow: 0 3px 8px rgb(0 0 0 / 40%); }
-    .tag::before { content: ""; position: absolute; left: 50%; top: -9px; width: 1px; height: 9px; background: #bbb; }
-    .hanger:hover .swing, .hanger:focus-visible .swing { animation: swing 1.4s var(--ease); }
-    .hanger:hover img { transform: translateY(4px) scale(1.03); filter: drop-shadow(0 26px 26px rgb(0 0 0 / 65%)); }
-    .hanger:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 10px; }
-    .floor { height: 1px; margin: 0 clamp(16px, 6vw, 80px); background: linear-gradient(90deg, transparent, var(--line), transparent); }
-    .nav { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 20px 0 8px; color: var(--muted); font-size: 13px; }
-    .arrow { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); cursor: pointer; display: grid; place-items: center; }
-    .arrow:hover { border-color: var(--accent); }
-    .hint { text-align: center; color: var(--muted); font-size: 13px; margin: 0 16px 40px; }
-
-    @keyframes drop { to { opacity: 1; transform: none; } }
-    @keyframes swing { 0% { transform: rotate(0); } 18% { transform: rotate(5deg); } 40% { transform: rotate(-3.4deg); } 60% { transform: rotate(2deg); } 80% { transform: rotate(-.8deg); } 100% { transform: rotate(0); } }
-
-    /* ---------- Odak (detay) ---------- */
-    .focus { position: fixed; inset: 0; z-index: 20; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); align-items: center; gap: clamp(16px, 4vw, 60px);
-      padding: clamp(16px, 4vw, 60px); visibility: hidden; }
-    body.focus-open .focus { visibility: visible; }
-    .focus-bg { position: absolute; inset: 0; background: rgb(8 10 14 / 55%); opacity: 0; transition: opacity .4s; }
-    body.focus-open .focus-bg { opacity: 1; }
-    .focus-media { position: relative; display: grid; place-items: center; height: min(78svh, 680px); }
-    .focus-media .swing { height: 100%; display: flex; flex-direction: column; align-items: center; }
-    .focus-media .hook { width: 64px; height: 60px; margin: 0 auto -10px; flex: 0 0 auto; }
-    .focus-img { height: calc(100% - 50px); width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 30px 40px rgb(0 0 0 / 65%)); }
-    .panel { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(18px, 3vw, 30px); max-width: 440px;
-      opacity: 0; transform: translateY(14px); transition: opacity .35s .12s, transform .45s .12s var(--ease); }
-    body.focus-open .panel { opacity: 1; transform: none; }
-    .panel .code { font-size: 12px; letter-spacing: .18em; color: var(--accent); font-weight: 800; margin: 0 0 6px; }
-    .panel h2 { font-family: "Unbounded", sans-serif; font-size: clamp(20px, 2.4vw, 28px); margin: 0 0 8px; line-height: 1.15; }
-    .panel p { color: var(--muted); margin: 0 0 18px; line-height: 1.5; font-size: 15px; }
-    .label { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 8px; }
-    .sizes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-    .size { min-width: 46px; height: 40px; padding: 0 10px; border-radius: 99px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-weight: 700; font-size: 13px; }
-    .size[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
-    .cta { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 52px; border-radius: 99px; text-decoration: none; font-weight: 800; }
-    .cta.wa { background: var(--accent); color: #0b0d10; }
-    .cta.ghost { border: 1px solid var(--line); margin-top: 8px; }
-    .cta.ghost:hover { border-color: var(--text); }
-    .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 22px; line-height: 1; }
-    .step { position: absolute; top: 50%; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgb(17 21 28 / 80%); cursor: pointer; }
-    .step.prev { left: 10px; } .step.next { left: calc(55% - 20px); }
-
-    @media (max-width: 760px) {
-      .hanger { width: 42vw; }
-      .focus { grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; align-items: end; padding: 12px 12px 0; gap: 0; }
-      .focus-media { height: 40svh; align-self: center; margin-bottom: 12px; }
-      .focus-media .swing { width: 100%; }
-      .focus-img { width: 100%; }
-      .panel { min-width: 0; }
-      .panel { max-width: none; border-radius: 18px 18px 0 0; padding-bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateY(40px); }
-      .panel .desc { display: none; }
-      .sizes { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-      .size { flex: 0 0 auto; }
-      .close { top: 10px; right: 10px; width: 40px; height: 40px; }
-      .step { top: 30%; }
-      .step.next { left: auto; right: 10px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      .hanger { opacity: 1; transform: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/css/askili-raf.css?v=20261103a">
 </head>
 <body>
   <header class="top">
@@ -127,7 +20,7 @@
     <span class="badge">Deneme sayfası</span>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="intro">
       <p class="kicker">Desen vitrini</p>
       <h1>Askıdan seç,<br><span>takımına uyarla.</span></h1>
@@ -156,7 +49,7 @@
     <div class="focus-media">
       <span class="swing" id="f-swing">
         <svg class="hook" viewBox="0 0 46 44" aria-hidden="true"><use href="#hook"/></svg>
-        <img class="focus-img" id="f-img" alt="" width="375" height="480">
+        <img class="focus-img" id="f-img" src="/assets/raf/fk-f-001.webp" alt="FK-F-001 futbol forma deseni" width="375" height="480">
       </span>
     </div>
     <button class="step next" data-step="1" aria-label="Sonraki desen">&#8594;</button>
@@ -172,135 +65,13 @@
     </div>
   </div>
 
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
     <symbol id="hook" viewBox="0 0 46 44">
       <path d="M23 20 V12 a6 6 0 1 1 6 -6" fill="none" stroke="#c9ced6" stroke-width="2.4" stroke-linecap="round"/>
       <path d="M23 20 L4 38 Q2 41 6 41 H40 Q44 41 42 38 Z" fill="#2a2f37" stroke="#4a515c" stroke-width="1.5" stroke-linejoin="round"/>
     </symbol>
   </svg>
 
-  <script>
-  (() => {
-    const WA = "905432321853";
-    const SIZES = ["Çocuk", "S", "M", "L", "XL", "2XL", "3XL"];
-    const make = (p, n, label) => Array.from({ length: n }, (_, i) => {
-      const code = `${p}-${String(i + 1).padStart(3, "0")}`;
-      return { code, label, img: `/assets/raf/${code.toLowerCase()}.webp` };
-    });
-    const DATA = {
-      futbol: make("FK-F", 12, "Futbol forma deseni"),
-      basketbol: make("FK-B", 10, "Basketbol forma deseni"),
-      voleybol: make("FK-V", 8, "Voleybol forma deseni"),
-    };
-    const $ = (id) => document.getElementById(id);
-    const rail = $("rail"), track = $("track"), focus = $("focus");
-    let sport = "futbol", current = -1, picked = new Set(), lastBtn = null;
-
-    function render() {
-      track.innerHTML = DATA[sport].map((m, i) => `
-        <button class="hanger" style="--i:${i}" data-i="${i}" aria-label="${m.code} desenini incele">
-          <span class="swing">
-            <svg class="hook" viewBox="0 0 46 44" aria-hidden="true"><use href="#hook"/></svg>
-            <img src="${m.img}" alt="${m.code} ${m.label.toLowerCase()}" width="375" height="480" loading="${i < 6 ? "eager" : "lazy"}" decoding="async">
-          </span>
-          <span class="tag">${m.code}</span>
-        </button>`).join("");
-      $("count").textContent = `${DATA[sport].length} desen`;
-      rail.scrollLeft = 0;
-    }
-
-    document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
-      document.querySelectorAll(".tab").forEach((x) => x.setAttribute("aria-selected", x === t));
-      sport = t.dataset.sport; render();
-    }));
-    document.querySelectorAll(".arrow").forEach((b) => b.addEventListener("click", () => {
-      rail.scrollBy({ left: Number(b.dataset.dir) * rail.clientWidth * 0.7, behavior: "smooth" });
-    }));
-
-    // Fareyle sürükleyerek kaydırma (dokunmatikte tarayıcı kendi kaydırır)
-    let drag = null, moved = false;
-    rail.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; drag = { x: e.clientX, s: rail.scrollLeft }; moved = false; });
-    window.addEventListener("pointermove", (e) => {
-      if (!drag) return; const dx = e.clientX - drag.x;
-      if (Math.abs(dx) > 5) { moved = true; rail.classList.add("dragging"); }
-      rail.scrollLeft = drag.s - dx;
-    });
-    window.addEventListener("pointerup", () => { drag = null; rail.classList.remove("dragging"); });
-
-    track.addEventListener("click", (e) => {
-      const b = e.target.closest(".hanger"); if (!b || moved) return;
-      lastBtn = b; open(Number(b.dataset.i), b.querySelector("img"));
-    });
-
-    function fill(i) {
-      const m = DATA[sport][i]; current = i;
-      $("f-img").src = m.img; $("f-img").alt = `${m.code} ${m.label.toLowerCase()}`;
-      $("f-code").textContent = m.code; $("f-title").textContent = m.label;
-      $("f-try").href = `/forma-tasarla/?model=${m.code}`;
-      waLink();
-    }
-    function waLink() {
-      const m = DATA[sport][current];
-      const sz = picked.size ? ` Bedenler: ${[...picked].join(", ")}.` : "";
-      $("f-wa").href = `https://wa.me/${WA}?text=${encodeURIComponent(`Merhaba, ${m.code} deseni için teklif almak istiyorum.${sz}`)}`;
-    }
-    $("f-sizes").innerHTML = SIZES.map((s) => `<button class="size" aria-pressed="false">${s}</button>`).join("");
-    $("f-sizes").addEventListener("click", (e) => {
-      const b = e.target.closest(".size"); if (!b) return;
-      const on = b.getAttribute("aria-pressed") !== "true";
-      b.setAttribute("aria-pressed", on); on ? picked.add(b.textContent) : picked.delete(b.textContent); waLink();
-    });
-
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function open(i, fromImg) {
-      fill(i);
-      document.body.classList.add("focus-open"); focus.setAttribute("aria-hidden", "false");
-      const to = $("f-img");
-      if (fromImg && !reduce) {
-        // Rafta tıklanan formadan büyük görsele uçuş (FLIP)
-        const a = fromImg.getBoundingClientRect();
-        requestAnimationFrame(() => {
-          const b = to.getBoundingClientRect(); if (!b.width) return;
-          const s = a.width / b.width;
-          to.animate([
-            { transform: `translate(${a.left + a.width / 2 - (b.left + b.width / 2)}px, ${a.top + a.height / 2 - (b.top + b.height / 2)}px) scale(${s})` },
-            { transform: "none" },
-          ], { duration: 560, easing: "cubic-bezier(.22,.8,.24,1)" });
-          $("f-swing").animate([{ transform: "rotate(0)" }, { transform: "rotate(2.5deg)", offset: .55 }, { transform: "rotate(-1deg)", offset: .8 }, { transform: "rotate(0)" }], { duration: 1200, delay: 380 });
-        });
-      }
-      focus.querySelector(".close").focus({ preventScroll: true });
-    }
-    function close() {
-      document.body.classList.remove("focus-open"); focus.setAttribute("aria-hidden", "true");
-      if (lastBtn) lastBtn.focus({ preventScroll: true });
-    }
-    function step(d) {
-      const n = DATA[sport].length; fill((current + d + n) % n);
-      if (!reduce) $("f-img").animate([{ opacity: 0, transform: `translateX(${d * 30}px)` }, { opacity: 1, transform: "none" }], { duration: 320, easing: "ease-out" });
-      lastBtn = track.querySelector(`[data-i="${current}"]`);
-      lastBtn?.scrollIntoView({ inline: "center", block: "nearest" });
-    }
-    focus.addEventListener("click", (e) => {
-      if (e.target.closest("[data-close]")) close();
-      const s = e.target.closest("[data-step]"); if (s) step(Number(s.dataset.step));
-    });
-    document.addEventListener("keydown", (e) => {
-      if (!document.body.classList.contains("focus-open")) return;
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowRight") step(1);
-      if (e.key === "ArrowLeft") step(-1);
-    });
-    // Telefonda büyük görselde parmakla sağa/sola kaydırınca sonraki desen
-    let tx = null;
-    $("f-img").parentElement.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; }, { passive: true });
-    $("f-img").parentElement.addEventListener("touchend", (e) => {
-      if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null;
-      if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
-    });
-
-    render();
-  })();
-  </script>
+  <script src="/assets/js/askili-raf.js?v=20261103a" defer></script>
 </body>
 </html>
