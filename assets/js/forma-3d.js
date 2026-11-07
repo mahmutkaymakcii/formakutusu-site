@@ -178,11 +178,17 @@ void main() {
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.fillStyle = rgb(P.mainColor); g.fillRect(0, 0, W, H);
     const D = P.draw, L = LAYOUT;
+    // Desen kalıbın kutusuna kırpılır: geniş bir desen öbür kalıba ve logolara taşmasın
+    const coverIn = (c, img, box) => {
+      c.save();
+      c.beginPath(); c.rect(box[0], box[1], box[2] - box[0], box[3] - box[1]); c.clip();
+      c.filter = "blur(0.5px)";
+      D.cover(c, img, box);
+      c.restore();
+    };
     // Ön kalıp: desen + göğüs logoları + reklam
     g.save();
-    g.filter = "blur(0.5px)";
-    D.cover(g, P.pattern, [X(FRONT.u0), Y(FRONT.v0), X(FRONT.u1), Y(FRONT.v1)]);
-    g.filter = "none";
+    coverIn(g, P.pattern, [X(FRONT.u0), Y(FRONT.v0), X(FRONT.u1), Y(FRONT.v1)]);
     const leftChest = (b) => boxAt(FRONT.cx + L.chestDX, L.chestY, b.w, b.h); // giyenin solu (görselde sağ)
     const rightChest = (b) => boxAt(FRONT.cx - L.chestDX, L.chestY, b.w, b.h);
     const middle = boxAt(FRONT.cx, L.chestY, L.nora.w, L.nora.h);
@@ -214,9 +220,7 @@ void main() {
     g.save();
     g.translate(X(BACK.cx) * 2, 0); g.scale(-1, 1);
     const mx = (u) => 2 * BACK.cx - u; // aynalı koordinatta kalıp sınırları
-    g.filter = "blur(0.5px)";
-    D.cover(g, P.pattern, [X(mx(BACK.u1)), Y(BACK.v0), X(mx(BACK.u0)), Y(BACK.v1)]);
-    g.filter = "none";
+    coverIn(g, P.pattern, [X(mx(BACK.u1)), Y(BACK.v0), X(mx(BACK.u0)), Y(BACK.v1)]);
     const club = (val("back-text").trim() || "KULÜP İSMİ").toLocaleUpperCase("tr-TR");
     const player = isOn("has-name") ? "OYUNCU" : "";
     const num = isOn("has-number") ? "10" : "";
