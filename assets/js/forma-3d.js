@@ -377,8 +377,18 @@ void main() {
       if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); turnTo(cam.yaw + (e.key === "ArrowLeft" ? 0.4 : -0.4), cam.pitch); }
       else if (e.key === "Home") { e.preventDefault(); reset(); }
     });
-    canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); fail("3D görünüm durdu; 2D önizleme kullanılıyor."); });
-    new ResizeObserver(request).observe(canvas);
+    // Bağlam kaybolursa GPU kaynakları geçersizdir: katman atılır, bir sonraki açılışta yeni tuval
+    // ve yeni bağlamla baştan kurulur
+    canvas.addEventListener("webglcontextlost", (e) => {
+      e.preventDefault();
+      resizer.disconnect();
+      layer.remove();
+      layer = canvas = status = null;
+      gl = scene = loading = null;
+      fail("3D görünüm durdu; 2D önizleme kullanılıyor. Tekrar açmayı deneyebilirsin.");
+    });
+    const resizer = new ResizeObserver(request);
+    resizer.observe(canvas);
   }
 
   function reset() { cam.zoom = 1; turnTo(VIEWS[currentView()] ?? VIEWS.takim); }
@@ -450,7 +460,12 @@ void main() {
     else if (e.target.closest("[data-forma3d-reset]")) reset();
   });
   // Ön / Arka / Takım sekmeleri 3D'de kamerayı çevirir
-  form.querySelectorAll("[data-view]").forEach((tab) => tab.addEventListener("click", () => { if (active) turnTo(VIEWS[tab.dataset.view] ?? VIEWS.takim); }));
+  // Sekme tıklaması ya da akordeonun seçtiği görünüm (forma-sihirbaz.js setView → form.formaView)
+  const view2d = form.formaView;
+  form.formaView = (name) => {
+    view2d?.(name);
+    if (active) turnTo(VIEWS[name || "takim"] ?? VIEWS.takim);
+  };
   // 2D önizleme her çizimden sonra haber verir: doku yenilenir
   form.addEventListener("forma-render", () => { dirtyTex = true; if (active) request(); });
 
