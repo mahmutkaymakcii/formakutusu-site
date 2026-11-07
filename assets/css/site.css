@@ -4136,6 +4136,117 @@ body .mobile-cta.is-off {
   color: #080a0e;
 }
 
+/* İsteğe bağlı 3D önizleme (forma-3d.js): 2D önizlemenin üstüne açılır, kontroller tuvalin dışında */
+.order-studio__3d {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  min-height: 2.5rem;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 999px;
+  background: rgb(0 0 0 / 70%);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.4rem 0.9rem;
+  backdrop-filter: blur(6px);
+}
+
+.order-studio__3d:hover,
+.order-studio__3d:focus-visible,
+.order-studio__3d[aria-pressed="true"] {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.order-studio__3d[hidden],
+.forma3d[hidden],
+.forma3d__layer[hidden],
+.forma3d__controls[hidden],
+.forma3d__note[hidden],
+.forma3d__status[hidden] {
+  display: none;
+}
+
+.forma3d {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.forma3d__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.forma3d__controls button,
+.forma3d__controls select {
+  min-height: 2.4rem;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.3rem 0.75rem;
+}
+
+.forma3d__controls [data-forma3d-turn] {
+  min-width: 2.6rem;
+  font-size: 1.05rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.forma3d__controls select {
+  min-width: 0;
+  margin-left: auto;
+}
+
+.forma3d__controls button:hover,
+.forma3d__controls :focus-visible {
+  border-color: var(--gold);
+}
+
+.forma3d__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.forma3d__layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 34% 5% at 50% 93%, rgb(30 34 40 / 28%), transparent), linear-gradient(#f3f4f6, #d3d6db 80%, #c4c8ce);
+}
+
+.forma3d__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.forma3d__canvas:active {
+  cursor: grabbing;
+}
+
+.forma3d__canvas:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.order-studio__stage.is-3d .order-studio__save,
+.order-studio__stage.is-3d > [data-preview-status] {
+  display: none;
+}
+
 .wizard__panel {
   display: grid;
   gap: 0.5rem;
