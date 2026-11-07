@@ -14,6 +14,7 @@ Forma Kutusu'nun bağımlılıksız, statik ve mobil öncelikli web sitesi.
 - `assets/fonts/`: yerel Manrope ve Unbounded web fontları ile lisansları.
 - `assets/brand/forma-kutusu-og-neon.jpg`: sosyal paylaşım için 1200 × 630 neon marka görseli (PNG aslı aynı klasörde).
 - `assets/js/site.js`: menü, galeri, model filtreleri ve favoriler.
+- `assets/js/forma-3d.js` ve `assets/onizleme/forma-3d.glb`: Forma Tasarla'daki isteğe bağlı 3D önizleme (WebGL 2, bağımlılıksız). Model 3D Jersey Kit `Shirt.obj` dosyasından üretildi: dokusuz, sadeleştirilmiş (~48 bin üçgen) ve nicemlenmiş (KHR_mesh_quantization). Yalnızca düğmeye basılınca yüklenir.
 - `assets/templates/takim-listesi.csv`: müşterilerin indirebildiği takım listesi şablonu.
 
 ## Yerel üretim

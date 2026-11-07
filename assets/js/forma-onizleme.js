@@ -704,6 +704,7 @@
     state.frames = { on: [fx0 / W, fy0 / H, fx1 / W, (sockBox ? Math.max(fy1, sockBox.y + sockBox.h) : fy1) / H], arka: [bx0 / W, by0 / H, bx1 / W, by1 / H] };
     applyView();
     updateMini();
+    form.dispatchEvent(new Event("forma-render"));
   }
 
   // Görünüm: kanvas CSS ile seçilen parçaya yakınlaştırılır (kaydedilen görsel her zaman tam takımdır)
@@ -718,6 +719,13 @@
     view.style.transform = `translate(${(tx * 100).toFixed(2)}%, ${(ty * 100).toFixed(2)}%) scale(${s.toFixed(3)})`;
   }
   form.formaView = (name) => { stage.dataset.view = name; applyView(); };
+  // 3D önizleme (forma-3d.js) aynı deseni, logoları ve yazı seçimlerini kullanır; her çizimden
+  // sonra "forma-render" olayıyla haber alır. Logolar yalnızca tarayıcıda tutulur.
+  form.formaParts = () => (state.ready ? {
+    pattern: state.pattern, mainColor: state.mainColor, samples: state.samples, uploads: state.uploads,
+    flag: trOn() ? state.flag : null, logo, textColor: textColor(),
+    draw: { inBox: drawInBox, cover: drawCover, sizeInBox, textInBox },
+  } : null);
 
   // Çorap seçiliyse arka formanın altında, zemine oturan küçük çorap görseli (seçilen renkte)
   const SOCK_COLORS = ["siyah", "beyaz", "mavi", "kirmizi", "yesil"];

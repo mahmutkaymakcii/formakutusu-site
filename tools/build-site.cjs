@@ -889,11 +889,13 @@ const textColors = [["#d4af37", "Gold"], ["#c8102e", "Kırmızı"], ["#14254f", 
 
 const shortsColors = [["#111111", "Siyah"], ["#ffffff", "Beyaz"], ["#14254f", "Lacivert"], ["#c8102e", "Kırmızı"]];
 
-function previewStage() {
+// three: Forma tasarla sihirbazında isteğe bağlı 3D önizleme düğmesi (forma-3d.js açar)
+function previewStage({ three = false } = {}) {
   return `<div class="order-studio__stage" data-preview-stage>
               <canvas class="order-studio__canvas" width="1848" height="1888" role="img" aria-label="Seçimlerinize göre forma ve şort önizlemesi"></canvas>
               <span class="order-studio__status" data-preview-status aria-live="polite">Önizleme yükleniyor…</span>
-              <button type="button" class="order-studio__save" data-preview-save hidden><span aria-hidden="true">↓</span> Görseli kaydet</button>
+              <button type="button" class="order-studio__save" data-preview-save hidden><span aria-hidden="true">↓</span> Görseli kaydet</button>${three ? `
+              <button type="button" class="order-studio__3d" data-forma3d-toggle aria-pressed="false" hidden>3D önizleme</button>` : ""}
             </div>`;
 }
 
@@ -1137,11 +1139,20 @@ function designWizard() {
 
           <section class="wizard__step wizard__edit" data-step="3" aria-label="Forma düzenleme" hidden>
             <div class="wizard__preview">
-              ${previewStage()}
+              ${previewStage({ three: true })}
               <div class="wizard__views" role="tablist" aria-label="Görünüm">
                 <button type="button" role="tab" data-view="takim" aria-selected="true">Takım</button>
                 <button type="button" role="tab" data-view="on" aria-selected="false">Ön</button>
                 <button type="button" role="tab" data-view="arka" aria-selected="false">Arka</button>
+              </div>
+              <div class="forma3d" data-forma3d hidden>
+                <div class="forma3d__controls" data-forma3d-controls>
+                  <button type="button" data-forma3d-turn="-1" aria-label="Sola döndür">↺</button>
+                  <button type="button" data-forma3d-turn="1" aria-label="Sağa döndür">↻</button>
+                  <button type="button" data-forma3d-reset>Sıfırla</button>
+                  <select data-forma3d-collar aria-label="Yaka tipi">${["Sıfır yaka", "V yaka", "Polo yaka"].map((c) => `<option value="${c}">${c}</option>`).join("")}</select>
+                </div>
+                <p class="forma3d__note" data-forma3d-note aria-live="polite"></p>
               </div>
             </div>
             <div class="wizard__panel">
@@ -1690,7 +1701,7 @@ for (const service of servicePages) {
       title: service.title,
       description: service.description,
       pageClass: "service-page",
-      scripts: ["/assets/js/forma-modeller.js?v=20261030b", "/assets/js/forma-onizleme.js?v=20261030b", "/assets/js/forma-sihirbaz.js?v=20261030b"],
+      scripts: ["/assets/js/forma-modeller.js?v=20261030b", "/assets/js/forma-onizleme.js?v=20261107a", "/assets/js/forma-sihirbaz.js?v=20261030b", "/assets/js/forma-3d.js?v=20261107a"],
       schemas,
       body: `
       ${breadcrumbs(crumbs)}
