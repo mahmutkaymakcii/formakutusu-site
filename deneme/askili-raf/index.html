@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<!-- Consent Mode -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+try{if(JSON.parse(localStorage.getItem('forma-kutusu-consent-v1'))==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}</script>
+<!-- End Consent Mode -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TJL9N3XX');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Askılı Raf Deneme | Forma Kutusu</title>
+  <meta name="description" content="Forma desenlerini askılı raf vitrininde inceleyin, beden seçip WhatsApp üzerinden teklif alın.">
+  <link rel="canonical" href="https://formakutusu.com/deneme/askili-raf/">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#080a0e">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/askili-raf.css?v=20261103a">
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJL9N3XX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <header class="top">
+    <a href="/" aria-label="Forma Kutusu ana sayfa"><img src="/assets/brand/formakutusu-logo.svg" alt="Forma Kutusu" width="150" height="30"></a>
+    <span class="badge">Deneme sayfası</span>
+  </header>
+
+  <main id="main-content">
+    <section class="intro">
+      <p class="kicker">Desen vitrini</p>
+      <h1>Askıdan seç,<br><span>takımına uyarla.</span></h1>
+      <div class="tabs" role="tablist" aria-label="Branş">
+        <button class="tab" role="tab" aria-selected="true" data-sport="futbol">Futbol</button>
+        <button class="tab" role="tab" aria-selected="false" data-sport="basketbol">Basketbol</button>
+        <button class="tab" role="tab" aria-selected="false" data-sport="voleybol">Voleybol</button>
+      </div>
+    </section>
+
+    <section class="stage" aria-label="Forma rafı">
+      <div class="rail" id="rail"><div class="track" id="track"></div></div>
+      <div class="floor"></div>
+      <div class="nav">
+        <button class="arrow" data-dir="-1" aria-label="Sola kaydır">&#8592;</button>
+        <span id="count"></span>
+        <button class="arrow" data-dir="1" aria-label="Sağa kaydır">&#8594;</button>
+      </div>
+      <p class="hint">Formanın üzerine gel, sallansın. Tıkla, yakından incele.</p>
+    </section>
+  </main>
+
+  <div class="focus" id="focus" role="dialog" aria-modal="true" aria-labelledby="f-title" aria-hidden="true">
+    <div class="focus-bg" data-close></div>
+    <button class="step prev" data-step="-1" aria-label="Önceki desen">&#8592;</button>
+    <div class="focus-media">
+      <span class="swing" id="f-swing">
+        <svg class="hook" viewBox="0 0 46 44" aria-hidden="true"><use href="#hook"/></svg>
+        <img class="focus-img" id="f-img" src="/assets/raf/fk-f-001.webp" alt="FK-F-001 futbol forma deseni" width="375" height="480">
+      </span>
+    </div>
+    <button class="step next" data-step="1" aria-label="Sonraki desen">&#8594;</button>
+    <div class="panel">
+      <button class="close" data-close aria-label="Kapat">&times;</button>
+      <p class="code" id="f-code"></p>
+      <h2 id="f-title"></h2>
+      <p class="desc">Desen takım renklerine göre yeniden hazırlanır. Arma, sponsor, isim ve numara ücretsiz eklenir.</p>
+      <p class="label">Beden (isteğe bağlı)</p>
+      <div class="sizes" id="f-sizes"></div>
+      <a class="cta wa" id="f-wa" target="_blank" rel="noopener">WhatsApp'tan teklif al</a>
+      <a class="cta ghost" id="f-try">Forma Tasarla'da dene</a>
+    </div>
+  </div>
+
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
+    <symbol id="hook" viewBox="0 0 46 44">
+      <path d="M23 20 V12 a6 6 0 1 1 6 -6" fill="none" stroke="#c9ced6" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M23 20 L4 38 Q2 41 6 41 H40 Q44 41 42 38 Z" fill="#2a2f37" stroke="#4a515c" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <script src="/assets/js/askili-raf.js?v=20261103a" defer></script>
+</body>
+</html>
