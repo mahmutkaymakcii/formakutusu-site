@@ -16,8 +16,9 @@ const site = {
   tiktok: "https://www.tiktok.com/@formakutusunora",
   facebook: "https://www.facebook.com/share/198st7XEzE/",
   email: "formakutusu@gmail.com",
-  locality: "Zeytinburnu",
-  region: "İstanbul",
+  // Açık adres yazılmaz (Google profili hizmet bölgesi işletmesi): sadece şehir + hizmet bölgesi.
+  locality: "İstanbul",
+  serviceArea: "Türkiye geneli gönderim",
   hoursDisplay: "Hafta içi 09:00–18:00",
   foundingDate: "2017-04",
   // Model sayfalarındaki Offer şeması: tek üst forma fiyatı (TRY).
@@ -77,7 +78,6 @@ function organizationSchema() {
     address: {
       "@type": "PostalAddress",
       addressLocality: site.locality,
-      addressRegion: site.region,
       addressCountry: "TR",
     },
     areaServed: { "@type": "Country", name: "Türkiye" },
@@ -1690,7 +1690,7 @@ const servicePages = [
     seoTitle: "İstanbul’da forma yaptırma hakkında",
     faqTitle: "İstanbul forma siparişi hakkında",
     seoIntro: [
-      "İstanbul Zeytinburnu merkezli Forma Kutusu, 2017’den beri takımlara özel forma tasarlıyor; formalar NORA markasıyla üretiliyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.",
+      "İstanbul merkezli Forma Kutusu, 2017’den beri takımlara özel forma tasarlıyor; formalar NORA markasıyla üretiliyor. Halı saha ekipleri, amatör kulüpler, şirket takımları, okul ve turnuva kadroları için futbol, basketbol ve voleybol formalarını takımın renkleri, arması ve sponsorlarıyla hazırlıyoruz.",
       "<a href=\"/\">Forma yaptırma</a> sürecinde tasarım tamamen sana kalır: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.",
     ],
     guide: [
@@ -1932,7 +1932,7 @@ writePage("/hakkimizda/", {
   body: `
     ${breadcrumbs([{ name: "Ana Sayfa", path: "/" }, { name: "Hakkımızda", path: "/hakkimizda/" }])}
     ${innerHero({ eyebrow: "Forma Kutusu", title: "Forma Kutusu: 2017’den beri takımlara özel forma üretimi.", copy: "Model seçimini, takım detaylarını, tasarım onayını ve üretim iletişimini tek anlaşılır süreçte birleştiriyoruz.", image: { src: "/assets/references/ref-15.webp", alt: "Forma Kutusu üretiminden tamamlanan siyah ve mavi takım formaları", width: 1000, height: 700 } })}
-    <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Hikâyemiz</p><h2>Nisan 2017'den bu yana takımlarla.</h2></div><p>Forma Kutusu, Nisan 2017'de İstanbul Zeytinburnu'nda kuruldu. O günden bu yana takımlara özel forma tasarlıyoruz. Formalarımız kendi markamız NORA ile hazırlanıyor; model seçiminden tasarım onayına kadar her adımda takımınla birlikte çalışıyoruz.</p></div></section>
+    <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Hikâyemiz</p><h2>Nisan 2017'den bu yana takımlarla.</h2></div><p>Forma Kutusu, Nisan 2017'de İstanbul'da kuruldu. O günden bu yana takımlara özel forma tasarlıyoruz. Formalarımız kendi markamız NORA ile hazırlanıyor; model seçiminden tasarım onayına kadar her adımda takımınla birlikte çalışıyoruz.</p></div></section>
     <section class="feature-section"><div class="container">
       ${sectionIntro("Nasıl çalışıyoruz", "Her siparişte aynı dört ilke.", "Modelden teslimata kadar her adımı seninle birlikte netleştiriyoruz.")}
       <div class="feature-grid"><article><span>01</span><h3>Net kapsam</h3><p>Adet, ürün, beden ve kişiselleştirme detayları sipariş öncesinde yazılı hâle gelir.</p></article><article><span>02</span><h3>Görsel onay</h3><p>Takım renkleri ve kimlik öğeleri üretimden önce kontrol edilir.</p></article><article><span>03</span><h3>Güncel bilgi</h3><p>İmalat tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir.</p></article><article><span>04</span><h3>Gizlilik</h3><p>Müşteri listeleri ve özel sipariş dosyaları web sitesinde yayınlanmaz.</p></article></div>
@@ -1965,7 +1965,7 @@ writePage("/iletisim/", {
       <div class="contact-info">
         <a class="contact-info__card contact-info__card--whatsapp" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.2-2.2l.8-1-1-2z"/></svg></span><span class="contact-info__text"><small>WhatsApp</small><strong>Mesaj gönder</strong><span>Sipariş ve model soruları için doğrudan yaz.</span></span><b aria-hidden="true">→</b></a>
         <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></span><span class="contact-info__text"><small>Telefon</small><strong><a href="tel:${site.phoneHref}">${site.phoneDisplay.split(" ").join("&nbsp;")}</a></strong></span></div>
-        <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="contact-info__text"><small>Saatler ve konum</small><strong>${site.hoursDisplay}</strong><span>${site.locality}, ${site.region}</span></span></div>
+        <div class="contact-info__card"><span class="contact-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="contact-info__text"><small>Saatler ve konum</small><strong>${site.hoursDisplay}</strong><span>${site.locality} merkezli · ${site.serviceArea}</span></span></div>
       </div>
     </div></section>
     <section class="content-band"><div class="container content-band__grid"><div><p class="eyebrow">Mesaj kontrol listesi</p><h2>İlk mesajda bunları ekle.</h2></div><ul class="check-list"><li>Branş ve kullanım amacı</li><li>Beğendiğin model kodu</li><li>Forma adedi</li><li>Forma veya forma + şort</li><li>Takım renkleri</li><li>Varsa hedef tarih</li></ul></div></section>
