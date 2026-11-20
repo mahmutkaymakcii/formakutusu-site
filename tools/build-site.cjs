@@ -211,6 +211,9 @@ function footer(mobileCta) {
         <a href="/takima-ozel-forma/">Takıma özel forma</a>
         <a href="/kaleci-formasi/">Kaleci forması</a>
         <a href="/cocuk-formasi/">Çocuk forması</a>
+        <a href="/sublimasyon-forma/">Süblimasyon forma</a>
+        <a href="/okul-turnuva-formasi/">Okul ve turnuva forması</a>
+        <a href="/forma-yaptirma-istanbul/">Forma yaptırma İstanbul</a>
       </div>
       <div>
         <h2>Bilgi</h2>
@@ -293,7 +296,7 @@ function pageShell({
   <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
   <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261031b">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261031a" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261120a" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -745,7 +748,7 @@ const categoryConfig = {
     route: "/futbol/",
     title: "Futbol Forması Yaptırma ve Forma Modelleri",
     description:
-      "Takımınıza özel futbol ve halı saha forması modellerini inceleyin. Fiyatları görün, model koduyla siparişinizi başlatın.",
+      "Futbol forması yaptır: modelini seç ya da kendi desenini getir; renk, logo, isim ve numara takımına göre. Ücretsiz tasarım, 5–7 iş günde üretim.",
     eyebrow: "Futbol formaları",
     heading: "Futbol forması yaptırma: takımına özel modeller.",
     copy: "Halı saha ekipleri, okul takımları, turnuva kadroları ve kulüpler için modelden siparişe uzanan sade bir akış.",
@@ -760,7 +763,7 @@ const categoryConfig = {
     route: "/basketbol/",
     title: "Basketbol Forması Yaptırma ve Takım Modelleri",
     description:
-      "Takımınıza özel basketbol forma ve şort modellerini inceleyin. Fiyatları görün, model koduyla siparişinizi başlatın.",
+      "Basketbol forması yaptır: forma ve şortu takım renklerinle, logo, isim ve numarayla tasarlayalım. Ücretsiz tasarım, 5–7 iş günde üretim.",
     eyebrow: "Basketbol formaları",
     heading: "Basketbol forması yaptırma: parkeye uygun takım modelleri.",
     copy: "Basketbol forma ve şort modellerini kodla seç; takım renklerini, logoyu ve oyuncu listesini sipariş görüşmesine ekle.",
@@ -775,7 +778,7 @@ const categoryConfig = {
     route: "/voleybol/",
     title: "Voleybol Forması Yaptırma ve Takım Modelleri",
     description:
-      "Takımınıza özel voleybol forma modellerini inceleyin. Fiyatları görün, model koduyla siparişinizi başlatın.",
+      "Voleybol forması yaptır: modelini seç ya da kendi desenini getir; renk, logo, isim ve numara takımına göre. Ücretsiz tasarım, 5–7 iş günde üretim.",
     eyebrow: "Voleybol formaları",
     heading: "Voleybol forması yaptırma: takımına özel modeller.",
     copy: "Okul, turnuva ve kulüp takımları için voleybol modellerini incele; beden dağılımını ve oyuncu bilgilerini düzenli biçimde paylaş.",
@@ -1267,7 +1270,7 @@ for (const model of models) {
   const related = models
     .filter((candidate) => candidate.sport === model.sport && candidate.id !== model.id)
     .slice(0, 3);
-  const description = `${model.id} ${config.singular.toLocaleLowerCase("tr-TR")}: ${model.colors}, ${model.pattern}. Takım renklerine uyarlanır; üst forma ${site.priceFrom}₺, minimum 5 adet.`;
+  const description = `${model.id} ${config.singular.toLocaleLowerCase("tr-TR")}: ${model.colors}, ${model.pattern}. Renk, logo, isim ve numara takımına göre; ücretsiz tasarım, 5–7 iş günde üretim.`;
   // Aranabilir ad: kod + renk/desen + branş (ör. "FK-001 Turkuaz Dalga Desenli Futbol Forması")
   const heading = `${model.id} ${model.label} ${config.label} Forması`;
 
@@ -1447,7 +1450,9 @@ const servicePages = [
       "Tasarım onaylandıktan sonra imalat 5–7 iş günü sürer; formalar Türkiye geneline kargoyla gönderilir. Arma, sponsor, isim ve numara tasarım aşamasında formaya yerleştirilir.",
     ],
     title: "Takıma Özel Forma Yaptırma",
-    description: "Takımınıza özel forma tasarımı için model, renk, logo, sponsor, isim, numara ve beden bilgilerini planlayın; siparişinizi hazırlayın.",
+    metaTitle: "Takım Forması Yaptırma | Takıma Özel Forma – Forma Kutusu",
+    h1: "Takım Forması Yaptırma: Takımına Özel Tasarım",
+    description: "Takım forması yaptır: kendi desenini getir ya da modelini seç; renk, arma, sponsor, isim ve numara takımına göre. Ücretsiz tasarım, 5–7 iş günde üretim.",
     eyebrow: "Özel tasarım",
     heading: "Takıma özel forma: kendi deseninle tasarla.",
     copy: "Hazır model seçmek zorunda değilsin. Forma tasarla aracında desenini yükle, formanın üzerinde anında gör; logo ve oyuncu listesiyle birlikte siparişini oluştur.",
@@ -1472,7 +1477,7 @@ const servicePages = [
       "Forma + şort takımı adet başına 450₺, çorapla birlikte 480₺’dir. Tasarım onayından sonra imalat 5–7 iş günü sürer.",
     ],
     title: "Forma Şort Takımı Yaptırma",
-    description: "Takımınıza özel forma ve şort takımını model, renk, logo, isim, numara, adet ve beden dağılımıyla birlikte planlayın.",
+    description: "Forma şort takımı yaptır: üst ve alt aynı tasarım dilinde; renk, logo, isim ve numara takımına göre. Ücretsiz tasarım, onaydan sonra 5–7 iş günde üretim.",
     eyebrow: "Forma + şort",
     heading: "Forma şort takımı yaptırma: üst ve alt aynı takım dilinde.",
     copy: "Deseni seç; logonu, kulüp ismini ve yaka tipini forma tasarla aracında forma ve şort üzerinde anında gör, siparişini oluştur.",
@@ -1623,7 +1628,7 @@ const servicePages = [
       "Turnuva tarihi yaklaşan ekipler için hızlı teslim önemlidir: tasarım onayından sonra imalat 5–7 iş günü sürer. Hedef tarihini ilk mesajda paylaşman planlamayı kolaylaştırır.",
     ],
     title: "Okul Takımı ve Turnuva Forması Yaptırma",
-    description: "Okul takımı, şirket turnuvası ve organizasyonlar için forma yaptırma sürecini takım listesi, farklı bedenler ve teslim planıyla yönetin.",
+    description: "Okul takımı, şirket turnuvası ve organizasyonlar için forma yaptır. Kurum renkleri ve logosuyla ücretsiz tasarım, çocuk ve yetişkin bedenleri, 5–7 iş günde üretim.",
     eyebrow: "Okul ve turnuva",
     heading: "Okul takımı ve turnuva forması: kalabalık kadrolar için düzenli sipariş.",
     copy: "Öğrenci, çalışan veya turnuva kadrolarında farklı bedenleri, isimleri ve numaraları tek listede toplayarak hata riskini azalt.",
@@ -1638,6 +1643,38 @@ const servicePages = [
       ["Turnuva tarihini nasıl bildirmeliyim?", "Hedef tarihi WhatsApp mesajına ekle; güncel üretim uygunluğu ayrıca teyit edilir."],
       ["Takım listesini sonradan değiştirebilir miyim?", "Üretim onayından önce değişiklikleri tek listede güncellemek gerekir; üretim başladıktan sonraki durum ayrıca değerlendirilir."],
       ["CSV şablonu var mı?", "Evet. Beden planlama sayfasından takım listesi şablonunu indirebilirsin."],
+    ],
+  },
+  {
+    route: "/sublimasyon-forma/",
+    title: "Süblimasyon Forma Yaptırma",
+    metaTitle: "Süblimasyon Forma Yaptırma | Takıma Özel – Forma Kutusu",
+    description: "Süblimasyon forma yaptır: desen, renk, isim, numara ve logo kumaşa işlenir, formanın tamamı takımına özel tasarlanır. Ücretsiz tasarım, 5–7 iş günde üretim.",
+    eyebrow: "Süblimasyon baskı",
+    copy: "Desen, arma, sponsor, isim ve numara kumaşın içine işlenir; renk sınırı olmadan formanın tamamını takımına göre tasarlarız. Onaydan sonra 5–7 iş gününde üretim.",
+    waTopic: "süblimasyon forma yaptırmak",
+    seoTitle: "Süblimasyon forma yaptırma hakkında",
+    faqTitle: "Süblimasyon forma siparişi",
+    seoIntro: [
+      "Süblimasyon formada desen kumaşın üzerine yapıştırılmaz, ısıyla polyester liflerin içine işlenir. Bu yüzden formanın önü, arkası, kolları ve şortu tek bir tasarım dilinde, renk sınırı olmadan hazırlanabilir; baskı kalınlık yapmaz ve kumaşın nefes almasını kapatmaz. Yöntemin ayrıntılarını <a href=\"/rehber/sublimasyon-forma-nedir/\">Süblimasyon forma nedir?</a> rehberinde anlattık.",
+      "Forma Kutusu’nda tasarım tamamen sana kalır: <a href=\"/modeller/\">model kataloğundan</a> bir deseni takım renklerine uyarlatabilir, <a href=\"/forma-tasarla/?desen=kendi\">kendi desenini yükleyebilir</a> ya da fikrini anlatıp sıfırdan tasarlatabilirsin. Tasarım desteği ücretsizdir, onay vermeden üretime geçilmez ve imalat onaydan sonra 5–7 iş günü sürer.",
+    ],
+    guide: [
+      ["Hangi branşlar için?", "<a href=\"/futbol/\">Futbol</a>, <a href=\"/hali-saha-formasi/\">halı saha</a>, <a href=\"/basketbol/\">basketbol</a> ve <a href=\"/voleybol/\">voleybol</a> takımları için süblimasyon forma hazırlıyoruz. <a href=\"/kaleci-formasi/\">Kaleci forması</a> ve <a href=\"/cocuk-formasi/\">çocuk bedenleri</a> aynı siparişe eklenebilir."],
+      ["İsim, numara ve logo", "Her oyuncunun ismi ve numarası, arma ve sponsor logolarıyla birlikte aynı baskı sürecinde formaya işlenir. Oyuncu listesini <a href=\"/rehber/takim-listesi-hazirlama/\">takım listesi rehberine</a> göre hazırlayabilirsin."],
+      ["Sipariş nasıl ilerler?", "Model veya deseni seç, adet ve ürün kapsamını belirle, oyuncu listesini paylaş. Hazırlanan tasarımı onayladıktan sonra üretim başlar; formalar Türkiye geneline kargoyla gönderilir. Adım adım kontrol listesi için <a href=\"/rehber/forma-yaptirma-rehberi/\">forma yaptırma rehberine</a> bakabilirsin."],
+    ],
+    cards: [
+      ["Desen", "Hazır model, renk uyarlaması ya da kendi desenin."],
+      ["Takım kimliği", "Arma, sponsor, isim ve numara kumaşa işlenir."],
+      ["Adet ve beden", "Oyuncu listesi ve beden dağılımı tek dosyada."],
+      ["Tasarım onayı", "Son görsel onaylanmadan üretime geçilmez."],
+    ],
+    faq: [
+      ["Süblimasyon forma solar mı, baskısı çatlar mı?", "Desen kumaşın içine işlendiği için yüzeyde soyulacak ya da çatlayacak ayrı bir baskı katmanı oluşmaz. Formayı ters çevirerek düşük-orta sıcaklıkta yıkamak renklerin uzun süre canlı kalmasına yardımcı olur."],
+      ["Kendi desenimizle süblimasyon forma yaptırabilir miyiz?", "Evet. Desenini Forma tasarla aracında yükleyip formanın üzerinde görebilir ya da WhatsApp’tan gönderebilirsin; tasarım ücretsiz hazırlanır ve onayına sunulur."],
+      ["Minimum kaç adet sipariş verebilirim?", "Üretim en az 5 adet ile başlar; çocuk ve yetişkin bedenleri aynı siparişte birlikte sayılır."],
+      ["Ne kadar sürede teslim edilir?", "İmalat, tasarım onayından sonra 5–7 iş günü sürer; kargo süresi buna dahil değildir."],
     ],
   },
   {
@@ -1792,7 +1829,7 @@ const productionFaq = [
 ];
 
 writePage("/kumas-ve-uretim/", {
-  title: "Süblimasyon Forma, Kumaş ve Üretim Süreci",
+  title: "Forma Kumaşı, Baskı ve Üretim Süreci",
   description: "Süblimasyon forma üretiminde kumaş, baskı, tasarım onayı ve kalite kontrol adımlarını öğrenin. Güncel üretim bilgilerini sipariş öncesinde teyit edin.",
   pageClass: "content-page",
   schemas: [
@@ -1849,7 +1886,7 @@ const pricingFaq = [
 
 writePage("/teklif/", {
   title: "Özel Tasarım Forma Fiyatları",
-  description: "Özel tasarım forma fiyatlarını inceleyin: tek üst forma 300₺, forma ve şort 450₺, forma, şort ve çorap 480₺, çorap 30₺.",
+  description: "Özel tasarım forma fiyatları: tek forma, forma + şort ve komple takım seçeneklerini adet başına net gör. Ücretsiz tasarım, minimum 5 adet, 5–7 iş günde üretim.",
   pageClass: "pricing-page",
   schemas: [
     breadcrumbSchema([
@@ -2116,6 +2153,7 @@ const guideArticles = [
       ["Kısa özet", "Süblimasyon, deseni ısıyla polyester kumaşın içine işleyen bir baskı yöntemidir. Formanın tamamına çok renkli desen, isim, numara ve logo uygulanmasını sağlar; baskı kalınlık yapmaz. Doğru sonuç için tasarım onayında renkleri, yazı kontrastını ve logo yerleşimini dikkatle kontrol etmek gerekir."],
     ],
     related: [
+      ["/sublimasyon-forma/", "Süblimasyon forma yaptır"],
       ["/kumas-ve-uretim/", "Kumaş ve üretim"],
       ["/forma-tasarla/", "Forma tasarla"],
       ["/takima-ozel-forma/", "Takıma özel forma"],
