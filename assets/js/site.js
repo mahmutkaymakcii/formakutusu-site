@@ -24,7 +24,32 @@
     },
   };
 
+  // Dönüşüm ölçümü: GTM/GA4'te "whatsapp_click" ve "phone_click" olayları olarak görünür.
+  function trackContact(event, source) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event, contact_source: source, page_path: location.pathname });
+    } catch {
+      // Ölçüm hatası sipariş akışını engellemez.
+    }
+  }
+
+  function initContactTracking() {
+    document.addEventListener(
+      "click",
+      (event) => {
+        const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+        if (!link) return;
+        const href = link.getAttribute("href") || "";
+        if (href.includes("wa.me/")) trackContact("whatsapp_click", "link");
+        else if (href.startsWith("tel:")) trackContact("phone_click", "link");
+      },
+      { capture: true },
+    );
+  }
+
   function openWhatsApp(message) {
+    trackContact("whatsapp_click", "form");
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     // "noopener" ile window.open her zaman null döner ve sayfa da yönlenirdi; opener elle kesilir
     const popup = window.open(url, "_blank");
@@ -976,6 +1001,7 @@
     if (stored !== "granted" && stored !== "denied") show();
   }
 
+  initContactTracking();
   initNavigation();
   initNavGroups();
   initUppercaseFields();
