@@ -293,10 +293,10 @@ function pageShell({
   <meta name="twitter:image" content="${site.origin}/assets/brand/forma-kutusu-og-neon.jpg">
   <link rel="preload" href="/assets/fonts/unbounded-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=20261030b">
-  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261031b">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20261120p">
+  <link rel="stylesheet" href="/assets/css/neon-sport.css?v=20261120p">
   ${schemaTags(schemas)}
-  <script src="/assets/js/site.js?v=20261120a" defer></script>${scripts.map((src) => `
+  <script src="/assets/js/site.js?v=20261120p" defer></script>${scripts.map((src) => `
   <script src="${src}" defer></script>`).join("")}
 </head>
 <body class="${escapeHtml(pageClass)}">
@@ -462,7 +462,9 @@ function finalCta(title = "Takımına yakışan formayı birlikte hazırlayalım
 const salesPrices = [
   ["Forma", "300₺", "Tek üst forma"],
   ["Forma + Şort", "450₺", "En çok tercih edilen"],
-  ["Forma + Şort + Çorap", "480₺", "Komple takım"],
+  ["Forma + Şort + Çorap", "500₺", "Komple takım"],
+  ["Tek Şort", "150₺", "Ayrı şort siparişi", "extra"],
+  ["Çorap", "50₺", "Ayrı çorap siparişi", "extra"],
 ];
 
 const salesDeliveredItems = [
@@ -507,7 +509,7 @@ function salesLandingBody({ crumbs, eyebrow, h1, lead, heroModels, gridModels, w
       <section class="sales-prices" aria-labelledby="sales-prices-title"><div class="container">
         <div class="section-intro"><p class="eyebrow">Fiyatlar</p><h2 id="sales-prices-title">Adet başı net fiyat.</h2></div>
         <div class="pricing-grid sales-prices__grid">${salesPrices
-          .map(([label, price, note]) => `<article class="price-card"><p>${escapeHtml(label.toLocaleUpperCase("tr-TR"))}</p><strong>${price}</strong><small>${escapeHtml(note)}</small></article>`)
+          .map(([label, price, note, kind]) => `<article class="price-card${kind ? ` price-card--${kind}` : ""}"><p>${escapeHtml(label.toLocaleUpperCase("tr-TR"))}</p><strong>${price}</strong><small>${escapeHtml(note)}</small></article>`)
           .join("")}</div>
         <p class="sales-prices__note">Minimum 5 adet · Tasarım onayından sonra 5–7 iş günü üretim · Kaleci forması +50₺ · <a href="/teklif/">Tüm fiyat detayları</a></p>
       </div></section>
@@ -1177,7 +1179,7 @@ function designWizard() {
                     <label class="order-check"><input type="checkbox" name="shorts-number" checked> Sol paçaya numara ekle</label>
                   </div>
                 </div>`, ' data-focus="on"')}
-              ${section("Çorap", `<label class="order-check wizard-switch"><input type="checkbox" name="socks-on" data-socks-toggle> Çorap istiyorum <small>(+30₺)</small></label>
+              ${section("Çorap", `<label class="order-check wizard-switch"><input type="checkbox" name="socks-on" data-socks-toggle> Çorap istiyorum <small>(+50₺)</small></label>
                 <div data-socks-colors hidden><div class="order-colors" role="radiogroup" aria-label="Çorap rengi">${[["yok", "Yok", "transparent"], ["siyah", "Siyah", "#111111"], ["beyaz", "Beyaz", "#ffffff"], ["mavi", "Mavi", "#1f4fbf"], ["kirmizi", "Kırmızı", "#c8102e"], ["yesil", "Yeşil", "#1f8a4c"]].map(([v, t, c]) => `<label class="order-color"><input type="radio" name="socks" value="${v}" data-label="${t}"${v === "yok" ? " checked" : ""}><i style="background:${c}"></i> ${t}</label>`).join("")}</div></div>`, ' data-focus="takim"')}
               ${section("Kumaş", `<div class="wizard-fabric"><strong>Poly Mesh</strong><p>Tüm formalarımız piyasadaki en kaliteli forma kumaşlarından Poly Mesh ile üretilir. Nefes alır, hafiftir ve süblimasyon baskıda renkler canlı kalır. Fiyat farkı yoktur.</p></div>`)}
               ${section("Göğüs logoları", `${orderUpload("logo-left", "Sol göğüs logosu", "Sol göğüste logo yok", "TR Arma")}
@@ -1355,7 +1357,7 @@ for (const model of models) {
             <h1>${escapeHtml(heading)}</h1>
             <p class="lead">${escapeHtml(model.summary)}</p>
             <p class="product-detail__story">${escapeHtml(model.story)}</p>
-            <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Üst forma 300₺</strong><small>Forma + şort 450₺ · Forma + şort + çorap 480₺ · Çorap 30₺</small></div>
+            <div class="product-detail__pricing"><span>Fiyatlandırma</span><strong>Üst forma 300₺</strong><small>Forma + şort 450₺ · Forma + şort + çorap 500₺ · Tek şort 150₺ · Çorap 50₺</small></div>
             <dl class="product-detail__facts">
               <div><dt>Model kodu</dt><dd>${model.id}</dd></div>
               <div><dt>Branş</dt><dd>${escapeHtml(config.label)}</dd></div>
@@ -1474,7 +1476,7 @@ const servicePages = [
     route: "/forma-sort-takimi/",
     seoIntro: [
       "Forma şort takımında üst ve alt aynı tasarım dilinde hazırlanır: şort rengi, paça logosu ve numarası formanla uyumlu olacak şekilde serbestçe düzenlenir. Hazır modelden başlayabilir ya da kendi desenini kullanabilirsin.",
-      "Forma + şort takımı adet başına 450₺, çorapla birlikte 480₺’dir. Tasarım onayından sonra imalat 5–7 iş günü sürer.",
+      "Forma + şort takımı adet başına 450₺, çorapla birlikte 500₺’dir. Tasarım onayından sonra imalat 5–7 iş günü sürer.",
     ],
     title: "Forma Şort Takımı Yaptırma",
     description: "Forma şort takımı yaptır: üst ve alt aynı tasarım dilinde; renk, logo, isim ve numara takımına göre. Ücretsiz tasarım, onaydan sonra 5–7 iş günde üretim.",
@@ -1604,7 +1606,7 @@ const servicePages = [
     guide: [
       ["Çocuk bedenleri", "Sipariş formunda 116, 128, 140, 152 ve 164 çocuk bedenleri ile XS'den 4XL'e yetişkin bedenleri aynı listede seçilebilir. Bu sayede antrenörlerin ve yetişkin oyuncuların formaları da çocuk formalarıyla birlikte hazırlanır. Beden seçerken çocuğun kullandığı benzer bir spor ürününü referans almak en güvenli yoldur; ayrıntılar için <a href=\"/beden-tablosu/\">beden planlama</a> sayfasına bakabilirsin."],
       ["İsim ve numara", "Her oyuncunun adı, numarası ve bedeni takım listesinde tek satırda toplanır. Listeyi sipariş formunda doldurabilir ya da CSV şablonunu indirip hazırlayabilirsin. İsim ve numara, arma ve sponsorla birlikte tasarım aşamasında formaya uygulanır."],
-      ["Fiyat ve minimum adet", "Üretim en az 5 adet ile başlar. Çocuk bedenlerinde fiyat farkı yoktur; yetişkin bedenleriyle aynı fiyatlar geçerlidir: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Sipariş formu toplam tutarı otomatik hesaplar."],
+      ["Fiyat ve minimum adet", "Üretim en az 5 adet ile başlar. Çocuk bedenlerinde fiyat farkı yoktur; yetişkin bedenleriyle aynı fiyatlar geçerlidir: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 500₺, tek şort 150₺, çorap 50₺. Sipariş formu toplam tutarı otomatik hesaplar."],
       ["Okul ve turnuva takımları", "Kalabalık okul kadroları ve turnuvalar için <a href=\"/okul-turnuva-formasi/\">okul ve turnuva forması</a> sayfasındaki planlama önerilerine göz atabilir, tasarımı <a href=\"/forma-tasarla/\">Forma tasarla</a> sayfasında önizleyebilirsin."],
     ],
     image: { src: "/assets/models/fk-001.webp", alt: "Çocuk takımları için özel forma modeli", width: 640, height: 800 },
@@ -1694,7 +1696,7 @@ const servicePages = [
       "<a href=\"/\">Forma yaptırma</a> sürecinde tasarım tamamen sana kalır: model kataloğundan beğendiğin desenin kodunu seç ya da kendi deseninle başla, adet ve ürün kapsamını belirle, oyuncu listesini hazırla. Tasarım desteği ücretsiz; hazırlanan görseli onaylamadan üretime geçmiyoruz. İmalat, onaydan sonra 5–7 iş günü sürüyor ve siparişler kargoyla gönderiliyor.",
     ],
     guide: [
-      ["İstanbul’da forma fiyatları", "Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına, model seçmek için <a href=\"/modeller/\">Modeller</a> sayfasına bakabilirsin."],
+      ["İstanbul’da forma fiyatları", "Fiyatlar adet başına: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 500₺, tek şort 150₺, çorap 50₺. Kaleci forması için 50₺ uzun kollu fiyat farkı eklenir. Üretim en az 5 adet ile başlar. Ayrıntılar ve örnek hesaplar için <a href=\"/teklif/\">Fiyatlar</a> sayfasına, model seçmek için <a href=\"/modeller/\">Modeller</a> sayfasına bakabilirsin."],
       ["Hangi takımlar için?", "<a href=\"/hali-saha-formasi/\">Halı saha forması</a>, <a href=\"/futbol/\">futbol forması</a>, <a href=\"/basketbol/\">basketbol forması</a>, <a href=\"/voleybol/\">voleybol forması</a> ve <a href=\"/okul-turnuva-formasi/\">okul ve turnuva forması</a> siparişlerinde isim, numara, logo ve sponsor bilgileri tasarım aşamasında formaya uygulanır. Kendi desenini kullanmak istersen <a href=\"/forma-tasarla/?desen=kendi\">Formanı Tasarla</a> aracında yükleyip formanın üzerinde anında görebilirsin; ayrıntılar <a href=\"/takima-ozel-forma/\">takıma özel forma</a> sayfasında."],
     ],
     cards: [
@@ -1855,7 +1857,7 @@ const allFaq = [
   ["Logo için hangi dosya türünü göndermeliyim?", "PNG, JPG veya PDF dosyası ön değerlendirme için seçilebilir. Baskıya uygunluk tasarım görüşmesinde kontrol edilir."],
   ["Takım listesini Excel veya CSV olarak gönderebilir miyim?", "Evet. Dosyayı WhatsApp görüşmesine kendin ekleyebilirsin."],
   ["Dosyalarımı nasıl gönderebilirim?", "Logo, örnek görsel ve takım listesi dosyalarını WhatsApp görüşmesine kendin ekleyebilirsin."],
-  ["Güncel forma fiyatları nedir?", "Tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺ ve çorap 30₺."],
+  ["Güncel forma fiyatları nedir?", "Tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 500₺. Ayrı olarak tek şort 150₺, çorap 50₺’dir."],
 ];
 
 writePage("/sik-sorulan-sorular/", {
@@ -1900,16 +1902,18 @@ writePage("/teklif/", {
     <section class="pricing-hero"><div class="container pricing-hero__grid">
       <div><p class="eyebrow">Şeffaf fiyatlandırma</p><h1>Özel tasarım forma fiyatları</h1><p class="lead">Futbol, halı saha, basketbol ve voleybol takımları için özel tasarım forma fiyatları. Forma Kutusu ve NORA güvencesiyle fiyatları incele, siparişini doğrudan WhatsApp üzerinden başlat.</p></div>    </div></section>
     <section class="pricing-section" id="fiyatlar"><div class="container">
-      <div class="pricing-grid" aria-label="Özel tasarım forma fiyatları">
+      <div class="pricing-grid pricing-grid--six" aria-label="Özel tasarım forma fiyatları">
         <article class="price-card"><p>TEK ÜST FORMA</p><strong>300₺</strong></article>
         <article class="price-card"><p>FORMA + ŞORT</p><strong>450₺</strong></article>
-        <article class="price-card"><p>FORMA + ŞORT + ÇORAP</p><strong>480₺</strong></article>
-        <article class="price-card"><p>ÇORAP</p><strong>30₺</strong></article>
+        <article class="price-card"><p>FORMA + ŞORT + ÇORAP</p><strong>500₺</strong></article>
+        <article class="price-card"><p>TEK ŞORT</p><strong>150₺</strong></article>
+        <article class="price-card"><p>ÇORAP</p><strong>50₺</strong></article>
+        <article class="price-card"><p>KALECİ FARKI</p><strong>+50₺</strong></article>
       </div>
       <div class="pricing-notes"><p>Kaleciler için 50₺ uzun kollu fiyat farkı bulunmakta.</p><p>Tasarım onayından sonra 5–7 iş günü imalat; kargo süresi ayrıca eklenir.</p><p>Kargo ücreti alıcıya aittir. <a href="/teslimat-ve-iade/">Teslimat ve iade koşulları</a></p></div>
       <div class="pricing-details">
         <article><h2>Forma fiyatına neler dahil?</h2><p>Fiyatlar adet başınadır ve takımına özel hazırlanan süblimasyon baskılı forma içindir. Tasarım desteği ücretsizdir: seçtiğin modelin renkleri takımına göre düzenlenir; arma, sponsor, isim ve numara tasarım aşamasında formaya yerleştirilir. Üretim, hazırlanan görseli onaylamandan sonra başlar.</p><p>Futbol, halı saha, basketbol ve voleybol formalarında aynı fiyatlar geçerlidir. Forma + şort takımında şort, formayla aynı tasarım dilinde hazırlanır.</p></article>
-        <article><h2>Takım için örnek hesap</h2><p>Toplam tutar adet, ürün kapsamı ve kaleci sayısına göre hesaplanır:</p><ul class="check-list"><li>10 forma + şort: 10 × 450₺ = 4.500₺</li><li>10 forma + şort + çorap: 10 × 480₺ = 4.800₺</li><li>10 forma + şort, 1’i kaleci: 4.500₺ + 50₺ = 4.550₺</li><li>5 tek üst forma: 5 × 300₺ = 1.500₺</li></ul><p>Sipariş formunda adedi ve kapsamı seçtiğinde toplam tutar otomatik hesaplanır; kesin tutar sipariş görüşmesinde teyit edilir.</p></article>
+        <article><h2>Takım için örnek hesap</h2><p>Toplam tutar adet, ürün kapsamı ve kaleci sayısına göre hesaplanır:</p><ul class="check-list"><li>10 forma + şort: 10 × 450₺ = 4.500₺</li><li>10 forma + şort + çorap: 10 × 500₺ = 5.000₺</li><li>10 forma + şort, 1’i kaleci: 4.500₺ + 50₺ = 4.550₺</li><li>5 tek üst forma: 5 × 300₺ = 1.500₺</li><li>Formaya ek 5 şort: 5 × 150₺ = 750₺</li><li>10 çift çorap: 10 × 50₺ = 500₺</li></ul><p>Sipariş formunda adedi ve kapsamı seçtiğinde toplam tutar otomatik hesaplanır; kesin tutar sipariş görüşmesinde teyit edilir.</p></article>
       </div>
       <div class="pricing-order"><div><p class="eyebrow">Sipariş</p><h2>Modelini seç, siparişini WhatsApp’tan başlat.</h2><p>Model kodunu, adedi, takım renklerini ve varsa oyuncu listesini mesajına ekleyebilirsin.</p></div><a class="button" href="${whatsappUrl("Merhaba, takımımız için özel tasarım forma siparişi vermek istiyorum.")}" target="_blank" rel="noopener noreferrer">WhatsApp’tan Sipariş Ver</a></div>
     </div></section>
@@ -2072,7 +2076,7 @@ const guideArticles = [
     sections: [
       ["1. Kullanım amacını belirle", "Formayı nerede ve ne sıklıkla kullanacağınızı en başta konuşun. Haftalık halı saha maçları, okul takımı, şirket turnuvası ya da kulüp ligi farklı ihtiyaçlar doğurur: kadro büyüklüğü, kaleci sayısı, çocuk beden ihtiyacı ve hedef tarih bu bağlamdan çıkar. Sipariş mesajının ilk satırına kullanım amacını yazmak, tasarım ekibinin doğru soruları sormasını sağlar."],
       ["2. Modeli seç ya da tasarım yönünü anlat", "Hazır bir model kodu iletişimi en çok hızlandıran bilgidir. Model kataloğundan beğendiğiniz desenin kodunu (ör. FK-001) not edin; renkler takımınıza göre yeniden düzenlenebilir. Hazır modellerden birini seçmek istemiyorsanız kendi deseninizi yükleyebilir ya da beğendiğiniz renk ve desen yönünü kısa cümlelerle anlatabilirsiniz. Forma tasarla aracıyla deseni, logoyu ve numarayı formanın üzerinde önceden görmek kararı kolaylaştırır."],
-      ["3. Ürün kapsamını en başta ayır", "Sadece üst forma mı, forma ve şort mu, yoksa çorap da dahil mi? Kapsam fiyatı doğrudan etkiler: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 480₺. Kaleci forması uzun kollu hazırlandığı için kaleci başına 50₺ fark eklenir. Kapsamı sonradan değiştirmek listeyi ve hesabı yeniden yapmayı gerektirdiğinden bu kararı ilk adımda verin."],
+      ["3. Ürün kapsamını en başta ayır", "Sadece üst forma mı, forma ve şort mu, yoksa çorap da dahil mi? Kapsam fiyatı doğrudan etkiler: tek üst forma 300₺, forma + şort 450₺, forma + şort + çorap 500₺. Kaleci forması uzun kollu hazırlandığı için kaleci başına 50₺ fark eklenir. Kapsamı sonradan değiştirmek listeyi ve hesabı yeniden yapmayı gerektirdiğinden bu kararı ilk adımda verin."],
       ["4. Adet ve beden dağılımını tek listede topla", "Üretim en az 5 adet ile başlar. Her oyuncunun adını, numarasını ve bedenini tek bir güncel listede tutun; farklı mesajlara dağılmış bilgiler hataların en yaygın kaynağıdır. Çocuk ve yetişkin bedenleri aynı siparişte olabilir. Takım listesi şablonunu indirip doldurmak ya da sipariş formundaki listeyi kullanmak bu adımı hızlandırır."],
       ["5. Logo ve sponsor dosyalarını hazırla", "Takım arması ve sponsor logolarını mümkün olan en net hâliyle hazırlayın. Arka planı saydam PNG ya da vektörel dosyalar en temiz sonucu verir; telefonla çekilmiş bir fotoğraf ön değerlendirme için yeterli olsa da baskıda keskinlik kaybı yaşanabilir. Hangi logonun göğsün hangi tarafına, hangisinin forma önüne geleceğini de not edin."],
       ["6. Tasarımı satır satır kontrol et", "Tasarım görseli geldiğinde yalnızca genel görünüme değil ayrıntılara bakın: isimlerin yazımı, numaraların doğruluğu, renk tonları, logo yerleşimi ve beden listesi. Tasarım onayı alınmadan üretime geçilmez; bu yüzden onay anı, değişiklik yapmanın en kolay ve en ucuz olduğu andır. Üretim başladıktan sonraki değişiklikler zaman ve maliyet doğurabilir."],
@@ -2097,11 +2101,11 @@ const guideArticles = [
       ["Takım renklerini sınırla", "Bir ana renk, bir yardımcı renk ve kontrollü bir vurgu rengi çoğu takım için yeterlidir. Çok sayıda rengin bir arada kullanıldığı formalar sahada karışık görünebilir ve takım kimliğini zayıflatır. Ana renk zemin, yardımcı renk desen, vurgu rengi ise yaka, kol ağzı ya da şort şeridi için kullanılabilir. Hazır modeller bu üç katmana göre takım renklerinize uyarlanabilir."],
       ["Rakip takımlarla karışmayı önle", "Halı sahada sık karşılaştığınız takımların renklerini düşünün. Aynı ligde ya da aynı sahada çoğunlukla koyu renkli takımlarla oynuyorsanız açık renkli bir forma, ya da tam tersi, maç sırasında karışıklığı azaltır. Bazı takımlar bu yüzden iki farklı renkte forma tercih eder."],
       ["İsim ve numaranın okunabilirliğini kontrol et", "Forma zemini ile isim ve numara arasında belirgin bir kontrast olmalı. Desenli zeminlerde numaranın arkası düz bırakılan modeller ya da beyaz/siyah numara seçeneği okunabilirliği artırır. Sipariş formunda yazı ve numara rengini değiştirip önizlemede kontrol edebilirsiniz."],
-      ["Forma ve şortu birlikte düşün", "Forma + şort takımında şort, formayla aynı tasarım dilinde hazırlanır. Şortta logo ve numara olup olmayacağına sipariş sırasında karar verin. Forma + şort 450₺, çorap da eklendiğinde 480₺'dir; çorap ayrıca 30₺'dir."],
+      ["Forma ve şortu birlikte düşün", "Forma + şort takımında şort, formayla aynı tasarım dilinde hazırlanır. Şortta logo ve numara olup olmayacağına sipariş sırasında karar verin. Forma + şort 450₺, çorap da eklendiğinde 500₺'dir. Ayrı olarak tek şort 150₺, çorap 50₺'dir."],
       ["Kaleci ihtiyacını ayrı planla", "Kaleci forması uzun kollu hazırlanır ve kaleci başına 50₺ fark eklenir. Kalecinin formasının takımdan farklı bir renkte olmasını istiyorsanız bunu sipariş notuna yazın. Kaleci sayısı toplam adedin içinde sayılır."],
       ["Bedenleri son güne bırakma", "Halı saha kadroları sık değişir; bu yüzden takım yöneticisinin tek bir güncel liste tutması ve üretim onayından önce son kontrolü yapması önemlidir. Bedenler, oyuncuların kullandığı benzer bir spor ürünü referans alınarak seçilmelidir. Üretim en az 5 adet ile başlar."],
       ["Desenli mi, düz mü?", "Düz ya da ton sür ton desenli formalar sade ve kurumsal bir görünüm verir; sponsor logosu bu zeminlerde daha çok öne çıkar. Boya lekesi, fırça darbesi ya da grafiti gibi canlı desenler ise sahada daha dikkat çekicidir ve takıma enerjik bir kimlik kazandırır. Desenli bir model seçiyorsanız numaranın arkasının sade olmasına ya da numara renginin desenle yeterli kontrast oluşturmasına dikkat edin."],
-      ["Bütçeyi planla", "Toplam tutar adet ve kapsama göre hesaplanır. Örneğin 10 kişilik bir halı saha kadrosu için forma + şort 10 × 450₺ = 4.500₺ eder; kadrodan biri kaleciyse 50₺ eklenir. Çorap da isteniyorsa forma + şort + çorap fiyatı 480₺'dir. Kargo ücreti alıcıya aittir. Sipariş formu bu hesabı adet ve seçimlere göre otomatik yapar."],
+      ["Bütçeyi planla", "Toplam tutar adet ve kapsama göre hesaplanır. Örneğin 10 kişilik bir halı saha kadrosu için forma + şort 10 × 450₺ = 4.500₺ eder; kadrodan biri kaleciyse 50₺ eklenir. Çorap da isteniyorsa forma + şort + çorap fiyatı 500₺'dir (10 kişi için 5.000₺). Kargo ücreti alıcıya aittir. Sipariş formu bu hesabı adet ve seçimlere göre otomatik yapar."],
       ["Sık yapılan hatalar", "Halı saha siparişlerinde en sık görülen hatalar; rakip takımlarla aynı renk seçmek, desenli zeminde okunmayan numara rengi kullanmak, kaleciyi listeye eklemeyi unutmak ve beden listesini maç günü toplamaya çalışmaktır. Seçim öncesinde birkaç dakikalık bir kontrol bu sorunların çoğunu önler."],
     ],
     related: [

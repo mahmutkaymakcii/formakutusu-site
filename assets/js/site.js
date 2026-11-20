@@ -178,7 +178,7 @@
     if (!form) return;
 
     const SIZES = ["116", "128", "140", "152", "164", "XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"];
-    const PRICES = { ust: 300, takim: 450, socks: 30, goalkeeper: 50 };
+    const PRICES = { ust: 300, takim: 450, socks: 50, goalkeeper: 50 };
     const MIN_QTY = 5;
     const MAX_QTY = 60;
     const MAX_FILE = 10 * 1024 * 1024;
