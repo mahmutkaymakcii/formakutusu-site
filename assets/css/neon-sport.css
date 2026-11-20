@@ -3218,7 +3218,17 @@ body .mobile-cta.mobile-cta--pair {
 }
 
 .sales-prices .pricing-grid.sales-prices__grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.sales-prices .sales-prices__grid .price-card {
+  grid-column: span 2;
+}
+
+/* Tek şort ve çorap: ana kartların altında daha sade ikinci sıra */
+.sales-prices .sales-prices__grid .price-card--extra {
+  grid-column: span 3;
+  background: transparent;
 }
 
 .sales-prices .price-card {
@@ -3401,6 +3411,11 @@ body .mobile-cta.mobile-cta--pair {
   .sales-prices .pricing-grid.sales-prices__grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.6rem;
+  }
+
+  .sales-prices .sales-prices__grid .price-card,
+  .sales-prices .sales-prices__grid .price-card--extra {
+    grid-column: auto;
   }
 
   .sales-prices .price-card {

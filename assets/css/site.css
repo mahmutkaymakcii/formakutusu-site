@@ -2542,6 +2542,10 @@ textarea[aria-invalid="true"] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.pricing-grid--six {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .price-card {
   display: flex;
   min-width: 0;
